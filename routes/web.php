@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/booking-final', [HomeController::class, 'bookingFinal'])->name('booking-final');
 
     Route::get('/reviewDetailsRoundTrip', [ReviewBookingController::class, 'reviewDetailsRoundTrip'])->name('reviewDetailsRoundTrip');
+    Route::get('/reviewDetailsRoundTripf', [ReviewBookingController::class, 'reviewDetailsRoundTrip'])->name('reviewDetailsRoundTrip');
 
 });
 
