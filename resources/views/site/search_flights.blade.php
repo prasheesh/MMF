@@ -3429,7 +3429,7 @@
         $("#viewPriceForm").submit(function() {
             var pKey = $("input[name='pKey']:checked").val();
             var rKey = $("input[name='rKey']:checked").val();
-            window.location.replace("{{ route('reviewDetailsRoundTrip') }}?pKey="+pKey+"&rKey="+rKey+"");
+            window.location.replace("{{ route('reviewDetails') }}?pKey="+pKey+"&rKey="+rKey+"");
             return false;
         })
     </script>
@@ -3511,14 +3511,18 @@ function bookNow(si_id, trip_key, priceId)
 
 function submitDomesticMulticity()
 {
-   var priceIds = [];
+  // var priceIds = [];
+   var priceIds = "";
    for(i = 0; i < 5; i++)
    {
       if($("#priceId"+i).val())
       {
-         priceIds[i] = (priceIds[i] || 0) + $("#priceId"+i).val();
+        //var priceId+i = $("#priceId"+i).val();
+        // priceIds[i] = $("#priceId"+i).val();
+         priceIds = priceIds+'&pKey'+i+'='+$("#priceId"+i).val();
          console.log(priceIds);
-         window.location.replace("{{ route('reviewDetails') }}?pKey="+priceIds);
+        // alert(priceIds);
+         window.location.replace("{{ route('reviewDetails') }}?"+priceIds);
       }
    }
             return false;
