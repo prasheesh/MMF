@@ -32,12 +32,27 @@
             border-radius: 0;
             border: 0px solid #257483;
         }
+        .fare-P small {
+        color: #ccc;
+        }
+        .fare-P h4 {
+            margin-bottom: 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #83bdd0;
+        }
+        .text-olld {
+            text-decoration: line-through;
+        }
     </style>
 @endsection
 @section('content')
     <!--Review Details modal -->
     <?php
-    $priceIds = $_REQUEST['pKey'];
+    $priceIds = $_REQUEST;
+    $priceIds=http_build_query($priceIds);
+   // print_r($priceIds); exit;
+   //$priceIds = "000";
     ?>
 
     <div class="modal" id="review-details">
@@ -156,7 +171,7 @@
                                         <button class="btn btn-refund">PARTIAL-REFUNDABLE</button>
                                         <?php } ?>
 
-                                        <p class="mt-3 f-14-mb-10">View Fare Rules</p>
+                                        {{-- <p class="mt-3 f-14-mb-10">View Fare Rules</p> --}}
                                     </div>
 
                                 </div>
@@ -950,64 +965,14 @@
         }
 
 
-        //////////////////////////form validation////////////
-        // $(function() {
-        //   // Initialize form validation on the registration form.
-        //   // It has the name attribute "registration"
-        //   $("form[name='passenger_details']").validate({
-        //     // Specify validation rules
-
-
-        //       $('input[id^="DODate"]').each(function() {
-        //           $(this).rules('add', {
-        //               required: true,  // example rule
-        //               // another rule, etc.
-        //           });
-        //       });
-
-        //     rules: {
-        //       // The key name on the left side is the name attribute
-        //       // of an input field. Validation rules are defined
-        //       // on the right side
-        //       'firstname[]' : {
-        //                 required: true
-        //             },
-        //       lastname: "required",
-        //       mobile_number: "required",
-
-        //       email: {
-        //         required: true,
-        //         // Specify that email should be validated
-        //         // by the built-in "email" rule
-        //         email: true
-        //       }
-
-        //     },
-        //     // Specify validation error messages
-        //     messages: {
-        //       'firstname[]': {
-        //       required: "Please enter your lastname"
-
-        //      },
-        //       lastname: "Please enter your lastname",
-
-        //       email: "Please enter a valid email address",
-        //       mobile_number: "Please enter a valid mobile number"
-        //     },
-        //     // Make sure the form is submitted to the destination defined
-        //     // in the "action" attribute of the form when valid
-        //     submitHandler: function(form) {
-        //       form.submit();
-        //     }
-        //   });
-        // });
+        
         var values = {};
 
         $(function() {
             $("#submit").click(function() {
 
                 var adult_count = '<?php echo $adults; ?>';
-                var priceIds = '<?php echo $priceIds; ?>';
+            
                 var clone_count = $('.newrow').length;
                 var total_rows = clone_count + 1;
                 var proceed = true;
@@ -1050,31 +1015,32 @@
                         var country_code = $('#country_code').val();
 
 
-                        $.ajax({
-                            url: "{{ route('passengerDetails') }}",
-                            type: "POST",
-                            data: {
-                                first_name: first_name,
-                                last_name: last_name,
-                                gender: gender,
-                                email: email,
-                                mobile: mobile,
-                                country_code: country_code,
-                                priceIds: priceIds,
-                                _token: _token,
-                            },
-                            beforeSend: function() {
-                                $('#overlay').fadeIn();
-                            },
-                            success: function(result) {
-                                // alert(result);
-                                console.log(result);
+                        // $.ajax({
+                        //     url: "{{ route('passengerDetails') }}",
+                        //     type: "POST",
+                        //     data: {
+                        //         first_name: first_name,
+                        //         last_name: last_name,
+                        //         gender: gender,
+                        //         email: email,
+                        //         mobile: mobile,
+                        //         country_code: country_code,
+                        //         priceIds: priceIds,
+                        //         _token: _token,
+                        //     },
+                        //     beforeSend: function() {
+                        //         $('#overlay').fadeIn();
+                        //     },
+                        //     success: function(result) {
+                        //         // alert(result);
+                        //         console.log(result);
 
-                            },
-                            complete: function() {
-                                $('#overlay').fadeOut();
-                            }
-                        });
+                        //     },
+                        //     complete: function() {
+                        //         $('#overlay').fadeOut();
+                        //     }
+                        // });
+
                         for (i = 0; i < adult_count; i++) {
                             var html = `
                             <div class="p-3 passengerreview">
@@ -1117,7 +1083,7 @@
             $("#cnfBtn").click(function() {
                 //alert("hoii");
                 var adult_count = '<?php echo $adults; ?>';
-                var priceIds = '<?php echo $priceIds; ?>';
+                var priceIds = '<?php  print_r($priceIds); ?>';
 
                 var clone_count = $('.newrow').length;
                 var total_rows = clone_count + 1;
@@ -1161,7 +1127,7 @@
                         //  alert(result);
                         // console.log(result);
                         window.location.href =
-                            "{{ route('seatSelection') }}?pKey=<?php echo $priceIds; ?>&bookingId=<?php echo $bookingId; ?> ";
+                            "{{ route('seatSelection') }}?<?php echo $priceIds; ?>&bookingId=<?php echo $bookingId; ?> ";
                     },
                     complete: function() {
                         $('#overlay').fadeOut();
