@@ -14,206 +14,234 @@
     {{-- <link href="{{ asset('mobiscroll/css/mobiscroll.jquery.min.css') }}" rel="stylesheet"> --}}
 
     <style>
-         .table-booking {
-   font-size: 14px;
-   margin-bottom: 0;
-   }
-   .table-booking th {
-   padding: 15px;
-   }
-   .table-booking td {
-   padding: 15px;
-   }
-   .final-price {
-   font-size: 18px;
-   margin-bottom: 0;
-   }
-   .mt-5 {
-   margin-top: 3rem;
-   }
-   .md-calendar-booking .mbsc-calendar-text {
-   text-align: center;
-   }
-   .md-calendar-booking .booking-datetime .mbsc-datepicker-tab-calendar {
-   flex: 1 1 0;
-   min-width: 300px;
-   }
-   .md-calendar-booking .mbsc-timegrid-item {
-   margin-top: 1.5em;
-   margin-bottom: 1.5em;
-   }
-   .md-calendar-booking .mbsc-timegrid-container {
-   top: 30px;
-   }
-   .modal-header {
-   background: #3f90a1;
-   color: #fff;
-   border-radius: 0;
-   }
-   .modal-header i {
-   color: #fff;
-   }
-   .count {
-   margin: 0;
-   padding: 0;
-   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-   border-radius: 6px;
-   overflow: hidden;
-   width: auto;
-   float: left;
-   }
-   .count li {
-   padding: 10px 15px;
-   list-style: none;
-   float: left;
-   transition: 0.3s;
-   border-right: solid 0px #ccc;
-   }
-   .count li:hover {
-   background: #3f90a1;
-   color: #fff;
-   transition: 0.3s;
-   }
-   .count li.active {
-   background: #3f90a1;
-   color: #fff;
-   transition: 0.3s;
-   }
-   .round-trip1 p {
-   font-size: 15px;
-   font-weight: 500;
-   }
-   .round-trip1 span {
-   font-size: 12px;
-   margin-left: 5px;
-   }
-   .shadow {
-   border: 1px solid #b0dae3;
-   }
-   .departture {
-   text-align: left;
-   }
-   .departture p {
-   font-weight: 600;
-   font-size: 16px;
-   margin-bottom: 0;
-   }
-   .departture span:nth-child(1) {
-   font-size: 16px;
-   font-weight: 600;
-   border-bottom: 1px solid #ccc;
-   margin-bottom: 0px;
-   }
-   .departture span:nth-child(2) {
-   font-size: 10px;
-   margin-bottom: 0px;
-   }
-   .shadow img {
-   width: 40px;
-   }
-   .time-gap span:nth-child(1) {
-   font-size: 11px;
-   font-weight: 500;
-   padding-bottom: 3px;
-   line-height: 0;
-   }
-   .price-round {
-   font-size: 13px !important;
-   font-weight: 600 !important;
-   text-align: center;
-   }
-   .price-round i {
-   font-size: 11px;
-   }
-   .departture input {
-   width: 20px;
-   height: 20px;
-   /* border-bottom: 5px solid #ccc; */
-   margin-bottom: 5px;
-   margin-top: 0;
-   }
-   .pricedetails {
-   position: relative;
-   }
-   .pricedetails-btm {
-   position: sticky;
-   bottom: 0;
-   background-color: #9bd3df;
-   padding: 15px;
-   border-radius: 5px;
-   width: 100%;
-   z-index: 9999;
-   float: right;
-   margin-top: 15px;
-   }
-   .btm-price {
-   border-right: 1px solid #293389;
-   }
-   .btm-flights-price p {
-   font-weight: 600;
-   margin-bottom: 0;
-   font-size: 13px;
-   }
-   .btm-flights-price a {
-   color: #0d6efd;
-   font-size: 12px;
-   }
-   .btm-fligh-price {
-   text-align: right !important;
-   margin-top: 15px;
-   }
-   .btm-fligh-price p {
-   text-align: right !important;
-   }
-   .btm-fligh-price a {
-   color: #0d6efd;
-   font-size: 12px;
-   }
-   .fixed-btm {
-   position: relative;
-   }
-   :host {
-   display: block;
-   }
-   .final-price {
-   font-size: 18px;
-   margin-bottom: 0;
-   }
-   .bg-tablle {
-   display: flex;
-   background-color: #eeeeee;
-   padding: 0px 5px;
-   margin-top: 15px;
-   }
-   .bg-tablle p {
-   width: 33%;
-   padding: 1px 5px;
-   font-size: 13px;
-   }
-   .loader_div {
-   position: absolute;
-   top: 0;
-   bottom: 0%;
-   left: 0;
-   right: 0%;
-   z-index: 9999999;
-   opacity: 0.7;
-   display: none;
-   background: lightgrey url('http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif') center center no-repeat;
-   }
-   .roundtrip-card {
-   border: solid 1px #ccc;
-   }
-   .roundtrip-card input[type=radio] {
-   border: 0px;
-   width: 18px;
-   height: 18px;
-   margin-top: 10px;
-   }
-   .deapt{
-   padding: 5px 20px;
-   float: left;
-   }
+        .table-booking {
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+
+        .table-booking th {
+            padding: 15px;
+        }
+
+        .table-booking td {
+            padding: 15px;
+        }
+
+        .final-price {
+            font-size: 18px;
+            margin-bottom: 0;
+        }
+
+        .mt-5 {
+            margin-top: 3rem;
+        }
+
+        .md-calendar-booking .mbsc-calendar-text {
+            text-align: center;
+        }
+
+        .md-calendar-booking .booking-datetime .mbsc-datepicker-tab-calendar {
+            flex: 1 1 0;
+            min-width: 300px;
+        }
+
+        .md-calendar-booking .mbsc-timegrid-item {
+            margin-top: 1.5em;
+            margin-bottom: 1.5em;
+        }
+
+        .md-calendar-booking .mbsc-timegrid-container {
+            top: 30px;
+        }
+
+        .modal-header {
+            background: #3f90a1;
+            color: #fff;
+            border-radius: 0;
+        }
+
+        .modal-header i {
+            color: #fff;
+        }
+
+        .count {
+            margin: 0;
+            padding: 0;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+            border-radius: 6px;
+            overflow: hidden;
+            width: auto;
+            float: left;
+        }
+
+        .count li {
+            padding: 10px 15px;
+            list-style: none;
+            float: left;
+            transition: 0.3s;
+            border-right: solid 0px #ccc;
+        }
+
+        .count li:hover {
+            background: #3f90a1;
+            color: #fff;
+            transition: 0.3s;
+        }
+
+        .count li.active {
+            background: #3f90a1;
+            color: #fff;
+            transition: 0.3s;
+        }
+
+        .round-trip1 p {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .round-trip1 span {
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        .shadow {
+            border: 1px solid #b0dae3;
+        }
+
+        .departture {
+            text-align: left;
+        }
+
+        .departture p {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 0;
+        }
+
+        .departture span:nth-child(1) {
+            font-size: 16px;
+            font-weight: 600;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 0px;
+        }
+
+        .departture span:nth-child(2) {
+            font-size: 10px;
+            margin-bottom: 0px;
+        }
+
+        .shadow img {
+            width: 40px;
+        }
+
+        .time-gap span:nth-child(1) {
+            font-size: 11px;
+            font-weight: 500;
+            padding-bottom: 3px;
+            line-height: 0;
+        }
+
+        .price-round {
+            font-size: 13px !important;
+            font-weight: 600 !important;
+            text-align: center;
+        }
+
+        .price-round i {
+            font-size: 11px;
+        }
+
+        .departture input {
+            width: 20px;
+            height: 20px;
+            /* border-bottom: 5px solid #ccc; */
+            margin-bottom: 5px;
+            margin-top: 0;
+        }
+
+        .pricedetails {
+            position: relative;
+        }
+
+        .pricedetails-btm {
+            position: sticky;
+            bottom: 0;
+            background-color: #9bd3df;
+            padding: 15px;
+            border-radius: 5px;
+            width: 100%;
+            z-index: 9999;
+            float: right;
+            margin-top: 15px;
+        }
+
+        .btm-price {
+            border-right: 1px solid #293389;
+
+        }
+
+        .btm-flights-price p {
+            font-weight: 600;
+            margin-bottom: 0;
+            font-size: 13px;
+        }
+
+        .btm-flights-price a {
+            color: #0d6efd;
+            font-size: 12px;
+        }
+
+        .btm-fligh-price {
+            text-align: right !important;
+            margin-top: 15px;
+        }
+
+        .btm-fligh-price p {
+            text-align: right !important;
+        }
+
+        .btm-fligh-price a {
+            color: #0d6efd;
+            font-size: 12px;
+        }
+
+        .fixed-btm {
+            position: relative;
+        }
+
+        :host {
+            display: block;
+        }
+
+        .final-price {
+            font-size: 18px;
+            margin-bottom: 0;
+        }
+
+        .bg-tablle {
+            display: flex;
+            background-color: #eeeeee;
+            padding: 0px 5px;
+            margin-top: 15px;
+        }
+
+        .bg-tablle p {
+            width: 33%;
+            padding: 1px 5px;
+            font-size: 13px;
+        }
+
+        .loader_div {
+            position: absolute;
+            top: 0;
+            bottom: 0%;
+            left: 0;
+            right: 0%;
+            z-index: 9999999;
+            opacity: 0.7;
+            display: none;
+            background: lightgrey url('http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif') center center no-repeat;
+        }
     </style>
 @endsection
 
@@ -221,7 +249,7 @@
     <div id="loader_div" class="loader_div"></div>
 
 
-    <!-- book modal one -->
+    <!-- book modal -->
 
     @if ($_GET['tripType'] == 'oneway')
 
@@ -248,6 +276,7 @@
                                                 <th>MEAL</th>
                                                 <th></th>
                                             </tr>
+
                                         </thead>
                                         <tbody>
 
@@ -271,7 +300,7 @@
                                                             value="{{ $values->id }}">
 
                                                         <p>
-                                                            Fare offered by airline.
+                                                            Fair offered by airline.
                                                         </p>
                                                     </td>
                                                     <td>{{ $values->fd->ADULT->bI->cB }}</td>
@@ -721,7 +750,7 @@
             @csrf
             <div class="container container-make mt-5" style="  ">
 
-                <div class="row" id="ShowOnewayRound">
+                <div class="row">
                     <div class="col-md-2 " style="">
 
                         <div class="airport-name-inner ">
@@ -735,7 +764,7 @@
                                 } ?> value="round">Round Trip</option>
                                 <option <?php if ($_GET['tripType'] == 'multi') {
                                     echo 'selected';
-                                } ?> value="multi">Multi-Trip</option>
+                                } ?> value="3">Multi-Trip</option>
                             </select>
                             {{-- <p><b>Round trip</b></p> --}}
 
@@ -802,7 +831,7 @@
                             </div>
 
                             <div class="col-md-6">
-                                {{-- @if ($_GET['tripType'] != 'multi') --}}
+                                @if ($_GET['tripType'] != 'multi')
                                     <div class="airport-name-inner" style=" padding: 6px 10px;">
                                         <small>Return</small>
                                         <label>
@@ -815,17 +844,17 @@
                                                 $return_date = '';
                                             }
                                             ?>
-                                            {{-- @if (!is_array($_GET['flightBookingDepart'])) --}}
+                                            @if (!is_array($_GET['flightBookingDepart']))
                                                 <input required autocomplete="off" id="flightBookingReturn"
                                                     name="flightBookingReturn" placeholder="Please select..."
                                                     value="{{ $return_date }}" />
 
-                                            {{-- @endif --}}
+                                            @endif
 
 
                                         </label>
                                     </div>
-                                {{-- @endif --}}
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -920,167 +949,13 @@
                         </div>
                     </div>
 
-
-
-
                     <div class="col-md-2 ms-auto">
                         <button type="submit" class="btn btn-search-flights" id="searchFlightsButton">Search
                             Flights</button>
                     </div>
                 </div>
 
-                 {{-- mrunal --}}
-      <div class="row" id="ShowMultipleCity">
-        <div class="row align-items-center newrow">
-           <div class="col-md-2 " style="">
-              <div class="airport-name-inner ">
-                 <small class="inner-smaltext">Trip Type</small>
-                 <select name="tripType" id="TripType" class="form-control TripType">
-                    <option <?php if ($_GET['tripType'] == 'oneway') {
-                       echo 'selected';
-                       } ?> value="oneway">One Way Trip</option>
-                    <option <?php if ($_GET['tripType'] == 'round') {
-                       echo 'selected';
-                       } ?> value="round">Round Trip</option>
-                    <option <?php if ($_GET['tripType'] == 'multi') {
-                       echo 'selected';
-                       } ?> value="multi">Multi-Trip</option>
-                 </select>
-              </div>
-              <div class="airport-name-inner ">
-                 <small class="inner-smaltext">Trip 1</small>
-              </div>
-           </div>
-           <div class="col-md-3" style="position: relative;">
-              <div class="row">
-                 <div class="col-md-6">
-                    <div class="airport-name-inner">
-                       <small class="inner-smaltext">From</small>
-                       <select class="form-control" onchange="validateLocation(1)" name="fromPlace[]" id="FromPlace1">
-                          <option value="">Select From</option>
-                          @foreach (DB::table('airport_details')->get() as $airport)
-                          <option <?php echo $_GET['fromPlace'] == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
-                             {{ $airport->name . ', '.$airport->city.', ' . $airport->country }}
-                          </option>
-                          @endforeach
-                       </select>
-                    </div>
-                 </div>
-                 <div class="col-md-6">
-                    <div class="airport-name-inner">
-                       <small class="inner-smaltext">To</small>
-                       <select class="form-control" onchange="setFromPlace(1)" name="toPlace[]" id="ToPlace1">
-                          <option value="">Select To </option>
-                          @foreach (DB::table('airport_details')->get() as $airport)
-                          <option <?php echo $_GET['toPlace'] == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
-                             {{ $airport->name . ', ' .$airport->city.', '. $airport->country }}
-                          </option>
-                          @endforeach
-                       </select>
-                    </div>
-                    <span id="sameFromTo" class="validation-error">From & To airports cannot be the same</span>
-                 </div>
-              </div>
-           </div>
-           <div class="col-md-3">
-              <div class="row">
-                 <div class="col-md-6">
-                    <div class="airport-name-inner">
-                       <small class="inner-smaltext">Departure</small>
-                       <label>
-                       <input required type="text" class="flightBookingDepart" autocomplete="off" class="flightBookingDepart"
-                          name="flightBookingDepart[]" id="flightBookingDepart1"
-                          value="{{ $_GET['flightBookingDepart'][0] }}" />
-                       </label>
-                       <span id="error_date1" style="color:red"></span>
-                    </div>
-                 </div>
-              </div>
-           </div>
-        </div>
-        <span id="error_same1" style="color:red"></span>
-        <div class="row align-items-center newrow" id="multiCityDiv">
-           <div class="col-md-2 " style="">
-              <div class="airport-name-inner ">
-                 <small class="inner-smaltext">Trip 2</small>
-              </div>
-           </div>
-           <div class="col-md-3" style="position: relative;">
-              <div class="row">
-                 <div class="col-md-6">
-                    <div class="airport-name-inner">
-                       <small class="inner-smaltext">From</small>
-                       <select class="form-control" onchange="validateLocation(2)" name="fromPlace[]" id="FromPlace2">
-                          <option value="">Select From</option>
-                          @foreach (DB::table('airport_details')->get() as $airport)
-                          <option <?php echo $_GET['fromPlace'] == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
-                             {{ $airport->name . ', '.$airport->city.', ' . $airport->country }}
-                          </option>
-                          @endforeach
-                       </select>
-                    </div>
-                 </div>
-                 <div class="col-md-6">
-                    <div class="airport-name-inner">
-                       <small class="inner-smaltext">To</small>
-                       <select class="form-control" onchange="setFromPlace(2)" name="toPlace[]" id="ToPlace2">
-                          <option value="">Select To </option>
-                          @foreach (DB::table('airport_details')->get() as $airport)
-                          <option <?php echo $_GET['toPlace'] == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
-                             {{ $airport->name . ', ' .$airport->city.', '. $airport->country }}
-                          </option>
-                          @endforeach
-                       </select>
-                    </div>
-                    <span id="sameFromTo" class="validation-error">From & To airports cannot be the same</span>
-                 </div>
-              </div>
-           </div>
-           <div class="col-md-3">
-              <div class="row">
-                 <div class="col-md-6">
-                    <div class="airport-name-inner">
-                       <small class="inner-smaltext">Departure</small>
-                       <label>
-                       <input required autocomplete="off" class="flightBookingDepart" name="flightBookingDepart[]"
-                          value="{{ $_GET['flightBookingDepart'][0] }}" />
-                       </label>
-                    </div>
-                 </div>
-              </div>
-           </div>
-           <span id="error_same2" style="color:red"></span>
-           {{--
-           <div class="col-md-2 ">
-              <button id="addCity1" onclick="clone_div()" type="button" class="btn btn-sm btn-primary">+ Add Another City</button>
-           </div>
-           --}}
-        </div>
-        <div class="col-md-2 ">
-           <button id="addCity1" onclick="clone_div()" type="button" class="btn btn-sm btn-primary">+ Add Another City</button>
-        </div>
-
-     <div class="col-md-2 travellerData">
-
-        <div class="airport-name-inner" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <input type="hidden" value="1" id="adultval" name="adultval" class="">
-            <input type="hidden" value="ECONOMY" name="travelClass" id="travelClass" class="">
-            <small class="inner-smaltext">Travellers & Class</small>
-            <span id="travelInfo">
-                <p><b>1 Adult</b></p>
-            </span>
-        </div>
-    </div>
-
-
-
-
-    <div class="col-md-2 ms-auto">
-        <button type="submit" class="btn btn-search-flights" id="searchFlightsButton">Search
-            Flights</button>
-    </div>
-</div>
-</div>
+            </div>
         </form>
     </section>
     {{-- {{ print_r($result_array->searchResult->tripInfos->ONWARD[0]) }} --}}
@@ -2269,7 +2144,7 @@
                                                                                                     id="uniqueTripPriceId{{ $value1->id }}{{ $id++ }}"
                                                                                                     value="{{ $values->id }}">
                                                                                                 <p>
-                                                                                                    Fare offered by airline.
+                                                                                                    Fair offered by airline.
                                                                                                 </p>
                                                                                             </td>
                                                                                             <td>{{ $values->fd->ADULT->bI->cB }}
@@ -2468,144 +2343,109 @@
                     {{-- DOMESTIC FLIGHTS CODE ENDS --}}
                     {{-- modal --}}
                     <div>
-                        @if(!empty($result_array->searchResult->tripInfos))
-                        @foreach ($result_array->searchResult->tripInfos as $trip_key=>$value)
-                        @foreach($value as $ke=>$val)
-                        @foreach ($val->sI as $key1=>$value1 )
-                        <div class="modal" id="book-table{{ $value1->id }}">
-                           <div class="modal-dialog modal-xl">
-                              <div class="modal-content">
-                                 <div class="modal-body p-0">
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"><i
-                                       class="fa fa-times"></i></button>
-                                    <table class="table table-booking" style="">
-                                       <thead class="bg-grey" style="border-bottom: 2px solid #fff;">
-                                          <tr>
-                                             <th class="">FARES </th>
-                                             <th>CABIN BAG</th>
-                                             <th>CHECK-IN</th>
-                                             <th>CANCELLATION</th>
-                                             <th>DATE CHANGE</th>
-                                             <th>SEAT</th>
-                                             <th>MEAL</th>
-                                             <th></th>
-                                          </tr>
-                                       </thead>
-                                       <tbody>
-                                          <?php
-                                             $i = 1;
-                                             $id = 1;
-                                             $c = 1;
-                                             $d = 1;
-                                             $s = 1;
-                                             $totalPriceList = count($val->totalPriceList);
+                        @if (!empty($result_array->searchResult->tripInfos))
+                            @foreach ($result_array->searchResult->tripInfos as $key => $value)
+                                @foreach ($value as $ke => $val)
+                                    @foreach ($val->sI as $key1 => $value1)
+                                        <div class="modal" id="book-table{{ $value1->id }}">
+                                            <div class="modal-dialog modal-xl">
+                                                <div class="modal-content">
+                                                    <div class="modal-body p-0">
+                                                        <button type="button" class="btn-close"
+                                                            data-bs-dismiss="modal"><i class="fa fa-times"></i></button>
+                                                        <table class="table table-booking" style="">
+                                                            <thead class="bg-grey" style="border-bottom: 2px solid #fff;">
+                                                                <tr>
+                                                                    <th class="">FARES </th>
+                                                                    <th>CABIN BAG</th>
+                                                                    <th>CHECK-IN</th>
+                                                                    <th>CANCELLATION</th>
+                                                                    <th>DATE CHANGE</th>
+                                                                    <th>SEAT</th>
+                                                                    <th>MEAL</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                $i = 1;
+                                                                $id = 1;
+                                                                $c = 1;
+                                                                $d = 1;
+                                                                $s = 1;
+                                                                $totalPriceList = count($val->totalPriceList);
 
-                                             ?>
-                                          <input type="hidden" name="totalPriceList{{ $value1->id }}"
-                                             id="totalPriceList{{ $value1->id }}" value="{{ $totalPriceList }}">
-                                          @foreach ($val->totalPriceList as $key => $values)
-                                          <tr>
-                                             <td class="">
-                                                <b>{{$values->fareIdentifier}}</b>
-                                                <input type="hidden"
-                                                   name="uniqueTripPriceId{{ $value1->id }}{{ $i++ }}"
-                                                   id="uniqueTripPriceId{{ $value1->id }}{{ $id++ }}"
-                                                   value="{{ $values->id }}">
-                                                <p>
-                                                   Fare offered by airline.
-                                                </p>
-                                             </td>
-                                             <td>{{ $values->fd->ADULT->bI->cB }}</td>
-                                             <input type="hidden" name="price_id" id="PriceId{{$trip_key}}" value="{{$values->id}}">
-                                             <td><?php if (isset($values->fd->ADULT->bI->iB)) {
-                                                echo $values->fd->ADULT->bI->iB;
-                                                } else {
-                                                echo '--';
-                                                } ?></td>
-                                             <td id="cancellation{{ $value1->id }}{{ $c++ }}">--
-                                                {{-- cancellation <br> fee starting <i class="fa-solid fa-indian-rupee-sign"></i> 3,500 --}}
-                                             </td>
-                                             <td id="dateChangeText{{ $value1->id }}{{ $d++ }}">--
-                                                {{-- Date change <br> fee starting <i class="fa-solid fa-indian-rupee-sign"></i> 3250 --}}
-                                             </td>
-                                             <td id="seatChargeId{{ $value1->id }}{{ $s++ }}">--
-                                                {{-- Middle Seat Free, <br> Window/Asile Chargeable --}}
-                                             </td>
-                                             <td>
-                                                @if (isset($value->fd->ADULT->mI))
-                                                @if ($value->fd->ADULT->mI == true)
-                                                Free Meal
-                                                @else
-                                                Paid Meal
-                                                @endif
-                                                @else
-                                                --
-                                                @endif
-                                             </td>
-                                             <td align="right">
-                                                <p class="final-price"><b><i
-                                                   class="fa-solid fa-indian-rupee-sign"></i>{{ number_format($values->fd->ADULT->fC->NF) }}</b>
-                                                </p>
-                                                {{-- <a href="{{ route('reviewDetails') }}?pkey={{ $values->id }}">
-                                                <button class="btn btn-book-now">Book Now</button> </a> --}}
-                                                {{-- <button class="btn btn-book-now" onclick="bookNow('{{ $values->id }}')" >
-                                                Book Now</button> --}}
-                                                <input type="hidden" name="flight_code" id="flightCode{{$value1->id}}" value="{{$value1->fD->aI->code}}">
-                                                <input type="radio" class="roundtrip-card multitrip" name="book_now" id="BookNowRadio{{$value1->id}}"
-                                                 onclick="bookNow('{{ $value1->id }}','{{$trip_key}}','{{$values->id}}')"
-                                                 value="{{ $value1->id }}"
-                                                 data-f_on_code="{{ $value1->fD->fN }}"
-                                                 data-f_on_name="{{ $value1->fD->aI->name }}"
-                                                 data-f_on_depat_time="{{ date('H:m', strtotime($value1->dt)) }}"
-                                                 data-f_on_arival_time="{{ date('H:m', strtotime($value1->at)) }}"
-                                                 data-f_on_price="{{ $values->fd->ADULT->fC->TF }}"
-                                                 data-f_on_logo="{{ $flight_logo }}"
-                                                 data-f_si_id="{{$value1->id}}"
-                                                 data-onward_price="{{ $values->fd->ADULT->fC->TF }}"
-                                                 data-f_arr_code = {{$value1->da->code}}
-                                                 data-f_dep_code = {{$value1->aa->code}}
-                                                 data-f_logo = {{$value1->fD->aI->code}}
-                                                 data-f_trip_id = {{$trip_key}}
-                                                >
-                                             </td>
-                                          </tr>
-                                          @endforeach
-                                       </tbody>
-                                    </table>
-                                    <div class="clearfix"></div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        @endforeach
-                        @endforeach
-                        @endforeach
+                                                                ?>
+                                                                <input type="hidden"
+                                                                    name="totalPriceList{{ $value1->id }}"
+                                                                    id="totalPriceList{{ $value1->id }}"
+                                                                    value="{{ $totalPriceList }}">
+                                                                @foreach ($val->totalPriceList as $key => $values)
+                                                                    <tr>
+                                                                        <td class="">
+                                                                            <b>Saver</b>
+                                                                            <input type="hidden"
+                                                                                name="uniqueTripPriceId{{ $value1->id }}{{ $i++ }}"
+                                                                                id="uniqueTripPriceId{{ $value1->id }}{{ $id++ }}"
+                                                                                value="{{ $values->id }}">
+                                                                            <p>
+                                                                                Fair offered by airline.
+                                                                            </p>
+                                                                        </td>
+                                                                        <td>{{ $values->fd->ADULT->bI->cB }}</td>
+                                                                        <td><?php if (isset($values->fd->ADULT->bI->iB)) {
+                                                                            echo $values->fd->ADULT->bI->iB;
+                                                                        } else {
+                                                                            echo '--';
+                                                                        } ?></td>
+                                                                        <td
+                                                                            id="cancellation{{ $value1->id }}{{ $c++ }}">
+                                                                            --
+                                                                            {{-- cancellation <br> fee starting <i class="fa-solid fa-indian-rupee-sign"></i> 3,500 --}}
+                                                                        </td>
+                                                                        <td
+                                                                            id="dateChangeText{{ $value1->id }}{{ $d++ }}">
+                                                                            --
+                                                                            {{-- Date change <br> fee starting <i class="fa-solid fa-indian-rupee-sign"></i> 3250 --}}
+                                                                        </td>
+                                                                        <td
+                                                                            id="seatChargeId{{ $value1->id }}{{ $s++ }}">
+                                                                            --
+                                                                            {{-- Middle Seat Free, <br> Window/Asile Chargeable --}}
+                                                                        </td>
+                                                                        <td>
+                                                                            @if (isset($value->fd->ADULT->mI))
+                                                                                @if ($value->fd->ADULT->mI == true)
+                                                                                    Free Meal
+                                                                                @else
+                                                                                    Paid Meal
+                                                                                @endif
+                                                                            @else
+                                                                                --
+                                                                            @endif
+                                                                        </td>
+                                                                        <td align="right">
+                                                                            <p class="final-price"><b><i
+                                                                                        class="fa-solid fa-indian-rupee-sign"></i>{{ number_format($values->fd->ADULT->fC->NF) }}</b>
+                                                                            </p>
+                                                                            <a
+                                                                                href="{{ route('reviewDetails') }}?pKey={{ $values->id }}">
+                                                                                <button class="btn btn-book-now">Book
+                                                                                    Now</button> </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endforeach
+                            @endforeach
                         @endif
-
-                        <!-- pricedetails along with times-->
-                        @if(empty($result_array->searchResult->tripInfos->COMBO))
-                      <div class="row pricedetails-btm pricedetails-btm-full newrowBook">
-                      <div class="row">
-                        {{-- <div id="BookNow"></div> --}}
-                        @for($i=0; $i<5; $i++)
-                        <div class="booknowTrips" id="BookNow{{$i}}">
-                        </div>
-                         @endfor
-                        <div class="col-md-2">
-                            <ul class="m-0 p-0">
-                                <li class="align-items-center" style="list-style: none">
-                                    <span><p class="price-round total-price">  </p></span>
-                                    <span>
-
-                                        <p style="white-space: nowrap">Total Trip Cost</p>
-                                    </span>
-                                </li>
-                                <li style="list-style: none; display: flex"><button type="button" class="btn btn-primary" onclick="submitDomesticMulticity()">Book Now</button></li>
-                            </ul>
-                        </div>
-                            </div>
-                    </div>
-                   @endif
                     </div>
                 @else
                     {{-- {{ print_r($errors) }} --}}
@@ -3429,404 +3269,8 @@
         $("#viewPriceForm").submit(function() {
             var pKey = $("input[name='pKey']:checked").val();
             var rKey = $("input[name='rKey']:checked").val();
-            window.location.replace("{{ route('reviewDetails') }}?pKey="+pKey+"&rKey="+rKey+"");
+            window.location.replace("{{ route('reviewDetailsRoundTrip') }}?pKey="+pKey+"&rKey="+rKey+"");
             return false;
         })
     </script>
-{{-- //mrunal --}}
-<script>
-$('.multitrip').click(function(){
-   var i;
-   var intRegex = /^\d+$/;
-var floatRegex = /^((\d+(\.\d *)?)|((\d*\.)?\d+))$/;
-         var total = [];
-   for(i = 0; i < 5; i++)
-   {
-      if(intRegex.test($("#tripPrice"+i).val()) || floatRegex.test($("#tripPrice"+i).val()))
-      {
-         total[i] = (total[i] || 0) + parseInt($("#tripPrice"+i).val());
-         sumArray(total);
-      }
-   }
-
-});
-
-$('.multitrip').click(function(){
-   var i;
-   var intRegex = /^\d+$/;
-var floatRegex = /^((\d+(\.\d *)?)|((\d*\.)?\d+))$/;
-         var total = [];
-   for(i = 0; i < 5; i++)
-   {
-      if(intRegex.test($("#tripPrice"+i).val()) || floatRegex.test($("#tripPrice"+i).val()))
-      {
-         total[i] = (total[i] || 0) + parseInt($("#tripPrice"+i).val());
-         sumArray(total);
-      }
-   }
-
-});
-
-function bookNow(si_id, trip_key, priceId)
-   {
-           var f_on_price = $("#BookNowRadio"+si_id).data('f_on_price');
-           var f_on_logo = $("#BookNowRadio"+si_id).data('f_on_logo');
-           var onward_price = $("#BookNowRadio"+si_id).data('onward_price');
-           var f_si_id = $("#BookNowRadio"+si_id).data('f_si_id');
-           var f_arr_code = $("#BookNowRadio"+si_id).data('f_arr_code');
-           var f_dep_code = $("#BookNowRadio"+si_id).data('f_dep_code');
-            var key = $("#Key").val();
-            var flightCode = $("#flightCode"+si_id).val();
-            var count = $(".pricedetails-btm-full").length;
-            var book_now = $("#BookNowRadio").val();
-            var checked_value = $('input[name=book_now]:checked').val();
-            var unchecked_value = $('input[name=book_now]:unchecked').val();
-            var trip_count = $("#TripKey").val();
-
-      var html = `
-      <div class="col-md-2 " id="newrowBook${count}">
-                     <ul class="m-0 p-0">
-                        <li class="d-flex align-items-center">
-                           <span><img src="assets/img/AirlinesLogo/${flightCode}.png" width="40px"></span>
-                           <span>
-                                 <p style="white-space: nowrap" id="trip${si_id}"></p>
-                           </span>
-                        </li>
-                        <input type="hidden" class="trip-price" id="tripPrice${trip_key}">
-                        <input type="hidden" class="price-id" id="priceId${trip_key}" value="${priceId}">
-                        <li style="list-style: none"><p class="price-round${si_id}"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i> .Rs. </p></li>
-                     </ul>
-                  </div> `;
-         $("#BookNow"+trip_key).html(html);
-   }
-
-   function sumArray(array){
-  let sum = 0
-  for (let i = 0; i <
-  array.length; i += 1) {
-  sum += array[i]
-  }
-  $(".total-price").html("₹"+sum);
-}
-
-function submitDomesticMulticity()
-{
-  // var priceIds = [];
-   var priceIds = "";
-   for(i = 0; i < 5; i++)
-   {
-      if($("#priceId"+i).val())
-      {
-        //var priceId+i = $("#priceId"+i).val();
-        // priceIds[i] = $("#priceId"+i).val();
-         priceIds = priceIds+'&pKey'+i+'='+$("#priceId"+i).val();
-         console.log(priceIds);
-        // alert(priceIds);
-         window.location.replace("{{ route('reviewDetails') }}?"+priceIds);
-      }
-   }
-            return false;
-
-}
-
-$('.multitrip').click(function() {
-           var f_on_name = $(this).data('f_on_name');
-           var f_on_code = $(this).data('f_on_code');
-           var f_on_depat_time = $(this).data('f_on_depat_time');
-           var f_on_arival_time = $(this).data('f_on_arival_time');
-           var f_on_price = $(this).data('f_on_price');
-           var f_on_logo = $(this).data('f_on_logo');
-           var onward_price = $(this).data('onward_price');
-           var f_si_id = $(this).data('f_si_id');
-           var f_arr_code = $(this).data('f_arr_code');
-           var f_dep_code = $(this).data('f_dep_code');
-           var f_logo = $(this).data('f_logo');
-           var f_trip_id = $(this).data('f_trip_id');
-   $(".price-round"+f_si_id).text("₹"+onward_price);
-   $("#tripPrice"+f_trip_id).val(onward_price);
-   $("#trip"+f_si_id).text(f_arr_code+" - "+f_dep_code);
-   $("#TripHidden"+f_si_id).val(f_arr_code+" - "+f_dep_code);
-   $("#flightLogo"+f_si_id).val(f_logo);
-   });
-
-   window.onload = function() {
-    var trip_type = $("#trip_type").val();
-   if(trip_type == 'multi')
-       {
-         $("#ShowOnewayRound").hide();
-         $("#ShowMultipleCity").show();
-       }else{
-         $("#ShowOnewayRound").show();
-         $("#ShowMultipleCity").hide();
-       }
-   }
-
-   $("#TripType").change(function(){
-      var trip_type = $("#TripType").val();
-         if(trip_type == 'multi')
-         {
-            $("#ShowMultipleCity").show();
-            $("#ShowOnewayRound").hide();
-         }else{
-            $("#ShowMultipleCity").hide();
-            $("#ShowOnewayRound").show();
-         }
-   });
-
-   $("#trip_type").change(function(){
-       var trip_type = $("#trip_type").val();
-       if ($('#trip_type').val() == 'oneway') {
-           $('#flightBookingReturn').val('');
-           $('#flightBookingReturn').prop('disabled', true);
-       } else {
-           $('#flightBookingReturn').prop('disabled', false);
-       }
-       if(trip_type == 'multi')
-       {
-           $("#ShowMultipleCity").show();
-           $("#ShowOnewayRound").hide();
-      }else{
-           $("#ShowMultipleCity").hide();
-           $("#ShowOnewayRound").show();
-       }
-   });
-
-
-
-   function clone_div() {
-      var count1 = $('.newrow').length;
-      var count = count1 + 1;
-
-      var html =`<div class="row align-items-center newrow" id="newrow${count}">
-      <div class="col-md-2 " style="">
-               <div class="airport-name-inner ">
-                  <small class="inner-smaltext">Trip ${count}</small>
-               </div>
-            </div>
-                  <div class="col-md-2 " style="position: relative;">
-                        <small>From</small>
-                        <div class="airport-name ">
-                            <select class="form-select" onchange="validateLocation(${count})" name="fromPlace[]${count}" id="FromPlace${count}">
-                            <option value="">Select From</option>
-                                    @foreach (DB::table('airport_details')->get() as $airport)
-                                        <option value="{{ $airport->code }}"
-                                        >{{ $airport->name . ', ' .$airport->city.', '. $airport->country }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <small>To</small>
-                        <div class="airport-name">
-                            <select class="form-control" onchange="setFromPlace(${count})" name="toPlace[]${count}" id="ToPlace${count}">
-                            <option value="">Select To</option>
-                                    @foreach (DB::table('airport_details')->get() as $airport)
-                                        <option value="{{ $airport->code }}">{{ $airport->name . ', ' .$airport->city.', '. $airport->country }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                                <small>Departure</small>
-                                <div class="airport-name">
-                                    <input type="text" name="flightBookingDepart[]${count}" class="flightBookingDepart" placeholder="Start date"
-                                    autocomplete="off" id="flightBookingDepart${count}"  />
-                                </div>
-                                <span id="error_date${count}" style="color:red"></span>
-                    </div>
-
-
-                    <div class="col-md-2 ">
-                        <button id="addCity${count}" onclick="clone_div()" type="button" class="btn btn-sm btn-primary">+ Add Another City</button>
-                    </div>
-                    <div class="col-md-2 ">
-                        <button id="removeCity${count}" type="button" class="plus-bg bg-danger" onclick="remove(${count})">
-                                    <i class="fa-solid fa-minus"></i>
-                                </button>
-
-                    </div>
-                </div>
-                 </br> <span id="error_same${count}" style="color:red"></span>`;
-
-
-                $('#multiCityDiv').append(html);
-
-                $('#addCity1').hide();
-
-
-                if(count >= 5){
-                    $('#addCity5').hide();
-                    $('#addCity'+(parseInt(count)-1)).hide();
-                    $('#removeCity'+(parseInt(count)-1)).hide();
-                }else{
-
-                    $('#addCity'+(parseInt(count)-1)).hide();
-                    $('#removeCity'+(parseInt(count)-1)).hide();
-                }
-
-
-                $('#FromPlace'+count).select2({
-                    placeholder: 'Select from',
-                });
-                var prev_count = parseInt(count) - 1 ;
-                var prev_to_place = $("#ToPlace"+prev_count).val();
-                $("#FromPlace"+count).select2();
-                $("#FromPlace"+count).val(prev_to_place).trigger("change");
-                $('#ToPlace'+count).select2({
-                        placeholder: 'Select to'
-                });
-
-
-        }
-        function remove(id) {
-            var count = $('.newrow').length;
-            // alert(count)
-            // alert(id+'kkk')
-            $('#newrow' + id).remove();
-
-            if(count <= 5){
-                // alert('addCity'+(parseInt(id)-1));
-                $('#addCity'+(parseInt(id)-1)).show();
-                $('#removeCity'+(parseInt(id)-1)).show();
-            }
-
-            if(count == 3)
-   {
-    $('#addCity1').show();
-   }
-        }
-
-         $(document).on('focus','.flightBookingDepart',function(){
-        $(this).datepicker(options_start_date);
-    });
-
-    $(document).on('select2:open', () => {
-   document.querySelector('.select2-search__field').focus();
-   });
-
-   $('#FromPlace1').select2({
-    placeholder: 'Select from',
-   });
-
-
-   $('#ToPlace1').select2({
-        placeholder: 'Select to',
-   });
-
-   $('#FromPlace2').select2({
-    placeholder: 'Select from',
-   });
-
-   $('#ToPlace2').select2({
-        placeholder: 'Select to'
-   });
-
-
-   function validateLocation(id)
-   {
-    var to_place = $("#ToPlace"+id).val();
-    var from_place = $("#FromPlace"+id).val();
-    if(to_place != '' || from_place != '')
-    {
-        if(to_place == from_place)
-        {
-            //$("#error_same"+id).text('From-Place and To-Place can not be same...!');
-            $("#Submit").hide();
-        }else{
-            $("#error_same"+id).text('');
-            $("#Submit").show();
-        }
-    }
-   }
-
-   function setFromPlace(id)
-   {
-    var nxt_id = parseInt(id) + 1;
-    var to_place = $("#ToPlace"+id).val();
-    var from_place = $("#FromPlace"+id).val();
-    if(to_place == from_place)
-    {
-        $("#error_same"+id).text('From-Place and To-Place can not be same...!');
-        $("#searchFlightsButton").prop('disabled', true);
-    }else{
-        $("#error_same"+id).text('');
-        $("#searchFlightsButton").prop('disabled', false);
-        $("#Submit").show();
-        $("#FromPlace"+nxt_id).val(to_place);
-        $("#FromPlace"+nxt_id).select2();
-        $("#FromPlace"+nxt_id).val(to_place).trigger("change");
-    }
-   }
-
-   $('form[name="SearchFlightForm"]').submit(function(e){
-   var count1 = $('.newrow').length;
-   var arr=[];
-   for(var i=1; i<=count1; i++)
-   {
-    arr.push(i);
-   }
-   $.each(arr, function(key, value){
-        var fplace = $("#FromPlace"+value).val();
-        var tplace = $("#ToPlace"+value).val();
-        var date = $("#flightBookingDepart"+value).val();
-        var prev_date = $("#flightBookingDepart"+parseInt(value - 1)).val();
-        var nxt_date = $("#flightBookingDepart"+parseInt(value + 1)).val();
-        var temp = '';
-        var trip_type = $("#TripType").val();
-       if(value <= count1)
-       {
-         if(date == '')
-            {
-                 $("#error_date"+value).text('This field can not be empty...!');
-                // $("#searchFlightsButton").prop('disabled', true);
-                 e.preventDefault();
-            }else if(date > nxt_date)
-                {
-                    $.each(arr, function(key1, value1){
-                    $("#flightBookingDepart"+value1).val('');
-                    });
-
-                    //$("#searchFlightsButton").prop('disabled', true);
-                    $("#error_date"+value).text('Please enter correct date...!');
-                    e.preventDefault();
-                }
-                else if(trip_type == 'multi')
-                {
-                     if(fplace == '')
-                     {
-                        $("#error_same"+value).text('This field can not be empty...!');
-                        e.preventDefault();
-                        return false;
-                     }else if(tplace == '')
-                     {
-                        $("#error_same"+value).text('This field can not be empty...!');
-                        e.preventDefault();
-                        return false;
-                     }
-                     else{
-
-                        $("#error_date"+value).text('');
-                        $("#error_same"+value).text('');
-                        $("#error_date"+value).text('');
-                        return true;
-                     }
-                }
-
-            else{
-
-                $("#error_date"+value).text('');
-                $("#error_same"+value).text('');
-                $("#error_date"+value).text('');
-                return true;
-            }
-       }
-
-   });
-   });
-
-
-    </script>
-
 @endsection

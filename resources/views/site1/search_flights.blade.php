@@ -271,7 +271,7 @@
                                                             value="{{ $values->id }}">
 
                                                         <p>
-                                                            Fare offered by airline.
+                                                            Fair offered by airline.
                                                         </p>
                                                     </td>
                                                     <td>{{ $values->fd->ADULT->bI->cB }}</td>
@@ -930,156 +930,156 @@
                 </div>
 
                  {{-- mrunal --}}
-      <div class="row" id="ShowMultipleCity">
+    <div class="row" id="ShowMultipleCity">
         <div class="row align-items-center newrow">
-           <div class="col-md-2 " style="">
-              <div class="airport-name-inner ">
-                 <small class="inner-smaltext">Trip Type</small>
-                 <select name="tripType" id="TripType" class="form-control TripType">
-                    <option <?php if ($_GET['tripType'] == 'oneway') {
-                       echo 'selected';
-                       } ?> value="oneway">One Way Trip</option>
-                    <option <?php if ($_GET['tripType'] == 'round') {
-                       echo 'selected';
-                       } ?> value="round">Round Trip</option>
-                    <option <?php if ($_GET['tripType'] == 'multi') {
-                       echo 'selected';
-                       } ?> value="multi">Multi-Trip</option>
-                 </select>
-              </div>
-              <div class="airport-name-inner ">
-                 <small class="inner-smaltext">Trip 1</small>
-              </div>
-           </div>
-           <div class="col-md-3" style="position: relative;">
-              <div class="row">
-                 <div class="col-md-6">
-                    <div class="airport-name-inner">
-                       <small class="inner-smaltext">From</small>
-                       <select class="form-control" onchange="validateLocation(1)" name="fromPlace[]" id="FromPlace1">
-                          <option value="">Select From</option>
-                          @foreach (DB::table('airport_details')->get() as $airport)
-                          <option <?php echo $_GET['fromPlace'] == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
-                             {{ $airport->name . ', '.$airport->city.', ' . $airport->country }}
-                          </option>
-                          @endforeach
-                       </select>
+            <div class="col-md-2 " style="">
+                <div class="airport-name-inner ">
+                    <small class="inner-smaltext">Trip Type</small>
+                    <select name="tripType" id="TripType" class="form-control TripType">
+                        <option <?php if ($_GET['tripType'] == 'oneway') {
+                        echo 'selected';
+                        } ?> value="oneway">One Way Trip</option>
+                        <option <?php if ($_GET['tripType'] == 'round') {
+                        echo 'selected';
+                        } ?> value="round">Round Trip</option>
+                        <option <?php if ($_GET['tripType'] == 'multi') {
+                        echo 'selected';
+                        } ?> value="multi">Multi-Trip</option>
+                    </select>
+                </div>
+                <div class="airport-name-inner ">
+                    <small class="inner-smaltext">Trip 1</small>
+                </div>
+            </div>
+            <div class="col-md-3" style="position: relative;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="airport-name-inner">
+                        <small class="inner-smaltext">From</small>
+                        <select class="form-control" onchange="validateLocation(1)" name="fromPlace[]" id="FromPlace1">
+                            <option value="">Select From</option>
+                            @foreach (DB::table('airport_details')->get() as $airport)
+                            <option <?php echo $_GET['fromPlace'] == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
+                                {{ $airport->name . ', '.$airport->city.', ' . $airport->country }}
+                            </option>
+                            @endforeach
+                        </select>
+                        </div>
                     </div>
-                 </div>
-                 <div class="col-md-6">
-                    <div class="airport-name-inner">
-                       <small class="inner-smaltext">To</small>
-                       <select class="form-control" onchange="setFromPlace(1)" name="toPlace[]" id="ToPlace1">
-                          <option value="">Select To </option>
-                          @foreach (DB::table('airport_details')->get() as $airport)
-                          <option <?php echo $_GET['toPlace'] == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
-                             {{ $airport->name . ', ' .$airport->city.', '. $airport->country }}
-                          </option>
-                          @endforeach
-                       </select>
+                    <div class="col-md-6">
+                        <div class="airport-name-inner">
+                        <small class="inner-smaltext">To</small>
+                        <select class="form-control" onchange="setFromPlace(1)" name="toPlace[]" id="ToPlace1">
+                            <option value="">Select To </option>
+                            @foreach (DB::table('airport_details')->get() as $airport)
+                            <option <?php echo $_GET['toPlace'] == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
+                                {{ $airport->name . ', ' .$airport->city.', '. $airport->country }}
+                            </option>
+                            @endforeach
+                        </select>
+                        </div>
+                        <span id="sameFromTo" class="validation-error">From & To airports cannot be the same</span>
                     </div>
-                    <span id="sameFromTo" class="validation-error">From & To airports cannot be the same</span>
-                 </div>
-              </div>
-           </div>
-           <div class="col-md-3">
-              <div class="row">
-                 <div class="col-md-6">
-                    <div class="airport-name-inner">
-                       <small class="inner-smaltext">Departure</small>
-                       <label>
-                       <input required type="text" class="flightBookingDepart" autocomplete="off" class="flightBookingDepart"
-                          name="flightBookingDepart[]" id="flightBookingDepart1"
-                          value="{{ $_GET['flightBookingDepart'][0] }}" />
-                       </label>
-                       <span id="error_date1" style="color:red"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="airport-name-inner">
+                        <small class="inner-smaltext">Departure</small>
+                        <label>
+                        <input required type="text" class="flightBookingDepart" autocomplete="off" class="flightBookingDepart"
+                            name="flightBookingDepart[]" id="flightBookingDepart1"
+                            value="{{ $_GET['flightBookingDepart'][0] }}" />
+                        </label>
+                        <span id="error_date1" style="color:red"></span>
+                        </div>
                     </div>
-                 </div>
-              </div>
-           </div>
-        </div>
-        <span id="error_same1" style="color:red"></span>
-        <div class="row align-items-center newrow" id="multiCityDiv">
-           <div class="col-md-2 " style="">
-              <div class="airport-name-inner ">
-                 <small class="inner-smaltext">Trip 2</small>
-              </div>
-           </div>
-           <div class="col-md-3" style="position: relative;">
-              <div class="row">
-                 <div class="col-md-6">
-                    <div class="airport-name-inner">
-                       <small class="inner-smaltext">From</small>
-                       <select class="form-control" onchange="validateLocation(2)" name="fromPlace[]" id="FromPlace2">
-                          <option value="">Select From</option>
-                          @foreach (DB::table('airport_details')->get() as $airport)
-                          <option <?php echo $_GET['fromPlace'] == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
-                             {{ $airport->name . ', '.$airport->city.', ' . $airport->country }}
-                          </option>
-                          @endforeach
-                       </select>
+                </div>
+            </div>
+            </div>
+            <span id="error_same1" style="color:red"></span>
+            <div class="row align-items-center newrow" id="multiCityDiv">
+            <div class="col-md-2 " style="">
+                <div class="airport-name-inner ">
+                    <small class="inner-smaltext">Trip 2</small>
+                </div>
+            </div>
+            <div class="col-md-3" style="position: relative;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="airport-name-inner">
+                        <small class="inner-smaltext">From</small>
+                        <select class="form-control" onchange="validateLocation(2)" name="fromPlace[]" id="FromPlace2">
+                            <option value="">Select From</option>
+                            @foreach (DB::table('airport_details')->get() as $airport)
+                            <option <?php echo $_GET['fromPlace'] == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
+                                {{ $airport->name . ', '.$airport->city.', ' . $airport->country }}
+                            </option>
+                            @endforeach
+                        </select>
+                        </div>
                     </div>
-                 </div>
-                 <div class="col-md-6">
-                    <div class="airport-name-inner">
-                       <small class="inner-smaltext">To</small>
-                       <select class="form-control" onchange="setFromPlace(2)" name="toPlace[]" id="ToPlace2">
-                          <option value="">Select To </option>
-                          @foreach (DB::table('airport_details')->get() as $airport)
-                          <option <?php echo $_GET['toPlace'] == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
-                             {{ $airport->name . ', ' .$airport->city.', '. $airport->country }}
-                          </option>
-                          @endforeach
-                       </select>
+                    <div class="col-md-6">
+                        <div class="airport-name-inner">
+                        <small class="inner-smaltext">To</small>
+                        <select class="form-control" onchange="setFromPlace(2)" name="toPlace[]" id="ToPlace2">
+                            <option value="">Select To </option>
+                            @foreach (DB::table('airport_details')->get() as $airport)
+                            <option <?php echo $_GET['toPlace'] == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
+                                {{ $airport->name . ', ' .$airport->city.', '. $airport->country }}
+                            </option>
+                            @endforeach
+                        </select>
+                        </div>
+                        <span id="sameFromTo" class="validation-error">From & To airports cannot be the same</span>
                     </div>
-                    <span id="sameFromTo" class="validation-error">From & To airports cannot be the same</span>
-                 </div>
-              </div>
-           </div>
-           <div class="col-md-3">
-              <div class="row">
-                 <div class="col-md-6">
-                    <div class="airport-name-inner">
-                       <small class="inner-smaltext">Departure</small>
-                       <label>
-                       <input required autocomplete="off" class="flightBookingDepart" name="flightBookingDepart[]"
-                          value="{{ $_GET['flightBookingDepart'][0] }}" />
-                       </label>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="airport-name-inner">
+                        <small class="inner-smaltext">Departure</small>
+                        <label>
+                        <input required autocomplete="off" class="flightBookingDepart" name="flightBookingDepart[]"
+                            value="{{ $_GET['flightBookingDepart'][0] }}" />
+                        </label>
+                        </div>
                     </div>
-                 </div>
-              </div>
-           </div>
-           <span id="error_same2" style="color:red"></span>
-           {{--
-           <div class="col-md-2 ">
-              <button id="addCity1" onclick="clone_div()" type="button" class="btn btn-sm btn-primary">+ Add Another City</button>
-           </div>
-           --}}
-        </div>
-        <div class="col-md-2 ">
-           <button id="addCity1" onclick="clone_div()" type="button" class="btn btn-sm btn-primary">+ Add Another City</button>
+                </div>
+            </div>
+            <span id="error_same2" style="color:red"></span>
+            {{--
+            <div class="col-md-2 ">
+                <button id="addCity1" onclick="clone_div()" type="button" class="btn btn-sm btn-primary">+ Add Another City</button>
+            </div>
+            --}}
+            </div>
+            <div class="col-md-2 ">
+            <button id="addCity1" onclick="clone_div()" type="button" class="btn btn-sm btn-primary">+ Add Another City</button>
+            </div>
+
+        <div class="col-md-2 travellerData">
+
+            <div class="airport-name-inner" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <input type="hidden" value="1" id="adultval" name="adultval" class="">
+                <input type="hidden" value="ECONOMY" name="travelClass" id="travelClass" class="">
+                <small class="inner-smaltext">Travellers & Class</small>
+                <span id="travelInfo">
+                    <p><b>1 Adult</b></p>
+                </span>
+            </div>
         </div>
 
-     <div class="col-md-2 travellerData">
 
-        <div class="airport-name-inner" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <input type="hidden" value="1" id="adultval" name="adultval" class="">
-            <input type="hidden" value="ECONOMY" name="travelClass" id="travelClass" class="">
-            <small class="inner-smaltext">Travellers & Class</small>
-            <span id="travelInfo">
-                <p><b>1 Adult</b></p>
-            </span>
+
+
+            <div class="col-md-2 ms-auto">
+            <button type="submit" class="btn btn-search-flights" id="searchFlightsButton">Search
+                Flights</button>
         </div>
     </div>
-
-
-
-
-    <div class="col-md-2 ms-auto">
-        <button type="submit" class="btn btn-search-flights" id="searchFlightsButton">Search
-            Flights</button>
-    </div>
-</div>
 </div>
         </form>
     </section>
@@ -3520,7 +3520,7 @@ function submitDomesticMulticity()
         //var priceId+i = $("#priceId"+i).val();
         // priceIds[i] = $("#priceId"+i).val();
          priceIds = priceIds+'&pKey'+i+'='+$("#priceId"+i).val();
-         console.log(priceIds);
+        //  console.log(priceIds);
         // alert(priceIds);
          window.location.replace("{{ route('reviewDetails') }}?"+priceIds);
       }

@@ -133,11 +133,6 @@
                     <div class="form-group">
                         <label>Enter your OTP</label>
                        <div class="otp-input">
-                        {{-- <input type="text" name="text" id="text" class="form-control form-otp" autocomplte='off'  placeholder=""/>
-                        <input type="text" name="text" id="text" class="form-control form-otp" autocomplte='off'  placeholder=""/>
-                        <input type="text" name="text" id="text" class="form-control form-otp" autocomplte='off'  placeholder=""/>
-                        <input type="text" name="text" id="text" class="form-control form-otp" autocomplte='off'  placeholder=""/>
-                        <input type="text" name="text" id="text" class="form-control form-otp" autocomplte='off'  placeholder=""/> --}}
                         <input type="text" name="enterLoginOtp" id="enterLoginOtp" class="form-control form-otp" autocomplte='off' minlength="6" maxlength="6"  placeholder=""/>
 
                       </div>

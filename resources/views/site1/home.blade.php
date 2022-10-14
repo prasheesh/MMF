@@ -223,7 +223,7 @@
 
 
                         <div class="col-md-2 travellerData" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <small>Travelers & Class</small>
+                            <small>Travellers & Classs</small>
                             <input type="hidden" value="1" id="adultval" name="adultval" class="">
                             <input type="hidden" value="ECONOMY" name="travelClass" id="travelClass" class=""
                                 autocomplete="off">
@@ -368,7 +368,7 @@
                             <span id="error_date1" style="color:red"></span>
                         </div>
                         <div class="col-md-3 travellerData" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <small>Travellers & Class</small>
+                            <small>Travellers & Classs</small>
                             <input type="hidden" value="1" id="adultval" name="adultval" class="">
                             <input type="hidden" value="ECONOMY" name="travelClass" id="travelClass" class="">
                             <div class="airport-name travelInfo" id="travelInfo">
