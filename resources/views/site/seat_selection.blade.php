@@ -231,6 +231,16 @@
         #t-2:checked~.testimonials label[for="t-5"] {
             transform: translateX(900px) translateZ(-270px) translateY(-45px);
         }
+        .seat-selected {
+            background: #7dd3e5;
+                color: white;
+                border: 1px solid #7dd3e5;
+                height: 35px;
+        }
+        .meal-selected{
+            background: green;
+        color: white;
+        }
 
     </style>
 @endsection
@@ -253,6 +263,10 @@
                                  <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">
                                   <i class="fa-solid fa-seat-airline"></i> Seats</button>
                                </li>
+                               @if($review->status->success == true && $review->status->httpStatus==200)
+                               <input type="hidden" name="no_of_passenger" id="no_of_passenger" value="{{ $review->searchQuery->paxInfo->ADULT }}">
+
+                               @if(isset($review->tripInfos))
                                @foreach ($review->tripInfos as $k=>$v )
                                                                 @foreach ($v->sI as $k1=>$v1 )
                                                                 @if(isset($v1->ssrInfo->MEAL))
@@ -262,6 +276,10 @@
                                @endif
                                @endforeach
                                @endforeach
+                               @endif
+                               {{-- @else
+                               {{ $review->errors[0]->message }} --}}
+                               @endif
                              </ul>
                              <div class="tab-content ps-3" id="pills-tabContent">
                                @if($result_array->status->success == true && $result_array->status->httpStatus == 200 )
@@ -279,53 +297,19 @@
 
                                     @endforeach
 
-
-
                                   @endforeach($review->tripInfos)
                                 </div>
-                                  <div class="row align-items-end">
+                                <div class="row align-items-end">
                                      <div class="col-md-4">
-                                      {{-- <div class="row bussiness-p">
-                                        <div class="col-md-3 ">
-                                          <img src="assets/img/portfolio64.png" class="img-fluid">
-                                        </div>
-                                        <div class="col-md-9 ps-0" >
-                                           <p>Bussiness Class</p>
-                                           <p>18 Seats <span >(79- in pitch)</span></p>
-                                        </div>
-                                      </div> --}}
 
-
-                                      {{-- <div class="row bussiness-p mt-3">
-                                        <div class="col-md-3 ">
-                                          <img src="assets/img/sofa64.png" class="img-fluid">
-                                        </div>
-                                        <div class="col-md-9 ps-0" >
-                                           <p>Economy Class</p>
-                                           <p>236 Seats <span >(33- in pitch)</span></p>
-                                        </div>
-                                      </div> --}}
-
-                                      <!-- <ul class="bussiness-ul">
-                                        <li><span><img src="assets/img/preferred-seats.png" class="img-fluid"> </span> <p>39 Preffered Seats <span >(34- in pitch)</span></p></li>
-
-                                        <li><span><img src="assets/img/preferred-seats1.png" class="img-fluid"> </span> <p>5 Bassinet Seats</p></li>
-                                        <li><span><img src="assets/img/preferred-seats2.png" class="img-fluid"> </span> <p>14 Extra Leg Space Seats</p></li>
-
-                                        <li><span><img src="assets/img/preferred-seats3.png" class="img-fluid"> </span> <p>2 Windowless Seats</p></li>
-
-                                        <li><span><img src="assets/img/preferred-seats4.png" class="img-fluid"> </span> <p>Emergency Exit Seats <span >fixed armered seats</span></p></li>
-
-                                        <li><span><img src="assets/img/preferred-seats5.png" class="img-fluid"> </span> <p>Emergency Seats</p></li>
-                                      </ul> -->
                                       <ul class="bussiness-ul">
                                         <li><span class="new-li"><i class="fa-regular fa-square"></i> </span> <p>{{ $isBookedfalse }} Seats Available</p></li>
-                                        {{-- <li><span class="select-li"><i class="fa-solid fa-square"></i> </span> <p> Select </p></li> --}}
+
                                         <li><span class="booked-li"><i class="fa-solid fa-rectangle-xmark"></i> </span> <p>{{ $isBookedtrue }} Seats Booked</p></li>
-                                        <!-- <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">Tooltip on top</button> -->
+
                                       </ul>
 
-                                     </div>
+                                </div>
                                       <div class="col-md-8  meals-seats">
                                        <div class="seats-bg">
                                         <!-- <img src="assets/img/flight-booking-img.png" class="img-fluid"> -->
@@ -341,7 +325,7 @@
 @for($i=1;$i<=$row;$i++)
 
                                           <ul class="select-seat-ul">
-
+                                            <input type="hidden" name="seat_chrge" id="seat_chrge" value="0">
 
                                             <?php $sc =1;  ?>
                                             @foreach ($value->sInfo as $k=>$seat)
@@ -392,7 +376,7 @@
 
 
                                         </div>
-                                        <img src="assets/img/booking-black.png" class="img-fluid">
+                                        <img src="{{ 'assets/img/booking-black.png' }}" class="img-fluid">
                                       </div>
                                       </div>
                                     </div>
@@ -463,8 +447,16 @@
                                                                   @endif
                                                                  </div>
                                                                  <div class="col-md-2 ">
+                                                                    <?php
+                                                                        if(isset($v2->amount)){
+                                                                            $meal_amt = $v2->amount;
+                                                                        }else{
+                                                                            $meal_amt = 0;
+                                                                        }
+                                                                    ?>
+                                                                    <input type="hidden" name="meal_amount" id="meal_amount" value="0">
 
-                                                                  <button class="btn btn-add">ADD</button>
+                                                                  <button  class="btn btn-add" id="meal_code{{ $v2->code }}" onclick="addMeals('{{ $v2->code }}','{{ $meal_amt }}')">ADD</button>
                                                                  </div>
                                                                </div>
 
@@ -492,23 +484,16 @@
                                <!-- End of Meals tab -->
 
 
-
-
                              </div>
 
                        </div>
 
                            <div class="row mt-5">
                               <div class="col-md-3 ms-auto">
-                                <button class="btn btn-blue-continue"> Procced to Pay</button>
+                                <button class="btn btn-blue-continue"><a href="{{ route('proceed-to-pay') }}"> Procced to Pay</a></button>
                               </div>
                              </div>
-                             </div>
-
-
-
-
-
+                            </div>
                      </div>
                    </div>
 
@@ -532,13 +517,13 @@
                                     <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne">
                                         <span class="ms-2">Base Fare </span> <span class="ms-auto"> <i
-                                                class="fa-solid fa-indian-rupee-sign"></i> {{ $adult *$review->totalPriceInfo->totalFareDetail->fC->BF }}</span>
+                                                class="fa-solid fa-indian-rupee-sign"></i> {{ $review->totalPriceInfo->totalFareDetail->fC->BF }}</span>
                                     </button>
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
                                     <small class="ms-0">
                                         <span>Base Fare </span>
-                                        <span class="float-end"> Adult(s) ({{ $adult }} X ₹ {{ $review->totalPriceInfo->totalFareDetail->fC->BF }})</span>
+                                        <span class="float-end"> Adult(s) ({{ $adult }} X ₹ {{ $review->totalPriceInfo->totalFareDetail->fC->BF/$adult }})</span>
                                     </small>
                                 </div>
                             </div>
@@ -551,7 +536,7 @@
                                     <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne2">
                                         <span class="ms-2">Fee & Surcharges </span> <span class="ms-auto"> <i
-                                                class="fa-solid fa-indian-rupee-sign"></i> {{ $adult * $review->totalPriceInfo->totalFareDetail->fC->TAF }}</span>
+                                                class="fa-solid fa-indian-rupee-sign"></i> {{ $review->totalPriceInfo->totalFareDetail->fC->TAF }}</span>
                                     </button>
                                 </h2>
                                 <div id="collapseOne2" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
@@ -572,10 +557,16 @@
                                                 class="fa-solid fa-indian-rupee-sign"></i> <span id="othercharges"> </span></span>
                                     </button>
                                 </h2>
-                                <div id="collapseOne3" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                                <div id="collapseOne3" class="accordion-collapse collapse seat_amt d-none" data-bs-parent="#myAccordion">
                                     <small class="ms-3">
                                         <span>Seats</span>
                                         <span class="float-end"> <i class="fa-solid fa-indian-rupee-sign"></i> <span id="seat_amt"></span></span>
+                                    </small>
+                                </div>
+                                <div id="collapseOne3" class="accordion-collapse collapse meal_amt d-none" data-bs-parent="#myAccordion">
+                                    <small class="ms-3">
+                                        <span>Meals</span>
+                                        <span class="float-end"> <i class="fa-solid fa-indian-rupee-sign"></i> <span id="meal_amt"></span></span>
                                     </small>
                                 </div>
                             </div>
@@ -586,9 +577,10 @@
                             <div class="col-md-7">
                                 <b>Total Amount</b>
                             </div>
-                            <?php $ttl_price = $adult * ($review->totalPriceInfo->totalFareDetail->fC->BF+$review->totalPriceInfo->totalFareDetail->fC->TAF) ?>
+                            <?php $ttl_price =  ($review->totalPriceInfo->totalFareDetail->fC->BF+$review->totalPriceInfo->totalFareDetail->fC->TAF) ?>
                             <div class="col-md-5  text-end">
                                 <i class="fa-solid fa-indian-rupee-sign"></i> <span data-ttl_price="{{ $ttl_price }}" id="ttl_price">{{ $ttl_price }}</span>
+                                <input type="hidden" name="other_charges" id="other_charges" value=0>
                             </div>
                         </div>
 
@@ -611,30 +603,218 @@
     <!-- Meals Carousel -->
 
     <script type="text/javascript">
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
-      })
+    })
+
       </script>
 
       <script>
             function seatSelection(code,seat_amt){
                 // alert(code+' - '+amount)
+                var seat_selection = $('.seat-selected').length;
+                var seat_charge=0;
+                var selected_seat = $('.'+code).length;
+                var other_charge = $('#other_charges').val();
+                var seat_chrge = $('#seat_chrge').val();
+                var ttl_price = $('#ttl_price').attr('data-ttl_price');
+                var no_of_passenger = $('#no_of_passenger').val();
                 $("#loader_div").show();
+
+                if(seat_selection < no_of_passenger){
+
+            if(selected_seat == 0){
                 setTimeout(function() {
                     $("#loader_div").hide();
                 }, 3000);
-                var ttl_price = $('#ttl_price').attr('data-ttl_price');
-                var price = parseFloat(ttl_price)+parseFloat(seat_amt);
-                $('.othercharges').removeClass('d-none');
-                $('#othercharges').html(seat_amt);
-                $('#seat_amt').html(seat_amt);
+
+                if(other_charge>0){
+                        seat_charge = parseFloat(other_charge)+parseFloat(seat_amt);
+                        var ttl_seat_charge = parseFloat(seat_chrge)+parseFloat(seat_amt);
+                }else{
+                    seat_charge = parseFloat(other_charge)+parseFloat(seat_amt);
+                    var ttl_seat_charge = parseFloat(seat_chrge)+parseFloat(seat_amt);
+                }
+
+                $('#seat_chrge').val(ttl_seat_charge);
+                $('#other_charges').val(seat_charge);
+                var price = parseFloat(ttl_price)+parseFloat(seat_charge);
+                if(seat_charge >0){
+                    $('.othercharges').removeClass('d-none');
+                    $('.seat_amt').removeClass('d-none');
+                }else{
+                    $('.othercharges').addClass('d-none');
+                    $('.seat_amt').addClass('d-none');
+                }
+
+                $('#othercharges').html(seat_charge);
+                $('#seat_amt').html(ttl_seat_charge);
                 $('#ttl_price').html(price);
-                $("#seat"+code).removeClass('seat-open');
-                $("#seat"+code).addClass('seat-select');
-                var count = $('.seat-select').length;
-                alert(count)
-                // $("#seat"+code).html('<i class="fa-solid fa-square"></i>');
+                $("#seat"+code).addClass('seat-selected '+ code);
+                // alert(count)
+            }else{
+                setTimeout(function() {
+                    $("#loader_div").hide();
+                }, 3000);
+
+
+                if(other_charge>0){
+                        seat_charge = parseFloat(other_charge)-parseFloat(seat_amt);
+                        var ttl_seat_charge = parseFloat(seat_chrge)-parseFloat(seat_amt);
+                }else{
+                    seat_charge = parseFloat(other_charge)+parseFloat(seat_amt);
+                    var ttl_seat_charge = parseFloat(seat_chrge)+parseFloat(seat_amt);
+                }
+
+                $('#other_charges').val(seat_charge);
+                var price = parseFloat(ttl_price)+parseFloat(seat_charge);
+
+                if(seat_charge >0){
+                    $('.othercharges').removeClass('d-none');
+                    $('.seat_amt').removeClass('d-none');
+                }else{
+                    $('.othercharges').addClass('d-none');
+                    $('.seat_amt').addClass('d-none');
+                }
+
+                $('#seat_chrge').val(ttl_seat_charge);
+                $('#othercharges').html(seat_charge);
+                $('#seat_amt').html(ttl_seat_charge);
+                $('#ttl_price').html(price);
+                $("#seat"+code).removeClass('seat-selected '+code);
+            }
+        }else{
+            setTimeout(function() {
+                    $("#loader_div").hide();
+                }, 3000);
+
+                if(selected_seat > 0){
+                    if(other_charge>0){
+                        seat_charge = parseFloat(other_charge)-parseFloat(seat_amt);
+                        var ttl_seat_charge = parseFloat(seat_chrge)-parseFloat(seat_amt);
+                }else{
+                    seat_charge = parseFloat(other_charge)+parseFloat(seat_amt);
+                    var ttl_seat_charge = parseFloat(seat_chrge)+parseFloat(seat_amt);
+                }
+
+                $('#seat_chrge').val(ttl_seat_charge);
+                $('#other_charges').val(seat_charge);
+                var price = parseFloat(ttl_price)+parseFloat(seat_charge);
+
+                if(seat_charge >0){
+                    $('.othercharges').removeClass('d-none');
+                    $('.seat_amt').removeClass('d-none');
+                }else{
+                    $('.othercharges').addClass('d-none');
+                    $('.seat_amt').addClass('d-none');
+                }
+
+                $('#othercharges').html(seat_charge);
+                $('#seat_amt').html(ttl_seat_charge);
+                $('#ttl_price').html(price);
+                $("#seat"+code).removeClass('seat-selected '+code);
+            }else{
+                alert('Seats are selected, remove to select another.');
+            }
+
+        }
+
+            }
+
+        function addMeals(code,meal_amt){
+
+                var selected_meals = $('.'+code).length;
+                var meal_selected_cnt = $('.meal-selected').length;
+                var no_of_passenger = $('#no_of_passenger').val();
+
+                var ttl_price = $('#ttl_price').attr('data-ttl_price');
+                var other_charge = $('#other_charges').val();
+                var meal_amount = $('#meal_amount').val();
+
+                if(meal_selected_cnt <  no_of_passenger){
+                    if(selected_meals == 0){
+
+                        var ttl_meal_charge = parseFloat(meal_amount)+parseFloat(meal_amt);
+                        var price = parseFloat(ttl_price)+parseFloat(other_charge)+parseFloat(meal_amt);
+                        var seat_meal_charge = parseFloat(other_charge)+parseFloat(meal_amt);
+
+
+                    $('#meal_code'+code).addClass('meal-selected '+code);
+
+                    if(meal_amt > 0){
+                        $('.othercharges').removeClass('d-none');
+                        $('.meal_amt').removeClass('d-none');
+
+                    }else{
+                        $('.othercharges').addClass('d-none');
+                        $('.meal_amt').addClass('d-none');
+                    }
+
+                    $('#other_charges').val(seat_meal_charge);
+                    $('#meal_amount').val(ttl_meal_charge);
+                    $('#othercharges').html(seat_meal_charge);
+                    $('#meal_amt').html(ttl_meal_charge);
+                    $('#ttl_price').html(price);
+
+                }else{
+                        var ttl_meal_charge = parseFloat(meal_amount)-parseFloat(meal_amt);
+                        var price = parseFloat(ttl_price)+parseFloat(other_charge)-parseFloat(meal_amt);
+                        var seat_meal_charge = parseFloat(other_charge)-parseFloat(meal_amt);
+
+                    $('#other_charges').val(seat_meal_charge);
+                    $('#meal_amount').val(ttl_meal_charge);
+
+                    $('#othercharges').html(seat_meal_charge);
+                    $('#meal_amt').html(ttl_meal_charge);
+                    $('#ttl_price').html(price);
+
+
+                    $('#meal_code'+code).removeClass(' meal-selected '+code);
+
+                    if(seat_meal_charge > 0){
+                        $('.othercharges').removeClass('d-none');
+                        $('.meal_amt').removeClass('d-none');
+
+                    }else{
+                        $('.othercharges').addClass('d-none');
+                        $('.meal_amt').addClass('d-none');
+                    }
+                }
+
+                }else{
+
+                    if(selected_meals > 0){
+                        var ttl_meal_charge = parseFloat(meal_amount)-parseFloat(meal_amt);
+                        var price = parseFloat(ttl_price)+parseFloat(other_charge)-parseFloat(meal_amt);
+                        var seat_meal_charge = parseFloat(other_charge)-parseFloat(meal_amt);
+
+                        $('#other_charges').val(seat_meal_charge);
+                        $('#meal_amount').val(ttl_meal_charge);
+                        $('#othercharges').html(seat_meal_charge);
+                        $('#meal_amt').html(ttl_meal_charge);
+                        $('#ttl_price').html(price);
+
+
+                    $('#meal_code'+code).removeClass(' meal-selected '+code);
+
+                    if(seat_meal_charge > 0){
+                        $('.othercharges').removeClass('d-none');
+                        $('.meal_amt').removeClass('d-none');
+
+                    }else{
+                        $('.othercharges').addClass('d-none');
+                        $('.meal_amt').addClass('d-none');
+                    }
+
+                    }else{
+                        alert('Meals are selected')
+                    }
+
+
+                }
+
             }
         </script>
 @endsection

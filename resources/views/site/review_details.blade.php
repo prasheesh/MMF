@@ -769,7 +769,7 @@
                     <?php } ?>
                     <div class="card">
                         <div class=" card-body card-shadow">
-                            <h5><b>Fare Summery</b></h5>
+                            <h5><b>Fare Summary</b></h5>
 
                             <div class="accordion" id="myAccordion">
                                 <div class="accordion-item">
@@ -965,14 +965,14 @@
         }
 
 
-        
+
         var values = {};
 
         $(function() {
             $("#submit").click(function() {
 
                 var adult_count = '<?php echo $adults; ?>';
-            
+
                 var clone_count = $('.newrow').length;
                 var total_rows = clone_count + 1;
                 var proceed = true;

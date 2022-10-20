@@ -40,7 +40,7 @@ class SearchFlightsController extends Controller
               ],
               "searchModifiers": {
                 "isDirectFlight": true,
-                "isConnectingFlight": true
+                "isConnectingFlight": false
               }
             }
           }';
@@ -77,7 +77,7 @@ class SearchFlightsController extends Controller
               ],
               "searchModifiers": {
                 "isDirectFlight": true,
-                "isConnectingFlight": true
+                "isConnectingFlight": false
               }
             }
           }';
@@ -118,7 +118,7 @@ class SearchFlightsController extends Controller
             $data .= '],
               "searchModifiers": {
                 "isDirectFlight": true,
-                "isConnectingFlight": true
+                "isConnectingFlight": false
               }
             }
           }';

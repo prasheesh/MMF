@@ -1443,11 +1443,12 @@ section {
         }
         .form-control{
             background:#eeeeee;
-            border:solid 1px #ddd;
-            color:#ddd;
+            border:solid 0px #ddd;
+            color:#000;
             font-size:13px;
-            padding:15px 0px 15px 40px;
+            padding:15px;
             position:relative;
+            border-radius:0px;
         }
         .input-icon{
             position:relative;
@@ -1585,9 +1586,12 @@ color: #00b0d5;
 }
 .label-modal input {
   border: 1px solid #3f90a1;
+  padding: 15px 35px;
 }
 .label-modal i {
-  color: #3f90a1;
+      color: #3f90a1;
+    font-size: 16px;
+    margin-top: 4px;
 }
 .form-otp {
       background: #eeeeee;
@@ -1603,15 +1607,18 @@ color: #00b0d5;
     text-align: center;
 }
 .otp-input input {
-    width: 15%;
+    width: 100%;
     border-bottom: 1px solid grey;
     border-top: 0;
     border-left: 0;
     border-right: 0;
-    margin: 0px 15px;
+    margin: 0px 10px;
     border-radius: 0;
     background: white;
-     text-align: center;
+    text-align: center;
+    letter-spacing: 70px;
+    padding: 10px;
+    color:black;
 }
 .otp-input input:focus {
    outline: none ! important;
@@ -1716,7 +1723,7 @@ color: #00b0d5;
     color: #fff;
     background: black;
     right: -20px;
-    top: 38px;
+    top: 28px;
     font-size: 16px;
 }
 .btn-search-flights {
@@ -2226,11 +2233,8 @@ color: #00b0d5;
  }
  .meals-seats {
   height: 450px;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    margin-left: auto;
-    background: #d9e6f2;
-    padding: 5rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
  }
  .hyderabad-booking {
     background: #e1e1e1;
@@ -2366,9 +2370,7 @@ color: #00b0d5;
     border: 1px solid #8bf3b2;
     margin: 5px;
     border-radius: 5px;
-    height: 34px !important;
-    width: 45px !important;
-    font-size: 10px;
+    height: 35px;
 }
 .select-seat-space {
   list-style: none;
@@ -2498,114 +2500,4 @@ and (orientation: landscape) {
 .tab-view-data li{
   list-style: none;
   float: left;
-}
-
-
-/*29-09-2022*/
-.deapt {
-  background: #424242;
-padding: 5px;
-color: white;
-}
-.bag-icon {
-  line-height: 20px;
-text-align: center;
-font-weight: 600;
-font-size: 14px;
-}
-.bag-icon i {
-color: #3f7288;
-}
-.footer-btn {
-text-align: right;
-}
-.footer-btn p {
-  font-size: 20px;
-font-weight: 600;
-line-height: 10px;
-}
-.footer-btn small {
-font-weight: 400;
-font-size: 12px;
-color: #ccc;
-}
-.citiname {
-font-size: 16px;
-font-weight: 600;
-margin-bottom: 0;
-}
-.card-bkdetail {
-  height: 420px;
-overflow: scroll;
-}
-
-.new-li i{
-  font-size: 22px;
-color: #82bdd0;
-}
-.select-li i{
-  font-size: 22px;
-color: rgb(130 189 208);
-}
-.booked-li i{
-  font-size: 22px;
-color: #c3c3c3;
-}
-.flight-seats {
-background: white;
-border-radius: 0px;
-margin: 0px 14px;
-}
-.select-seat {
-padding-left: 20px;
-}
-.select-seat-ul {
-display: flex;
-padding: 0px 18px;
-margin-bottom: 0px;
-/* }
-.seat-open {
- list-style: none;
-padding: 6px 8px;
-border: 1px solid #8bf3b2;
-margin: 5px;
-border-radius: 5px;
-height: 38px;
-font-size: 14px;
-width: 60px;
-text-align: center;
-} */
-.select-seat-space {
-list-style: none;
-width: 40px;
-height: 40px;
-}
-.seat-select {
-  list-style: none;
-}
-.seat-select i {
-color: rgb(130 189 208);
-list-style: none;
-padding: inherit;
-margin: 5px;
-font-size: 38px;
-background: none !important;
-}
-.seat-booked {
-list-style: none;
-}
-.seat-booked i{
-color: #c3c3c3;
-list-style: none;
-padding: inherit;
-margin: 5px;
-font-size: 38px;
-background: none !important;
-}
-.select-seat-li {
- list-style: none;
-padding: 6px 10px;
-border: 1px solid #8bf3b2;
-margin: 5px;
-border-radius: 5px;
 }

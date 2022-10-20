@@ -63,3 +63,5 @@ Route::post('/check-otp',[LoginController::class, 'checkOtpNumber'])->name('chec
 Route::any('/forgot-pwd', [LoginController::class, 'forgotPassword'])->name('forgot-pwd');
 
 Route::any('/get-airports', [AirportDetailController::class, 'getAirports'])->name('get-airports');
+
+Route::any('/proceed_to_pay',[SeatSelectionController::class, 'proceedToPay'])->name('proceed-to-pay');

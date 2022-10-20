@@ -194,11 +194,9 @@
                                     <label>
                                         {{-- Departure --}}
 
-                                        <input type="text" name="flightBookingDepart" id="flightBookingDepart"
-                                            placeholder="Start date" autocomplete="off" required />
-                                        {{-- <input id="flightBookingDepart" mbsc-input data-input-style="outline"
-                                                name="flightBookingDepart" data-label-style="stacked"
-                                                placeholder="Please select..." /> --}}
+                                        <input class="form-control"  type="text" name="flightBookingDepart" id="flightBookingDepart"
+                                            placeholder="Start date" autocomplete="off" required  />
+
                                     </label>
 
                                     {{-- </div> --}}
@@ -209,11 +207,9 @@
                                     <small>Return</small>
                                     <label>
                                         {{-- Return --}}
-                                        <input type="text" name="flightBookingReturn" id="flightBookingReturn"
+                                        <input class="form-control" type="text" name="flightBookingReturn" id="flightBookingReturn"
                                             placeholder="Return date" autocomplete="off" required />
-                                        {{-- <input id="flightBookingReturn" name="flightBookingReturn" mbsc-input
-                                            data-input-style="outline" data-label-style="stacked"
-                                            placeholder="Please select..." /> --}}
+
                                     </label>
 
                                 </div>
@@ -236,9 +232,7 @@
 
                         <div class="col-md-2 ms-auto " style="    margin-top: 1rem;">
                             {{-- <a href="{{ route('search-flights') }}"> --}}
-                            <button id="searchFlightsButton" type="submit" class="btn btn-search-flights">Search Flights
-                                one
-                                Way</button>
+                            <button id="searchFlightsButton" type="submit" class="btn btn-search-flights">Search Flights</button>
                             {{-- </a> --}}
                         </div>
                     </div>
@@ -362,7 +356,7 @@
                         <div class="col-md-3">
                             <small>Departure</small>
                             <div class="airport-name">
-                                <input type="text" name="flightBookingDepart[]" class="flightBookingDepart"
+                                <input  type="text" name="flightBookingDepart[]" class="flightBookingDepart form-control p-0"
                                     placeholder="Start date" autocomplete="off" id="flightBookingDepart1" />
                             </div>
                             <span id="error_date1" style="color:red"></span>
@@ -381,7 +375,8 @@
 
                     </div>
                     <span id="error_same1" style="color:red"></span>
-                    <div class="row align-items-center newrow" id="multiCityDiv">
+                    <div id="multiCityDiv" class="newrow">
+                    <div class="row align-items-center ">
                         <div class="col-md-3 " style="position: relative;">
                             <small>From</small>
                             <div class="airport-name">
@@ -415,25 +410,23 @@
                             <div class="airport-name">
                                 {{-- <p><b>10 June, 22</b></p>
                                       <p>Friday</p> --}}
-                                <input type="text" name="flightBookingDepart[]" class="flightBookingDepart"
+                                <input  type="text" name="flightBookingDepart[]" class="flightBookingDepart form-control p-0"
                                     placeholder="Start date" autocomplete="off" id="flightBookingDepart2" />
                             </div>
                             <span id="error_date2" style="color:red"></span>
 
                         </div>
                         <div class="col-md-3 ">
-                            <button type="button" id="addCity1" onclick="clone_div()" class="btn btn-sm btn-primary">+
+                            <small>&nbsp;</small>
+                            <button type="button" id="addCity1" onclick="clone_div()" class="btn  btn-primary">+
                                 Add Another City</button>
 
                         </div>
-
-
-                        {{-- <div class="col-md-2 ">
-                          <button onclick="clone_div()" class="btn btn-sm btn-primary">+ Add Another City</button>
-                      </div> --}}
-
                         <span id="error_same2" style="color:red"></span>
                     </div>
+                    </div>
+
+
 
                     <div class="col-md-2 ms-auto">
                         <a href="{{ route('search-flights') }}"> <button id="Submit"
@@ -672,28 +665,28 @@
                                 </select>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
 
                                 <small>Departure</small>
                                 <div class="airport-name">
-                                    <input type="text" name="flightBookingDepart[]${count}" class="flightBookingDepart" placeholder="Start date"
+                                    <input type="text" name="flightBookingDepart[]${count}" class="flightBookingDepart form-control p-0" placeholder="Start date"
                                     autocomplete="off" id="flightBookingDepart${count}"  />
                                 </div>
                                 <span id="error_date${count}" style="color:red"></span>
                     </div>
 
 
-                    <div class="col-md-2 ">
-                        <button id="addCity${count}" onclick="clone_div()" type="button" class="btn btn-sm btn-primary">+ Add Another City</button>
-                    </div>
-                    <div class="col-md-2 ">
-                        <button id="removeCity${count}" type="button" class="plus-bg bg-danger" onclick="remove(${count})">
+                    <div class="col-md-3 ">
+                    <small>&nbsp;</small>
+                        <button id="addCity${count}" onclick="clone_div()" type="button" class="btn btn-primary mt-1">+ Add Another City</button>
+
+                        <button id="removeCity${count}" type="button" class="btn btn-danger" onclick="remove(${count})">
                                     <i class="fa-solid fa-minus"></i>
                                 </button>
 
                     </div>
                 </div>
-                 </br> <span id="error_same${count}" style="color:red"></span>`;
+                 <span id="error_same${count}" style="color:red"></span>`;
 
 
                 $('#multiCityDiv').append(html);
@@ -701,8 +694,8 @@
                 $('#addCity1').hide();
 
 
-                if(count >= 5){
-                    $('#addCity5').hide();
+                if(count >= 4){
+                    $('#addCity4').hide();
                     $('#addCity'+(parseInt(count)-1)).hide();
                     $('#removeCity'+(parseInt(count)-1)).hide();
                 }else{
@@ -733,10 +726,12 @@
                 $('#addCity1').show();
             }
             // $('#addCity1').show();
-            if (count <= 5) {
+            if (count <= 4) {
                 // alert('addCity'+(parseInt(id)-1));
                 $('#addCity' + (parseInt(id) - 1)).show();
                 $('#removeCity' + (parseInt(id) - 1)).show();
+                // $('#error_same' + (parseInt(id) - 1)).show();
+                // $('#error_date' + (parseInt(id) - 1)).show();
             }
 
         }

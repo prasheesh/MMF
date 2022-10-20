@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>:: MakeMyFly | Home </title>
+  
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/vendor/css/all.min.css" >
+
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+    <style type="text/css">
+        .btn-close{
+            position:absolute;
+            right:15px;
+            top:15px;
+            color:#3f90a1;
+            background:none;
+            opacity: 1;
+        }
+         
+        .modal{
+            background:rgba(33,92,104,0.5);
+        }
+        .modal-dialog{
+            margin:10% auto;
+        }
+        .modal-content{
+            border-radius:15px;
+        }
+        .form-control{
+            background:#eeeeee;
+            border:solid 1px #ddd;
+            color:#ddd;
+            font-size:13px;
+            padding:15px 0px 15px 40px;
+            position:relative;
+        }
+        .input-icon{
+            position:relative;
+            top:-38px;
+            left:15px;
+            float:left;
+            margin: 0;
+            padding: 0;
+        }
+        .input-icon-after{
+            position:relative;
+            top:-38px;
+            right:15px;
+            float:right;
+            margin: 0;
+            padding: 0;
+        }
+        .btn-theme{
+            background:#3f90a1;
+            color:#fff;
+            transition:0.3s;
+            padding:10px 30px;
+        }
+        .btn-theme:hover{
+            background:#2c7685;
+            color:#fff;
+            transition:0.3s;
+        }
+        .gotpw,
+        .link{
+            margin:0;
+            padding:0;
+        }
+        .gotpw a{
+            font-weight:bold;
+            margin:0;
+            padding:0;
+            color:#3f90a1;
+        }
+        .link a{
+            margin:0;
+            padding:0;
+            color:#434343;
+        }
+        .otp{
+            letter-spacing:34px;
+            text-align:center;
+        }
+    </style>
+</head>
+
+<body>
+    
+    
+    
+    
+<div class="modal" id="loginModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+          
+         <button type="button" class="btn-close" data-bs-dismiss="modal"><i class="fa fa-times"></i></button>
+        <h5 class="modal-title">
+            Already Using Makemyfly?</h5>
+        <p>Login here to your Account</p>
+        
+        <div class="clearfix mb-4"></div>
+        <form method="post">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="text" name="text" id="text" class="form-control" autocomplte='off'  placeholder="Email ID / Phone Number"/>
+                        <p class="input-icon"><i class="fa fa-envelope"></i></p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="password" name="password" id="password"  autocomplte='off' class="form-control" placeholder="Password"/>
+                        <p class="input-icon"><i class="fa fa-lock"></i></p>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <p class="gotpw"><a href=""  data-bs-toggle="modal" data-bs-target="#forgot">Forgot Password?</a></p>
+                    <p class="link"><a href="" data-bs-toggle="modal" data-bs-target="#reset"><i>Reset Password</i></a></p>
+                </div>
+                <div class="col-md-4 text-right">
+                    <a href="" class="btn btn-theme float-end">LOGIN</a>
+                </div>
+            </div>
+        </form>
+         <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+ <div class="modal" id="forgot">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+          
+         <button type="button" class="btn-close" data-bs-dismiss="modal"><i class="fa fa-times"></i></button>
+        <h5 class="modal-title">
+            Forgot Password?</h5>
+        <p class="mb-4">Enter detials for Create New Password</p>
+        <small>OTP Sent to your Registered Mobile Number XXXXXX94 Please verify</small>
+        <div class="clearfix mb-4"></div>
+        <form method="post">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                        <input type="text" name="text" id="text" class="form-control otp" placeholder="- - - - - -"/>
+                    </div>
+                </div>
+                <div class="clearfix mb-2"></div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="password" autocomplte='off' name="password" id="password" class="form-control" placeholder="New Password"/>
+                        <p class="input-icon"><i class="fa fa-lock"></i></p>
+                        <p class="input-icon-after"><i class="fa fa-eye"></i></p>
+                    </div>
+                </div>
+                 <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="password" autocomplte='off' name="password" id="password" class="form-control" placeholder="Confirm New Password"/>
+                        <p class="input-icon"><i class="fa fa-lock"></i></p>
+                        <p class="input-icon-after"><i class="fa fa-eye-slash"></i></p>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center">
+                    <a href="" class="btn btn-theme">Submit</a>
+                </div>
+            </div>
+        </form>
+         <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" id="reset">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+          
+         <button type="button" class="btn-close" data-bs-dismiss="modal"><i class="fa fa-times"></i></button>
+        <h5 class="modal-title">
+            Reset Password</h5>
+        <p>Enter detials for Reset</p>
+        <div class="clearfix mb-4"></div>
+        <form method="post">
+            <div class="row">
+                  <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                        <input type="password" autocomplte='off' name="password" id="password" class="form-control" placeholder="Enter Old Password"/>
+                        <p class="input-icon"><i class="fa fa-lock"></i></p>
+                        <p class="input-icon-after"><i class="fa fa-eye"></i></p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="password" autocomplte='off' name="password" id="password" class="form-control" placeholder="New Password"/>
+                        <p class="input-icon"><i class="fa fa-lock"></i></p>
+                        <p class="input-icon-after"><i class="fa fa-eye"></i></p>
+                    </div>
+                </div>
+                 <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="password" autocomplte='off' name="password" id="password" class="form-control" placeholder="Confirm New Password"/>
+                        <p class="input-icon"><i class="fa fa-lock"></i></p>
+                        <p class="input-icon-after"><i class="fa fa-eye-slash"></i></p>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center">
+                    <a href="" class="btn btn-theme">Submit</a>
+                </div>
+            </div>
+        </form>
+         <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo me-auto"><a href="index.html"><img src="assets/img/MMF.png"></a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <!--<li><a class="" href="javascript:void(0);">Flights</a></li>-->
+          <li><a class="active" href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          
+
+          <!--<li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>-->
+          <!--  <ul>-->
+          <!--    <li><a href="#">Drop Down 1</a></li>-->
+          <!--    <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>-->
+          <!--      <ul>-->
+          <!--        <li><a href="#">Deep Drop Down 1</a></li>-->
+          <!--        <li><a href="#">Deep Drop Down 2</a></li>-->
+          <!--        <li><a href="#">Deep Drop Down 3</a></li>-->
+          <!--        <li><a href="#">Deep Drop Down 4</a></li>-->
+          <!--        <li><a href="#">Deep Drop Down 5</a></li>-->
+          <!--      </ul>-->
+          <!--    </li>-->
+          <!--    <li><a href="#">Drop Down 2</a></li>-->
+          <!--    <li><a href="#">Drop Down 3</a></li>-->
+          <!--    <li><a href="#">Drop Down 4</a></li>-->
+          <!--  </ul>-->
+          <!--</li>-->
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a data-bs-toggle="modal" data-bs-target="#loginModal" style="cursor:pointer">Login</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+      
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex justify-content-center align-items-center">
+    <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
+      <h2>MakeMyFly ,<br>your one-stop destination</h2>
+      <h3>for Domestic and International flight bookings.</h3>
+       
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+          <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
+            <img src="assets/img/abt_img.jpg" class="img-fluid" alt="">
+          </div>
+          
+          <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
+            <h3>Welcome to our website</h3>
+            
+            <p class="text-justify" style="text-align:justify;">
+                Makemyfly is the leading flight booking website that inspires people to book tickets and
+                travel across the world at the best prices. We cover all popular destinations and offer you
+                a wide range of services including domestic and international flight booking. From social
+                occasions and festivals to entertainment and tours, we’ve got all packages covered.
+            </p>
+
+            <a href="about.html" class="more-btn">Read More <i class="bx bx-chevron-right"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Counts Section ======= -->
+    <!--<section id="counts" class="counts section-bg">-->
+    <!--  <div class="container">-->
+    <!--    <div class="col-md-12 text-center text-success">-->
+    <!--       <h3> Services </h3>-->
+    <!--    </div>-->
+        
+    <!--    <br>-->
+        
+    <!--    <div class="row counters">-->
+
+    <!--      <div class="col-lg-3 col-6 text-center">-->
+    <!--         <i class="fas fa-tag fa-2x text-success" ></i>-->
+    <!--        <p class="mt-3">New User Offer</p>-->
+    <!--      </div>-->
+
+    <!--      <div class="col-lg-3 col-6 text-center">-->
+    <!--        <i class="fas fa-user-tag fa-2x text-success"></i>-->
+    <!--        <p class="mt-3">Student Special </p>-->
+    <!--      </div>-->
+
+    <!--      <div class="col-lg-3 col-6 text-center">-->
+    <!--       <i class="fas fa-tags fa-2x text-success"></i>-->
+    <!--        <p class="mt-3">Instant Off!</p>-->
+    <!--      </div>-->
+
+    <!--      <div class="col-lg-3 col-6 text-center">-->
+    <!--      <i class="fas fa-tag fa-2x text-success"></i>-->
+    <!--        <p class="mt-3">Flat 15% Off on Flights</p>-->
+    <!--      </div>-->
+
+    <!--    </div>-->
+
+    <!--  </div>-->
+    <!--</section>-->
+    
+    <!-- End Counts Section -->
+
+  
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <img src="assets/img/MMF.png" class="img-fluid" width="150">
+            <p class="mt-3">
+             
+              <strong>Phone:</strong> +9140 66464466<br>
+              <strong>Email:</strong>support[At]makemyfly[dot]com<br>
+            </p>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4></h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="index.html">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="about.html">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="services.html">Services</a></li>
+               <li><i class="bx bx-chevron-right"></i> <a href="contact.html">Contact Us</a></li>
+             
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4></h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="privacy-polciy.html">Privacy Policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="terms-conditions.html">Terms of Service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="payment">Make Payment</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-6 footer-newsletter">
+            <!--<h4>Join Our Newsletter</h4>-->
+            <!--<p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>-->
+            <!--<form action="" method="post">-->
+            <!--  <input type="email" name="email"><input type="submit" value="Subscribe">-->
+            <!--</form>-->
+            
+             <div style="text-align:left;">
+                  <h4>Address</h4>
+                 
+                <p class="" style="color:#777;"> 21-7-760 , Ghansi bazaar,<br> Hyderabad - 500002</p>
+               
+            </div>
+            
+            <div class="social-links text-left text-md-right pt-3 pt-md-0">
+                
+            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+             
+            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            
+            
+          </div>
+            
+           
+            
+            
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container d-md-flex py-4">
+
+      <div class="me-md-auto text-center text-md-start">
+        <div class="copyright" style="color: #fff;">
+          &copy; Copyright <strong><span>MakeMyFly</span></strong>. All Rights Reserved
+        </div>
+       
+      </div>
+      
+      
+       <div class="credits">
+          
+          Designed by <a href="https://vmaxindia.com" target="_blank">VMax</a>
+        </div>
+      
+      
+      
+      
+    </div>
+  </footer><!-- End Footer -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/purecounter/purecounter.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

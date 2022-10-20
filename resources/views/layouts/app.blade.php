@@ -52,9 +52,9 @@
     <script src="{{ asset('assets/js/jquery-3.6.0.js') }}"></script>
 
   <link href="{{ asset('assets/css/toast.css') }}" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link href="{{ asset('assets/css/select2.min.css') }}" rel="stylesheet" />
   <script src="{{ asset('assets/js/toast.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ asset('assets/js/dist/select2.min.js') }}"></script>
 
 </head>
 
@@ -133,7 +133,8 @@
                     <div class="form-group">
                         <label>Enter your OTP</label>
                        <div class="otp-input">
-                        <input type="text" name="enterLoginOtp" id="enterLoginOtp" class="form-control form-otp" autocomplte='off' minlength="6" maxlength="6"  placeholder=""/>
+
+                        <input  type="text" name="enterLoginOtp" id="enterLoginOtp" class="form-control form-otp" autocomplte="off" minlength="6" maxlength="6"  placeholder=""/>
 
                       </div>
                       <label id="otpError" class="validation-error">Please Enter valid 6  Digit otp</label>
@@ -165,8 +166,11 @@
             <form method="post" action="" name="forgotOtpForm" id="forgotOtpForm">
               @csrf
         <p class="mb-4">Enter details for Create New Password</p>
+        <div class="form-group label-modal">
         <label>Email ID</label>
             <input type="email" name="forgotEmail" id="forgotEmail" class="form-control" autocomplte='off'  placeholder=""/>
+            <p class="input-icon"><i class="fa fa-envelope"></i></p>
+            </div>
             <label id="forgot_email_exist" class="validation-error">Email id does not exist</label>
         <small id="verifyOtp" style="display:none">OTP Sent to your Registered Mobile Number XXXXXX94 Please verify</small>
         <span id="getForGotOtp"></span>
@@ -179,11 +183,11 @@
                         <label>Enter your OTP</label>
                        <div class="otp-input">
                         <input type="text" minlength="6" maxlength="6" name="forgotOtp" id="forgotOtp" class="form-control form-otp" autocomplte='off'  placeholder=""/>
-
-
                       </div>
-                      <label id="forgotOtpError" class="validation-error">Please Enter valid 6  Digit otp</label>
                     </div>
+                    <label id="forgotOtpError" class="validation-error">Please Enter valid 6  Digit otp</label>
+                    <br>
+                    <label id="forgotOtp-error" class="error" for="forgotOtp" style=""></label>
                 </div>
                 <div class="clearfix "></div>
                 <div class="col-md-12 label-modal">
@@ -191,15 +195,18 @@
                          <label>New Passsword</label>
                         <input type="password" autocomplte='off' name="forgotPwd" id="forgotPwd" class="form-control" placeholder=""/>
                         <p class="input-icon"><i class="fa fa-lock"></i></p>
-                        <p class="input-icon-after"><i class="fa fa-eye"></i></p>
+                        <p class="input-icon-after" onclick="password_show_hide();">
+                            <i class="fa fa-eye" id="show_eye"></i>
+                            <i class="fa fa-eye-slash d-none" id="hide_eye"></i>
+                        </p>
                     </div>
                 </div>
                  <div class="col-md-12 label-modal">
                     <div class="form-group">
                          <label>Confirm New Passsword</label>
-                        <input type="password" autocomplte='off' name="confirmPwd" id="confirmPwd" class="form-control" placeholder=""/>
+                        <input type="text" autocomplte='off' name="confirmPwd" id="confirmPwd" class="form-control" placeholder=""/>
                         <p class="input-icon"><i class="fa fa-lock"></i></p>
-                        <p class="input-icon-after"><i class="fa fa-eye-slash"></i></p>
+                        <p class="input-icon-after"></p>
                     </div>
                 </div>
                 <div class="col-md-12 text-center">
@@ -599,7 +606,7 @@ $('#loginSubmit').click(function(){
               // async : false,
               success : function(data){
 // console.log(data);
-location.replace("/home");
+location.replace("home");
 
               }
     })
@@ -774,6 +781,26 @@ $(document).on('change','#forgotEmail',function(){
     });
 
   });
+
+
+
+//   password show hide
+
+function password_show_hide() {
+  var x = document.getElementById("forgotPwd");
+  var show_eye = document.getElementById("show_eye");
+  var hide_eye = document.getElementById("hide_eye");
+  hide_eye.classList.remove("d-none");
+  if (x.type === "password") {
+    x.type = "text";
+    show_eye.style.display = "none";
+    hide_eye.style.display = "block";
+  } else {
+    x.type = "password";
+    show_eye.style.display = "block";
+    hide_eye.style.display = "none";
+  }
+}
 
 
 

@@ -129,4 +129,10 @@ class SeatSelectionController extends Controller
             return view('site/seat_selection',compact('result_array','errors','review'));
           }
     }
+
+    public function proceedToPay(Request $request){
+        // $data = $request->session()->all();
+        $data = $request->session()->get('first_name');
+        dd($data);
+    }
 }
