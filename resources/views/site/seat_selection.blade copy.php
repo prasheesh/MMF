@@ -260,58 +260,34 @@
 
                           <div class="mt-3 mb-3 cancelation-tab">
                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-
-                            @if($review->status->success == true && $review->status->httpStatus==200)
-                            @if($result_array->status->success == true && $result_array->status->httpStatus == 200 )
-                            @if(isset($review->tripInfos))
-                            @if(isset($result_array->tripSeatMap))
+                               <li class="nav-item" role="presentation">
+                                 <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">
+                                  <i class="fa-solid fa-seat-airline"></i> Seats</button>
+                               </li>
+                               @if($review->status->success == true && $review->status->httpStatus==200)
                                <input type="hidden" name="no_of_passenger" id="no_of_passenger" value="{{ $review->searchQuery->paxInfo->ADULT }}">
-
-
-@foreach ($result_array->tripSeatMap->tripSeat as $k =>$v )
-
-<li class="nav-item" role="presentation">
-    <button class="nav-link " id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home{{ $k }}" type="button" role="tab" aria-controls="pills-home" aria-selected="true">
-     <i class="fa-solid fa-seat-airline"></i> Seats{{ $k }}</button>
-  </li>
-
-@endforeach
-
-                               @endif
-                               @endif
-                               @endif
-                               @endif
 
                                @if(isset($review->tripInfos))
                                @foreach ($review->tripInfos as $k=>$v )
                                                                 @foreach ($v->sI as $k1=>$v1 )
                                                                 @if(isset($v1->ssrInfo->MEAL))
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile{{ $v1->id }}" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Meals{{ $v1->id }}</button>
-                                </li>
-
+                               <li class="nav-item" role="presentation">
+                                 <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Meals</button>
+                               </li>
                                @endif
                                @endforeach
                                @endforeach
                                @endif
                                {{-- @else
                                {{ $review->errors[0]->message }} --}}
-
+                               @endif
                              </ul>
                              <div class="tab-content ps-3" id="pills-tabContent">
                                @if($result_array->status->success == true && $result_array->status->httpStatus == 200 )
                                @if(isset($review->tripInfos))
                                @if(isset($result_array->tripSeatMap))
 
-
-                               @foreach($result_array->tripSeatMap->tripSeat as $key=>$value)
-                               {{-- {{ print_r($result_array->tripSeatMap->tripSeat) }} --}}
-                                            <?php
-                                                $row = $value->sData->row;
-                                                $column = $value->sData->column;
-                                            ?>
-
-                        <div class="tab-pane fade show " id="pills-home{{ $key }}" role="tabpanel" aria-labelledby="pills-home-tab">
+                               <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                                   <div class="hyderabad-booking">
                                     @foreach ($review->tripInfos as $k=>$v )
                                     @foreach ($v->sI as $k1=>$v1 )
@@ -322,9 +298,8 @@
 
                                     @endforeach
 
-                                  @endforeach
+                                  @endforeach($review->tripInfos)
                                 </div>
-
                                 <div class="row align-items-end">
                                      <div class="col-md-4">
 
@@ -341,13 +316,17 @@
                                         <!-- <img src="assets/img/flight-booking-img.png" class="img-fluid"> -->
                                         <img src="{{ 'assets/img/booking-front-crop.png' }}" class="img-fluid">
                                         <div class="flight-seats">
-
+                                            @foreach($result_array->tripSeatMap->tripSeat as $key=>$value)
+                                            <?php
+                                                $row = $value->sData->row;
+                                                $column = $value->sData->column;
+                                            ?>
 
 {{-- {{ print_r($value->sData->row) }} --}}
 @for($i=1;$i<=$row;$i++)
 
                                           <ul class="select-seat-ul">
-                                            <input type="hidden" name="seat_chrge" id="seat_chrge{{ $key }}" value="0">
+                                            <input type="hidden" name="seat_chrge" id="seat_chrge" value="0">
 
                                             <?php $sc =1;  ?>
                                             @foreach ($value->sInfo as $k=>$seat)
@@ -364,16 +343,16 @@
                                         }else{
                                             if(isset($seat->isLegroom)){
                                                 if(isset($seat->isAisle)){
-                                                echo '<li data-seat_code="'.$seat->code.'" id="seat'.$seat->code.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Aisle Seat | Extra Legroom Seat | '.$seat->amount.'">XL</li>';
+                                                echo '<li data-seat_code="'.$seat->code.'" id="seat'.$seat->code.'" onclick="seatSelection('."'$seat->code','$seat->amount'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Aisle Seat | Extra Legroom Seat | '.$seat->amount.'">XL</li>';
                                             }else{
-                                                echo '<li data-seat_code="'.$seat->code.'" id="seat'.$seat->code.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Extra Legroom seat | '.$seat->amount.'">XL</li>';
+                                                echo '<li data-seat_code="'.$seat->code.'" id="seat'.$seat->code.'" onclick="seatSelection('."'$seat->code','$seat->amount'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Extra Legroom seat | '.$seat->amount.'">XL</li>';
                                             }
                                             }
                                             else{
                                                 if(isset($seat->isAisle)){
-                                                echo '<li data-seat_code="'.$seat->code.'" id="seat'.$seat->code.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Aisle Seat | '.$seat->amount.'">'. $seat->seatNo.'</li>';
+                                                echo '<li data-seat_code="'.$seat->code.'" id="seat'.$seat->code.'" onclick="seatSelection('."'$seat->code','$seat->amount'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Aisle Seat | '.$seat->amount.'">'. $seat->seatNo.'</li>';
                                                 }else{
-                                                    echo '<li data-seat_code="'.$seat->code.'" id="seat'.$seat->code.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' | '.$seat->amount.'">'. $seat->seatNo.'</li>';
+                                                    echo '<li data-seat_code="'.$seat->code.'" id="seat'.$seat->code.'" onclick="seatSelection('."'$seat->code','$seat->amount'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' | '.$seat->amount.'">'. $seat->seatNo.'</li>';
                                                 }
                                             }
 
@@ -388,10 +367,13 @@
                                         @endfor
                                             @endforeach
 
+
+
+
                                           </ul>
 
                                           @endfor
-
+                                          @endforeach
 
 
                                         </div>
@@ -400,8 +382,6 @@
                                       </div>
                                     </div>
                                   </div>
-
-                                  @endforeach
                                   @endif
                                   @else
                                   <h4>{{ $review->errors[0]->errCode.' - '.$review->errors[0]->message }}</h4>
@@ -415,31 +395,34 @@
 
 
                              <!-- Meals tab -->
-                             @if(isset($review->tripInfos))
-                             @foreach ($review->tripInfos as $k=>$v )
 
-                                            @foreach ($v->sI as $k1=>$v1 )
-                                            @if(isset($v1->ssrInfo->MEAL))
-                               <div class="tab-pane fade" id="pills-profile{{ $v1->id }}" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                 {{-- <div class="carousel-indicators">
+                               <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+
+
+                                 <div class="carousel-indicators">
                                    <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
                                    <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
                                    <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
-                                 </div> --}}
-                                <div class="slider" id="demo">
+                                 </div>
+
+
+
+
+                                        <div class="slider" id="demo">
                                                          <div class="testimonials mb-8">
                                                            <label class="item" for="t-1">
-
+                                                            @if(isset($review->tripInfos))
                                                              <div class="mycard">
 
                                                                <div class="row align-items-center border-bottom">
                                                                  <div class="col-md-6 meals-border-left">
-                                                                    {{-- @foreach ($review->tripInfos as $k=>$v )
-                                    @foreach ($v->sI as $k1=>$v1 ) --}}
-                                                                   <h6>{{ $v1->id }}{{ $v1->da->city }} to {{  $v1->aa->city  }}</h6>
+                                                                    @foreach ($review->tripInfos as $k=>$v )
+                                    @foreach ($v->sI as $k1=>$v1 )
+                                                                   <h6>{{ $v1->da->city }} to {{  $v1->aa->city  }}</h6>
                                                                     {{-- <p>0 of 1 Meals Selected</p> --}}
-                                                                    {{-- @endforeach
-                                                                    @endforeach --}}
+                                                                    @endforeach
+                                                                    @endforeach
                                                                  </div>
 
                                                                  {{-- <div class="col-md-6 meals-input">
@@ -449,9 +432,11 @@
                                                                    <span>Non-Veg</span>
                                                                  </div> --}}
                                                                </div>
-
-                                                                {{-- @if(isset($v1->ssrInfo->MEAL)) --}}
+                                                               @foreach ($review->tripInfos as $k=>$v )
+                                                                @foreach ($v->sI as $k1=>$v1 )
+                                                                @if(isset($v1->ssrInfo->MEAL))
                                                                 @foreach ($v1->ssrInfo->MEAL as $k2=>$v2 )
+
                                                                <div class="row align-items-center meals-parent">
                                                                  <div class="col-md-2 ">
                                                                    <img src="assets/img/veg-curry1.png" class="img-fluid">
@@ -472,17 +457,22 @@
                                                                     ?>
                                                                     <input type="hidden" name="meal_amount" id="meal_amount" value="0">
 
-                                                                  <button data-meal_code="{{ $v2->code }}"  class="btn btn-add" id="meal_code{{ $v2->code }}{{ $v1->id }}" onclick="addMeals('{{ $v2->code }}','{{ $meal_amt }}','{{ $v1->id }}')">ADD</button>
+                                                                  <button data-meal_code="{{ $v2->code }}"  class="btn btn-add" id="meal_code{{ $v2->code }}" onclick="addMeals('{{ $v2->code }}','{{ $meal_amt }}')">ADD</button>
                                                                  </div>
                                                                </div>
 
                                                                @endforeach
-
+                                                               @endif
+                                                                    @endforeach
+                                                                    @endforeach
 
 
 
                                                              </div>
+                                                             @else
+                                  <h4>{{ $review->errors[0]->errCode.' - '.$review->errors[0]->message }}</h4>
 
+                                  @endif
                                                            </label>
 
                                                          </div>
@@ -491,14 +481,7 @@
                                                        </div>
 
                                            </div>
-                                           @endif
-                                           @endforeach
-                                           @endforeach
 
-                                           @else
-                                           <h4>{{ $review->errors[0]->errCode.' - '.$review->errors[0]->message }}</h4>
-
-                                           @endif
                                <!-- End of Meals tab -->
 
 
@@ -630,13 +613,13 @@
       </script>
 
       <script>
-            function seatSelection(code,seat_amt,flight_id){
+            function seatSelection(code,seat_amt){
                 // alert(code+' - '+amount)
                 var seat_selection = $('.seat-selected').length;
                 var seat_charge=0;
                 var selected_seat = $('.'+code).length;
                 var other_charge = $('#other_charges').val();
-                var seat_chrge = $('#seat_chrge'+flight_id).val();
+                var seat_chrge = $('#seat_chrge').val();
                 var ttl_price = $('#ttl_price').attr('data-ttl_price');
                 var no_of_passenger = $('#no_of_passenger').val();
                 $("#loader_div").show();
@@ -656,7 +639,7 @@
                     var ttl_seat_charge = parseFloat(seat_chrge)+parseFloat(seat_amt);
                 }
 
-                $('#seat_chrge'+flight_id).val(ttl_seat_charge);
+                $('#seat_chrge').val(ttl_seat_charge);
                 $('#other_charges').val(seat_charge);
                 var price = parseFloat(ttl_price)+parseFloat(seat_charge);
                 if(seat_charge >0){
@@ -697,7 +680,7 @@
                     $('.seat_amt').addClass('d-none');
                 }
 
-                $('#seat_chrge'+flight_id).val(ttl_seat_charge);
+                $('#seat_chrge').val(ttl_seat_charge);
                 $('#othercharges').html(seat_charge);
                 $('#seat_amt').html(ttl_seat_charge);
                 $('#ttl_price').html(price);
@@ -717,7 +700,7 @@
                     var ttl_seat_charge = parseFloat(seat_chrge)+parseFloat(seat_amt);
                 }
 
-                $('#seat_chrge'+flight_id).val(ttl_seat_charge);
+                $('#seat_chrge').val(ttl_seat_charge);
                 $('#other_charges').val(seat_charge);
                 var price = parseFloat(ttl_price)+parseFloat(seat_charge);
 
@@ -741,7 +724,7 @@
 
             }
 
-        function addMeals(code,meal_amt,flight_id){
+        function addMeals(code,meal_amt){
 
                 var selected_meals = $('.'+code).length;
                 var meal_selected_cnt = $('.meal-selected').length;
@@ -759,7 +742,7 @@
                         var seat_meal_charge = parseFloat(other_charge)+parseFloat(meal_amt);
 
 
-                    $('#meal_code'+code+flight_id).addClass('meal-selected '+code+' selected_meals'+meal_selected_cnt);
+                    $('#meal_code'+code).addClass('meal-selected '+code+' selected_meals'+meal_selected_cnt);
 
                     if(meal_amt > 0){
                         $('.othercharges').removeClass('d-none');
@@ -789,7 +772,7 @@
                     $('#ttl_price').html(price);
 
 
-                    $('#meal_code'+code+flight_id).removeClass(' meal-selected '+code+' selected_meals'+meal_selected_cnt);
+                    $('#meal_code'+code).removeClass(' meal-selected '+code+' selected_meals'+meal_selected_cnt);
 
                     if(seat_meal_charge > 0){
                         $('.othercharges').removeClass('d-none');
@@ -815,7 +798,7 @@
                         $('#ttl_price').html(price);
 
 
-                    $('#meal_code'+code+flight_id).removeClass(' meal-selected '+code+' selected_meals'+meal_selected_cnt);
+                    $('#meal_code'+code).removeClass(' meal-selected '+code+' selected_meals'+meal_selected_cnt);
 
                     if(seat_meal_charge > 0){
                         $('.othercharges').removeClass('d-none');

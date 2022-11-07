@@ -1015,31 +1015,6 @@
                         var country_code = $('#country_code').val();
 
 
-                        // $.ajax({
-                        //     url: "{{ route('passengerDetails') }}",
-                        //     type: "POST",
-                        //     data: {
-                        //         first_name: first_name,
-                        //         last_name: last_name,
-                        //         gender: gender,
-                        //         email: email,
-                        //         mobile: mobile,
-                        //         country_code: country_code,
-                        //         priceIds: priceIds,
-                        //         _token: _token,
-                        //     },
-                        //     beforeSend: function() {
-                        //         $('#overlay').fadeIn();
-                        //     },
-                        //     success: function(result) {
-                        //         // alert(result);
-                        //         console.log(result);
-
-                        //     },
-                        //     complete: function() {
-                        //         $('#overlay').fadeOut();
-                        //     }
-                        // });
 
                         for (i = 0; i < adult_count; i++) {
                             var html = `

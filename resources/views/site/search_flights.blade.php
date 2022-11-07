@@ -525,11 +525,11 @@
                                                                             echo '--';
                                                                         } ?></td>
                                                                         <td
-                                                                            id="cancellationRe{{ $value->sI[0]->id }}{{ $c++ }}">
+                                                                            class="cancellationRe{{ $value->sI[0]->id }}{{ $c++ }}">
                                                                             --
                                                                         </td>
                                                                         <td
-                                                                            id="dateChangeTextRe{{ $value->sI[0]->id }}{{ $d++ }}">
+                                                                            class="dateChangeTextRe{{ $value->sI[0]->id }}{{ $d++ }}">
                                                                             --
                                                                         </td>
                                                                     </tr>
@@ -543,7 +543,7 @@
                                             <div class="clearfix"></div>
                                         </div>
                                         <div class="modal-footer footer-btn">
-                                            <p><i class="fa-solid fa-indian-rupee-sign"></i> <span id="priceOnUp"></span>
+                                            <p><i class="fa-solid fa-indian-rupee-sign"></i> <span class="priceOnUp" id="priceOnUp"></span>
                                                 <br> <small> FOR 1 ADULT</small></p>
                                             <a id="reviewDetailsRoundTrip" href="">
                                                 <button type="submit" class="btn btn-book-now">Continue</button>
@@ -701,7 +701,7 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="modal-footer footer-btn d-none">
-                                        <p><i class="fa-solid fa-indian-rupee-sign"></i> <span id="priceOnUp"></span> <br>
+                                        <p><i class="fa-solid fa-indian-rupee-sign"></i> <span class="priceOnUp" id="priceOnUp"></span> <br>
                                             <small> FOR 1 ADULT</small></p>
                                         <button type="submit" class="btn btn-book-now">Continue</button>
                                     </div>
@@ -2735,7 +2735,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <a href="#" id="ViewPrice"
-                                        onclick="getFareRules({{ $key->sI[0]->id }}); getDownFareRules({{ $return->sI[0]->id }})"
+                                        onclick="getFareRules({{ $key->sI[0]->id }}); getDownFareRules({{ $return->sI[0]->id }}); viewPriceBook({{ $return->sI[0]->id }})"
                                         data-return_id="{{ $return->sI[0]->id }}" data-bs-toggle="modal"
                                         data-bs-target="#ViewPrice{{ $key->sI[0]->id }}"><button
                                             class="btn btn-primary">Book</button></a>
@@ -3232,12 +3232,14 @@
                                             .policyInfo;
                                         let myArray = cancellationText.replace(/__nls__/g, "<br>");
                                         $('#' + cancellationId).html(myArray);
+                                        $('.' + cancellationId).html(myArray);
                                     } else {
                                         let cancellationText = data.fareRule[k].fr.CANCELLATION
                                             .BEFORE_DEPARTURE
                                             .policyInfo;
                                         let myArray = cancellationText.replace(/__nls__/g, "<br>");
                                         $('#' + cancellationId).html(myArray);
+                                        $('.' + cancellationId).html(myArray);
                                     }
                                 }
 
@@ -3247,6 +3249,7 @@
                                             .policyInfo;
                                         let dateDisplay = dateChangeText.replace(/__nls__/g, "<br>");
                                         $('#' + dateChangeId).html(dateDisplay);
+                                        $('.' + dateChangeId).html(dateDisplay);
 
                                     } else {
                                         let dateChangeText = data.fareRule[k].fr.DATECHANGE
@@ -3254,6 +3257,7 @@
                                             .policyInfo;
                                         let dateDisplay = dateChangeText.replace(/__nls__/g, "<br>");
                                         $('#' + dateChangeId).html(dateDisplay);
+                                        $('.' + dateChangeId).html(dateDisplay);
                                     }
 
                                 }
@@ -3262,6 +3266,7 @@
                                     let seatCharge = data.fareRule[k].fr.SEAT_CHARGEABLE.DEFAULT
                                         .policyInfo;
                                     $('#' + seatChargeId).html(seatCharge);
+                                    $('.' + seatChargeId).html(seatCharge);
                                 }
 
 
@@ -3275,6 +3280,15 @@
             }
 
         }
+        function viewPriceBook(id){
+                // alert('asd'+id);
+                $("#loader_div").show();
+                $('.showFare').hide();
+                $('.showFare' + id).show();
+                setTimeout(function() {
+                    $("#loader_div").hide();
+                }, 1000);
+            }
 
         $(document).ready(function() {
             $('.oneWayFromTo').click(function() {
@@ -3321,8 +3335,9 @@
                 $('#f_on_price').html(f_on_price);
                 $('#f_on_logo').attr('src', f_on_logo);
                 $('#ViewPrice').attr('data-bs-target', '#ViewPrice' + flight_up_id);
+                $('#ViewPrice').attr('data-return_id',  downFarePrice);
                 $('#ViewPrice').attr('onclick', 'getFareRules(' + flight_up_id + '); getDownFareRules(' +
-                    downFarePrice + ')');
+                    downFarePrice + '); viewPriceBook('+downFarePrice+')');
 
                 $('#total_fare').html(Math.round(retripPrice) + Math.round(ontripPrice))
 
@@ -3332,12 +3347,18 @@
 
             })
 
-            $('#ViewPrice').click(function() {
 
-                var id = $(this).data('return_id');
-                //   alert('asd');
-                $('.showFare' + id).show();
-            })
+
+            // $('#ViewPrice').click(function() {
+            //     $("#loader_div").show();
+            //     // $('.showFare').hide();
+            //     var id = $(this).data('return_id');
+            //     //   alert('asd'+id);
+            //     $('.showFare' + id).show();
+            //     setTimeout(function() {
+            //         $("#loader_div").hide();
+            //     }, 1000);
+            // })
 
 
             $('.roundToFrom').click(function() {
@@ -3374,7 +3395,8 @@
                 $('.showFare' + flight_down_id).show();
 
                 $('#ViewPrice').attr('onclick', 'getFareRules(' + upFarePrice + '); getDownFareRules(' +
-                    flight_down_id + ')');
+                    flight_down_id + '); viewPriceBook('+downFarePrice+')');
+                    $('#ViewPrice').attr('data-return_id',  flight_down_id);
 
 
                 setTimeout(function() {
@@ -3406,8 +3428,9 @@
         $("input[name='pKey']").click(function() {
             var onPrice = $("input[name='pKey']:checked").attr('data-onPrice');
             var downPrice = $("input[name='rKey']:checked").attr('data-downPrice');
-
+            // alert(downPrice+'=='+onPrice)
             $('#priceOnUp').html((parseFloat(onPrice) + parseFloat(downPrice)));
+            $('.priceOnUp').html((parseFloat(onPrice) + parseFloat(downPrice)));
 
             var pKey = $("input[name='pKey']:checked").val();
             var rKey = $("input[name='rKey']:checked").val();
@@ -3418,7 +3441,9 @@
         $("input[name='rKey']").click(function() {
             var onPrice = $("input[name='pKey']:checked").attr('data-onPrice');
             var downPrice = $("input[name='rKey']:checked").attr('data-downPrice');
-            $('#priceOnUp').html((parseFloat(onPrice) + parseFloat(downPrice)));
+            // alert(downPrice+'=='+onPrice)
+            $('#priceOnUp').html(Math.round(parseFloat(onPrice) + parseFloat(downPrice)));
+            $('.priceOnUp').html(Math.round(parseFloat(onPrice) + parseFloat(downPrice)));
 
             var pKey = $("input[name='pKey']:checked").val();
             var rKey = $("input[name='rKey']:checked").val();

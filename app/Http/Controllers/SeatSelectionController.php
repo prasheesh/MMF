@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class SeatSelectionController extends Controller
 {
@@ -17,11 +18,9 @@ class SeatSelectionController extends Controller
         // dd($request->all());
         $uniqueTripPriceId = $request->bookingId;
 
-        $data = '{
-              "bookingId":"' . $uniqueTripPriceId . '"
-            }';
+        $data = '{"bookingId":"' . $uniqueTripPriceId . '"}';
 
-
+// dd($data);
         $method = "POST";
         $url = "https://apitest.tripjack.com/fms/v1/seat";
         $curl = curl_init();
@@ -58,9 +57,20 @@ class SeatSelectionController extends Controller
 
         $priceId = $request->pKey;
 // dd($priceId);
-        $data_review = '{
-            "priceIds" : ["'.$priceId.'"]
-          }';
+        // $data_review = '{
+        //     "priceIds" : ["'.$priceId.'"]
+        //   }';
+        $priceId_data = "";
+        $array_all = $request->all();
+        // dd($array_all);
+        $array_id = Arr::except($array_all, ['bookingId']);
+        // $array_id = unset($array_all[0]);
+
+       foreach($array_id as $k => $priceId){
+           $priceId_data = $priceId_data.'" , "'.$priceId;
+       }
+       $priceId_data =  ltrim($priceId_data,'" , "');
+       $data_review = '{"priceIds" : ["'.$priceId_data.'"]}';
 
         $method = "POST";
         $url = "https://apitest.tripjack.com//fms/v1/review";
@@ -130,9 +140,5 @@ class SeatSelectionController extends Controller
           }
     }
 
-    public function proceedToPay(Request $request){
-        // $data = $request->session()->all();
-        $data = $request->session()->get('first_name');
-        dd($data);
-    }
+
 }

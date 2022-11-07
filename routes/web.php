@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AirportDetailController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ConfirmBookingController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -64,4 +65,4 @@ Route::any('/forgot-pwd', [LoginController::class, 'forgotPassword'])->name('for
 
 Route::any('/get-airports', [AirportDetailController::class, 'getAirports'])->name('get-airports');
 
-Route::any('/proceed_to_pay',[SeatSelectionController::class, 'proceedToPay'])->name('proceed-to-pay');
+Route::any('/proceed_to_pay',[ConfirmBookingController::class, 'proceedToPay'])->name('proceed-to-pay');
