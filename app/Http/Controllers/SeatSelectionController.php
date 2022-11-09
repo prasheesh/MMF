@@ -131,12 +131,12 @@ class SeatSelectionController extends Controller
             // dd($isLegroom);
         }
 
-              return view('site/seat_selection',compact('result_array','isBookedtrue','isBookedfalse','isLegroom','review'));
+              return view('site/seat_selection',get_defined_vars()); //compact('result_array','isBookedtrue','isBookedfalse','isLegroom','review')
               // return $result_array;
           } else {
             $errors = $result_array->errors;
             $result_array = $result_array;
-            return view('site/seat_selection',compact('result_array','errors','review'));
+            return view('site/seat_selection',get_defined_vars()); //compact('result_array','errors','review')
           }
     }
 

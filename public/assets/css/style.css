@@ -2406,6 +2406,12 @@ color: #00b0d5;
     margin: 5px;
     border-radius: 5px;
 }
+.form-select{
+  background-color: #eeeeee;
+    height: 49px;
+    border: 0;
+    border-radius: 0;
+}
 
 
 

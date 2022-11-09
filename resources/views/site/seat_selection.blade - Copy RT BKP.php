@@ -347,7 +347,7 @@
 @for($i=1;$i<=$row;$i++)
 
                                           <ul class="select-seat-ul">
-                                            <input type="hidden" name="seat_chrge" id="seat_chrge" value="0">
+                                            <input type="hidden" name="seat_chrge" id="seat_chrge{{ $key }}" value="0">
 
                                             <?php $sc =1;  ?>
                                             @foreach ($value->sInfo as $k=>$seat)
@@ -364,16 +364,16 @@
                                         }else{
                                             if(isset($seat->isLegroom)){
                                                 if(isset($seat->isAisle)){
-                                                echo '<li data-seat_code="'.$seat->code.'" id="seat'.$seat->code.$key.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Aisle Seat | Extra Legroom Seat | '.$seat->amount.'">XL</li>';
+                                                echo '<li data-seat_code="'.$seat->code.'" id="seat'.$seat->code.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Aisle Seat | Extra Legroom Seat | '.$seat->amount.'">XL</li>';
                                             }else{
-                                                echo '<li data-seat_code="'.$seat->code.'" id="seat'.$seat->code.$key.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Extra Legroom seat | '.$seat->amount.'">XL</li>';
+                                                echo '<li data-seat_code="'.$seat->code.'" id="seat'.$seat->code.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Extra Legroom seat | '.$seat->amount.'">XL</li>';
                                             }
                                             }
                                             else{
                                                 if(isset($seat->isAisle)){
-                                                echo '<li data-seat_code="'.$seat->code.'" id="seat'.$seat->code.$key.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Aisle Seat | '.$seat->amount.'">'. $seat->seatNo.'</li>';
+                                                echo '<li data-seat_code="'.$seat->code.'" id="seat'.$seat->code.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Aisle Seat | '.$seat->amount.'">'. $seat->seatNo.'</li>';
                                                 }else{
-                                                    echo '<li data-seat_code="'.$seat->code.'" id="seat'.$seat->code.$key.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' | '.$seat->amount.'">'. $seat->seatNo.'</li>';
+                                                    echo '<li data-seat_code="'.$seat->code.'" id="seat'.$seat->code.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' | '.$seat->amount.'">'. $seat->seatNo.'</li>';
                                                 }
                                             }
 
@@ -519,10 +519,11 @@
 
             <div class="col-md-3 p-3 mt30 ">
                 @if($review->status->success == true && $review->status->httpStatus == 200 )
-                    @if(isset($review->tripInfos))
-                    <?php
-                        $adult = $review->searchQuery->paxInfo->ADULT
-                    ?>
+                               @if(isset($review->tripInfos))
+                               <?php
+                               $adult = $review->searchQuery->paxInfo->ADULT
+
+                               ?>
 
                 <div class="card">
                     <div class=" card-body card-shadow">
@@ -631,11 +632,11 @@
       <script>
             function seatSelection(code,seat_amt,flight_id){
                 // alert(code+' - '+amount)
-                var seat_selection = $('.seat-selected'+flight_id).length;
+                var seat_selection = $('.seat-selected').length;
                 var seat_charge=0;
-                var selected_seat = $('.'+code+flight_id).length;
+                var selected_seat = $('.'+code).length;
                 var other_charge = $('#other_charges').val();
-                var seat_chrge = $('#seat_chrge').val();
+                var seat_chrge = $('#seat_chrge'+flight_id).val();
                 var ttl_price = $('#ttl_price').attr('data-ttl_price');
                 var no_of_passenger = $('#no_of_passenger').val();
                 $("#loader_div").show();
@@ -655,8 +656,7 @@
                     var ttl_seat_charge = parseFloat(seat_chrge)+parseFloat(seat_amt);
                 }
 
-
-                $('#seat_chrge').val(ttl_seat_charge);
+                $('#seat_chrge'+flight_id).val(ttl_seat_charge);
                 $('#other_charges').val(seat_charge);
                 var price = parseFloat(ttl_price)+parseFloat(seat_charge);
                 if(seat_charge >0){
@@ -670,7 +670,7 @@
                 $('#othercharges').html(seat_charge);
                 $('#seat_amt').html(ttl_seat_charge);
                 $('#ttl_price').html(price);
-                $("#seat"+code+flight_id).addClass('seat-selected seat-selected'+flight_id+' '+ code+flight_id+' selected'+seat_selection);
+                $("#seat"+code).addClass('seat-selected '+ code+' selected'+seat_selection);
                 // alert(count)
             }else{
                 setTimeout(function() {
@@ -697,12 +697,11 @@
                     $('.seat_amt').addClass('d-none');
                 }
 
-                $('#seat_chrge').val(ttl_seat_charge);
+                $('#seat_chrge'+flight_id).val(ttl_seat_charge);
                 $('#othercharges').html(seat_charge);
                 $('#seat_amt').html(ttl_seat_charge);
                 $('#ttl_price').html(price);
-                $("#seat"+code+flight_id).removeClass('seat-selected seat-selected'+flight_id+' '+ code+flight_id+' selected'+seat_selection);
-
+                $("#seat"+code).removeClass('seat-selected '+code+' selected'+seat_selection);
             }
         }else{
             setTimeout(function() {
@@ -718,7 +717,7 @@
                     var ttl_seat_charge = parseFloat(seat_chrge)+parseFloat(seat_amt);
                 }
 
-                $('#seat_chrge').val(ttl_seat_charge);
+                $('#seat_chrge'+flight_id).val(ttl_seat_charge);
                 $('#other_charges').val(seat_charge);
                 var price = parseFloat(ttl_price)+parseFloat(seat_charge);
 
@@ -733,8 +732,7 @@
                 $('#othercharges').html(seat_charge);
                 $('#seat_amt').html(ttl_seat_charge);
                 $('#ttl_price').html(price);
-                $("#seat"+code+flight_id).removeClass('seat-selected seat-selected'+flight_id+' '+ code+flight_id+' selected'+seat_selection);
-
+                $("#seat"+code).removeClass('seat-selected '+code+' selected'+seat_selection);
             }else{
                 alert('Seats are selected, remove to select another.');
             }
@@ -745,8 +743,8 @@
 
         function addMeals(code,meal_amt,flight_id){
 
-                var selected_meals = $('.'+code+flight_id).length;
-                var meal_selected_cnt = $('.meal-selected'+flight_id).length;
+                var selected_meals = $('.'+code).length;
+                var meal_selected_cnt = $('.meal-selected').length;
                 var no_of_passenger = $('#no_of_passenger').val();
 
                 var ttl_price = $('#ttl_price').attr('data-ttl_price');
@@ -761,7 +759,7 @@
                         var seat_meal_charge = parseFloat(other_charge)+parseFloat(meal_amt);
 
 
-                    $('#meal_code'+code+flight_id).addClass('meal-selected meal-selected'+flight_id+' '+code+flight_id+' selected_meals'+meal_selected_cnt);
+                    $('#meal_code'+code+flight_id).addClass('meal-selected '+code+' selected_meals'+meal_selected_cnt);
 
                     if(meal_amt > 0){
                         $('.othercharges').removeClass('d-none');
@@ -791,8 +789,7 @@
                     $('#ttl_price').html(price);
 
 
-                    // $('#meal_code'+code+flight_id).removeClass(' meal-selected '+code+' selected_meals'+meal_selected_cnt);
-                    $('#meal_code'+code+flight_id).removeClass('meal-selected meal-selected'+flight_id+' '+code+flight_id+' selected_meals'+meal_selected_cnt);
+                    $('#meal_code'+code+flight_id).removeClass(' meal-selected '+code+' selected_meals'+meal_selected_cnt);
 
                     if(seat_meal_charge > 0){
                         $('.othercharges').removeClass('d-none');
@@ -818,7 +815,7 @@
                         $('#ttl_price').html(price);
 
 
-                        $('#meal_code'+code+flight_id).removeClass('meal-selected meal-selected'+flight_id+' '+code+flight_id+' selected_meals'+meal_selected_cnt);
+                    $('#meal_code'+code+flight_id).removeClass(' meal-selected '+code+' selected_meals'+meal_selected_cnt);
 
                     if(seat_meal_charge > 0){
                         $('.othercharges').removeClass('d-none');

@@ -120,10 +120,13 @@ class ReviewBookingController extends Controller
     // }
     public function passengerDetails(Request $request)
     {
-
+// dd($request->all());
        $first_name = $request->first_name;
        $last_name = $request->last_name;
        $gender = $request->gender;
+       $passport_no = $request->passport_no;
+       $passport_country_code = $request->passport_country_code;
+       $passport_expiry_date = $request->passport_expiry_date;
        $email = $request->email;
        $mobile = $request->mobile;
        $country_code = $request->country_code;
@@ -135,6 +138,9 @@ class ReviewBookingController extends Controller
        Session::put('first_name', $first_name);
        Session::put('last_name', $last_name);
        Session::put('gender', $gender);
+       Session::put('passport_no', $passport_no);
+       Session::put('passport_country_code', $passport_country_code);
+       Session::put('passport_expiry_date', $passport_expiry_date);
        Session::put('email', $email);
        Session::put('mobile', $mobile);
        Session::put('country_code', $country_code);

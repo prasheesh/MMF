@@ -658,21 +658,22 @@
                                 <div class="row first-inputname ">
                                     <p id="overflow" style="color: red"></p>
 
+
                                     <div class="col-md-4">
-                                        <div class="form-group">
+                                        <div class="form-group mb-3">
                                             <input type="text" name="firstname[]" class="form-control"
                                                 placeholder="First and middle name" required="true">
                                         </div>
 
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="form-group">
+                                        <div class="form-group mb-3">
                                             <input type="text" name="lastname[]" class="form-control"
                                                 placeholder="Last name" required="true">
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
                                             <select name="gender[]" class="form-select" placeholder="Gender"
                                                 required="true">
                                                 <option value=""> Gender</option>
@@ -681,6 +682,39 @@
                                             </select>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-4 ">
+                                        <div class="form-group mb-3">
+                                            <input type="text" name="passport_no[]" class="form-control"
+                                                placeholder="Passport No" required="true">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4 ">
+                                        <div class="form-group mb-3">
+                                            <select name="passport_country_code[]" class="form-control" placeholder="Passport Issuing Country"
+                                                required="true">
+                                                <option value="">Select Passport Issuing Country</option>
+                                                @foreach ($countries as $country)
+                                                    <option value="{{ $country->iso }}">{{ $country->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            {{-- <select name="" class="form-select " placeholder="Passport Issuing Country"
+                                            required="">
+                                              <option value=""> Passport Issuing Country</option>
+                                           </select> --}}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <input type="date" name="passport_expiry_date[]" class="form-control"
+                                                placeholder="Passport Expiry Date" required="true">
+                                        </div>
+                                    </div>
+
+
                                     {{-- <div class="col-md-2  ">
               <div class="form-check" role="group" aria-label="Basic outlined example">
                 <input class="form-check-input " type="radio" id="Gender"  name="gender[0]"  value="Male" required="true">Male
@@ -701,8 +735,8 @@
                                             <select name="country_code" class="form-control" placeholder="Gender"
                                                 required="true">
                                                 <option value="">Select country</option>
-                                                @foreach ($countries as $countries)
-                                                    <option value="{{ $countries->phonecode }}">{{ $countries->name }}
+                                                @foreach ($countries as $country)
+                                                    <option value="{{ $country->phonecode }}">{{ $country->name }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -919,18 +953,18 @@
                 var html = `
                          <div class="row first-inputname newrow" id="newrow${count_new}">
                             <div class="col-md-4">
-                              <div class="form-group">
+                              <div class="form-group mb-3">
                                 <input type="text" name="firstname[]" class="form-control" placeholder="First and middle name" required="true">
                               </div>
                           </div>
                           <div class="col-md-4">
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                               <input type="text" name="lastname[]" class="form-control" placeholder="Last name" required="true">
                             </div>
                           </div>
 
-                          <div class="col-md-2">
-                            <div class="form-group">
+                          <div class="col-md-4">
+                            <div class="form-group mb-3">
                             <select name="gender[]" class="form-select" placeholder="Gender" required="true">
                               <option value=""> Gender</option>
                               <option value="male">male</option>
@@ -938,6 +972,37 @@
                             </select>
                             </div>
                           </div>
+
+                          <div class="col-md-4 ">
+                                        <div class="form-group mb-3">
+                                            <input type="text" name="passport_no[]" class="form-control"
+                                                placeholder="Passport No" required="true">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4 ">
+                                        <div class="form-group mb-3">
+                                            <select name="passport_country_code[]" class="form-control" placeholder="Passport Issuing Country"
+                                                required="true">
+                                                <option value="">Select Passport Issuing Country</option>
+                                                @foreach ($countries as $country)
+                                                    <option value="{{ $country->iso }}">{{ $country->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <input type="date" name="passport_expiry_date[]" class="form-control"
+                                                placeholder="Passport Expiry Date" required="true">
+                                        </div>
+                                    </div>
+
+
+
                           <div class="col-md-2 text-end ">
                             <div class="btn-group btn-grp" role="group" aria-label="Basic outlined example">
                                 <button type="button" class="plus-bg bg-danger" onclick="remove(${count_new})">
@@ -1072,6 +1137,15 @@
                 var gender = $("select[name='gender[]']").map(function() {
                     return $(this).val();
                 }).get();
+                var passport_no = $("input[name='passport_no[]']").map(function() {
+                    return $(this).val();
+                }).get();
+                var passport_country_code = $("select[name='passport_country_code[]']").map(function() {
+                    return $(this).val();
+                }).get();
+                var passport_expiry_date = $("input[name='passport_expiry_date[]']").map(function() {
+                    return $(this).val();
+                }).get();
                 var _token = '<?php echo csrf_token(); ?>';
 
                 var mobile = $('#mobile').val();
@@ -1088,6 +1162,9 @@
                         first_name: first_name,
                         last_name: last_name,
                         gender: gender,
+                        passport_no:passport_no,
+                        passport_country_code:passport_country_code,
+                        passport_expiry_date:passport_expiry_date,
                         email: email,
                         mobile: mobile,
                         country_code: country_code,

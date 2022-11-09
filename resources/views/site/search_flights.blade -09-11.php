@@ -701,7 +701,7 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="modal-footer footer-btn d-none">
-                                        <p><i class="fa-solid fa-indian-rupee-sign"></i> <span id="priceOnUp"></span> <br>
+                                        <p><i class="fa-solid fa-indian-rupee-sign"></i> <span class="priceOnUp" id="priceOnUp"></span> <br>
                                             <small> FOR 1 ADULT</small></p>
                                         <button type="submit" class="btn btn-book-now">Continue</button>
                                     </div>
@@ -726,7 +726,7 @@
 
                         <div class="airport-name-inner ">
                             <small class="inner-smaltext">Trip Type</small>
-                            <select name="tripType" id="trip_type" class="form-control bg-none p-0">
+                            <select name="tripType" id="trip_type" class="form-control">
                                 <option <?php if ($_GET['tripType'] == 'oneway') {
                                     echo 'selected';
                                 } ?> value="oneway">One Way Trip</option>
@@ -787,11 +787,11 @@
                                     <label>
                                         {{-- Departure --}}
                                         @if ($_GET['tripType'] != 'multi')
-                                            <input class="form-control" required autocomplete="off" id="flightBookingDepart"
+                                            <input required autocomplete="off" id="flightBookingDepart"
                                                 name="flightBookingDepart" placeholder="Please select..."
                                                 value="{{ $_GET['flightBookingDepart'] }}" />
                                         @else
-                                            <input class="form-control" required autocomplete="off" id="flightBookingDepart"
+                                            <input required autocomplete="off" id="flightBookingDepart"
                                                 name="flightBookingDepart" placeholder="Please select..."
                                                 value="" />
                                         @endif
@@ -816,7 +816,7 @@
                                             }
                                             ?>
                                             {{-- @if (!is_array($_GET['flightBookingDepart'])) --}}
-                                                <input class="form-control" required autocomplete="off" id="flightBookingReturn"
+                                                <input required autocomplete="off" id="flightBookingReturn"
                                                     name="flightBookingReturn" placeholder="Please select..."
                                                     value="{{ $return_date }}" />
 
@@ -930,7 +930,7 @@
                 </div>
 
                  {{-- mrunal --}}
-{{--       <div class="row" id="ShowMultipleCity">
+      {{-- <div class="row" id="ShowMultipleCity">
         <div class="row align-items-center newrow">
            <div class="col-md-2 " style="">
               <div class="airport-name-inner ">
@@ -1050,36 +1050,36 @@
               </div>
            </div>
            <span id="error_same2" style="color:red"></span>
-           {{--
-           <div class="col-md-2 ">
-              <button id="addCity1" onclick="clone_div()" type="button" class="btn btn-sm btn-primary">+ Add Another City</button>
-           </div>
-           --}}
-        <!--</div>-->
-        <!--<div class="col-md-2 ">-->
-        <!--   <button id="addCity1" onclick="clone_div()" type="button" class="btn btn-sm btn-primary">+ Add Another City</button>-->
-        <!--</div>-->
 
-    <!-- <div class="col-md-2 travellerData">-->
+          // <div class="col-md-2 ">
+           //   <button id="addCity1" onclick="clone_div()" type="button" class="btn btn-sm btn-primary">+ Add Another City</button>
+       //    </div>
 
-    <!--    <div class="airport-name-inner" data-bs-toggle="modal" data-bs-target="#exampleModal">-->
-    <!--        <input type="hidden" value="1" id="adultval" name="adultval" class="">-->
-    <!--        <input type="hidden" value="ECONOMY" name="travelClass" id="travelClass" class="">-->
-    <!--        <small class="inner-smaltext">Travellers & Class</small>-->
-    <!--        <span id="travelInfo">-->
-    <!--            <p><b>1 Adult</b></p>-->
-    <!--        </span>-->
-    <!--    </div>-->
-    <!--</div>-->
+        </div>
+        <div class="col-md-2 ">
+           <button id="addCity1" onclick="clone_div()" type="button" class="btn btn-sm btn-primary">+ Add Another City</button>
+        </div>
 
+     <div class="col-md-2 travellerData">
 
+        <div class="airport-name-inner" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <input type="hidden" value="1" id="adultval" name="adultval" class="">
+            <input type="hidden" value="ECONOMY" name="travelClass" id="travelClass" class="">
+            <small class="inner-smaltext">Travellers & Class</small>
+            <span id="travelInfo">
+                <p><b>1 Adult</b></p>
+            </span>
+        </div>
+    </div>
 
 
-    <!--<div class="col-md-2 ms-auto">-->
-    <!--    <button type="submit" class="btn btn-search-flights" id="searchFlightsButton">Search-->
-    <!--        Flights</button>-->
-    <!--</div>-->
-</div>
+
+
+    <div class="col-md-2 ms-auto">
+        <button type="submit" class="btn btn-search-flights" id="searchFlightsButton">Search
+            Flights</button>
+    </div>
+</div> --}}
 </div>
         </form>
     </section>
@@ -2336,7 +2336,7 @@
                                             <div class="multi-city d-flex justify-content-start">
                                                 <div class="nav nav-tabs " id="nav-tab" role="tablist">
                                                     @foreach ($result_array->searchResult->tripInfos as $key => $tis)
-                                                        <button class="nav-link mb-0  p-tb15 d-flex align-items-center <?php echo $key==0?'active':''; ?>"
+                                                        <button class="nav-link mb-0  p-tb15 d-flex align-items-center"
                                                             id="nav-home-tab" data-bs-toggle="tab"
                                                             data-bs-target="#ShowFlightDetails{{ $key }}"
                                                             type="button" role="tab"
@@ -2361,7 +2361,7 @@
                         @if ($result_array->status->success == true && $result_array->status->httpStatus == 200)
                             @if (isset($result_array->searchResult->tripInfos))
                                 @foreach ($result_array->searchResult->tripInfos as $key => $tis)
-                                    <div class="tab-pane fade show <?php echo $key==0?'active':''; ?> " id="ShowFlightDetails{{ $key }}"
+                                    <div class="tab-pane fade show " id="ShowFlightDetails{{ $key }}"
                                         role="tabpanel" aria-labelledby="nav-home-tab{{ $key }}">
                                         <div class="card mt-3 mb-3">
                                             <div class="card-body">
@@ -3266,7 +3266,7 @@
                                     let seatCharge = data.fareRule[k].fr.SEAT_CHARGEABLE.DEFAULT
                                         .policyInfo;
                                     $('#' + seatChargeId).html(seatCharge);
-                                     $('.' + seatChargeId).html(seatCharge);
+                                    $('.' + seatChargeId).html(seatCharge);
                                 }
 
 
@@ -3280,7 +3280,6 @@
             }
 
         }
-
         function viewPriceBook(id){
                 // alert('asd'+id);
                 $("#loader_div").show();
@@ -3338,7 +3337,7 @@
                 $('#ViewPrice').attr('data-bs-target', '#ViewPrice' + flight_up_id);
                 $('#ViewPrice').attr('data-return_id',  downFarePrice);
                 $('#ViewPrice').attr('onclick', 'getFareRules(' + flight_up_id + '); getDownFareRules(' +
-                    downFarePrice + ');  viewPriceBook('+downFarePrice+')');
+                    downFarePrice + '); viewPriceBook('+downFarePrice+')');
 
                 $('#total_fare').html(Math.round(retripPrice) + Math.round(ontripPrice))
 
@@ -3348,11 +3347,17 @@
 
             })
 
+
+
             // $('#ViewPrice').click(function() {
-            //     $('.showFare').hide();
+            //     $("#loader_div").show();
+            //     // $('.showFare').hide();
             //     var id = $(this).data('return_id');
-            //     //   alert('asd');
+            //     //   alert('asd'+id);
             //     $('.showFare' + id).show();
+            //     setTimeout(function() {
+            //         $("#loader_div").hide();
+            //     }, 1000);
             // })
 
 
@@ -3388,10 +3393,10 @@
                 $('#f_re_logo').attr('src', f_re_logo);
                 $('.showFare').hide();
                 $('.showFare' + flight_down_id).show();
-                $('#ViewPrice').attr('data-return_id',  downFarePrice);
 
                 $('#ViewPrice').attr('onclick', 'getFareRules(' + upFarePrice + '); getDownFareRules(' +
                     flight_down_id + '); viewPriceBook('+downFarePrice+')');
+                    $('#ViewPrice').attr('data-return_id',  flight_down_id);
 
 
                 setTimeout(function() {
@@ -3423,7 +3428,7 @@
         $("input[name='pKey']").click(function() {
             var onPrice = $("input[name='pKey']:checked").attr('data-onPrice');
             var downPrice = $("input[name='rKey']:checked").attr('data-downPrice');
-
+            // alert(downPrice+'=='+onPrice)
             $('#priceOnUp').html((parseFloat(onPrice) + parseFloat(downPrice)));
             $('.priceOnUp').html((parseFloat(onPrice) + parseFloat(downPrice)));
 
@@ -3436,8 +3441,9 @@
         $("input[name='rKey']").click(function() {
             var onPrice = $("input[name='pKey']:checked").attr('data-onPrice');
             var downPrice = $("input[name='rKey']:checked").attr('data-downPrice');
-            $('#priceOnUp').html((parseFloat(onPrice) + parseFloat(downPrice)));
-            $('.priceOnUp').html((parseFloat(onPrice) + parseFloat(downPrice)));
+            // alert(downPrice+'=='+onPrice)
+            $('#priceOnUp').html(Math.round(parseFloat(onPrice) + parseFloat(downPrice)));
+            $('.priceOnUp').html(Math.round(parseFloat(onPrice) + parseFloat(downPrice)));
 
             var pKey = $("input[name='pKey']:checked").val();
             var rKey = $("input[name='rKey']:checked").val();
@@ -3448,9 +3454,12 @@
         $(".viewPriceForm").submit(function() {
             var pKey = $("input[name='pKey']:checked").val();
             var rKey = $("input[name='rKey']:checked").val();
+
             window.location.replace("{{ route('reviewDetails') }}?pKey="+pKey+"&rKey="+rKey+"");
             return false;
         })
+
+
     </script>
 {{-- //mrunal --}}
 <script>
@@ -3570,26 +3579,26 @@ $('.multitrip').click(function() {
 
    window.onload = function() {
     var trip_type = $("#trip_type").val();
-   if(trip_type == 'multi')
-       {
-        //  $("#ShowOnewayRound").hide();
-        //  $("#ShowMultipleCity").show();
-       }else{
-        //  $("#ShowOnewayRound").show();
-        //  $("#ShowMultipleCity").hide();
-       }
+//    if(trip_type == 'multi')
+//        {
+//          $("#ShowOnewayRound").hide();
+//          $("#ShowMultipleCity").show();
+//        }else{
+//          $("#ShowOnewayRound").show();
+//          $("#ShowMultipleCity").hide();
+//        }
    }
 
    $("#TripType").change(function(){
       var trip_type = $("#TripType").val();
-         if(trip_type == 'multi')
-         {
-            // $("#ShowMultipleCity").show();
-            // $("#ShowOnewayRound").hide();
-         }else{
-            // $("#ShowMultipleCity").hide();
-            // $("#ShowOnewayRound").show();
-         }
+        //  if(trip_type == 'multi')
+        //  {
+        //     $("#ShowMultipleCity").show();
+        //     $("#ShowOnewayRound").hide();
+        //  }else{
+        //     $("#ShowMultipleCity").hide();
+        //     $("#ShowOnewayRound").show();
+        //  }
    });
 
    $("#trip_type").change(function(){
@@ -3600,14 +3609,14 @@ $('.multitrip').click(function() {
        } else {
            $('#flightBookingReturn').prop('disabled', false);
        }
-       if(trip_type == 'multi')
-       {
-        //   $("#ShowMultipleCity").show();
-        //   $("#ShowOnewayRound").hide();
-      }else{
-        //   $("#ShowMultipleCity").hide();
-        //   $("#ShowOnewayRound").show();
-       }
+    //    if(trip_type == 'multi')
+    //    {
+    //        $("#ShowMultipleCity").show();
+    //        $("#ShowOnewayRound").hide();
+    //   }else{
+    //        $("#ShowMultipleCity").hide();
+    //        $("#ShowOnewayRound").show();
+    //    }
    });
 
 
