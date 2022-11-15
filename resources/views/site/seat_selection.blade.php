@@ -638,6 +638,7 @@
                 var seat_chrge = $('#seat_chrge').val();
                 var ttl_price = $('#ttl_price').attr('data-ttl_price');
                 var no_of_passenger = $('#no_of_passenger').val();
+                var all_seat_selected = $('.seat-selected').length;
                 $("#loader_div").show();
 
                 if(seat_selection < no_of_passenger){
@@ -670,7 +671,9 @@
                 $('#othercharges').html(seat_charge);
                 $('#seat_amt').html(ttl_seat_charge);
                 $('#ttl_price').html(price);
-                $("#seat"+code+flight_id).addClass('seat-selected seat-selected'+flight_id+' '+ code+flight_id+' selected'+seat_selection);
+                $("#seat"+code+flight_id).addClass('seat-selected seat-selected'+flight_id+' '+ code+flight_id+' selected'+all_seat_selected);
+                $("#seat"+code+flight_id).attr("data-seat_select_id",all_seat_selected);
+                $("#seat"+code+flight_id).append('<input type="hidden" name="seat_selected[]" data-flight_id="'+flight_id+'" value="'+code+'" />');
                 // alert(count)
             }else{
                 setTimeout(function() {
@@ -696,12 +699,16 @@
                     $('.othercharges').addClass('d-none');
                     $('.seat_amt').addClass('d-none');
                 }
+                var selected_seat_id  = $('.'+code+flight_id).data('seat_select_id');
+
+                // alert(selected_seat_id)
 
                 $('#seat_chrge').val(ttl_seat_charge);
                 $('#othercharges').html(seat_charge);
                 $('#seat_amt').html(ttl_seat_charge);
                 $('#ttl_price').html(price);
-                $("#seat"+code+flight_id).removeClass('seat-selected seat-selected'+flight_id+' '+ code+flight_id+' selected'+seat_selection);
+                $("#seat"+code+flight_id).removeClass('seat-selected seat-selected'+flight_id+' '+ code+flight_id+' selected'+selected_seat_id);
+                $("#seat"+code+flight_id+" input").remove();
 
             }
         }else{
@@ -729,11 +736,13 @@
                     $('.othercharges').addClass('d-none');
                     $('.seat_amt').addClass('d-none');
                 }
-
+                var selected_seat_id  = $('.'+code+flight_id).attr('data-seat_select_id');
+                // alert(selected_seat_id)
                 $('#othercharges').html(seat_charge);
                 $('#seat_amt').html(ttl_seat_charge);
                 $('#ttl_price').html(price);
-                $("#seat"+code+flight_id).removeClass('seat-selected seat-selected'+flight_id+' '+ code+flight_id+' selected'+seat_selection);
+                $("#seat"+code+flight_id).removeClass('seat-selected seat-selected'+flight_id+' '+ code+flight_id+' selected'+selected_seat_id);
+                $("#seat"+code+flight_id+" input").remove();
 
             }else{
                 alert('Seats are selected, remove to select another.');
@@ -762,6 +771,8 @@
 
 
                     $('#meal_code'+code+flight_id).addClass('meal-selected meal-selected'+flight_id+' '+code+flight_id+' selected_meals'+meal_selected_cnt);
+
+                    $("#meal_code"+code+flight_id).append('<input type="hidden" name="meal_selected[]"  value="'+code+'" />');
 
                     if(meal_amt > 0){
                         $('.othercharges').removeClass('d-none');
@@ -794,6 +805,8 @@
                     // $('#meal_code'+code+flight_id).removeClass(' meal-selected '+code+' selected_meals'+meal_selected_cnt);
                     $('#meal_code'+code+flight_id).removeClass('meal-selected meal-selected'+flight_id+' '+code+flight_id+' selected_meals'+meal_selected_cnt);
 
+                    $("#meal_code"+code+flight_id+" input").remove();
+
                     if(seat_meal_charge > 0){
                         $('.othercharges').removeClass('d-none');
                         $('.meal_amt').removeClass('d-none');
@@ -819,6 +832,7 @@
 
 
                         $('#meal_code'+code+flight_id).removeClass('meal-selected meal-selected'+flight_id+' '+code+flight_id+' selected_meals'+meal_selected_cnt);
+                        $("#meal_code"+code+flight_id+" input").remove();
 
                     if(seat_meal_charge > 0){
                         $('.othercharges').removeClass('d-none');
@@ -842,23 +856,39 @@
                 $("#confirmBooking").click(function(){
 
                     var no_of_passenger = parseInt($('#no_of_passenger').val());
-                    var seat_selected = $(".seat-selected");
-                    var meal_selected = $('.meal-selected');
+                    // var seat_selected = $(".seat-selected");
+                    // var meal_selected = $('.meal-selected');
+
+                    var seats = $("input[name='seat_selected[]']")
+              .map(function(){
+                return $(this).val();}).get();
+
+                var val1=[];
+                    $('input[name="seat_selected[]"]').each(function() {
+                    val1.push({ name: 'seat_code', value: $(this).val(),flight_id:$(this).attr('data-flight_id') });
+                });
+
+
+              var meals = $("input[name='meal_selected[]']")
+              .map(function(){return $(this).val();}).get();
+
+            //   console.log(seats,meals);
+              console.log(val1);
 
                     // if(no_of_passenger == parseInt(seat_selected.length) && no_of_passenger== parseInt(meal_selected.length)){
+// alert(seat_selected.length);
+                    // var seats = [];
+                    // for(var i = 0; i < seat_selected.length; i++){
+                    //     var value = $('.selected'+i).data('seat_code');
+                    //     seats.push({ name: 'seat_code', value: value });
+                    // }
 
-                    var seats = [];
-                    for(var i = 0; i < seat_selected.length; i++){
-                        var value = $('.selected'+i).data('seat_code');
-                        seats.push({ name: 'seat_code', value: value });
-                    }
 
-
-                    var meals = [];
-                    for(var i = 0; i < meal_selected.length; i++){
-                        var value = $('.selected_meals'+i).data('meal_code');
-                        meals.push({ name: 'meal_code', value: value });
-                    }
+                    // var meals = [];
+                    // for(var i = 0; i < meal_selected.length; i++){
+                    //     var value = $('.selected_meals'+i).data('meal_code');
+                    //     meals.push({ name: 'meal_code', value: value });
+                    // }
                     // console.log(seats);
                     // console.log(meals);
 
@@ -872,7 +902,7 @@
                         'type' : 'post',
                         'url' : '{{ route('proceed-to-pay') }}',
                         'dataType' :'json',
-                        'data': {'seats':seats,'meals':meals,'bookingId':bookingId,'ttl_price':ttl_price,'_token':_token},
+                        'data': {'seats':val1,'meals':meals,'bookingId':bookingId,'ttl_price':ttl_price,'_token':_token},
                         success: function (data){
                             console.log(data);
                         }

@@ -22,10 +22,13 @@ class ConfirmBookingController extends Controller
         $email = $request->session()->get('email');
         $mobile = $request->session()->get('mobile');
         $priceIds = trim($request->session()->get('priceIds'),'pKey=');
+        $key_id = explode('&rKey=',$priceIds);
         $seats = $request->seats;
         $meals = $request->meals;
 
         // dd($priceIds);
+        // dd($key_id);
+        dd($seats);
         // dd($traveller_details);
         $data = '{
                         "bookingId": "'.$request->bookingId.'",
@@ -65,30 +68,39 @@ class ConfirmBookingController extends Controller
                             }
                             ]';
 
-                        if(is_array($meals)){
-                             $data .=  ',"ssrMealInfos":[
-                              {
-                                "key":"'.$priceIds.'",
-                                "code":"'.$meals[$i]['value'].'"
-                            }],';
-                        }
+                    if(is_array($meals)){
+                            $data .=  ',"ssrMealInfos":[';
 
-if(is_array($seats)){
+                            foreach($key_id as $k=> $k_val){
+
+                                $data .= '{
+                                    "key":"'.$k_val.'",
+                                    "code":"'.$meals[$k].'"
+                                }';
+
+                            }
+
+
+                    $data .= '],';
+                    }
+
+                    if(is_array($seats)){
                         $data .= '"ssrSeatInfos":[
                                 {
                                 "key":"'.$priceIds.'",
-                                "code":"'.$seats[$i]['value'].'"
+                                "code":"'.$seats[$i].'"
                             }]';
-                          }
+                    }
 
         $data .= '}';
 
                         if($i < (count($first_name))-1){
                         $data .= ',';
                         }
+
         }
 
-
+        // dd($data);
                     $data .= '],
 
                     "deliveryInfo": {
