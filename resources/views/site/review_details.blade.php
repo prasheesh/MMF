@@ -50,6 +50,7 @@
     <!--Review Details modal -->
     <?php
     $priceIds = $_REQUEST;
+    // print_r(($priceIds)); exit();
     $priceIds=http_build_query($priceIds);
    // print_r($priceIds); exit;
    //$priceIds = "000";
@@ -732,7 +733,7 @@
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             {{-- <input type="text" name="country_code" class="form-control" placeholder="Country Code" id="country_code"> --}}
-                                            <select name="country_code" class="form-control" placeholder="Gender"
+                                            <select id="country_code" name="country_code" class="form-control" placeholder="Gender"
                                                 required="true">
                                                 <option value="">Select country</option>
                                                 @foreach ($countries as $country)

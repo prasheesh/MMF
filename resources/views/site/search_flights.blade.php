@@ -306,7 +306,7 @@
                                                         <p class="final-price"><b><i
                                                                     class="fa-solid fa-indian-rupee-sign"></i>{{ number_format($values->fd->ADULT->fC->NF) }}</b>
                                                         </p>
-                                                        <a href="{{ route('reviewDetails') }}?pKey={{ $values->id }}">
+                                                        <a href="{{ route('reviewDetails') }}?pKey0={{ $values->id }}">
                                                             <button class="btn btn-book-now">Book Now</button> </a>
                                                     </td>
 
@@ -688,7 +688,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <a
-                                                                        href="{{ route('reviewDetails') }}?pKey={{ $values->id }}">
+                                                                        href="{{ route('reviewDetails') }}?pKey0={{ $values->id }}">
                                                                         <button class="btn btn-book-now">Book Now</button>
                                                                     </a>
                                                                 </td>
@@ -2311,7 +2311,7 @@
                                                                                                             class="fa-solid fa-indian-rupee-sign"></i>{{ number_format($values->fd->ADULT->fC->NF) }}</b>
                                                                                                 </p>
                                                                                                 <a
-                                                                                                    href="{{ route('reviewDetails') }}?pKey={{ $values->id }}">
+                                                                                                    href="{{ route('reviewDetails') }}?pKey0={{ $values->id }}">
                                                                                                     <button
                                                                                                         class="btn btn-book-now">Book
                                                                                                         Now</button> </a>
@@ -3448,7 +3448,7 @@
         $(".viewPriceForm").submit(function() {
             var pKey = $("input[name='pKey']:checked").val();
             var rKey = $("input[name='rKey']:checked").val();
-            window.location.replace("{{ route('reviewDetails') }}?pKey="+pKey+"&rKey="+rKey+"");
+            window.location.replace("{{ route('reviewDetails') }}?pKey0="+pKey+"&pKey1="+rKey+"");
             return false;
         })
     </script>

@@ -247,6 +247,24 @@
 
 @section('content')
 
+<?php
+$priceIds = $_REQUEST;
+// print_r(($priceIds)); exit();
+$priceIds=http_build_query($priceIds);
+$keyIds = explode('&',$priceIds);
+foreach ($keyIds as $key => $val){
+            $priceIdss[] = substr($val,6);  //pkey1= by default removing 6 str
+        }
+        array_pop($priceIdss);
+        $segment_key = $priceIdss;
+
+        // dd(count($segment_key));
+    //   dd($segment_key);
+
+?>
+
+<input type="hidden" name="no_of_passenger" id="no_of_passenger" value="{{ count($request->session()->get('first_name')) }}">
+
     <section class="">
         <div id="loader_div" class="loader_div"></div>
         <div class="bg-grey" style="height: 300px; margin-bottom: -270px;"></div>
@@ -265,7 +283,7 @@
                             @if($result_array->status->success == true && $result_array->status->httpStatus == 200 )
                             @if(isset($review->tripInfos))
                             @if(isset($result_array->tripSeatMap))
-                               <input type="hidden" name="no_of_passenger" id="no_of_passenger" value="{{ $review->searchQuery->paxInfo->ADULT }}">
+
 
 
 @foreach ($result_array->tripSeatMap->tripSeat as $k =>$v )
@@ -303,7 +321,7 @@
                                @if(isset($review->tripInfos))
                                @if(isset($result_array->tripSeatMap))
 
-
+<?php   $segment_index = 0; ?>
                                @foreach($result_array->tripSeatMap->tripSeat as $key=>$value)
                                {{-- {{ print_r($result_array->tripSeatMap->tripSeat) }} --}}
                                             <?php
@@ -313,6 +331,7 @@
 
                         <div class="tab-pane fade show " id="pills-home{{ $key }}" role="tabpanel" aria-labelledby="pills-home-tab">
                                   <div class="hyderabad-booking">
+
                                     @foreach ($review->tripInfos as $k=>$v )
                                     @foreach ($v->sI as $k1=>$v1 )
                                     {{-- {{ print_r($v1); }} --}}
@@ -364,16 +383,16 @@
                                         }else{
                                             if(isset($seat->isLegroom)){
                                                 if(isset($seat->isAisle)){
-                                                echo '<li data-seat_code="'.$seat->code.'" id="seat'.$seat->code.$key.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Aisle Seat | Extra Legroom Seat | '.$seat->amount.'">XL</li>';
+                                                echo '<li data-segment_key="'.$segment_key[$segment_index].'" data-seat_code="'.$seat->code.'" id="seat'.$seat->code.$key.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Aisle Seat | Extra Legroom Seat | '.$seat->amount.'">XL</li>';
                                             }else{
-                                                echo '<li data-seat_code="'.$seat->code.'" id="seat'.$seat->code.$key.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Extra Legroom seat | '.$seat->amount.'">XL</li>';
+                                                echo '<li data-segment_key="'.$segment_key[$segment_index].'" data-seat_code="'.$seat->code.'" id="seat'.$seat->code.$key.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Extra Legroom seat | '.$seat->amount.'">XL</li>';
                                             }
                                             }
                                             else{
                                                 if(isset($seat->isAisle)){
-                                                echo '<li data-seat_code="'.$seat->code.'" id="seat'.$seat->code.$key.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Aisle Seat | '.$seat->amount.'">'. $seat->seatNo.'</li>';
+                                                echo '<li data-segment_key="'.$segment_key[$segment_index].'" data-seat_code="'.$seat->code.'" id="seat'.$seat->code.$key.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Aisle Seat | '.$seat->amount.'">'. $seat->seatNo.'</li>';
                                                 }else{
-                                                    echo '<li data-seat_code="'.$seat->code.'" id="seat'.$seat->code.$key.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' | '.$seat->amount.'">'. $seat->seatNo.'</li>';
+                                                    echo '<li data-segment_key="'.$segment_key[$segment_index].'" data-seat_code="'.$seat->code.'" id="seat'.$seat->code.$key.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' | '.$seat->amount.'">'. $seat->seatNo.'</li>';
                                                 }
                                             }
 
@@ -400,7 +419,11 @@
                                       </div>
                                     </div>
                                   </div>
-
+<?php
+    if(count($segment_key)>1){
+        $segment_index++;
+    }
+?>
                                   @endforeach
                                   @endif
                                   @else
@@ -416,6 +439,10 @@
 
                              <!-- Meals tab -->
                              @if(isset($review->tripInfos))
+
+                             <?php
+                             $segment_index = 0;
+                             ?>
                              @foreach ($review->tripInfos as $k=>$v )
 
                                             @foreach ($v->sI as $k1=>$v1 )
@@ -471,8 +498,8 @@
                                                                         }
                                                                     ?>
                                                                     <input type="hidden" name="meal_amount" id="meal_amount" value="0">
-
-                                                                  <button data-meal_code="{{ $v2->code }}"  class="btn btn-add" id="meal_code{{ $v2->code }}{{ $v1->id }}" onclick="addMeals('{{ $v2->code }}','{{ $meal_amt }}','{{ $v1->id }}')">ADD</button>
+{{-- {{ dd($segment_key, $k) }} --}}
+                                                                  <button data-segment_key="{{ $segment_key[$segment_index] }}" data-meal_code="{{ $v2->code }}"  class="btn btn-add" id="meal_code{{ $v2->code }}{{ $v1->id }}" onclick="addMeals('{{ $v2->code }}','{{ $meal_amt }}','{{ $v1->id }}')">ADD</button>
                                                                  </div>
                                                                </div>
 
@@ -492,6 +519,11 @@
 
                                            </div>
                                            @endif
+                                           <?php
+    if(count($segment_key)>1){
+        $segment_index++;
+    }
+?>
                                            @endforeach
                                            @endforeach
 
@@ -520,9 +552,9 @@
             <div class="col-md-3 p-3 mt30 ">
                 @if($review->status->success == true && $review->status->httpStatus == 200 )
                     @if(isset($review->tripInfos))
-                    <?php
+                    @php
                         $adult = $review->searchQuery->paxInfo->ADULT
-                    ?>
+                    @endphp
 
                 <div class="card">
                     <div class=" card-body card-shadow">
@@ -673,7 +705,8 @@
                 $('#ttl_price').html(price);
                 $("#seat"+code+flight_id).addClass('seat-selected seat-selected'+flight_id+' '+ code+flight_id+' selected'+all_seat_selected);
                 $("#seat"+code+flight_id).attr("data-seat_select_id",all_seat_selected);
-                $("#seat"+code+flight_id).append('<input type="hidden" name="seat_selected[]" data-flight_id="'+flight_id+'" value="'+code+'" />');
+               var segment_key=  $("#seat"+code+flight_id).attr("data-segment_key");
+                $("#seat"+code+flight_id).append('<input type="hidden" name="seat_selected[]" data-flight_id="'+flight_id+'" value="'+code+'" data-segment_key = "'+segment_key+'" />');
                 // alert(count)
             }else{
                 setTimeout(function() {
@@ -762,6 +795,7 @@
                 var other_charge = $('#other_charges').val();
                 var meal_amount = $('#meal_amount').val();
 
+
                 if(meal_selected_cnt <  no_of_passenger){
                     if(selected_meals == 0){
 
@@ -772,7 +806,9 @@
 
                     $('#meal_code'+code+flight_id).addClass('meal-selected meal-selected'+flight_id+' '+code+flight_id+' selected_meals'+meal_selected_cnt);
 
-                    $("#meal_code"+code+flight_id).append('<input type="hidden" name="meal_selected[]"  value="'+code+'" />');
+                    var segment_key=  $("#meal_code"+code+flight_id).attr("data-segment_key");
+
+                    $("#meal_code"+code+flight_id).append('<input type="hidden" name="meal_selected[]"  value="'+code+'" data-segment_key = "'+segment_key+'" data-flight_id="'+flight_id+'" />');
 
                     if(meal_amt > 0){
                         $('.othercharges').removeClass('d-none');
@@ -859,54 +895,34 @@
                     // var seat_selected = $(".seat-selected");
                     // var meal_selected = $('.meal-selected');
 
-                    var seats = $("input[name='seat_selected[]']")
-              .map(function(){
-                return $(this).val();}).get();
-
-                var val1=[];
+                var seats=[];
                     $('input[name="seat_selected[]"]').each(function() {
-                    val1.push({ name: 'seat_code', value: $(this).val(),flight_id:$(this).attr('data-flight_id') });
+                        seats.push({ name: 'seat_code', value: $(this).val(),flight_id:$(this).attr('data-flight_id'),segment_key:$(this).attr('data-segment_key') });
                 });
 
+                var meals=[];
+                    $('input[name="meal_selected[]"]').each(function() {
+                        meals.push({ name: 'meal_code', value: $(this).val(),flight_id:$(this).attr('data-flight_id'),segment_key:$(this).attr('data-segment_key') });
+                });
 
-              var meals = $("input[name='meal_selected[]']")
-              .map(function(){return $(this).val();}).get();
-
-            //   console.log(seats,meals);
-              console.log(val1);
-
-                    // if(no_of_passenger == parseInt(seat_selected.length) && no_of_passenger== parseInt(meal_selected.length)){
-// alert(seat_selected.length);
-                    // var seats = [];
-                    // for(var i = 0; i < seat_selected.length; i++){
-                    //     var value = $('.selected'+i).data('seat_code');
-                    //     seats.push({ name: 'seat_code', value: value });
-                    // }
-
-
-                    // var meals = [];
-                    // for(var i = 0; i < meal_selected.length; i++){
-                    //     var value = $('.selected_meals'+i).data('meal_code');
-                    //     meals.push({ name: 'meal_code', value: value });
-                    // }
-                    // console.log(seats);
-                    // console.log(meals);
+                console.log(meals.length, seats.length);
 
                     var bookingId = $('#bookingId').val();
                     var ttl_price = $('#ttl_price').data('ttl_price');
                     var _token = '<?php echo csrf_token(); ?>';
 
-
+    // if(pasreInt(meals.length) == no_of_passenger || pasreInt(seats.length) == no_of_passenger ){
 
                     $.ajax({
                         'type' : 'post',
                         'url' : '{{ route('proceed-to-pay') }}',
                         'dataType' :'json',
-                        'data': {'seats':val1,'meals':meals,'bookingId':bookingId,'ttl_price':ttl_price,'_token':_token},
+                        'data': {'seats':seats,'meals':meals,'bookingId':bookingId,'ttl_price':ttl_price,'_token':_token},
                         success: function (data){
                             console.log(data);
                         }
                     })
+
                 // }else{
                 //     alert('select all seats and meals')
                 // }

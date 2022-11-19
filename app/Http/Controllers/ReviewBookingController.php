@@ -121,6 +121,8 @@ class ReviewBookingController extends Controller
     public function passengerDetails(Request $request)
     {
 // dd($request->all());
+// $priceIds = explode('&',$request->priceIds);
+// dd($priceIds);
        $first_name = $request->first_name;
        $last_name = $request->last_name;
        $gender = $request->gender;
