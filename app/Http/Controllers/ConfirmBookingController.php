@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\BookingDetails;
 use App\Models\passengerDetail;
+use App\Models\PnrDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,7 +13,7 @@ class ConfirmBookingController extends Controller
 {
     public function __construct(Request $request)
     {
-        $this->api_key = '11193005ec7393-dd77-4f74-8f1a-417b714d8be1';
+        // $this->api_key = '11193005ec7393-dd77-4f74-8f1a-417b714d8be1';
     }
 
     public function proceedToPay(Request $request){
@@ -77,13 +78,16 @@ class ConfirmBookingController extends Controller
             $adults['pNat']=$passport_country_code[$i];
             $adults['pNum']=$passport_no[$i];
             $adults['eD']=$expiry_date;
-            // $adults['ssrBaggageInfos'] = array();
-            // foreach($priceIds as $v){
-            //     $ssrBaggageInfos['key']= $v;
-            //     $ssrBaggageInfos['code']= 'BAG';
-            // }
+            $adults['pid']='2022-01-05';
 
-            // array_push($adults['ssrBaggageInfos'],$ssrBaggageInfos);
+            $adults['ssrBaggageInfos'] = array();
+            foreach($priceIds as $v){
+                $ssrBaggageInfos['key']= $v;
+                $ssrBaggageInfos['code']= 'BAG01';
+                array_push($adults['ssrBaggageInfos'],$ssrBaggageInfos);
+            }
+
+
 
             if(is_array($meals)){
                 $adults['ssrMealInfos']=array();
@@ -116,7 +120,7 @@ class ConfirmBookingController extends Controller
         // dd(($req));
 
         $data = json_encode($req);
-
+// dd($data);
         $method = "POST";
         $url = "https://apitest.tripjack.com/oms/v1/air/book";
         $curl = curl_init();
@@ -133,7 +137,7 @@ class ConfirmBookingController extends Controller
         //OPtions:
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'apikey:' . $this->api_key,
+            'apikey:' . apikey(),
             'Content-Type:application/json',
         ));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -148,10 +152,10 @@ class ConfirmBookingController extends Controller
 
        $res =  json_decode($result);
         // print_r($res->status->success);exit;
-
+// dd($res);
 
         //booking details
-        if(isset($res->status->success)){
+    if(isset($res->status->success)){
 
             $req_data =array();
             $req_data['bookingId']= $request->bookingId;
@@ -174,7 +178,7 @@ class ConfirmBookingController extends Controller
         //OPtions:
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'apikey:' . $this->api_key,
+            'apikey:' . apikey(),
             'Content-Type:application/json',
         ));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -195,55 +199,72 @@ class ConfirmBookingController extends Controller
         $amount = $booking_details->order->amount;
         $aborted_status = $booking_details->order->status;
             //  new booking();
-            // $booking = Booking::create([
-            //         'booking_id'=>$request->bookingId,
-            //         'users_id'=>Auth::id(),
-            //         'noofpassenger'=>$travellers_cnt,
-            //         'phone_country_code'=>$phone_country_code,
-            //         'phone_number'=>$mobile,
-            //         'email_id'=>$email,
-            //         'whatsup_status'=>$whatsup_status,
-            //         'amount'=>$amount,
-            //         'aborted_status'=>$aborted_status,
-            // ]);
+            $booking = Booking::create([
+                    'booking_id'=>$request->bookingId,
+                    'users_id'=>Auth::id(),
+                    'noofpassenger'=>$travellers_cnt,
+                    'phone_country_code'=>$phone_country_code,
+                    'phone_number'=>$mobile,
+                    'email_id'=>$email,
+                    'whatsup_status'=>$whatsup_status,
+                    'amount'=>$amount,
+                    'aborted_status'=>$aborted_status,
+            ]);
 
 // dd(count($booking_details->itemInfos->AIR->tripInfos));
 // dd($booking_details->itemInfos->AIR->travellerInfos);
 
          foreach($booking_details->itemInfos->AIR->travellerInfos as  $k=>$v){
-            $pnr_details = $v;
-            dd($pnr_details->pnrDetails);
+
+            // dd($pnr_details_key,$k);
             $fN = $v->fN;
             $lN = $v->lN;
             $gender_name = $v->ti;
-                    passengerDetail::create([
+             $passenger_details =       passengerDetail::create([
                         'booking_id'=>$booking->id,
-                        'pnr_details'=>$booking->id,
+
                         'first_name'=>$fN,
                         'last_name'=>$lN,
                         'gender_name'=>$gender_name,
-                        'passport_no'=>$passport_no,
-                        'passport_expiry_date'=>$passport_expiry_date,
-                        'passport_country_code'=>$passport_country_code,
+                        'passport_no'=>$passport_no[$k],
+                        'passport_expiry_date'=>$passport_expiry_date[$k],
+                        'passport_country_code'=>$passport_country_code[$k],
 
                     ]);
-         }
 
-exit;
+            $pnr_details = $v;
+            // dd($pnr_details->pnrDetails);
+            if(isset($pnr_details->pnrDetails)){
+            foreach($pnr_details->pnrDetails as $key => $val){
+                $pnr_details_val = $val;
+                $pnr_details_key = $key;
+                $pnr_details = PnrDetail::create([
+                    'booking_id'=>$booking->id,
+                    'passenger_detail_id'=>$passenger_details->id,
+                    'pnr_details'=>$pnr_details_val,
+                    'pnr_flight'=>$pnr_details_key,
+                ]);
+
+
+            }
+        }
+         }
+ // dd($pnr_details_val);
+// exit;
         foreach($booking_details->itemInfos->AIR->tripInfos as $key => $si){
 
-            foreach($si as $k => $v){
-                $flight_name = $v[0]->fD->aI->name;
-                $airport_name_from = $v[0]->da->name;
-                $airport_city_from = $v[0]->da->city;
-                $airport_country_from = $v[0]->da->country;
-                $flight_departure = $v[0]->dt;
+            foreach($si->sI as $k => $v){
+                $flight_name = $v->fD->aI->name;
+                $airport_name_from = $v->da->name;
+                $airport_city_from = $v->da->city;
+                $airport_country_from = $v->da->country;
+                $flight_departure = $v->dt;
 
 
-                $airport_name_to = $v[0]->aa->name;
-                $airport_city_to = $v[0]->aa->city;
-                $airport_country_to = $v[0]->aa->country;
-                $flight_arrival = $v[0]->at;
+                $airport_name_to = $v->aa->name;
+                $airport_city_to = $v->aa->city;
+                $airport_country_to = $v->aa->country;
+                $flight_arrival = $v->at;
                 // print_r($v[0]->da->city);
                 // print_r($v[$key]);
 

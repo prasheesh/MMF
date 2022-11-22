@@ -9,7 +9,7 @@ class SeatSelectionController extends Controller
 {
     public function __construct(Request $request)
     {
-        $this->api_key = '11193005ec7393-dd77-4f74-8f1a-417b714d8be1';
+        
     }
 
     public function seatSelection(Request $request)
@@ -37,7 +37,7 @@ class SeatSelectionController extends Controller
         //OPtions:
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'apikey:' . $this->api_key,
+            'apikey:' . apikey(),
             'Content-Type:application/json',
         ));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -88,7 +88,7 @@ class SeatSelectionController extends Controller
         //OPtions:
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'apikey:'.$this->api_key,
+            'apikey:'.apikey(),
             'Content-Type:application/json',
         ));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);

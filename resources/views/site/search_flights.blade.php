@@ -274,7 +274,14 @@
                                                             Fare offered by airline.
                                                         </p>
                                                     </td>
-                                                    <td>{{ $values->fd->ADULT->bI->cB }}</td>
+                                                <td>
+                                                    @if(isset($values->fd->ADULT->bI->cB))
+                                                    {{ $values->fd->ADULT->bI->cB }}
+                                                    @else
+                                                    {{-- {{ $values->fd->ADULT->cB }} --}}
+                                                    --
+                                                    @endif
+                                                </td>
                                                     <td><?php if (isset($values->fd->ADULT->bI->iB)) {
                                                         echo $values->fd->ADULT->bI->iB;
                                                     } else {
@@ -418,7 +425,12 @@
                                                                     <td><i class="fa-solid fa-indian-rupee-sign"></i>
                                                                         {{ number_format($values->fd->ADULT->fC->NF) }}
                                                                     </td>
-                                                                    <td>{{ $values->fd->ADULT->bI->cB }}</td>
+                                                                    @if(isset($values->fd->ADULT->bI->cB))
+                                                                    {{ $values->fd->ADULT->bI->cB }}
+                                                                    @else
+                                                                    {{-- {{ $values->fd->ADULT->cB }} --}}
+                                                                    --
+                                                                    @endif
                                                                     <td><?php if (isset($values->fd->ADULT->bI->iB)) {
                                                                         echo $values->fd->ADULT->bI->iB;
                                                                     } else {
@@ -518,7 +530,12 @@
                                                                         <td><i class="fa-solid fa-indian-rupee-sign"></i>
                                                                             {{ number_format($values->fd->ADULT->fC->NF) }}
                                                                         </td>
-                                                                        <td>{{ $values->fd->ADULT->bI->cB }}</td>
+                                                                        @if(isset($values->fd->ADULT->bI->cB))
+                                                                        {{ $values->fd->ADULT->bI->cB }}
+                                                                        @else
+                                                                        {{-- {{ $values->fd->ADULT->cB }} --}}
+                                                                        --
+                                                                        @endif
                                                                         <td><?php if (isset($values->fd->ADULT->bI->iB)) {
                                                                             echo $values->fd->ADULT->bI->iB;
                                                                         } else {
@@ -1332,7 +1349,7 @@
 
                                             <th>Sorted By: </th>
                                             <th>Departure</th>
-                                            <th>Duration</th>
+                                            <th style="text-align: center;">Duration</th>
                                             <th>Arrival</th>
                                             <th>Price</th>
 
@@ -1351,10 +1368,9 @@
                                                 ?>
 
                                                 @foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $value)
-                                                    {{-- {{ print_r($value->totalPriceList[0]->fd->ADULT) }} --}}
-                                                    {{-- {{  $key.'<<<=>>>>'.print_r($value->totalPriceList[0]) }} --}}
 
-
+                                                <?php  $count = count($value->sI) ; ?>
+                                                    {{-- @foreach ($value->sI as $k=>$v ) --}}
 
                                                     <tr>
                                                         <td style="width:25%">
@@ -1387,30 +1403,48 @@
                                                                 </p>
                                                             </div>
                                                         </td>
-                                                        <td style="width:25%">
+                                                        <td style="width:25%"; align="center">
                                                             <div>
                                                                 <p class="flight-number"><span class="brdr-btm-time">
-                                                                        @if ($value->sI[0]->stops == '0')
+                                                                        @if (count($value->sI) == '1')
                                                                             NON-STOP
                                                                         @else
-                                                                            {{ $value->sI[0]->stops }} Stops
+                                                                            {{ count($value->sI)-1 }} Stops
+
                                                                         @endif
 
                                                                     </span></p>
+
                                                                 <?php
-                                                                $minutes = $value->sI[0]->duration;
+                                                                if (count($value->sI) != '1'){
+                                                                    $minutes = $value->sI[0]->duration+$value->sI[$count -1]->duration+$value->sI[0]->cT;
+                                                                }else{
+                                                                    $minutes = $value->sI[0]->duration;
+                                                                }
+
                                                                 $hours = intdiv($minutes, 60) . ' h ' . $minutes % 60 . ' m';
                                                                 ?>
 
                                                                 <p class="flight-brand">{{ $hours }} </p>
+                                                                @if (count($value->sI) != '1')
+                                                                <?php
+                                                                        $connecting_time = $value->sI[0]->cT;
+                                                                        $connect_hours = intdiv($connecting_time, 60) . ' h ' . $connecting_time % 60 . ' m';
+                                                                ?>
+                                                                <small data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  {{ $value->sI[0]->aa->city }} | {{ $connect_hours }} Layover">
+
+
+                                                                    via {{ $value->sI[0]->aa->city }}
+                                                                </small>
+                                                                @endif
                                                             </div>
                                                         </td>
                                                         <td style="width:15%">
                                                             <div>
-                                                                <p class="flight-number">{{ $value->sI[0]->aa->city }}
+                                                                <p class="flight-number">{{ $value->sI[$count -1]->aa->city }}
                                                                 </p>
                                                                 <p class="flight-brand">
-                                                                    {{ date('H:m', strtotime($value->sI[0]->at)) }}
+                                                                    {{ date('H:m', strtotime($value->sI[$count -1]->at)) }}
                                                                 </p>
                                                             </div>
                                                         </td>
@@ -1432,6 +1466,9 @@
                                                             </div>
                                                         </td>
                                                     </tr>
+                                                    {{-- @endforeach --}}
+
+
                                                 @endforeach
                                             @else
                                                 {{-- {{ print_r($errors) }} --}}
@@ -1734,12 +1771,12 @@
                                                                                 <li class="col-md-4 text-center">
                                                                                     <div>
                                                                                         <small><span class="brdr-btm-time">
-                                                                                                @if ($value->sI[$key]->stops == '0')
-                                                                                                    NON-STOP
-                                                                                                @else
-                                                                                                    {{ $value->sI[$key]->stops }}
-                                                                                                    Stops
-                                                                                                @endif
+                                                                                            @if (count($value->sI) == '1')
+                                                                                            NON-STOP
+                                                                                        @else
+                                                                                            {{ count($value->sI)-1 }} Stops
+
+                                                                                        @endif
                                                                                             </span></small><br>
                                                                                         <?php
                                                                                         $minutes = $value->sI[$key]->duration;
@@ -1826,8 +1863,8 @@
                                     @endif
                                 @endif
 
+                                {{-- round trip domestic code starts here looping --}}
                                 <div class="row mt-2">
-
                                     @if ($result_array->status->success == true && $result_array->status->httpStatus == 200)
                                         @if (isset($result_array->searchResult->tripInfos->ONWARD))
 
@@ -1873,29 +1910,47 @@
                                                                             <span>{{ $value->sI[0]->da->city }}</span>
                                                                         </div>
                                                                         <div class="col-md-3 departture time-gap">
-                                                                            <?php
-                                                                            $minutes = $value->sI[0]->duration;
-                                                                            $hours = intdiv($minutes, 60) . ' h ' . $minutes % 60 . ' m';
-                                                                            ?>
+{{-- {{ dd(count($value->sI)) }} --}}
+                                                            <?php
+                                                            if($cnt_up != 1){
+                                                                $minutes = $value->sI[0]->duration+$value->sI[$cnt_up -1]->duration+$value->sI[0]->cT;
+                                                            }else{
+                                                                    $minutes = $value->sI[0]->duration;
+                                                                }
+
+                                                                $hours = intdiv($minutes, 60) . ' h ' . $minutes % 60 . ' m';
+                                                                ?>
 
                                                                             <span
-                                                                                class="">{{ $hours }}</span>
+                                                                                class="">{{ $hours }}
+                                                                            </span>
+                                                                            <div class="clearfix"> </div>
                                                                             <span>
-                                                                                @if ($value->sI[0]->stops == '0')
-                                                                                    NON-STOP
+                                                                                @if ($cnt_up == '1')
+                                                                                            NON-STOP
                                                                                 @else
-                                                                                    {{ $value->sI[0]->stops }} Stops
+                                                                                    {{ $cnt_up - 1 }} Stops
+
                                                                                 @endif
                                                                             </span>
+
+                                                                @if ($cnt_up != '1')
+                                                                <?php
+                                                                        $connecting_time = $value->sI[0]->cT;
+                                                                        $connect_hours = intdiv($connecting_time, 60) . ' h ' . $connecting_time % 60 . ' m';
+                                                                ?>
+                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  {{ $value->sI[0]->aa->city }} | {{ $connect_hours }} Layover">
+
+
+                                                                    via {{ $value->sI[0]->aa->city }}
+                                                                </span>
+                                                                @endif
                                                                         </div>
-                                                                        @for ($i = 0; $i < $cnt_up; $i++)
-                                                                            @if ($i == $cnt_up - 1)
-                                                                                <div class="col-md-3 departture">
-                                                                                    <span>{{ date('H:m', strtotime($value->sI[$i]->at)) }}</span>
-                                                                                    <span>{{ $value->sI[$i]->aa->city }}</span>
-                                                                                </div>
-                                                                            @endif
-                                                                        @endfor
+
+                                                            <div class="col-md-3 departture">
+                                                                <span>{{ date('H:m', strtotime($value->sI[$cnt_up-1]->at)) }}</span>
+                                                                <span>{{ $value->sI[$cnt_up-1]->aa->city }}</span>
+                                                            </div>
                                                                         <div class="col-md-3 departture text-center">
                                                                             <input <?php echo $radio_on_cnt == 1 ? 'Checked' : ''; ?> type="radio"
                                                                                 name="roundFromTo"
@@ -1905,7 +1960,7 @@
                                                                                 data-f_on_code="{{ $value->sI[0]->fD->fN }}"
                                                                                 data-f_on_name="{{ $value->sI[0]->fD->aI->name }}"
                                                                                 data-f_on_depat_time="{{ date('H:m', strtotime($value->sI[0]->dt)) }}"
-                                                                                data-f_on_arival_time="{{ date('H:m', strtotime($value->sI[0]->at)) }}"
+                                                                                data-f_on_arival_time="{{ date('H:m', strtotime($value->sI[$cnt_up-1]->at)) }}"
                                                                                 data-f_on_price="{{ number_format($value->totalPriceList[0]->fd->ADULT->fC->TF, 0) }}"
                                                                                 data-f_on_logo="{{ $flight_logo }}"
                                                                                 data-onward_price="{{ $value->totalPriceList[0]->fd->ADULT->fC->TF }}">
@@ -1955,28 +2010,43 @@
                                                                         </div>
                                                                         <div class="col-md-3 departture time-gap">
                                                                             <?php
-                                                                            $minutes = $value->sI[0]->duration;
-                                                                            $hours = intdiv($minutes, 60) . ' h ' . $minutes % 60 . ' m';
-                                                                            ?>
+                                                            if($cnt_dwn != 1){
+                                                                $minutes = $value->sI[0]->duration+$value->sI[$cnt_dwn -1]->duration+$value->sI[0]->cT;
+                                                            }else{
+                                                                    $minutes = $value->sI[0]->duration;
+                                                                }
+
+                                                                $hours = intdiv($minutes, 60) . ' h ' . $minutes % 60 . ' m';
+                                                                ?>
+
 
                                                                             <span
                                                                                 class="">{{ $hours }}</span>
                                                                             <span>
-                                                                                @if ($value->sI[0]->stops == '0')
-                                                                                    NON-STOP
+                                                                                @if ($cnt_dwn == '1')
+                                                                                            NON-STOP
                                                                                 @else
-                                                                                    {{ $value->sI[0]->stops }} Stops
+                                                                                    {{ $cnt_dwn - 1 }} Stop
+
                                                                                 @endif
                                                                             </span>
+
+                                                                            @if ($cnt_dwn != 1)
+                                                                <?php
+                                                                        $connecting_time = $value->sI[0]->cT;
+                                                                        $connect_hours = intdiv($connecting_time, 60) . ' h ' . $connecting_time % 60 . ' m';
+                                                                ?>
+                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  {{ $value->sI[0]->aa->city }} | {{ $connect_hours }} Layover">
+
+
+                                                                    via {{ $value->sI[0]->aa->city }}
+                                                                </span>
+                                                                @endif
                                                                         </div>
-                                                                        @for ($j = 0; $j < $cnt_dwn; $j++)
-                                                                            @if ($j == $cnt_dwn - 1)
                                                                                 <div class="col-md-3 departture">
-                                                                                    <span>{{ date('H:m', strtotime($value->sI[$j]->at)) }}</span>
-                                                                                    <span>{{ $value->sI[$j]->aa->city }}</span>
+                                                                                    <span>{{ date('H:m', strtotime($value->sI[$cnt_dwn-1]->at)) }}</span>
+                                                                                    <span>{{ $value->sI[$cnt_dwn-1]->aa->city }}</span>
                                                                                 </div>
-                                                                            @endif
-                                                                        @endfor
                                                                         <div class="col-md-3 departture text-center">
                                                                             <input <?php echo $radio_re_cnt == 1 ? 'Checked' : ''; ?> type="radio"
                                                                                 name="roundToFrom"
@@ -1987,7 +2057,7 @@
                                                                                 data-f_re_code="{{ $value->sI[0]->fD->fN }}"
                                                                                 data-f_re_name="{{ $value->sI[0]->fD->aI->name }}"
                                                                                 data-f_re_depat_time="{{ date('H:m', strtotime($value->sI[0]->dt)) }}"
-                                                                                data-f_re_arival_time="{{ date('H:m', strtotime($value->sI[0]->at)) }}"
+                                                                                data-f_re_arival_time="{{ date('H:m', strtotime($value->sI[$cnt_dwn-1]->at)) }}"
                                                                                 data-f_re_price="{{ number_format($value->totalPriceList[0]->fd->ADULT->fC->TF, 0) }}"
                                                                                 data-f_re_logo={{ $flight_logo }}
                                                                                 data-return_price="{{ $value->totalPriceList[0]->fd->ADULT->fC->TF }}">
@@ -3847,5 +3917,13 @@ $('.multitrip').click(function() {
 
 
     </script>
+    <script type="text/javascript">
+
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+
+          </script>
 
 @endsection

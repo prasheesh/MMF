@@ -16,7 +16,6 @@ class CreatePassengerDetailsTable extends Migration
         Schema::create('passenger_details', function (Blueprint $table) {
             $table->id();
             $table->string('booking_id');
-            $table->string('pnr_details')->nullable();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('gender_name');

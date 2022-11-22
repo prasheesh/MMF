@@ -7,7 +7,7 @@ use GuzzleHttp\Client;
 class SearchFlightsController extends Controller
 {
   public function __construct(Request $request){
-    $this->api_key = '11193005ec7393-dd77-4f74-8f1a-417b714d8be1';
+
   }
 
     public function SearchFlights(Request $request)
@@ -17,70 +17,79 @@ class SearchFlightsController extends Controller
 
         if($request->tripType == 'oneway'){
           $travelDate = date('Y-m-d', strtotime($request->flightBookingDepart));
-        $travelReturnDate = date('Y-m-d', strtotime($request->flightBookingReturn));
 
-        $data = '{
-            "searchQuery": {
-              "cabinClass": "' . $request->travelClass . '",
-              "paxInfo": {
-                "ADULT": "' . $request->adultval . '",
-                "CHILD": "0",
-                "INFANT": "0"
-              },
-              "routeInfos": [
-                {
-                  "fromCityOrAirport": {
-                    "code": "' . $request->fromPlace . '"
-                  },
-                  "toCityOrAirport": {
-                    "code": "' . $request->toPlace . '"
-                  },
-                  "travelDate": "' . $travelDate . '"
-                }
-              ],
-              "searchModifiers": {
-                "isDirectFlight": true,
-                "isConnectingFlight": false
-              }
-            }
-          }';
+        $req['searchQuery']['cabinClass'] = $request->travelClass;
+        $req['searchQuery']['paxInfo']['ADULT']=$request->adultval;
+        $req['searchQuery']['paxInfo']['CHILD']= 0 ;
+        $req['searchQuery']['paxInfo']['INFANT']= 0 ;
+        $req['searchQuery']['routeInfos'] = array();
+
+        $airport['fromCityOrAirport']['code']= $request->fromPlace;
+        $airport['toCityOrAirport']['code']= $request->toPlace;
+        $airport['travelDate']= $travelDate;
+        array_push($req['searchQuery']['routeInfos'],$airport);
+        $req['searchQuery']['searchModifiers']['isDirectFlight']='true';
+        $req['searchQuery']['searchModifiers']['isConnectingFlight']='true';
+
+      $data =   json_encode($req);
+
+
         }else if($request->tripType == 'round'){
           $travelDate = date('Y-m-d', strtotime($request->flightBookingDepart));
         $travelReturnDate = date('Y-m-d', strtotime($request->flightBookingReturn));
-          $data = '{
-            "searchQuery": {
-              "cabinClass": "' . $request->travelClass . '",
-              "paxInfo": {
-                "ADULT": "' . $request->adultval . '",
-                "CHILD": "0",
-                "INFANT": "0"
-              },
-              "routeInfos": [
-                {
-                  "fromCityOrAirport": {
-                    "code": "' . $request->fromPlace . '"
-                  },
-                  "toCityOrAirport": {
-                    "code": "' . $request->toPlace . '"
-                  },
-                  "travelDate": "' . $travelDate . '"
-                },
-                {
-                  "fromCityOrAirport": {
-                    "code": "' . $request->toPlace . '"
-                  },
-                  "toCityOrAirport": {
-                    "code": "' . $request->fromPlace . '"
-                  },
-                  "travelDate": "' . $travelReturnDate . '"
-                }
-              ],
-              "searchModifiers": {
-                "isDirectFlight": true,
-                "isConnectingFlight": false
-              }
-            }
-          }';
+
+        $req['searchQuery']['cabinClass'] = $request->travelClass;
+        $req['searchQuery']['paxInfo']['ADULT']=$request->adultval;
+        $req['searchQuery']['paxInfo']['CHILD']= 0 ;
+        $req['searchQuery']['paxInfo']['INFANT']= 0 ;
+        $req['searchQuery']['routeInfos'] = array();
+        $airport['fromCityOrAirport']['code']= $request->fromPlace;
+        $airport['toCityOrAirport']['code']= $request->toPlace;
+        $airport['travelDate']= $travelDate;
+        array_push($req['searchQuery']['routeInfos'],$airport);
+        $airportto['fromCityOrAirport']['code']= $request->toPlace;
+        $airportto['toCityOrAirport']['code']= $request->fromPlace;
+        $airportto['travelDate']= $travelReturnDate;
+        array_push($req['searchQuery']['routeInfos'],$airportto);
+        $req['searchQuery']['searchModifiers']['isDirectFlight']='true';
+        $req['searchQuery']['searchModifiers']['isConnectingFlight']='true';
+
+        $data =   json_encode($req);
+
+          // $data = '{
+          //   "searchQuery": {
+          //     "cabinClass": "' . $request->travelClass . '",
+          //     "paxInfo": {
+          //       "ADULT": "' . $request->adultval . '",
+          //       "CHILD": "0",
+          //       "INFANT": "0"
+          //     },
+          //     "routeInfos": [
+          //       {
+          //         "fromCityOrAirport": {
+          //           "code": "' . $request->fromPlace . '"
+          //         },
+          //         "toCityOrAirport": {
+          //           "code": "' . $request->toPlace . '"
+          //         },
+          //         "travelDate": "' . $travelDate . '"
+          //       },
+          //       {
+          //         "fromCityOrAirport": {
+          //           "code": "' . $request->toPlace . '"
+          //         },
+          //         "toCityOrAirport": {
+          //           "code": "' . $request->fromPlace . '"
+          //         },
+          //         "travelDate": "' . $travelReturnDate . '"
+          //       }
+          //     ],
+          //     "searchModifiers": {
+          //       "isDirectFlight": true,
+          //       "isConnectingFlight": false
+          //     }
+          //   }
+          // }';
         }else if($request->tripType == 'multi'){
 
           $data = '{
@@ -142,7 +151,7 @@ class SearchFlightsController extends Controller
         //OPtions:
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'apikey:'.$this->api_key,
+            'apikey:'.apikey(),
             'Content-Type:application/json',
         ));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -158,7 +167,7 @@ class SearchFlightsController extends Controller
 
         $result_array =  json_decode($result);
 
-        // dd($result_array);
+        // dd($result_array->searchResult->tripInfos->RETURN);
         if ($result_array->status->success == true) {
           // return $result_array;
             return view('site/search_flights',compact('result_array'));
@@ -197,7 +206,7 @@ class SearchFlightsController extends Controller
         //OPtions:
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'apikey:'.$this->api_key,
+            'apikey:'.apikey(),
             'Content-Type:application/json',
         ));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
