@@ -56,81 +56,66 @@ class SearchFlightsController extends Controller
 
         $data =   json_encode($req);
 
-          // $data = '{
-          //   "searchQuery": {
-          //     "cabinClass": "' . $request->travelClass . '",
-          //     "paxInfo": {
-          //       "ADULT": "' . $request->adultval . '",
-          //       "CHILD": "0",
-          //       "INFANT": "0"
-          //     },
-          //     "routeInfos": [
-          //       {
-          //         "fromCityOrAirport": {
-          //           "code": "' . $request->fromPlace . '"
-          //         },
-          //         "toCityOrAirport": {
-          //           "code": "' . $request->toPlace . '"
-          //         },
-          //         "travelDate": "' . $travelDate . '"
-          //       },
-          //       {
-          //         "fromCityOrAirport": {
-          //           "code": "' . $request->toPlace . '"
-          //         },
-          //         "toCityOrAirport": {
-          //           "code": "' . $request->fromPlace . '"
-          //         },
-          //         "travelDate": "' . $travelReturnDate . '"
-          //       }
-          //     ],
-          //     "searchModifiers": {
-          //       "isDirectFlight": true,
-          //       "isConnectingFlight": false
-          //     }
-          //   }
-          // }';
+
         }else if($request->tripType == 'multi'){
 
-          $data = '{
-            "searchQuery": {
-              "cabinClass": "' . $request->travelClass . '",
-              "paxInfo": {
-                "ADULT": "' . $request->adultval . '",
-                "CHILD": "0",
-                "INFANT": "0"
-              },
-              "routeInfos": [';
+          $req['searchQuery']['cabinClass'] = $request->travelClass;
+          $req['searchQuery']['paxInfo']['ADULT']=$request->adultval;
+          $req['searchQuery']['paxInfo']['CHILD']= 0 ;
+          $req['searchQuery']['paxInfo']['INFANT']= 0 ;
+          $req['searchQuery']['routeInfos'] = array();
+          for($i=0;$i<count($request->fromPlace);$i++){
+            $travelDate = date('Y-m-d', strtotime($request->flightBookingDepart[$i]));
+            $airport['fromCityOrAirport']['code']= $request->fromPlace[$i];
+            $airport['toCityOrAirport']['code']= $request->toPlace[$i];
+            $airport['travelDate']= $travelDate;
+            array_push($req['searchQuery']['routeInfos'],$airport);
+          }
+          $req['searchQuery']['searchModifiers']['isDirectFlight']='true';
+          $req['searchQuery']['searchModifiers']['isConnectingFlight']='true';
 
-              for($i=0;$i<count($request->fromPlace);$i++){
+// dd($req);
+$data = json_encode($req);
 
-                $travelDate = date('Y-m-d', strtotime($request->flightBookingDepart[$i]));
+        //   $data = '{
+        //     "searchQuery": {
+        //       "cabinClass": "' . $request->travelClass . '",
+        //       "paxInfo": {
+        //         "ADULT": "' . $request->adultval . '",
+        //         "CHILD": "0",
+        //         "INFANT": "0"
+        //       },
+        //       "routeInfos": [';
 
-                $data .=    '{
-                  "fromCityOrAirport": {
-                    "code": "' . $request->fromPlace[$i] . '"
-                  },
-                  "toCityOrAirport": {
-                    "code": "' . $request->toPlace[$i] . '"
-                  },
-                  "travelDate": "' . $travelDate . '"
-                }';
+        //       for($i=0;$i<count($request->fromPlace);$i++){
 
-               if($i < (count($request->fromPlace)-1)){
-                $data .= ',';
-               }
+        //         $travelDate = date('Y-m-d', strtotime($request->flightBookingDepart[$i]));
 
-              }
+        //         $data .=    '{
+        //           "fromCityOrAirport": {
+        //             "code": "' . $request->fromPlace[$i] . '"
+        //           },
+        //           "toCityOrAirport": {
+        //             "code": "' . $request->toPlace[$i] . '"
+        //           },
+        //           "travelDate": "' . $travelDate . '"
+        //         }';
+
+        //        if($i < (count($request->fromPlace)-1)){
+        //         $data .= ',';
+        //        }
+
+        //       }
 
 
 
-            $data .= '],
-              "searchModifiers": {
-                "isDirectFlight": true,
-                "isConnectingFlight": false
-              }
-            }
-          }';
+        //     $data .= '],
+        //       "searchModifiers": {
+        //         "isDirectFlight": true,
+        //         "isConnectingFlight": false
+        //       }
+        //     }
+        //   }';
         }
 
 
@@ -167,7 +152,7 @@ class SearchFlightsController extends Controller
 
         $result_array =  json_decode($result);
 
-        // dd($result_array->searchResult->tripInfos->RETURN);
+        // dd($result_array->searchResult->tripInfos->COMBO[185]);
         if ($result_array->status->success == true) {
           // return $result_array;
             return view('site/search_flights',compact('result_array'));

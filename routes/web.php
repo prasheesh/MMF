@@ -2,13 +2,17 @@
 
 use App\Http\Controllers\AirportDetailController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Dashboard\BookingController;
 use App\Http\Controllers\ConfirmBookingController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Dashboard\FinanceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Dashboard\ReportController;
 use App\Http\Controllers\ReviewBookingController;
 use App\Http\Controllers\SearchFlightsController;
 use App\Http\Controllers\SeatSelectionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -41,7 +45,72 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/reviewDetailsRoundTrip', [ReviewBookingController::class, 'reviewDetailsRoundTrip'])->name('reviewDetailsRoundTrip');
     Route::get('/reviewDetailsMultiCity', [ReviewBookingController::class, 'reviewDetailsMultiCity'])->name('reviewDetailsMultiCity');
 
+
+
 });
+
+////////dashboard
+//Bookings
+Route::prefix('bookings/')->name('bookings.')->controller(BookingController::class)->group(function(){
+    Route::get('/', 'index')->name('index');
+    Route::get('daily','dailybookings')->name('dailybookings');
+    Route::get('weekly','weeklybookings')->name('weeklybookings');
+    Route::get('monthly','monthlybookings')->name('monthlybookings');
+});
+
+
+
+
+//Create User B-B
+Route::prefix('create-user/')->name('create.user.')->controller(UserController::class)->group(function(){
+    Route::get('', 'index')->name('index');
+    Route::post('store-user', 'storeUser')->name('store');
+});
+
+//Manage Users
+Route::prefix('manage-user/')->name('manage.user.')->controller(UserController::class)->group(function(){
+    Route::get('get', 'manage_user')->name('index');
+    Route::post('change-visibility-show', 'change_visibility_show')->name('change-visibility-show');
+    Route::post('delete-user', 'delete_user')->name('delete-user');
+});
+
+//Number Of Users
+Route::prefix('number-of-user/')->name('number.of.user.')->controller(UserController::class)->group(function(){
+    Route::get('get', 'number_of_users')->name('index');
+});
+
+
+
+//Finance
+Route::prefix('finance/')->name('finance.')->controller(FinanceController::class)->group(function(){
+    Route::get('', 'index')->name('index');
+    Route::get('daily','dailyamount')->name('dailyamount');
+    Route::get('weekly','weeklyamount')->name('weeklyamount');
+    Route::get('monthly','monthlyamount')->name('monthlyamount');
+});
+
+//Payment Summery
+Route::prefix('payment-summery/')->name('paymnet.summery.')->controller(FinanceController::class)->group(function(){
+    Route::get('', 'payment_summery')->name('index');
+});
+
+//Balance With Users
+Route::prefix('balance-with-users/')->name('balance.with.users.')->controller(FinanceController::class)->group(function(){
+    Route::get('', 'balance_with_users')->name('index');
+});
+
+//Credit Limit
+Route::prefix('credit-limit/')->name('credit.limit.')->controller(FinanceController::class)->group(function(){
+    Route::get('', 'credit_limit')->name('index');
+});
+
+//Reports
+Route::prefix('reports/')->name('report.')->controller(ReportController::class)->group(function(){
+    Route::get('','index')->name('index');
+});
+
+
+///////////dashboard
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('about');

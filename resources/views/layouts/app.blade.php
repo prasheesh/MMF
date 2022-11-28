@@ -284,9 +284,10 @@
 			 float-end">
 				<div class="row">
 					<div class="col-md-2 top-details">
+            <a href="{{ route('bookings.index') }}">
 						<p class="Hi-user">Hi {{ Str::ucfirst(Auth::user()->name) }} </p>
 						<p>12345</p>
-
+          </a>
 					</div>
 					<div class="col-md-4 text-end  top-details">
 						<p class="Hi-user">Credit Balance </p>

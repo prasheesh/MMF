@@ -321,8 +321,26 @@ foreach ($keyIds as $key => $val){
                                @if(isset($review->tripInfos))
                                @if(isset($result_array->tripSeatMap))
 
-<?php   $segment_index = 0; ?>
+                               <?php $flight_array = array(); $segment_array=array(); ?>
+                               <?php   $segment_id = 0; ?>
+                               @foreach ($review->tripInfos as $k=>$v )
+
+                                    @foreach ($v->sI as $k1=>$v1 )
+
+                                   <?php
+                                   array_push($flight_array,$v1);
+                                   array_push($segment_array,$segment_id);
+                                   ?>
+
+                                    <!--<h6>{{ $v1->da->city }} - {{ $v1->aa->city }}</h6>-->
+
+                                @endforeach
+                            @php   $segment_id++; @endphp
+                          @endforeach
+@php  $seg_id=0; @endphp
                                @foreach($result_array->tripSeatMap->tripSeat as $key=>$value)
+
+                               @if(isset($value->sData))
                                {{-- {{ print_r($result_array->tripSeatMap->tripSeat) }} --}}
                                             <?php
                                                 $row = $value->sData->row;
@@ -332,25 +350,19 @@ foreach ($keyIds as $key => $val){
                         <div class="tab-pane fade show " id="pills-home{{ $key }}" role="tabpanel" aria-labelledby="pills-home-tab">
                                   <div class="hyderabad-booking">
 
-                                    @foreach ($review->tripInfos as $k=>$v )
-                                    @foreach ($v->sI as $k1=>$v1 )
-                                    {{-- {{ print_r($v1); }} --}}
 
-                                    <h6>{{ $v1->da->city }} - {{ $v1->aa->city }}</h6>
+                                    <h6>{{ $flight_array[$seg_id]->da->city }} - {{ $flight_array[$seg_id]->aa->city }}</h6>
                                   {{-- <p>0 of 1 selected</p> --}}
 
-                                    @endforeach
-
-                                  @endforeach
                                 </div>
 
                                 <div class="row align-items-end">
                                      <div class="col-md-4">
 
                                       <ul class="bussiness-ul">
-                                        <li><span class="new-li"><i class="fa-regular fa-square"></i> </span> <p>{{ $isBookedfalse }} Seats Available</p></li>
+                                        <!--<li><span class="new-li"><i class="fa-regular fa-square"></i> </span> <p>{{ $isBookedfalse }} Seats Available</p></li>-->
 
-                                        <li><span class="booked-li"><i class="fa-solid fa-rectangle-xmark"></i> </span> <p>{{ $isBookedtrue }} Seats Booked</p></li>
+                                        <!--<li><span class="booked-li"><i class="fa-solid fa-rectangle-xmark"></i> </span> <p>{{ $isBookedtrue }} Seats Booked</p></li>-->
 
                                       </ul>
 
@@ -383,16 +395,16 @@ foreach ($keyIds as $key => $val){
                                         }else{
                                             if(isset($seat->isLegroom)){
                                                 if(isset($seat->isAisle)){
-                                                echo '<li data-segment_key="'.$segment_key[$segment_index].'" data-seat_code="'.$seat->code.'" id="seat'.$seat->code.$key.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Aisle Seat | Extra Legroom Seat | '.$seat->amount.'">XL</li>';
+                                                echo '<li  data-segment_key="'.$segment_key[$segment_array[$seg_id]].'" data-seat_code="'.$seat->code.'" id="seat'.$seat->code.$key.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Aisle Seat | Extra Legroom Seat | '.$seat->amount.'">XL</li>';
                                             }else{
-                                                echo '<li data-segment_key="'.$segment_key[$segment_index].'" data-seat_code="'.$seat->code.'" id="seat'.$seat->code.$key.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Extra Legroom seat | '.$seat->amount.'">XL</li>';
+                                                echo '<li data-segment_key="'.$segment_key[$segment_array[$seg_id]].'" data-seat_code="'.$seat->code.'" id="seat'.$seat->code.$key.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Extra Legroom seat | '.$seat->amount.'">XL</li>';
                                             }
                                             }
                                             else{
                                                 if(isset($seat->isAisle)){
-                                                echo '<li data-segment_key="'.$segment_key[$segment_index].'" data-seat_code="'.$seat->code.'" id="seat'.$seat->code.$key.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Aisle Seat | '.$seat->amount.'">'. $seat->seatNo.'</li>';
+                                                echo '<li  data-segment_key="'.$segment_key[$segment_array[$seg_id]].'" data-seat_code="'.$seat->code.'" id="seat'.$seat->code.$key.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' Aisle Seat | '.$seat->amount.'">'. $seat->seatNo.'</li>';
                                                 }else{
-                                                    echo '<li data-segment_key="'.$segment_key[$segment_index].'" data-seat_code="'.$seat->code.'" id="seat'.$seat->code.$key.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' | '.$seat->amount.'">'. $seat->seatNo.'</li>';
+                                                    echo '<li data-segment_key="'.$segment_key[$segment_array[$seg_id]].'" data-seat_code="'.$seat->code.'" id="seat'.$seat->code.$key.'" onclick="seatSelection('."'$seat->code','$seat->amount','$key'".')" class="seat-open" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$seat->seatNo.' | '.$seat->amount.'">'. $seat->seatNo.'</li>';
                                                 }
                                             }
 
@@ -419,11 +431,12 @@ foreach ($keyIds as $key => $val){
                                       </div>
                                     </div>
                                   </div>
-<?php
-    if(count($segment_key)>1){
-        $segment_index++;
-    }
-?>
+
+                                @else
+
+                                <h4>{{  $value->nt }}</h4>
+                                @endif
+                                <?php $seg_id++; ?>
                                   @endforeach
                                   @endif
                                   @else
@@ -440,9 +453,9 @@ foreach ($keyIds as $key => $val){
                              <!-- Meals tab -->
                              @if(isset($review->tripInfos))
 
-                             <?php
-                             $segment_index = 0;
-                             ?>
+                             @php
+                             $seg_m_id = 0;
+                             @endphp
                              @foreach ($review->tripInfos as $k=>$v )
 
                                             @foreach ($v->sI as $k1=>$v1 )
@@ -499,15 +512,10 @@ foreach ($keyIds as $key => $val){
                                                                     ?>
                                                                     <input type="hidden" name="meal_amount" id="meal_amount" value="0">
 {{-- {{ dd($segment_key, $k) }} --}}
-                                                                  <button data-segment_key="{{ $segment_key[$segment_index] }}" data-meal_code="{{ $v2->code }}"  class="btn btn-add" id="meal_code{{ $v2->code }}{{ $v1->id }}" onclick="addMeals('{{ $v2->code }}','{{ $meal_amt }}','{{ $v1->id }}')">ADD</button>
+                                                                  <button data-segment_key="{{ $segment_key[$segment_array[$seg_m_id]] }}" data-meal_code="{{ $v2->code }}"  class="btn btn-add" id="meal_code{{ $v2->code }}{{ $v1->id }}" onclick="addMeals('{{ $v2->code }}','{{ $meal_amt }}','{{ $v1->id }}')">ADD</button>
                                                                  </div>
                                                                </div>
-
                                                                @endforeach
-
-
-
-
                                                              </div>
 
                                                            </label>
@@ -519,11 +527,7 @@ foreach ($keyIds as $key => $val){
 
                                            </div>
                                            @endif
-                                           <?php
-    if(count($segment_key)>1){
-        $segment_index++;
-    }
-?>
+                                          @php $seg_m_id++ ; @endphp
                                            @endforeach
                                            @endforeach
 

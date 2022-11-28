@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Requests;
-
 use App\Models\Dashboard\File;
 use App\Models\User;
+
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class StoreUserRequest extends FormRequest
 {
@@ -75,13 +76,14 @@ class StoreUserRequest extends FormRequest
         if(!empty($user_data['aadhar_card']))
         {
             $avatar_array = [];
-                $file = $user_data['aadhar_card'];
+                 $file = $user_data['aadhar_card'];
                 // $file = $aadhar;
                 $originalName = 'files/'.time().$file->getClientOriginalName();
                 $path = 'public/'.$originalName;
                 Storage::disk('local')->put($path, file_get_contents($file->getRealPath()));
                 $avatar = new File([
                     'url' => $originalName,
+                    'file_name' => $file->getClientOriginalName(),
                     'source' => 'local',
                     'fileable_params' => 'aadhar_card',
                     'description' => '',
@@ -103,6 +105,7 @@ class StoreUserRequest extends FormRequest
                 Storage::disk('local')->put($path, file_get_contents($file->getRealPath()));
                 $avatar = new File([
                     'url' => $originalName,
+                    'file_name' => $file->getClientOriginalName(),
                     'source' => 'local',
                     'fileable_params' => 'pan_card',
                     'description' => '',
@@ -123,6 +126,7 @@ class StoreUserRequest extends FormRequest
                 Storage::disk('local')->put($path, file_get_contents($file->getRealPath()));
                 $avatar = new File([
                     'url' => $originalName,
+                    'file_name' => $file->getClientOriginalName(),
                     'source' => 'local',
                     'fileable_params' => 'gst_certificate',
                     'description' => '',

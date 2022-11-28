@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Dashboard\File;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -17,10 +18,9 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'company_name', 'email', 'mobile_number', 'password', 'address', 'role', 'user_type', 'status'
     ];
 
     /**
@@ -41,5 +41,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         // 'name' => 'encrypted'
+
     ];
+
+    function aadharCard()
+    {
+        return $this->morphMany(File::class, 'file');
+    }
+
+    function panCard()
+    {
+        return $this->morphMany(File::class, 'file');
+    }
+
+    function gstCertificate()
+    {
+        return $this->morphMany(File::class, 'file');
+    }
 }
