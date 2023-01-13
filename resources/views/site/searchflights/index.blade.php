@@ -1,0 +1,3647 @@
+@extends('layouts.app')
+@section('style-content')
+    <link rel="stylesheet" href="assets/css/all.min.css">
+
+    <!-- slick carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
+
+    <!-- Template Main CSS File -->
+    <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+
+
+
+    {{-- mobi date picker --}}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    {{-- <link href="{{ asset('mobiscroll/css/mobiscroll.jquery.min.css') }}" rel="stylesheet"> --}}
+
+
+    <style>
+         .table-booking {
+   font-size: 14px;
+   margin-bottom: 0;
+   }
+   .table-booking th {
+   padding: 15px;
+   }
+   .table-booking td {
+   padding: 15px;
+   }
+   .final-price {
+   font-size: 18px;
+   margin-bottom: 0;
+   }
+   .mt-5 {
+   margin-top: 3rem;
+   }
+   .md-calendar-booking .mbsc-calendar-text {
+   text-align: center;
+   }
+   .md-calendar-booking .booking-datetime .mbsc-datepicker-tab-calendar {
+   flex: 1 1 0;
+   min-width: 300px;
+   }
+   .md-calendar-booking .mbsc-timegrid-item {
+   margin-top: 1.5em;
+   margin-bottom: 1.5em;
+   }
+   .md-calendar-booking .mbsc-timegrid-container {
+   top: 30px;
+   }
+   .modal-header {
+   background: #3f90a1;
+   color: #fff;
+   border-radius: 0;
+   }
+   .modal-header i {
+   color: #fff;
+   }
+   .count {
+   margin: 0;
+   padding: 0;
+   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+   border-radius: 6px;
+   overflow: hidden;
+   width: auto;
+   float: left;
+   }
+   .count li {
+   padding: 10px 15px;
+   list-style: none;
+   float: left;
+   transition: 0.3s;
+   border-right: solid 0px #ccc;
+   }
+   .count li:hover {
+   background: #3f90a1;
+   color: #fff;
+   transition: 0.3s;
+   }
+   .count li.active {
+   background: #3f90a1;
+   color: #fff;
+   transition: 0.3s;
+   }
+   .round-trip1 p {
+   font-size: 15px;
+   font-weight: 500;
+   }
+   .round-trip1 span {
+   font-size: 12px;
+   margin-left: 5px;
+   }
+   .shadow {
+   border: 1px solid #b0dae3;
+   }
+   .departture {
+   text-align: left;
+   }
+   .departture p {
+   font-weight: 600;
+   font-size: 16px;
+   margin-bottom: 0;
+   }
+   .departture span:nth-child(1) {
+   font-size: 16px;
+   font-weight: 600;
+   border-bottom: 1px solid #ccc;
+   margin-bottom: 0px;
+   }
+   .departture span:nth-child(2) {
+   font-size: 10px;
+   margin-bottom: 0px;
+   }
+   .shadow img {
+   width: 40px;
+   }
+   .time-gap span:nth-child(1) {
+   font-size: 11px;
+   font-weight: 500;
+   padding-bottom: 3px;
+   line-height: 0;
+   }
+   .price-round {
+   font-size: 13px !important;
+   font-weight: 600 !important;
+   text-align: center;
+   }
+   .price-round i {
+   font-size: 11px;
+   }
+   .departture input {
+   width: 20px;
+   height: 20px;
+   /* border-bottom: 5px solid #ccc; */
+   margin-bottom: 5px;
+   margin-top: 0;
+   }
+   .pricedetails {
+   position: relative;
+   }
+   .pricedetails-btm {
+   position: sticky;
+   bottom: 0;
+   background-color: #9bd3df;
+   padding: 15px;
+   border-radius: 5px;
+   width: 100%;
+   z-index: 9999;
+   float: right;
+   margin-top: 15px;
+   }
+   .btm-price {
+   border-right: 1px solid #293389;
+   }
+   .btm-flights-price p {
+   font-weight: 600;
+   margin-bottom: 0;
+   font-size: 13px;
+   }
+   .btm-flights-price a {
+   color: #0d6efd;
+   font-size: 12px;
+   }
+   .btm-fligh-price {
+   text-align: right !important;
+   margin-top: 15px;
+   }
+   .btm-fligh-price p {
+   text-align: right !important;
+   }
+   .btm-fligh-price a {
+   color: #0d6efd;
+   font-size: 12px;
+   }
+   .fixed-btm {
+   position: relative;
+   }
+   :host {
+   display: block;
+   }
+   .final-price {
+   font-size: 18px;
+   margin-bottom: 0;
+   }
+   .bg-tablle {
+   display: flex;
+   background-color: #eeeeee;
+   padding: 0px 5px;
+   margin-top: 15px;
+   }
+   .bg-tablle p {
+   width: 33%;
+   padding: 1px 5px;
+   font-size: 13px;
+   }
+   .loader_div {
+   position: absolute;
+   top: 0;
+   bottom: 0%;
+   left: 0;
+   right: 0%;
+   z-index: 9999999;
+   opacity: 0.7;
+   display: none;
+   background: lightgrey url('http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif') center center no-repeat;
+   }
+   .roundtrip-card {
+   border: solid 1px #ccc;
+   }
+   .roundtrip-card input[type=radio] {
+   border: 0px;
+   width: 18px;
+   height: 18px;
+   margin-top: 10px;
+   }
+   .deapt{
+   padding: 5px 20px;
+   float: left;
+   }
+   
+   .select2-selection--single{
+       background-color:transparent !importnat;
+   }
+   
+   
+   
+   
+   
+ .checkbox-alias{
+    background-color: transparent;
+    display: inline-block;
+  z-index: 1;
+  position: relative;
+  transition: all 250ms ease-out;
+  cursor: pointer;
+}
+
+.invisible-checkboxes input[type=checkbox]{
+  display: none;
+/*   margin-right: -20px;
+  position: relative;
+  z-index: 2; */
+}
+
+.invisible-checkboxes input[type=checkbox]:checked + .checkbox-alias{
+    background-color: #ccc;
+}
+
+
+.depaturemain{
+    position: relative;
+    
+}
+
+.anchor{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    pointer-events: auto;
+    content: "";
+}
+
+    </style>
+@endsection
+
+@section('content')
+    <div id="loader_div" class="loader_div"></div>
+
+
+    <!-- book modal one -->
+    
+    @if ($tripType == 'oneway')
+
+        @if ($result_array->status->success == true && $result_array->status->httpStatus == 200)
+            @if (isset($result_array->searchResult->tripInfos))
+                @foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $value)
+
+                    <div class="modal" id="book-table{{ $value->sI[0]->id }}">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-body p-0">
+
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"><i
+                                            class="fa fa-times"></i></button>
+
+                                    <table class="table table-booking" style="">
+                                        <thead class="bg-grey" style="border-bottom: 2px solid #fff;">
+                                            <tr>
+                                                <th class="">FARES </th>
+                                                <th>CABIN BAG</th>
+                                                <th>CHECK-IN</th>
+                                                <th>CANCELLATION</th>
+                                                <th>DATE CHANGE</th>
+                                                <th>SEAT</th>
+                                                <th>MEAL</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <?php
+                                            $i = 1;
+                                            $id = 1;
+                                            $c = 1;
+                                            $d = 1;
+                                            $s = 1;
+                                            $totalPriceList = count($value->totalPriceList);
+
+                                            ?>
+                                            <input type="hidden" name="totalPriceList{{ $value->sI[0]->id }}"
+                                                id="totalPriceList{{ $value->sI[0]->id }}" value="{{ $totalPriceList }}">
+                                            @foreach ($value->totalPriceList as $key => $values)
+                                                <tr>
+                                                    <td class=""><b>{{ $values->fareIdentifier }}</b>
+                                                        <input type="hidden"
+                                                            name="uniqueTripPriceId{{ $value->sI[0]->id }}{{ $i++ }}"
+                                                            id="uniqueTripPriceId{{ $value->sI[0]->id }}{{ $id++ }}"
+                                                            value="{{ $values->id }}">
+
+                                                        <p>
+                                                            Fare offered by airline.
+                                                        </p>
+                                                    </td>
+                                                    <td>
+                                                         @if(isset($values->fd->ADULT->bI->cB))
+                                                    {{ $values->fd->ADULT->bI->cB }}
+                                                    @else
+                                                    --
+                                                    @endif
+                                                    </td>
+                                                    <td><?php if (isset($values->fd->ADULT->bI->iB)) {
+                                                        echo $values->fd->ADULT->bI->iB;
+                                                    } else {
+                                                        echo '--';
+                                                    } ?></td>
+                                                    <td id="cancellation{{ $value->sI[0]->id }}{{ $c++ }}">--
+                                                        {{-- cancellation <br> fee starting <i class="fa-solid fa-indian-rupee-sign"></i> 3,500 --}}
+                                                    </td>
+                                                    <td id="dateChangeText{{ $value->sI[0]->id }}{{ $d++ }}">--
+                                                        {{-- Date change <br> fee starting <i class="fa-solid fa-indian-rupee-sign"></i> 3250 --}}
+                                                    </td>
+                                                    <td id="seatChargeId{{ $value->sI[0]->id }}{{ $s++ }}">--
+                                                        {{-- Middle Seat Free, <br> Window/Asile Chargeable --}}
+                                                    </td>
+                                                    <td>
+                                                        @if (isset($values->fd->ADULT->mI))
+                                                            @if ($values->fd->ADULT->mI == true)
+                                                                Free Meal
+                                                            @else
+                                                                Paid Meal
+                                                            @endif
+                                                        @else
+                                                            --
+                                                        @endif
+
+
+                                                    </td>
+                                                    <td align="right">
+                                                        <p class="final-price"><b><i
+                                                                    class="fa-solid fa-indian-rupee-sign"></i>{{ number_format($values->fd->ADULT->fC->NF) }}</b>
+                                                        </p>
+                                                        <a href="{{ route('reviewDetails') }}?pKey0={{ $values->id }}">
+                                                            <button class="btn btn-book-now">Book Now</button> </a>
+                                                    </td>
+
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- book modal end -->
+                @endforeach
+            @endif
+        @endif
+    @endif
+
+
+    <!-- View Price -->
+    @if ($tripType == 'round')
+
+        @if ($result_array->status->success == true && $result_array->status->httpStatus == 200)
+            @if (isset($result_array->searchResult->tripInfos))
+                @if (isset($result_array->searchResult->tripInfos->ONWARD))
+                    @foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $value)
+
+                        <div class="modal" id="ViewPrice{{ $value->sI[0]->id }}">
+                            <div class="modal-dialog modal-lg">
+                                <form action="" method="get" name="viewPriceForm" id="viewPriceForm" class="viewPriceForm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4>You have <b>more fares</b> to select from</h4>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"><i
+                                                    class="fa fa-times"></i></button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <div class="container card-bkdetail">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="col-md-12 mb-3">
+                                                            <p class="deapt">DEPART</p>
+                                                        </div>
+                                                        <div class="clearfix mb-2"></div>
+                                                        <div class="row ">
+                                                            <div class="col-md-3">
+                                                                <div class="row">
+                                                                    <div class="col-md-3 p-0">
+                                                                        {{-- <img src="assets/img/flight-logo-2.png" class="img-fluid"> --}}
+                                                                    </div>
+                                                                    <div class="col-md-9 ps-0">
+                                                                        {{-- <span><b>{{ $value->sI[0]->fD->aI->name }}</b> | {{ $value->sI[0]->fD->aI->code }}-{{ $value->sI[0]->fD->fN }}</span> --}}
+                                                                        {{-- <p class="ms-0">Airways | QF-1533</p> --}}
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 m-auto">
+                                                                <h4 class="citiname">{{ $fromPlace }}</h4>
+                                                                <p>Date and Departure</p>
+                                                            </div>
+                                                            <div class="col-md-3 m-auto">
+                                                                <h4 class="citiname">{{ $toPlace }}</h4>
+                                                                <p>Return</p>
+                                                            </div>
+                                                        </div>
+
+                                                        <table class="table table-borderless table-striped mt-3">
+                                                            <tr class="bg-grey">
+                                                                <td colspan="2"></td>
+                                                                <td class="bag-icon"><i class="fa-solid fa-briefcase"></i>
+                                                                    <br>Cabin Bag</td>
+                                                                <td class="bag-icon"><i
+                                                                        class="fa-solid fa-suitcase-rolling"></i><br> Check
+                                                                    In</td>
+                                                                <td class="bag-icon"><i class="fa-solid fa-plane-slash"></i>
+                                                                    <br>Cancellation</td>
+                                                                <td class="bag-icon"><i
+                                                                        class="fa-solid fa-calendar-days"></i><br> Date
+                                                                    Change</td>
+                                                            </tr>
+                                                            <?php
+                                                            $i = 1;
+                                                            $id = 1;
+                                                            $c = 1;
+                                                            $d = 1;
+                                                            $s = 1;
+                                                            $totalPriceList = count($value->totalPriceList);
+                                                            ?>
+                                                            <input type="hidden"
+                                                                name="totalPriceList{{ $value->sI[0]->id }}"
+                                                                id="totalPriceList{{ $value->sI[0]->id }}"
+                                                                value="{{ $totalPriceList }}">
+                                                            @foreach ($value->totalPriceList as $key => $values)
+                                                                <tr>
+                                                                    <td>
+                                                                        <span><input required type="radio" name="pKey"
+                                                                                data-onPrice="{{ $values->fd->ADULT->fC->NF }}"
+                                                                                value="{{ $values->id }}"></span>
+                                                                        <span><b>{{ $values->fareIdentifier }}</b></span><br>
+                                                                        <input type="hidden"
+                                                                            name="uniqueTripPriceId{{ $value->sI[0]->id }}{{ $i++ }}"
+                                                                            id="uniqueTripPriceId{{ $value->sI[0]->id }}{{ $id++ }}"
+                                                                            value="{{ $values->id }}">
+                                                                        <small>Fare offered by Airlines</small>
+                                                                    </td>
+                                                                    <td><i class="fa-solid fa-indian-rupee-sign"></i>
+                                                                        {{ number_format($values->fd->ADULT->fC->NF) }}
+                                                                    </td>
+                                                                    <td>
+                                                                        @if(isset($values->fd->ADULT->bI->cB))
+                                                    {{ $values->fd->ADULT->bI->cB }}
+                                                    @else
+                                                    --
+                                                    @endif
+                                                                    </td>
+                                                                    <td><?php if (isset($values->fd->ADULT->bI->iB)) {
+                                                                        echo $values->fd->ADULT->bI->iB;
+                                                                    } else {
+                                                                        echo '--';
+                                                                    } ?></td>
+                                                                    <td
+                                                                        id="cancellation{{ $value->sI[0]->id }}{{ $c++ }}">
+                                                                        --
+                                                                        {{-- cancellation <br> fee starting <i class="fa-solid fa-indian-rupee-sign"></i> 3,500 --}}
+                                                                    </td>
+                                                                    <td
+                                                                        id="dateChangeText{{ $value->sI[0]->id }}{{ $d++ }}">
+                                                                        --
+                                                                        {{-- Date change <br> fee starting <i class="fa-solid fa-indian-rupee-sign"></i> 3250 --}}
+                                                                    </td>
+
+                                                                </tr>
+                                                            @endforeach
+
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="card ">
+                                                    <div class="card-body">
+                                                        <div class="col-md-12 mb-3">
+                                                            <p class="deapt">RETURN</p>
+                                                        </div>
+                                                        <div class="clearfix mb-2"></div>
+                                                        <div class="row ">
+                                                            <div class="col-md-3">
+                                                                <div class="row">
+                                                                    <div class="col-md-3 p-0">
+                                                                        {{-- <img src="assets/img/flight-logo-2.png" class="img-fluid"> --}}
+                                                                    </div>
+                                                                    <div class="col-md-9 ps-0">
+                                                                        {{-- <span><b>{{ $value->sI[0]->fD->aI->name }}</b> | {{ $value->sI[0]->fD->aI->code }}-{{ $value->sI[0]->fD->fN }}</span> --}}
+                                                                        {{-- <p class="ms-0">Airways | QF-1533</p> --}}
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 m-auto">
+                                                                <h4 class="citiname">{{ $toPlace }}</h4>
+                                                                <p>Date and Departure</p>
+                                                            </div>
+                                                            <div class="col-md-3 m-auto">
+                                                                <h4 class="citiname">{{ $fromPlace }}</h4>
+                                                                <p>Return</p>
+                                                            </div>
+                                                        </div>
+
+                                                        <table class="table table-borderless table-striped mt-3">
+                                                            <tr class="bg-grey">
+                                                                <td colspan="2"></td>
+                                                                <td class="bag-icon"><i class="fa-solid fa-briefcase"></i>
+                                                                    <br>Cabin Bag</td>
+                                                                <td class="bag-icon"><i
+                                                                        class="fa-solid fa-suitcase-rolling"></i><br> Check
+                                                                    In</td>
+                                                                <td class="bag-icon"><i
+                                                                        class="fa-solid fa-plane-slash"></i>
+                                                                    <br>Cancellation</td>
+                                                                <td class="bag-icon"><i
+                                                                        class="fa-solid fa-calendar-days"></i><br> Date
+                                                                    Change</td>
+                                                            </tr>
+
+                                                            @foreach ($result_array->searchResult->tripInfos->RETURN as $key => $value)
+                                                                <?php
+                                                                $i = 1;
+                                                                $id = 1;
+                                                                $c = 1;
+                                                                $d = 1;
+                                                                $s = 1;
+                                                                $totalPriceList = count($value->totalPriceList);
+                                                                ?>
+                                                                <input type="hidden"
+                                                                    name="totalPriceList{{ $value->sI[0]->id }}"
+                                                                    id="totalPriceList{{ $value->sI[0]->id }}"
+                                                                    value="{{ $totalPriceList }}">
+                                                                @foreach ($value->totalPriceList as $key => $values)
+                                                                    <tr class="showFare{{ $value->sI[0]->id }} showFare"
+                                                                        style="display: none">
+                                                                        <td>
+                                                                            <span><input required type="radio"
+                                                                                    name="rKey"
+                                                                                    data-downPrice="{{ $values->fd->ADULT->fC->NF }}"
+                                                                                    value="{{ $values->id }}"></span>
+                                                                            <span><b>{{ $values->fareIdentifier }}</b></span><br>
+                                                                            <input type="hidden"
+                                                                                name="uniqueTripPriceId{{ $value->sI[0]->id }}{{ $i++ }}"
+                                                                                id="uniqueTripPriceId{{ $value->sI[0]->id }}{{ $id++ }}"
+                                                                                value="{{ $values->id }}">
+                                                                            <small>Fare offered by Airlines</small>
+                                                                        </td>
+                                                                        <td><i class="fa-solid fa-indian-rupee-sign"></i>
+                                                                            {{ number_format($values->fd->ADULT->fC->NF) }}
+                                                                        </td>
+                                                                        <td>
+                                                                            @if(isset($values->fd->ADULT->bI->cB))
+                                                    {{ $values->fd->ADULT->bI->cB }}
+                                                    @else
+                                                    --
+                                                    @endif
+                                                                        </td>
+                                                                        <td><?php if (isset($values->fd->ADULT->bI->iB)) {
+                                                                            echo $values->fd->ADULT->bI->iB;
+                                                                        } else {
+                                                                            echo '--';
+                                                                        } ?></td>
+                                                                        <td
+                                                                            class="cancellationRe{{ $value->sI[0]->id }}{{ $c++ }}">
+                                                                            --
+                                                                        </td>
+                                                                        <td
+                                                                            class="dateChangeTextRe{{ $value->sI[0]->id }}{{ $d++ }}">
+                                                                            --
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            @endforeach
+
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="modal-footer footer-btn">
+                                            <p><i class="fa-solid fa-indian-rupee-sign"></i> <span class="priceOnUp" id="priceOnUp"></span>
+                                                <br> <small> FOR 1 ADULT</small></p>
+                                            <a id="reviewDetailsRoundTrip" href="">
+                                                <button type="submit" class="btn btn-book-now">Continue</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            @endif
+        @endif
+    @endif
+    <!-- View Price end -->
+
+
+    <!-- View Price international-->
+    @if ($tripType == 'round')
+
+        @if ($result_array->status->success == true && $result_array->status->httpStatus == 200)
+            @if (isset($result_array->searchResult->tripInfos))
+                @if (isset($result_array->searchResult->tripInfos->COMBO))
+                    @foreach ($result_array->searchResult->tripInfos->COMBO as $key => $value)
+                        <?php
+
+                        $city_name_from = DB::table('airport_details')
+                            ->where('code', $fromPlace)
+                            ->first('city');
+                        $city_name_to = DB::table('airport_details')
+                            ->where('code', $toPlace)
+                            ->first('city');
+
+                        ?>
+
+                        <div class="modal" id="ViewPriceInternational{{ $value->sI[0]->id }}">
+                            {{-- <form action="" method="get" name="viewPriceFormInt" id="viewPriceFormInt"> --}}
+                            <div class="modal-dialog modal-xl ">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4>You have <b>more fares</b> to select from </h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"><i
+                                                class="fa fa-times"></i></button>
+                                    </div>
+
+                                    <div class="modal-body">
+
+                                        <div class="container card-bkdetail">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="col-md-12 mb-3">
+                                                        <p class="deapt">ROUND TRIP</p>
+                                                    </div>
+                                                    <div class="clearfix mb-2"></div>
+                                                    <div class="row ">
+                                                        <div class="col-md-3">
+                                                            <div class="row">
+                                                                <div class="col-md-3 p-0">
+                                                                    <?php
+                                                                    $flight_code = $value->sI[0]->fD->aI->code;
+                                                                    $flight_logo = 'assets/img/AirlinesLogo/' . $flight_code . '.png';
+
+                                                                    ?>
+                                                                    <img src="{{ $flight_logo }}" class="img-fluid">
+                                                                </div>
+                                                                <div class="col-md-9 ps-0">
+                                                                    <span><b>{{ $value->sI[0]->fD->aI->name }}</b> |
+                                                                        {{ $value->sI[0]->fD->aI->code }}-{{ $value->sI[0]->fD->fN }}</span>
+                                                                    {{-- <p class="ms-0">Airways | QF-1533</p> --}}
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 m-auto">
+                                                            <h4 class="citiname">{{ $city_name_from->city }}</h4>
+                                                            <p>Date and Departure</p>
+                                                        </div>
+                                                        <div class="col-md-3 m-auto">
+                                                            <h4 class="citiname">{{ $city_name_to->city }}</h4>
+                                                            <p>Return</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <table class="table table-borderless table-striped mt-3">
+                                                        <tr class="bg-grey">
+                                                            <td colspan="2"></td>
+                                                            <td class="bag-icon"><i class="fa-solid fa-briefcase"></i>
+                                                                <br>Cabin Bag</td>
+                                                            <td class="bag-icon"><i
+                                                                    class="fa-solid fa-suitcase-rolling"></i><br> Check In
+                                                            </td>
+                                                            <td class="bag-icon"><i class="fa-solid fa-plane-slash"></i>
+                                                                <br>Cancellation</td>
+                                                            <td class="bag-icon"><i
+                                                                    class="fa-solid fa-calendar-days"></i><br> Date Change
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <?php
+                                                        $i = 1;
+                                                        $id = 1;
+                                                        $c = 1;
+                                                        $d = 1;
+                                                        $s = 1;
+                                                        $totalPriceList = count($value->totalPriceList);
+
+                                                        ?>
+
+                                                        <input type="hidden"
+                                                            name="totalPriceList{{ $value->sI[0]->id }}"
+                                                            id="totalPriceList{{ $value->sI[0]->id }}"
+                                                            value="{{ $totalPriceList }}">
+                                                        @foreach ($value->totalPriceList as $key => $values)
+                                                            <input type="hidden"
+                                                                name="uniqueTripPriceId{{ $value->sI[0]->id }}{{ $i++ }}"
+                                                                id="uniqueTripPriceId{{ $value->sI[0]->id }}{{ $id++ }}"
+                                                                value="{{ $values->id }}">
+                                                            <tr>
+                                                                <td>
+                                                                    <span>
+                                                                        {{-- <input type="radio" required type="radio" name="pKey" data-onPrice="{{ $values->fd->ADULT->fC->NF }}" value="{{ $values->id }}"> --}}
+                                                                    </span>
+                                                                    <span><b>{{ $values->fareIdentifier }}</b></span><br>
+                                                                    <small>Fare offered by Airlines</small>
+                                                                </td>
+                                                                <td><i class="fa-solid fa-indian-rupee-sign"></i>
+                                                                    {{ number_format($values->fd->ADULT->fC->NF) }}</td>
+                                                                <td>{{ $values->fd->ADULT->bI->cB }}</td>
+                                                                <td><?php if (isset($values->fd->ADULT->bI->iB)) {
+                                                                    echo $values->fd->ADULT->bI->iB;
+                                                                } else {
+                                                                    echo '--';
+                                                                } ?></td>
+                                                                <td
+                                                                    id="cancellationRe{{ $value->sI[0]->id }}{{ $c++ }}">
+                                                                    --
+                                                                </td>
+                                                                <td
+                                                                    id="dateChangeTextRe{{ $value->sI[0]->id }}{{ $d++ }}">
+                                                                    --
+                                                                </td>
+                                                                <td>
+                                                                    <a
+                                                                        href="{{ route('reviewDetails') }}?pKey0={{ $values->id }}">
+                                                                        <button class="btn btn-book-now">Book Now</button>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="modal-footer footer-btn d-none">
+                                        <p><i class="fa-solid fa-indian-rupee-sign"></i> <span id="priceOnUp"></span> <br>
+                                            <small> FOR 1 ADULT</small></p>
+                                        <button type="submit" class="btn btn-book-now">Continue</button>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- </form> --}}
+                        </div>
+
+                    @endforeach
+                @endif
+            @endif
+        @endif
+    @endif
+    <!-- View Price internatinal end -->
+
+    <section class="bg-grey" style="height: 300px; margin-bottom: -150px;">
+        <form method="post" action="{{ route('filterfilghts') }}" name="searchOneWay" id="searchOneWay">
+            @csrf
+            <div class="container container-make mt-5" style="  ">
+
+                <div class="row" id="ShowOnewayRound">
+                    <div class="col-md-2 " style="">
+
+                        <div class="airport-name-inner ">
+                            <small class="inner-smaltext">Trip Type</small>
+                            <select name="tripType" id="trip_type" class="form-control bg-none p-0" style="line-height:28px;">
+                                <option <?php if ($tripType == 'oneway') {
+                                    echo 'selected';
+                                } ?> value="oneway">One Way Trip</option>
+                                <option <?php if ($tripType == 'round') {
+                                    echo 'selected';
+                                } ?> value="round">Round Trip</option>
+                                <option <?php if ($tripType == 'multi') {
+                                    echo 'selected';
+                                } ?> value="multi">Multi-Trip</option>
+                            </select>
+                            {{-- <p><b>Round trip</b></p> --}}
+
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="position: relative;">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="airport-name-inner">
+                                    <small class="inner-smaltext">From</small>
+                                    {{-- <p><b>Hyderabad</b></p> --}}
+
+                                    <select class="form-control bg-none" name="fromPlace" id="fromPlace">
+                                        {{-- <option value="">Select From</option> --}}
+                                        @foreach (DB::table('airport_details')->get() as $airport)
+                                            <option <?php echo $fromPlace == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
+                                                {{ $airport->name . ', ' . $airport->city . ', ' . $airport->country }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <span class=" from-to-inner"> </span>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="airport-name-inner">
+                                    <small class="inner-smaltext">To</small>
+                                    <select class="form-control" name="toPlace" id="toPlace">
+                                        {{-- <option value="">Select To</option> --}}
+                                        @foreach (DB::table('airport_details')->get() as $airport)
+                                            <option <?php echo $toPlace == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
+                                                {{ $airport->name . ', ' . $airport->city . ', ' . $airport->country }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <span id="sameFromTo" class="validation-error">From & To airports cannot be the
+                                    same</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="airport-name-inner">
+                                    <small class="inner-smaltext">Departure</small>
+                                    {{-- <div class="mbsc-row"> --}}
+                                    <label>
+                                        {{-- Departure --}}
+                                        @if ($tripType != 'multi')
+                                            <input class="form-control bg-none" required autocomplete="off" id="flightBookingDepart" style="padding:4px 0px;"
+                                                name="flightBookingDepart" placeholder="Please select..."
+                                                value="{{ $flightBookingDepart }}" />
+                                        @else
+                                            <input class="form-control" required autocomplete="off" id="flightBookingDepart"
+                                                name="flightBookingDepart" placeholder="Please select..."
+                                                value="" />
+                                        @endif
+                                    </label>
+
+                                    {{-- </div> --}}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                {{-- @if ($tripType != 'multi') --}}
+                                    <div class="airport-name-inner" style=" padding: 6px 10px;">
+                                        <small>Return</small>
+                                        <label>
+
+                                            {{-- Return --}}
+                                            <?php
+                                            if (isset($flightBookingReturn)) {
+                                                $return_date = $flightBookingReturn;
+                                            } else {
+                                                $return_date = '';
+                                            }
+                                            ?>
+                                            {{-- @if (!is_array($flightBookingDepart)) --}}
+                                                <input class="form-control bg-none" required autocomplete="off" id="flightBookingReturn" style="padding:4px 0px;"
+                                                    name="flightBookingReturn" placeholder="Please select..."
+                                                    value="{{ $return_date }}" />
+
+                                            {{-- @endif --}}
+
+
+                                        </label>
+                                    </div>
+                                {{-- @endif --}}
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+
+                    <div class="col-md-2 travellerData">
+
+                        <div class="airport-name-inner" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            
+                            <input type="hidden" value="ECONOMY" name="travelClass" id="travelClass" class="">
+                            <input type="hidden" value="1" id="adultval" name="adultval" class="">
+                            <input type="hidden" value="0" id="childval" name="childval" class="">
+                            <input type="hidden" value="0" id="infantval" name="infantval" class="">
+
+                            <small class="inner-smaltext">Travellers & Class</small>
+                            <span id="travelInfo" class="bg-none p-0">
+                                <p><b>1</b></p>
+                            </span>
+                        </div>
+                    </div>
+
+ 
+                    {{-- <input type="hidden" name="searchflight_session" value="1"> --}}
+
+                    <div class="col-md-2 ms-auto">
+                        <button type="submit" class="btn btn-search-flights" id="searchFlightsButton" >Search
+                            Flights</button>
+                    </div>
+                </div>
+
+                 {{-- mrunal --}}
+{{--       <div class="row" id="ShowMultipleCity">
+        <div class="row align-items-center newrow">
+           <div class="col-md-2 " style="">
+              <div class="airport-name-inner ">
+                 <small class="inner-smaltext">Trip Type</small>
+                 <select name="tripType" id="TripType" class="form-control TripType">
+                    <option <?php if ($tripType == 'oneway') {
+                       echo 'selected';
+                       } ?> value="oneway">One Way Trip</option>
+                    <option <?php if ($tripType == 'round') {
+                       echo 'selected';
+                       } ?> value="round">Round Trip</option>
+                    <option <?php if ($tripType == 'multi') {
+                       echo 'selected';
+                       } ?> value="multi">Multi-Trip</option>
+                 </select>
+              </div>
+              <div class="airport-name-inner ">
+                 <small class="inner-smaltext">Trip 1</small>
+              </div>
+           </div>
+           <div class="col-md-3" style="position: relative;">
+              <div class="row">
+                 <div class="col-md-6">
+                    <div class="airport-name-inner">
+                       <small class="inner-smaltext">From</small>
+                       <select class="form-control" onchange="validateLocation(1)" name="fromPlace[]" id="FromPlace1">
+                          <option value="">Select From</option>
+                          @foreach (DB::table('airport_details')->get() as $airport)
+                          <option <?php echo $fromPlace == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
+                             {{ $airport->name . ', '.$airport->city.', ' . $airport->country }}
+                          </option>
+                          @endforeach
+                       </select>
+                    </div>
+                 </div>
+                 <div class="col-md-6">
+                    <div class="airport-name-inner">
+                       <small class="inner-smaltext">To</small>
+                       <select class="form-control" onchange="setFromPlace(1)" name="toPlace[]" id="ToPlace1">
+                          <option value="">Select To </option>
+                          @foreach (DB::table('airport_details')->get() as $airport)
+                          <option <?php echo $toPlace == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
+                             {{ $airport->name . ', ' .$airport->city.', '. $airport->country }}
+                          </option>
+                          @endforeach
+                       </select>
+                    </div>
+                    <span id="sameFromTo" class="validation-error">From & To airports cannot be the same</span>
+                 </div>
+              </div>
+           </div>
+           <div class="col-md-3">
+              <div class="row">
+                 <div class="col-md-6">
+                    <div class="airport-name-inner">
+                       <small class="inner-smaltext">Departure</small>
+                       <label>
+                       <input required type="text" class="flightBookingDepart" autocomplete="off" class="flightBookingDepart"
+                          name="flightBookingDepart[]" id="flightBookingDepart1"
+                          value="{{ $flightBookingDepart[0] }}" />
+                       </label>
+                       <span id="error_date1" style="color:red"></span>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+        <span id="error_same1" style="color:red"></span>
+        <div class="row align-items-center newrow" id="multiCityDiv">
+           <div class="col-md-2 " style="">
+              <div class="airport-name-inner ">
+                 <small class="inner-smaltext">Trip 2</small>
+              </div>
+           </div>
+           <div class="col-md-3" style="position: relative;">
+              <div class="row">
+                 <div class="col-md-6">
+                    <div class="airport-name-inner">
+                       <small class="inner-smaltext">From</small>
+                       <select class="form-control" onchange="validateLocation(2)" name="fromPlace[]" id="FromPlace2">
+                          <option value="">Select From</option>
+                          @foreach (DB::table('airport_details')->get() as $airport)
+                          <option <?php echo $fromPlace == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
+                             {{ $airport->name . ', '.$airport->city.', ' . $airport->country }}
+                          </option>
+                          @endforeach
+                       </select>
+                    </div>
+                 </div>
+                 <div class="col-md-6">
+                    <div class="airport-name-inner">
+                       <small class="inner-smaltext">To</small>
+                       <select class="form-control" onchange="setFromPlace(2)" name="toPlace[]" id="ToPlace2">
+                          <option value="">Select To </option>
+                          @foreach (DB::table('airport_details')->get() as $airport)
+                          <option <?php echo $toPlace == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
+                             {{ $airport->name . ', ' .$airport->city.', '. $airport->country }}
+                          </option>
+                          @endforeach
+                       </select>
+                    </div>
+                    <span id="sameFromTo" class="validation-error">From & To airports cannot be the same</span>
+                 </div>
+              </div>
+           </div>
+           <div class="col-md-3">
+              <div class="row">
+                 <div class="col-md-6">
+                    <div class="airport-name-inner">
+                       <small class="inner-smaltext">Departure</small>
+                       <label>
+                       <input required autocomplete="off" class="flightBookingDepart" name="flightBookingDepart[]"
+                          value="{{ $flightBookingDepart[0] }}" />
+                       </label>
+                    </div>
+                 </div>
+              </div>
+           </div>
+           <span id="error_same2" style="color:red"></span>
+           {{--
+           <div class="col-md-2 ">
+              <button id="addCity1" onclick="clone_div()" type="button" class="btn btn-sm btn-primary">+ Add Another City</button>
+           </div>
+           --}}
+        <!--</div>-->
+        <!--<div class="col-md-2 ">-->
+        <!--   <button id="addCity1" onclick="clone_div()" type="button" class="btn btn-sm btn-primary">+ Add Another City</button>-->
+        <!--</div>-->
+
+    <!-- <div class="col-md-2 travellerData">-->
+
+    <!--    <div class="airport-name-inner" data-bs-toggle="modal" data-bs-target="#exampleModal">-->
+    <!--        <input type="hidden" value="1" id="adultval" name="adultval" class="">-->
+    <!--        <input type="hidden" value="ECONOMY" name="travelClass" id="travelClass" class="">-->
+    <!--        <small class="inner-smaltext">Travellers & Class</small>-->
+    <!--        <span id="travelInfo">-->
+    <!--            <p><b>1 Adult</b></p>-->
+    <!--        </span>-->
+    <!--    </div>-->
+    <!--</div>-->
+
+
+
+
+    <!--<div class="col-md-2 ms-auto">-->
+    <!--    <button type="submit" class="btn btn-search-flights" id="searchFlightsButton">Search-->
+    <!--        Flights</button>-->
+    <!--</div>-->
+</div> 
+</div> 
+        </form>
+    </section>
+
+    <section style="padding-top: 50px;">
+
+        <div class="container container-make">
+            <div class="row">
+
+                {{-- One Way Filter Start Here --}}
+
+                @if (!empty($result_array->searchResult->tripInfos->ONWARD))
+
+                <!-- One Way Filter Search --->
+
+                    @include('site.searchflights.filtersearchtypes.onewayfilter')
+                <!-- End One Way Filter Search --->
+
+                @endif
+                {{-- End One Way Filter Start Here --}}
+
+
+                <div class="col-md-9 p-3 bbook-price-details">
+                    <div class="card">
+                        <div class="card-body card-shadow">
+                           
+                            @if ($result_array->status->success == true && $result_array->status->httpStatus == 200)
+                                @if (isset($result_array->searchResult->tripInfos->ONWARD))
+                                    <h5>Flights from
+                                        {{ $city_name_from->city }} to
+                                        {{ $city_name_to->city }}
+                                        @if ($tripType == 'round')
+                                            , and back
+                                        @endif
+
+                                    </h5>
+                                @elseif (isset($result_array->searchResult->tripInfos->COMBO))
+                                    <h5>Flights from
+                                        {{ $city_name_from->city }} to
+                                        {{ $city_name_to->city }}
+                                        @if ($tripType == 'round')
+                                            , and back
+                                        @endif
+
+                                    </h5>
+                                @endif
+                            @endif
+
+
+                            @if ($tripType == 'oneway')
+                            <div class="wrapper">
+                                <div class="carousel">
+                                    <div class="date-active">
+                                        <p class="date-inner ">Mon, Jul 04</p>
+                                        <p class="price-inner"><i class="fa-solid fa-indian-rupee-sign"></i> 6,825</p>
+                                    </div>
+                                    <div>
+                                        <p class="date-inner">Mon, Jul 04</p>
+                                        <p class="price-inner"><i class="fa-solid fa-indian-rupee-sign"></i> 6,825</p>
+                                    </div>
+                                    <div>
+                                        <p class="date-inner">Mon, Jul 04</p>
+                                        <p class="price-inner"><i class="fa-solid fa-indian-rupee-sign"></i> 6,825</p>
+                                    </div>
+                                    <div>
+                                        <p class="date-inner">Mon, Jul 04</p>
+                                        <p class="price-inner"><i class="fa-solid fa-indian-rupee-sign"></i> 6,825</p>
+                                    </div>
+                                    <div>
+                                        <p class="date-inner">Mon, Jul 04</p>
+                                        <p class="price-inner"><i class="fa-solid fa-indian-rupee-sign"></i> 6,825</p>
+                                    </div>
+                                    <div>
+                                        <p class="date-inner">Mon, Jul 04</p>
+                                        <p class="price-inner"><i class="fa-solid fa-indian-rupee-sign"></i> 6,825</p>
+                                    </div>
+                                    <div>
+                                        <p class="date-inner">Mon, Jul 04</p>
+                                        <p class="price-inner"><i class="fa-solid fa-indian-rupee-sign"></i> 6,825</p>
+                                    </div>
+                                    <div>
+                                        <p class="date-inner">Mon, Jul 04</p>
+                                        <p class="price-inner"><i class="fa-solid fa-indian-rupee-sign"></i> 6,825</p>
+                                    </div>
+                                    <div>
+                                        <p class="date-inner">Mon, Jul 04</p>
+                                        <p class="price-inner"><i class="fa-solid fa-indian-rupee-sign"></i> 6,825</p>
+                                    </div>
+                                    <div>
+                                        <p class="date-inner">Mon, Jul 04</p>
+                                        <p class="price-inner"><i class="fa-solid fa-indian-rupee-sign"></i> 6,825</p>
+                                    </div>
+                                    <div>
+                                        <p class="date-inner">Mon, Jul 04</p>
+                                        <p class="price-inner"><i class="fa-solid fa-indian-rupee-sign"></i> 6,825</p>
+                                    </div>
+                                    <div>
+                                        <p class="date-inner">Mon, Jul 04</p>
+                                        <p class="price-inner"><i class="fa-solid fa-indian-rupee-sign"></i> 6,825</p>
+                                    </div>
+                                    <div>
+                                        <p class="date-inner">Mon, Jul 04</p>
+                                        <p class="price-inner"><i class="fa-solid fa-indian-rupee-sign"></i> 6,825</p>
+                                    </div>
+                                    <div>
+                                        <p class="date-inner">Mon, Jul 04</p>
+                                        <p class="price-inner"><i class="fa-solid fa-indian-rupee-sign"></i> 6,825</p>
+                                    </div>
+                                    <div>
+                                        <p class="date-inner">Mon, Jul 04</p>
+                                        <p class="price-inner"><i class="fa-solid fa-indian-rupee-sign"></i> 6,825</p>
+                                    </div>
+                                    <div>
+                                        <p class="date-inner">Mon, Jul 04</p>
+                                        <p class="price-inner"><i class="fa-solid fa-indian-rupee-sign"></i> 6,825</p>
+                                    </div>
+                                    <div>
+                                        <p class="date-inner">Mon, Jul 04</p>
+                                        <p class="price-inner"><i class="fa-solid fa-indian-rupee-sign"></i> 6,825</p>
+                                    </div>
+                                    <div>
+                                        <p class="date-inner">Mon, Jul 04</p>
+                                        <p class="price-inner"><i class="fa-solid fa-indian-rupee-sign"></i> 6,825</p>
+                                    </div>
+                                    <div>
+                                        <p class="date-inner">Mon, Jul 04</p>
+                                        <p class="price-inner"><i class="fa-solid fa-indian-rupee-sign"></i> 6,825</p>
+                                    </div>
+                                    <div>
+                                        <p class="date-inner">Mon, Jul 04</p>
+                                        <p class="price-inner"><i class="fa-solid fa-indian-rupee-sign"></i> 6,825</p>
+                                    </div>
+                    
+                                </div>
+                            </div>
+                            <div id="loadoneway">
+
+
+                                @include('site.searchflights.flightsdetails.oneway.onewayflightdetails')
+                            </div>
+                                
+
+
+                                   
+                            @elseif($tripType == 'round')
+                                @if ($result_array->status->success == true && $result_array->status->httpStatus == 200)
+                                    @if (isset($result_array->searchResult->tripInfos->ONWARD))
+                                        <div class="row mt-2">
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <div class="card-body round-trip1">
+                                                        @if ($result_array->status->success == true && $result_array->status->httpStatus == 200)
+                                                            @if (isset($result_array->searchResult->tripInfos->ONWARD))
+
+
+                                                                <p>{{ $city_name_from->city }}
+                                                                    →
+                                                                    {{ $city_name_to->city }}
+                                                                    <span>{{ date('D, d M', strtotime($flightBookingDepart)) }}</span>
+                                                                </p>
+                                                            @endif
+                                                        @endif
+                                                        <div class="bg-tablle">
+                                                            <p>Departure</p>
+                                                            <p>Duration</p>
+                                                            <p>Arrival</p>
+                                                            <p>Price</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <div class="card-body round-trip1">
+                                                        @if ($result_array->status->success == true && $result_array->status->httpStatus == 200)
+                                                            @if (isset($result_array->searchResult->tripInfos->RETURN))
+                                                                <p>{{ $city_name_to->city }}
+                                                                    →
+                                                                    {{ $city_name_from->city }}
+                                                                    <span>{{ date('D, d M', strtotime($flightBookingReturn)) }}</span>
+                                                                </p>
+                                                            @endif
+                                                        @endif
+                                                        <div class="bg-tablle">
+                                                            <p>Departure</p>
+                                                            <p>Duration</p>
+                                                            <p>Arrival</p>
+                                                            <p>Price</p>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- international round trip search flights --}}
+                                    @elseif (isset($result_array->searchResult->tripInfos->COMBO))
+                                        @foreach ($result_array->searchResult->tripInfos->COMBO as $key => $value)
+                                            {{-- {{ print_r($value->sI) }} --}}
+                                            <div class="card mt-3 mb-3">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6 mb-3">
+                                                            <?php
+                                                            $flight_code = $value->sI[0]->fD->aI->code;
+                                                            $flight_logo = 'assets/img/AirlinesLogo/' . $flight_code . '.png';
+                                                            ?>
+                                                            <span><img src="{{ $flight_logo }}" class="img-fluid"
+                                                                    width="10%"></span>
+                                                            <span><b>{{ $value->sI[0]->fD->aI->name }}</b></span>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3 text-end">
+                                                            <span><i class="fas fa-indian-rupee-sign"></i>
+                                                                <b>{{ number_format($value->totalPriceList[0]->fd->ADULT->fC->TF) }}</b></span>&nbsp;&nbsp;
+                                                            <span><a href="" data-bs-toggle="modal"
+                                                                    data-bs-target="#ViewPriceInternational{{ $value->sI[0]->id }}"
+                                                                    class="btn btn-outline-primary btn-sm"
+                                                                    onclick="getDownFareRules({{ $value->sI[0]->id }})">View
+                                                                    Prices</a></span>
+                                                        </div>
+                                                        
+                                                        <?php
+                                                        $depart = array();
+                                                        $return = array();
+                                                foreach ($value->sI as $key => $va){
+                                                    if ($va->isRs == false){
+                                                        array_push($depart,$va);
+                                                    }else if($va->isRs == true){
+                                                        array_push($return,$va);
+                                                    }
+                                                }
+
+                                                $cnt_depart = count($depart);
+                                                $cnt_return = count($return);
+                                                ?>
+
+                                                <div class="col-md-6">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <p><b>Depart</b>
+                                                                    {{ date('D, d M', strtotime($depart[0]->dt)) }}
+                                                                    • {{ $depart[0]->fD->aI->name }}</p>
+                                                            </div>
+                                                            <div class="col-md-12 mb-2">
+                                                                <ul class="tab-view-data clearfix">
+                                                                    <li class="col-md-4">
+                                                                        <div>
+                                                                            <p class="flight-brand">
+                                                                                {{ date('H:m', strtotime($depart[0]->dt)) }}
+                                                                            </p>
+                                                                            <p class="flight-number">
+                                                                                {{ $depart[0]->da->city }}
+                                                                            </p>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="col-md-4 text-center">
+                                        <div>
+                                            <small><span class="brdr-btm-time">
+                                                @if ($cnt_depart == '1')
+                                                NON-STOP
+                                            @else
+                                                {{ $cnt_depart-1 }} Stop
+
+                                            @endif
+                                                </span></small><br>
+                                            <?php
+                                            if ($cnt_depart != '1'){
+                                                $connect_time =0;
+                                                        for($i =0; $i < $cnt_depart-1; $i++ ){
+                                                            $connect_time += $depart[$i]->cT;
+                                                        }
+
+                                                $minutes = $depart[0]->duration+$depart[$cnt_depart-1]->duration+$connect_time;
+                                            }else{
+                                                $minutes = $depart[0]->duration;
+                                            }
+
+                                            $hours = intdiv($minutes, 60) . ' h ' . $minutes % 60 . ' m';
+                                            ?>
+                                            <small>{{ $hours }}</small><br>
+
+                                            @if ($cnt_depart != '1')
+
+                                                    <?php
+                                                        for($i =0; $i < $cnt_depart-1; $i++ ){
+
+                                                            $connecting_time = $depart[$i]->cT;
+                                                            $connect_hours = intdiv($connecting_time, 60) . ' h ' . $connecting_time % 60 . ' m';
+                                                    ?>
+                                                    <small data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  {{ $depart[$i]->aa->city }} | {{ $connect_hours }} Layover">
+
+                                                    via {{ $depart[$i]->aa->city }}
+                                                    </small><br>
+                                                    <?php } ?>
+                                            @endif
+
+                                        </div>
+                                                                    </li>
+                                                                    <li class="col-md-4 text-end">
+                                                                        <div>
+                                                                            <p class="flight-brand">
+                                                                                {{ date('H:m', strtotime($depart[$cnt_depart-1]->at)) }}
+                                                                            </p>
+                                                                            <p class="flight-number">
+                                                                                {{ $depart[$cnt_depart-1]->aa->city }}
+                                                                            </p>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            {{-- <small>Partially Refundable</small> --}}
+                                                        </div>
+                                                    </div>
+
+                                                            {{-- return flight in international round trip --}}
+                                                        {{-- @elseif($v->isRs == true) --}}
+                                                            <div class="col-md-6">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <p><b>Return</b>
+                                                                            {{ date('D, d M', strtotime($return[0]->dt)) }}
+                                                                            • {{ $return[0]->fD->aI->name }}</p>
+                                                                    </div>
+                                                                    <div class="col-md-12 mb-2">
+                                                                        <ul class="tab-view-data clearfix">
+                                                                            <li class="col-md-4">
+                                                                                <div>
+                                                                                    <p class="flight-brand">
+                                                                                        {{ date('H:m', strtotime($return[0]->dt)) }}
+                                                                                    </p>
+                                                                                    <p class="flight-number">
+                                                                                        {{ $return[0]->da->city }}
+                                                                                    </p>
+                                                                                </div>
+                                                                            </li>
+                                                        <li class="col-md-4 text-center">
+                                                            <div>
+                                                                <small>
+                                                                    <span class="brdr-btm-time">
+                                                                        @if ($cnt_return == '1')
+                                                                            NON-STOP
+                                                                        @else
+                                                                            {{ $cnt_return-1 }} Stop
+
+                                                                        @endif
+                                                                    </span>
+                                                                </small><br>
+                                        <?php
+                                            if ($cnt_return != '1'){
+                                                $connect_time = 0;
+                                                for($i =0; $i < $cnt_return-1; $i++ ){
+                                                    $connect_time += $return[$i]->cT;
+                                                }
+                                                $minutes = $return[0]->duration+$return[$cnt_return-1]->duration+$connect_time;
+                                            }else{
+                                                $minutes = $depart[0]->duration;
+                                            }
+                                            $hours = intdiv($minutes, 60) . ' h ' . $minutes % 60 . ' m';
+                                        ?>
+                                        <small>{{ $hours }}  </small><br>
+                                            @if ($cnt_return != '1')
+                                                    <?php
+                                                    for($i =0; $i < $cnt_return-1; $i++ ){
+                                                            $connecting_time = $return[$i]->cT;
+                                                            $connect_hours = intdiv($connecting_time, 60) . ' h ' . $connecting_time % 60 . ' m';
+                                                    ?>
+                                                    <small data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  {{ $return[$i]->aa->city }} | {{ $connect_hours }} Layover">
+                                                    via {{ $return[$i]->aa->city }}
+                                                    </small><br>
+                                                    <?php } ?>
+                                            @endif
+                                                            </div>
+                                                        </li>
+                                                        <li class="col-md-4 text-end">
+                                                            <div>
+                                                                <p class="flight-brand">
+                                                                    {{ date('H:m', strtotime($return[$cnt_return-1]->at)) }}
+                                                                </p>
+                                                                <p class="flight-number">
+                                                                    {{ $return[$cnt_return-1]->aa->city }}
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                                </div>
+                                                            </div>
+                                                        {{-- @endif --}}
+                                                    {{-- @endforeach --}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    @else
+                                    not found
+                                @endif
+                            @endif
+                                
+                                {{-- domestic round trip search flights --}}
+                                <div class="row mt-2">
+                                    
+                                    @if ($result_array->status->success == true && $result_array->status->httpStatus == 200)
+                                        @if (isset($result_array->searchResult->tripInfos->ONWARD))
+
+
+                                            <div class="col-md-6">
+                                                <?php $radio_on_cnt = 1; ?>
+                                                @foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $value)
+                                                    <?php
+                                                    // print_r($value->totalPriceList[0]->id);
+
+                                                    ?>
+                                                    <?php $cnt_up = count($value->sI); ?>
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-12">
+                                                            <div class="card">
+                                                                <div class="card-body round-trip1 shadow">
+                                                                    <?php
+                                                                    $flight_code = $value->sI[0]->fD->aI->code;
+                                                                    $flight_logo = 'assets/img/AirlinesLogo/' . $flight_code . '.png';
+                                                                    ?>
+
+                                                                    <img src="{{ $flight_logo }}">
+                                                                    <span>FI.No.{{ $value->sI[0]->fD->aI->code }}
+                                                                        {{ $value->sI[0]->fD->fN }},
+                                                                        <b>{{ $value->sI[0]->fD->aI->name }}</b></span>
+                                                                    <div class="row pt-3">
+                                                                        <div class="col-md-3 departture">
+                                                                            <span>{{ date('H:m', strtotime($value->sI[0]->dt)) }}</span>
+                                                                            <span>{{ $value->sI[0]->da->city }}</span>
+                                                                        </div>
+                                                                        <div class="col-md-3 departture time-gap">
+                                                                            <?php
+                                                                            if($cnt_up != 1){
+                                                                                $connect_time =0;
+                                                        for($i =0; $i < $cnt_up-1; $i++ ){
+                                                           $connect_time += $value->sI[$i]->cT;
+                                                        }
+                                                                $minutes = $value->sI[0]->duration+$value->sI[$cnt_up -1]->duration+$connect_time;
+                                                            }else{
+                                                                    $minutes = $value->sI[0]->duration;
+                                                                }
+                                                                            $hours = intdiv($minutes, 60) . ' h ' . $minutes % 60 . ' m';
+                                                                            ?>
+
+                                                                            <span
+                                                                                class="">{{ $hours }}
+                                                                            </span><br>
+                                                                            <div class="clearfix"> </div>
+                                                                            <span>
+                                                                                @if ($cnt_up == '1')
+                                                                                            NON-STOP
+                                                                                @else
+                                                                                    {{ $cnt_up - 1 }} Stop
+
+                                                                                @endif
+                                                                            </span><br>
+                                                                            @if ($cnt_up != '1')
+                                                                <?php
+                                                                for($i =0; $i < $cnt_up-1; $i++ ){
+                                                                        $connecting_time = $value->sI[$i]->cT;
+                                                                        $connect_hours = intdiv($connecting_time, 60) . ' h ' . $connecting_time % 60 . ' m';
+                                                                ?>
+                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  {{ $value->sI[$i]->aa->city }} | {{ $connect_hours }} Layover">
+
+
+                                                                    via {{ $value->sI[$i]->aa->city }}
+                                                                </span><br>
+                                                                <?php } ?>
+                                                                @endif
+                                                                        </div>
+                                                                                <div class="col-md-3 departture">
+                                                                                    <span>{{ date('H:m', strtotime($value->sI[$cnt_up-1]->at)) }}</span>
+                                                                                    <span>{{ $value->sI[$cnt_up-1]->aa->city }}</span>
+                                                                                </div>
+                                                                        <div class="col-md-3 departture text-center">
+                                                                            <input <?php echo $radio_on_cnt == 1 ? 'Checked' : ''; ?> type="radio"
+                                                                                name="roundFromTo"
+                                                                                class="form-check-input roundFromTo"
+                                                                                data-flight_up_id="{{ $value->sI[0]->id }}"
+                                                                                data-fare_on_id="{{ $value->totalPriceList[0]->id }}"
+                                                                                data-f_on_code="{{ $value->sI[0]->fD->fN }}"
+                                                                                data-f_on_name="{{ $value->sI[0]->fD->aI->name }}"
+                                                                                data-f_on_depat_time="{{ date('H:m', strtotime($value->sI[0]->dt)) }}"
+                                                                                data-f_on_arival_time="{{ date('H:m', strtotime($value->sI[$cnt_up-1]->at)) }}"
+                                                                                data-f_on_price="{{ number_format($value->totalPriceList[0]->fd->ADULT->fC->TF, 0) }}"
+                                                                                data-f_on_logo="{{ $flight_logo }}"
+                                                                                data-onward_price="{{ $value->totalPriceList[0]->fd->ADULT->fC->TF }}">
+                                                                            <p class="price-round"> <i
+                                                                                    class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                                                {{ number_format($value->totalPriceList[0]->fd->ADULT->fC->TF, 0) }}
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <?php $radio_on_cnt++; ?>
+                                                @endforeach
+                                            </div>
+
+
+
+
+                                            <div class="col-md-6">
+                                                <?php
+                                                $radio_re_cnt = 1;
+                                                ?>
+                                                @foreach ($result_array->searchResult->tripInfos->RETURN as $key => $value)
+                                                    <?php
+                                                    // print_r($value->totalPriceList[0]->id);
+
+                                                    ?>
+                                                    <?php $cnt_dwn = count($value->sI); ?>
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-12">
+                                                            <div class="card">
+                                                                <div class="card-body round-trip1 shadow">
+                                                                    <?php
+                                                                    $flight_code = $value->sI[0]->fD->aI->code;
+                                                                    $flight_logo = 'assets/img/AirlinesLogo/' . $flight_code . '.png';
+                                                                    ?>
+                                                                    <img src="{{ $flight_logo }}">
+                                                                    <span>FI.No.{{ $value->sI[0]->fD->aI->code }}
+                                                                        {{ $value->sI[0]->fD->fN }},
+                                                                        <b>{{ $value->sI[0]->fD->aI->name }}</b></span>
+                                                                    <div class="row pt-3">
+                                                                        <div class="col-md-3 departture">
+                                                                            <span>{{ date('H:m', strtotime($value->sI[0]->dt)) }}</span>
+                                                                            <span>{{ $value->sI[0]->da->city }}</span>
+                                                                        </div>
+                                                                        <div class="col-md-3 departture time-gap">
+                                                                            <?php
+                                                                            if($cnt_dwn != 1){
+                                                                                $connect_time =0 ;
+                                                            for($i =0; $i < $cnt_dwn-1; $i++ ){
+                                                                $connect_time += $value->sI[0]->cT;
+                                                            }
+                                                                $minutes = $value->sI[0]->duration+$value->sI[$cnt_dwn -1]->duration+$connect_time;
+                                                            }else{
+                                                                    $minutes = $value->sI[0]->duration;
+                                                                }
+                                                                            $hours = intdiv($minutes, 60) . ' h ' . $minutes % 60 . ' m';
+                                                                            ?>
+
+                                                                            <span
+                                                                                class="">{{ $hours }}
+                                                                            </span><br>
+                                                                            <div class="clearfix"> </div>
+                                                                            <span>
+                                                                               @if ($cnt_dwn == '1')
+                                                                                            NON-STOP
+                                                                                @else
+                                                                                    {{ $cnt_dwn - 1 }} Stop
+
+                                                                                @endif
+                                                                            </span><br>
+                                                                            @if ($cnt_dwn != 1)
+                                                                <?php
+                                                                for($i =0; $i < $cnt_dwn-1; $i++ ){
+                                                                        $connecting_time = $value->sI[$i]->cT;
+                                                                        $connect_hours = intdiv($connecting_time, 60) . ' h ' . $connecting_time % 60 . ' m';
+                                                                ?>
+                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  {{ $value->sI[$i]->aa->city }} | {{ $connect_hours }} Layover">
+
+                                                                    via {{ $value->sI[$i]->aa->city }}
+                                                                </span><br>
+                                                                <?php } ?>
+                                                                @endif
+                                                                        </div>
+                                                                                <div class="col-md-3 departture">
+                                                                                    <span>{{ date('H:m', strtotime($value->sI[$cnt_dwn-1]->at)) }}</span>
+                                                                                    <span>{{ $value->sI[$cnt_dwn-1]->aa->city }}</span>
+                                                                                </div>
+                                                                        <div class="col-md-3 departture text-center">
+                                                                            <input <?php echo $radio_re_cnt == 1 ? 'Checked' : ''; ?> type="radio"
+                                                                                name="roundToFrom"
+                                                                                class="form-check-input roundToFrom"
+                                                                                value=""
+                                                                                data-flight_down_id="{{ $value->sI[0]->id }}"
+                                                                                data-fare_re_id="{{ $value->totalPriceList[0]->id }}"
+                                                                                data-f_re_code="{{ $value->sI[0]->fD->fN }}"
+                                                                                data-f_re_name="{{ $value->sI[0]->fD->aI->name }}"
+                                                                                data-f_re_depat_time="{{ date('H:m', strtotime($value->sI[0]->dt)) }}"
+                                                                                data-f_re_arival_time="{{ date('H:m', strtotime($value->sI[$cnt_dwn-1]->at)) }}"
+                                                                                data-f_re_price="{{ number_format($value->totalPriceList[0]->fd->ADULT->fC->TF, 0) }}"
+                                                                                data-f_re_logo={{ $flight_logo }}
+                                                                                data-return_price="{{ $value->totalPriceList[0]->fd->ADULT->fC->TF }}">
+                                                                            <p class="price-round"> <i
+                                                                                    class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                                                {{ number_format($value->totalPriceList[0]->fd->ADULT->fC->TF, 0) }}
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <?php $radio_re_cnt++; ?>
+                                                @endforeach
+                                            </div>
+                                        @endif
+                                    @endif
+                                </div>
+                            @elseif($tripType == 'multi')
+                                <input type="hidden" id="TripType" value="{{ $tripType }}">
+                                {{-- tab starts  --}}
+                                <div class="data">
+                                    @if ($result_array->status->success == true && $result_array->status->httpStatus == 200)
+                                        @if (isset($result_array->searchResult->tripInfos->COMBO))
+                                            @foreach ($result_array->searchResult->tripInfos->COMBO as $key => $tis)
+                                                <div class="" id="nav-tab Content">
+                                                    <div class="tab-pane fade show active" id="Cheapest" role="tabpanel"
+                                                        aria-labelledby="nav-home-tab">
+                                                        <div class="card mt-3 mb-3">
+
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            @php
+                                                                                $array_size = sizeof($tis->sI);
+                                                                            @endphp
+                                                                            <h5>{{ $tis->sI[0]->da->city }} -
+                                                                                {{ $tis->sI[$array_size - 1]->aa->city }}
+                                                                            </h5>
+                                                                        </div>
+                                                                        <div class="col-md-6 text-end">
+                                                                            <span><i class="fas fa-indian-rupee-sign"></i>
+                                                                                <b>{{ $tis->totalPriceList[0]->fd->ADULT->fC->TF }}</b></span>&nbsp;&nbsp;
+                                                                            <span><a href="#"class="btn btn-outline-primary btn-sm"
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#getInterntionalFlightPrices{{ $key }}"
+                                                                                    onclick="getFareRules({{ $tis->sI[0]->id }})">View
+                                                                                    & More</a></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    @foreach ($tis->sI as $k => $v)
+                                                                        <div class="row mb-2">
+                                                                            <div class="col-md-12 mb-2">
+                                                                                <p>Trip {{ $k + 1 }}</p>
+                                                                                <h6><b>{{ $v->da->city }} to
+                                                                                        {{ $v->aa->city }}</b>
+                                                                                    {{ date('D, d M', strtotime($v->dt)) }}
+                                                                                </h6>
+                                                                            </div>
+                                                                            <div class="col-md-3 mb-3">
+                                                                                <span>
+                                                                                    @php
+                                                                                        $flight_code = $v->fD->aI->code;
+                                                                                        $flight_logo = 'assets/img/AirlinesLogo/' . $flight_code . '.png';
+                                                                                    @endphp
+                                                                                    <div class="col-md-4">
+                                                                                        <img src="{{ $flight_logo }}">
+                                                                                    </div>
+                                                                                </span>
+                                                                                <span><b>{{ $v->fD->aI->name }}</b></span>
+                                                                            </div>
+                                                                            <div class="col-md-3 mb-3">
+                                                                                <p class="flight-brand">
+                                                                                    {{ date('H:i', strtotime($v->dt)) }}
+                                                                                </p>
+                                                                                <p class="flight-number">
+                                                                                    {{ $v->da->city }}</p>
+                                                                            </div>
+                                                                            <div class="col-md-3 mb-3">
+                                                                                <?php
+                                                                                $minutes = $v->duration;
+                                                                                $hours = intdiv($minutes, 60) . ' h ' . $minutes % 60 . ' m';
+                                                                                ?>
+                                                                                @if ($v->stops == '0')
+                                                                                    <p class="flight-number"><span
+                                                                                            class="brdr-btm-time">NON-STOP</span>
+                                                                                    </p>
+                                                                                @else
+                                                                                    <p class="flight-number"><span
+                                                                                            class="brdr-btm-time">
+                                                                                            {{ $v->stops }}
+                                                                                            Stops</span></p>
+                                                                                @endif
+                                                                                <span>
+                                                                                    <p class="flight-brand">
+                                                                                        {{ $hours }} </p>
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="col-md-3 mb-3">
+                                                                                <p class="flight-brand">
+                                                                                    {{ date('H:i', strtotime($v->at)) }}
+                                                                                </p>
+                                                                                <p class="flight-number">
+                                                                                    {{ $v->aa->city }}</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    @endforeach
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                            <!-- View flight Detials   -->
+                                            @foreach ($result_array->searchResult->tripInfos->COMBO as $key => $tis)
+                                                @foreach ($tis->sI as $k => $v)
+                                                    <div class="modal" id="flightdetails{{ $v->id }}">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"><i
+                                                                            class="fa fa-times"></i></button>
+                                                                    <h4>Flight Detials</h4>
+                                                                    <hr>
+                                                                    <div class="clearfix mb-3"></div>
+                                                                    <div class="row align-items-center">
+                                                                        <div class="col-md-4">
+                                                                            <span>
+                                                                                @php
+                                                                                    $flight_code = $v->fD->aI->code;
+                                                                                    $flight_logo = 'assets/img/AirlinesLogo/' . $flight_code . '.png';
+                                                                                @endphp
+                                                                                <div class="col-md-4">
+                                                                                    <img src="{{ $flight_logo }}">
+                                                                                </div>
+                                                                            </span>
+                                                                            <span><b>{{ $v->fD->aI->name }}</b></span>
+                                                                        </div>
+                                                                        <div class="col-md-8">
+                                                                            <p>{{ $v->da->city }} to
+                                                                                {{ $v->aa->city }} ,
+                                                                                {{ date('D, d M', strtotime($v->dt)) }}
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="col-md-12 mt-3">
+                                                                            <table class="table table-borderless">
+                                                                                <tr>
+                                                                                    <td width="33.3%">
+                                                                                        <div>
+                                                                                            <p class="flight-brand">
+                                                                                                {{ date('D, d M', strtotime($v->dt)) }}
+                                                                                            </p>
+                                                                                            <p class="flight-number">
+                                                                                                {{ $v->da->city }}</p>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td width="33.3%">
+                                                                                        <div>
+                                                                                            <?php
+                                                                                            $minutes = $v->duration;
+                                                                                            $hours = intdiv($minutes, 60) . ' h ' . $minutes % 60 . ' m';
+                                                                                            ?>
+                                                                                            @if ($v->stops == '0')
+                                                                                                <p class="flight-number">
+                                                                                                    <span
+                                                                                                        class="brdr-btm-time">NON-STOP</span>
+                                                                                                </p>
+                                                                                            @else
+                                                                                                <p class="flight-number">
+                                                                                                    <span
+                                                                                                        class="brdr-btm-time">
+                                                                                                        {{ $v->stops }}
+                                                                                                        Stops</span></p>
+                                                                                            @endif
+                                                                                            <span>
+                                                                                                <p class="flight-brand">
+                                                                                                    {{ $hours }}
+                                                                                                </p>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td width="33.3%">
+                                                                                        <div>
+                                                                                            <p class="flight-brand">
+                                                                                                {{ date('D, d M', strtotime($v->at)) }}
+                                                                                            </p>
+                                                                                            <p class="flight-number">
+                                                                                                {{ $v->aa->city }}</p>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <small>Terminal 1<br>Abu
+                                                                                            Dhabi,<br>United Arab
+                                                                                            Emirate</small>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                    <td>
+                                                                                        <small>Terminal 2<br>Mumbai,
+                                                                                            India</small>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <p><b>BAGGAGE</b></p>
+                                                                                        <small>ADULT</small>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <p><b>CHECK IN</b></p>
+                                                                                        <small>{{ $tis->totalPriceList[0]->fd->ADULT->bI->iB }}</small>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <p><b>CABIN</b></p>
+                                                                                        <small></small>{{ $tis->totalPriceList[0]->fd->ADULT->bI->cB }}
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            @endforeach
+                                            <!-- View flight detials end   -->
+                                            {{-- international view prices  --}}
+                                            <div>
+                                                @if (!empty($result_array->searchResult->tripInfos->COMBO))
+                                                    @foreach ($result_array->searchResult->tripInfos->COMBO as $key => $tis)
+                                                        @foreach ($tis->sI as $k => $value1)
+                                                            <div class="modal"
+                                                                id="getInterntionalFlightPrices{{ $key }}">
+                                                                <div class="modal-dialog modal-xl">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-body p-0">
+                                                                            <button type="button" class="btn-close"
+                                                                                data-bs-dismiss="modal"><i
+                                                                                    class="fa fa-times"></i></button>
+                                                                            <table class="table table-booking"
+                                                                                style="">
+                                                                                <thead class="bg-grey"
+                                                                                    style="border-bottom: 2px solid #fff;">
+                                                                                    <tr>
+                                                                                        <th class="">FARES </th>
+                                                                                        <th>CABIN BAG</th>
+                                                                                        <th>CHECK-IN</th>
+                                                                                        <th>CANCELLATION</th>
+                                                                                        <th>DATE CHANGE</th>
+                                                                                        <th>SEAT</th>
+                                                                                        <th>MEAL</th>
+                                                                                        <th></th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <?php
+                                                                                    $i = 1;
+                                                                                    $id = 1;
+                                                                                    $c = 1;
+                                                                                    $d = 1;
+                                                                                    $s = 1;
+                                                                                    $totalPriceList = count($tis->totalPriceList);
+                                                                                    ?>
+                                                                                    <input type="hidden"
+                                                                                        name="totalPriceList{{ $value1->id }}"
+                                                                                        id="totalPriceList{{ $value1->id }}"
+                                                                                        value="{{ $totalPriceList }}">
+                                                                                    @foreach ($tis->totalPriceList as $key => $values)
+                                                                                        <tr>
+                                                                                            <td class="">
+                                                                                                <b>Saver</b>
+                                                                                                <input type="hidden"
+                                                                                                    name="uniqueTripPriceId{{ $value1->id }}{{ $i++ }}"
+                                                                                                    id="uniqueTripPriceId{{ $value1->id }}{{ $id++ }}"
+                                                                                                    value="{{ $values->id }}">
+                                                                                                <p>
+                                                                                                    Fare offered by airline.
+                                                                                                </p>
+                                                                                            </td>
+                                                                                            <td>{{ $values->fd->ADULT->bI->cB }}
+                                                                                            </td>
+                                                                                            <td><?php if (isset($values->fd->ADULT->bI->iB)) {
+                                                                                                echo $values->fd->ADULT->bI->iB;
+                                                                                            } else {
+                                                                                                echo '--';
+                                                                                            } ?></td>
+                                                                                            <td
+                                                                                                id="cancellation{{ $value1->id }}{{ $c++ }}">
+                                                                                                --
+                                                                                                {{-- cancellation <br> fee starting <i class="fa-solid fa-indian-rupee-sign"></i> 3,500 --}}
+                                                                                            </td>
+                                                                                            <td
+                                                                                                id="dateChangeText{{ $value1->id }}{{ $d++ }}">
+                                                                                                --
+                                                                                                {{-- Date change <br> fee starting <i class="fa-solid fa-indian-rupee-sign"></i> 3250 --}}
+                                                                                            </td>
+                                                                                            <td
+                                                                                                id="seatChargeId{{ $value1->id }}{{ $s++ }}">
+                                                                                                --
+                                                                                                {{-- Middle Seat Free, <br> Window/Asile Chargeable --}}
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                @if (isset($value->fd->ADULT->mI))
+                                                                                                    @if ($value->fd->ADULT->mI == true)
+                                                                                                        Free Meal
+                                                                                                    @else
+                                                                                                        Paid Meal
+                                                                                                    @endif
+                                                                                                @else
+                                                                                                    --
+                                                                                                @endif
+                                                                                            </td>
+                                                                                            <td align="right">
+                                                                                                <p class="final-price">
+                                                                                                    <b><i
+                                                                                                            class="fa-solid fa-indian-rupee-sign"></i>{{ number_format($values->fd->ADULT->fC->NF) }}</b>
+                                                                                                </p>
+                                                                                                <a
+                                                                                                    href="{{ route('reviewDetails') }}?pKey0={{ $values->id }}">
+                                                                                                    <button
+                                                                                                        class="btn btn-book-now">Book
+                                                                                                        Now</button> </a>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    @endforeach
+                                                                                </tbody>
+                                                                            </table>
+                                                                            <div class="clearfix"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    @endforeach
+                                                @endif
+                                            </div>
+                                            {{-- International prices --}}
+                                            {{-- INTERNATION FLIGHTS CODE ENDS  --}}
+                                            {{-- DOMESTIC FLIGHTS CODE STARTS --}}
+                                        @elseif (isset($result_array->searchResult->tripInfos))
+                                            <div class="multi-city d-flex justify-content-start">
+                                                <div class="nav nav-tabs " id="nav-tab" role="tablist">
+                                                    @foreach ($result_array->searchResult->tripInfos as $key => $tis)
+                                                        <button class="nav-link mb-0  p-tb15 d-flex align-items-center  <?php echo $key==0?'active':''; ?>"
+                                                            id="nav-home-tab" data-bs-toggle="tab"
+                                                            data-bs-target="#ShowFlightDetails{{ $key }}"
+                                                            type="button" role="tab"
+                                                            aria-controls="nav-home{{ $key }}"
+                                                            aria-selected="true">
+                                                            <div class="detailss">
+                                                                <h5>
+                                                                    {{ $tis[0]->sI[0]->da->city }}
+                                                                    -
+                                                                    {{ $tis[0]->sI[0]->aa->city }}
+                                                                </h5>
+                                                            </div>
+                                                        </button>
+                                                    @endforeach
+                                        @endif
+                                    @endif
+                                </div>
+                        </div>
+                    </div>
+                    {{-- tab ends --}}
+                    <div class="tab-content" id="nav-tabContent">
+                        @if ($result_array->status->success == true && $result_array->status->httpStatus == 200)
+                            @if (isset($result_array->searchResult->tripInfos))
+                                @foreach ($result_array->searchResult->tripInfos as $key => $tis)
+                                    <div class="tab-pane fade show <?php echo $key==0?'active':''; ?>" id="ShowFlightDetails{{ $key }}"
+                                        role="tabpanel" aria-labelledby="nav-home-tab{{ $key }}">
+                                        <div class="card mt-3 mb-3">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <table class="table mt-3 mb-3">
+                                                        <thead class="bg-thead">
+                                                            <tr>
+                                                                <th>Sorted By: </th>
+                                                                <th>Departure</th>
+                                                                <th>Duration</th>
+                                                                <th>Arrival</th>
+                                                                <th>Price</th>
+                                                            </tr>
+                                                        </thead>
+                                                        @foreach ($tis as $tisKey => $tisI)
+                                                        <?php $cnt_stops = count($tisI->sI); ?>
+                                                            @foreach ($tisI->sI as $k => $v)
+                                                                <tbody class="bg-tbody">
+                                                                    <tr>
+                                                                        <td style="width:25%">
+                                                                            <div>
+                                                                                <div class="row">
+                                                                                    @php
+                                                                                        $flight_code = $v->fD->aI->code;
+                                                                                        $flight_logo = 'assets/img/AirlinesLogo/' . $flight_code . '.png';
+                                                                                    @endphp
+                                                                                    <div class="col-md-4">
+                                                                                        <img src="{{ $flight_logo }}">
+                                                                                    </div>
+                                                                                    <div class="col-md-8">
+                                                                                        <p class="flight-number">
+                                                                                            FI.No.{{ $v->fD->fN }}</p>
+                                                                                        <p class="flight-brand">
+                                                                                            {{ $v->fD->aI->name }}</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td style="width:15%">
+                                                                            <div>
+                                                                                <p class="flight-number">
+                                                                                    {{ $v->da->city }}</p>
+                                                                                <p class="flight-brand">
+                                                                                    {{ date('H:i', strtotime($v->dt)) }}
+                                                                                </p>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td style="width:25%">
+                                                                            <div>
+                                                                                <?php
+                                                                                if($cnt_stops !=1){
+                                                                                $connect_time = 0;
+                                                                for($i=0;$i<$cnt_stops-1;$i++){
+                                                                    $connect_time += $tisI->sI[$i]->cT;
+                                                                }
+                                                                $minutes = $tisI->sI[0]->duration+$tisI->sI[$cnt_stops -1]->duration+$connect_time;
+                                                                            }else{
+                                                                                $minutes = $v->duration;
+                                                                            }
+                                                                                $hours = intdiv($minutes, 60) . ' h ' . $minutes % 60 . ' m';
+                                                                                ?>
+                                                                                @if ($cnt_stops == '1')
+                                                                                <p class="flight-number"><span
+                                                                                        class="brdr-btm-time">NON-STOP</span>
+                                                                                </p>
+                                                                            @else
+                                                                                <p class="flight-number"><span
+                                                                                        class="brdr-btm-time">
+                                                                                        {{ $cnt_stops-1 }}
+                                                                                        Stop</span></p>
+                                                                            @endif
+                                                                                <span>
+                                                                                    <p class="flight-brand">
+                                                                                        {{ $hours }} </p>
+                                                                                </span>
+                                                                                @if ($cnt_stops != '1')
+                                                            <?php
+                                                            for($i=0;$i<$cnt_stops-1;$i++){
+                                                                    $connecting_time = $tisI->sI[$i]->cT;
+                                                                    $connect_hours = intdiv($connecting_time, 60) . ' h ' . $connecting_time % 60 . ' m';
+                                                            ?>
+                                                            <small data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  {{ $tisI->sI[$i]->aa->city }} | {{ $connect_hours }} Layover">
+
+
+                                                                via {{ $tisI->sI[$i]->aa->city }}
+                                                            </small><br>
+                                                            <?php } ?>
+                                                            @endif
+                                                                            </div>
+                                                                        </td>
+                                                                        <td style="width:15%">
+                                                                            <div>
+                                                                                <p class="flight-number">
+                                                                                    {{ $tisI->sI[$cnt_stops-1]->aa->city }}</p>
+                                                                                <p class="flight-brand">
+                                                                                    {{ date('H:i', strtotime($tisI->sI[$cnt_stops-1]->at)) }}
+                                                                                </p>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td style="width:20%">
+                                                                            <div>
+                                                                                <p class=" flight-brand"><i
+                                                                                        class="fa-solid fa-indian-rupee-sign"></i>
+                                                                                    {{ number_format($tisI->totalPriceList[0]->fd->ADULT->fC->TF, 0) }}
+                                                                                </p>
+                                                                                <p class="flight-brand"><a href="#"
+                                                                                        data-bs-toggle="modal"
+                                                                                        data-bs-target="#book-table{{ $v->id }}"
+                                                                                        onclick="getFareRules({{ $v->id }})">View
+                                                                                        & More</a></p>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            @endforeach
+                                                        @endforeach
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            {{-- @endif --}}
+                        {{-- @endif --}}
+                    </div>
+                    {{-- DOMESTIC FLIGHTS CODE ENDS --}}
+                    {{-- modal --}}
+                    <div>
+                        @if(!empty($result_array->searchResult->tripInfos))
+                        @foreach ($result_array->searchResult->tripInfos as $trip_key=>$value)
+                        @foreach($value as $ke=>$val)
+                        <?php $count_multi = count($val->sI); ?>
+                        @foreach ($val->sI as $key1=>$value1 )
+                        <div class="modal" id="book-table{{ $value1->id }}">
+                           <div class="modal-dialog modal-xl">
+                              <div class="modal-content">
+                                 <div class="modal-body p-0">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"><i
+                                       class="fa fa-times"></i></button>
+                                    <table class="table table-booking" style="">
+                                       <thead class="bg-grey" style="border-bottom: 2px solid #fff;">
+                                          <tr>
+                                             <th class="">FARES </th>
+                                             <th>CABIN BAG</th>
+                                             <th>CHECK-IN</th>
+                                             <th>CANCELLATION</th>
+                                             <th>DATE CHANGE</th>
+                                             <th>SEAT</th>
+                                             <th>MEAL</th>
+                                             <th></th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <?php
+                                             $i = 1;
+                                             $id = 1;
+                                             $c = 1;
+                                             $d = 1;
+                                             $s = 1;
+                                             $totalPriceList = count($val->totalPriceList);
+
+                                             ?>
+                                          <input type="hidden" name="totalPriceList{{ $value1->id }}"
+                                             id="totalPriceList{{ $value1->id }}" value="{{ $totalPriceList }}">
+                                          @foreach ($val->totalPriceList as $key => $values)
+                                          <tr>
+                                             <td class="">
+                                                <b>{{$values->fareIdentifier}}</b>
+                                                <input type="hidden"
+                                                   name="uniqueTripPriceId{{ $value1->id }}{{ $i++ }}"
+                                                   id="uniqueTripPriceId{{ $value1->id }}{{ $id++ }}"
+                                                   value="{{ $values->id }}">
+                                                <p>
+                                                   Fare offered by airline.
+                                                </p>
+                                             </td>
+                                             <td>{{ $values->fd->ADULT->bI->cB }}</td>
+                                             <input type="hidden" name="price_id" id="PriceId{{$trip_key}}" value="{{$values->id}}">
+                                             <td><?php if (isset($values->fd->ADULT->bI->iB)) {
+                                                echo $values->fd->ADULT->bI->iB;
+                                                } else {
+                                                echo '--';
+                                                } ?></td>
+                                             <td id="cancellation{{ $value1->id }}{{ $c++ }}">--
+                                                {{-- cancellation <br> fee starting <i class="fa-solid fa-indian-rupee-sign"></i> 3,500 --}}
+                                             </td>
+                                             <td id="dateChangeText{{ $value1->id }}{{ $d++ }}">--
+                                                {{-- Date change <br> fee starting <i class="fa-solid fa-indian-rupee-sign"></i> 3250 --}}
+                                             </td>
+                                             <td id="seatChargeId{{ $value1->id }}{{ $s++ }}">--
+                                                {{-- Middle Seat Free, <br> Window/Asile Chargeable --}}
+                                             </td>
+                                             <td>
+                                                @if (isset($value->fd->ADULT->mI))
+                                                @if ($value->fd->ADULT->mI == true)
+                                                Free Meal
+                                                @else
+                                                Paid Meal
+                                                @endif
+                                                @else
+                                                --
+                                                @endif
+                                             </td>
+                                             <td align="right">
+                                                <p class="final-price"><b><i
+                                                   class="fa-solid fa-indian-rupee-sign"></i>{{ number_format($values->fd->ADULT->fC->NF) }}</b>
+                                                </p>
+                                                {{-- <a href="{{ route('reviewDetails') }}?pkey0={{ $values->id }}">
+                                                <button class="btn btn-book-now">Book Now</button> </a> --}}
+                                                {{-- <button class="btn btn-book-now" onclick="bookNow('{{ $values->id }}')" >
+                                                Book Now</button> --}}
+                                                <input type="hidden" name="flight_code" id="flightCode{{$value1->id}}" value="{{$value1->fD->aI->code}}">
+                                                <input type="radio" class="roundtrip-card multitrip" name="book_now" id="BookNowRadio{{$value1->id}}"
+                                                 onclick="bookNow('{{ $value1->id }}','{{$trip_key}}','{{$values->id}}')"
+                                                 value="{{ $value1->id }}"
+                                                 data-f_on_code="{{ $value1->fD->fN }}"
+                                                 data-f_on_name="{{ $value1->fD->aI->name }}"
+                                                 data-f_on_depat_time="{{ date('H:m', strtotime($value1->dt)) }}"
+                                                 data-f_on_arival_time="{{ date('H:m', strtotime($val->sI[$count_multi-1]->at)) }}"
+                                                 data-f_on_price="{{ $values->fd->ADULT->fC->TF }}"
+                                                 data-f_on_logo="{{ $flight_logo }}"
+                                                 data-f_si_id="{{$value1->id}}"
+                                                 data-onward_price="{{ $values->fd->ADULT->fC->TF }}"
+                                                 data-f_arr_code = {{$value1->da->code}}
+                                                 data-f_dep_code = {{$val->sI[$count_multi-1]->aa->code}}
+                                                 data-f_logo = {{$value1->fD->aI->code}}
+                                                 data-f_trip_id = {{$trip_key}}
+                                                >
+                                             </td>
+                                          </tr>
+                                          @endforeach
+                                       </tbody>
+                                    </table>
+                                    <div class="clearfix"></div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        @endforeach
+                        @endforeach
+                        @endforeach
+                        @endif
+
+                        <!-- pricedetails along with times-->
+                        @if(empty($result_array->searchResult->tripInfos->COMBO))
+                      <div class="row pricedetails-btm pricedetails-btm-full newrowBook">
+                      <div class="row">
+                        {{-- <div id="BookNow"></div> --}}
+                        @for($i=0; $i<5; $i++)
+                        <div class="booknowTrips" id="BookNow{{$i}}">
+                        </div>
+                         @endfor
+                        <div class="col-md-2">
+                            <ul class="m-0 p-0">
+                                <li class="align-items-center" style="list-style: none">
+                                    <span><p class="price-round total-price">  </p></span>
+                                    <span>
+
+                                        <p style="white-space: nowrap">Total Trip Cost</p>
+                                    </span>
+                                </li>
+                                <li style="list-style: none; display: flex"><button type="button" class="btn btn-primary" onclick="submitDomesticMulticity()">Book Now</button></li>
+                            </ul>
+                        </div>
+                            </div>
+                    </div>
+                   @endif
+                    </div>
+                @else
+                    {{-- {{ print_r($errors) }} --}}
+
+                    <tr>
+                        <td colspan="5" align="center">
+                            <div>{{ 'No Flights Found' }}</div>
+                        </td>
+                    </tr>
+
+                    @endif
+                @else
+                    {{-- {{ print_r($errors) }} --}}
+
+                    <tr>
+                        <td colspan="5" align="center">
+                            <div>{{ $errors[0]->message }}</div>
+                        </td>
+                    </tr>
+                    @endif
+
+                    </tbody>
+                    </table>
+                @else
+                    {{-- {{ print_r($errors) }} --}}
+
+                    <div>
+                        <div>{{ $errors[0]->message }}</div>
+                    </div>
+                    @endif
+
+
+
+                </div>
+            </div>
+
+
+
+            <!-- pricedetails -->
+            @if ($result_array->status->success == true && $result_array->status->httpStatus == 200)
+                @if (isset($result_array->searchResult->tripInfos->ONWARD) &&
+                    isset($result_array->searchResult->tripInfos->RETURN))
+                    <?php $key = $result_array->searchResult->tripInfos->ONWARD[0]; ?>
+
+
+                    <div class="row pricedetails-btm pricedetails-btm-full">
+                        <div class="col-md-8">
+                            <div class="row">
+
+
+                                {{-- @foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $value) --}}
+                                <div class="col-md-6 btm-price">
+                                    <p id="f_on_name">Departure ・ {{ $key->sI[0]->fD->aI->name }}</p>
+                                    <div class="row align-items-center">
+                                        <div class="col-md-2 p-0">
+                                            <?php
+                                            $flight_code = $key->sI[0]->fD->aI->code;
+                                            $flight_logo = 'assets/img/AirlinesLogo/' . $flight_code . '.png';
+                                            ?>
+                                            <img id="f_on_logo" src="{{ $flight_logo }}" class="img-fluid">
+                                        </div>
+                                        <div class="col-md-5 btm-flights-price">
+                                            <p id="f_on_a_d_time">{{ date('H:m', strtotime($key->sI[0]->dt)) }} →
+                                                {{ date('H:m', strtotime($key->sI[0]->at)) }}</p>
+                                            {{-- <a href="#">Flight Details</a> --}}
+                                        </div>
+                                        <div class="col-md-5 p-0">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                <span
+                                                    id="f_on_price">{{ number_format($key->totalPriceList[0]->fd->ADULT->fC->TF, 0) }}</span>
+
+                                                <input type="hidden" name="ontripPrice" id="ontripPrice"
+                                                    value="{{ $key->totalPriceList[0]->fd->ADULT->fC->TF }}">
+
+                                                <input type="hidden" name="upFarePrice" id="upFarePrice"
+                                                    value="{{ $key->sI[0]->id }}">
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- @endforeach --}}
+
+
+                                <?php $return = $result_array->searchResult->tripInfos->RETURN[0]; ?>
+
+                                <div class="col-md-6 btm-price">
+                                    <p id="f_re_name">Return ・ {{ $return->sI[0]->fD->aI->name }}</p>
+                                    <div class="row align-items-center">
+                                        <div class="col-md-2 p-0">
+                                            <?php
+                                            $flight_code = $return->sI[0]->fD->aI->code;
+                                            $flight_logo = 'assets/img/AirlinesLogo/' . $flight_code . '.png';
+                                            ?>
+                                            <img id="f_re_logo" src="{{ $flight_logo }}" class="img-fluid">
+                                        </div>
+                                        <div class="col-md-5 btm-flights-price">
+                                            <p id="f_re_a_d_time">{{ date('H:m', strtotime($return->sI[0]->dt)) }}
+                                                → {{ date('H:m', strtotime($return->sI[0]->at)) }}</p>
+                                            {{-- <a href="#">Flight Details</a> --}}
+                                        </div>
+                                        <div class="col-md-5 p-0">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                <span
+                                                    id="f_re_price">{{ number_format($return->totalPriceList[0]->fd->ADULT->fC->TF, 0) }}</span>
+                                            </p>
+
+
+                                            <input type="hidden" name="retripPrice" id="retripPrice"
+                                                value="{{ $return->totalPriceList[0]->fd->ADULT->fC->TF }}">
+
+                                            <input type="hidden" name="downFarePrice" id="downFarePrice"
+                                                value="{{ $return->sI[0]->id }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4 btm-fligh-price">
+                            <div class="row justify-content-between align-items-center">
+                                <div class="col-md-8">
+                                    <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                        <span
+                                            id="total_fare">{{ number_format(round($key->totalPriceList[0]->fd->ADULT->fC->TF) + round($return->totalPriceList[0]->fd->ADULT->fC->TF), 0) }}</span>
+                                    </p>
+                                    {{-- <a href="#">Flight Details</a> --}}
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="#" id="ViewPrice"
+                                        onclick="getFareRules({{ $key->sI[0]->id }}); getDownFareRules({{ $return->sI[0]->id }}); viewPriceBook({{ $return->sI[0]->id }})"
+                                        data-return_id="{{ $return->sI[0]->id }}" data-bs-toggle="modal"
+                                        data-bs-target="#ViewPrice{{ $key->sI[0]->id }}"><button
+                                            class="btn btn-primary">Book</button></a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                @endif
+            @endif
+
+
+        </div>
+        </div>
+        </div>
+    </section>
+@endsection
+
+@section('script-content')
+    <!-- slick js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.min.js"></script>
+
+
+    <!-- Passenger List -->
+    <script src="{{asset('assets/customjs/passengerlist.js')}}"></script>
+    
+
+
+    <script type="text/javascript">
+    
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        let maindeparture = document.querySelectorAll('.depaturemaina');
+
+        
+     
+        maindeparture.forEach(depatureclick => {
+            
+            depatureclick.addEventListener('click', function(dept){
+                let deptminvalue = dept.target.nextElementSibling.value,
+                deptmaxvalue = dept.target.nextElementSibling.nextElementSibling.value;
+                deptarriv = dept.target.nextElementSibling.nextElementSibling.nextElementSibling.value;
+                    
+                $.ajax({
+                    url:"{{route('SearchFlights')}}",
+                    method:"get",
+                    dataType: 'json',
+                    data:{
+                        'deptminvalue':deptminvalue,
+                        'deptmaxvalue':deptmaxvalue,
+                        'deptarriv':deptarriv,
+                    },
+                    success: (data) =>{
+                        $('#loadoneway').html(data.data);
+                        
+                        console.log(`{{Session::get('deptarriv')}}`);
+                        
+                    //    window.location.replace(`{{route("SearchFlights")}}`);
+                    },
+                    error: (data) =>{
+
+                    }
+
+                });
+                   
+            });
+            
+        });
+
+        /** Number Stops Filter **/
+            let stopsclick = document.querySelectorAll('.stopsclick');
+
+            stopsclick.forEach(function(stopsclickvalue, stopsclickindex){
+
+                stopsclickvalue.addEventListener('change', function(stopclick){
+
+                    let valuestopclick = stopclick.target.value;
+                    $.ajax({
+                        url:"{{route('SearchFlights')}}",
+                        method:"get",
+                        dataType: 'json',
+                        data:{
+                            'valuestopclick':valuestopclick,
+                        },
+                        success: (data) =>{
+                            $('#loadoneway').html(data.data);
+                        
+                        },
+                        error: (data) =>{
+
+                        }
+                    });
+                })
+
+            });
+        /** Number Stops Filter **/
+
+        /** Airlines Filter clicks **/
+            let airlinesclickstops = document.querySelectorAll('.airlinesclickstops');
+            airlinesclickstops.forEach((airlinesclickstopsvalue, airlinesclickstopsindex) => {
+
+                airlinesclickstopsvalue.addEventListener('change', (airlinesclickstopsclick) =>{
+
+                    let airlinesclickstopsclickvalue = airlinesclickstopsclick.target.value;
+                    
+                    $.ajax({
+                        
+                        url:"{{route('SearchFlights')}}",
+                        method:"get",
+                        dataType: 'json',
+                        data:{
+                            'airlinesclickstopsclickvalue':airlinesclickstopsclickvalue,
+                        },
+                        success: (data) =>{
+                            $('#loadoneway').html(data.data);
+                        
+                        },
+                        error: (data) =>{
+
+                        }
+                    });
+                });
+                    
+            });
+        /** Airlines Filter clicks **/
+
+        /** Price Range Filter **/
+
+        $( "#slider-range" ).slider({
+            range: true,
+            min: Math.round({{$minpricevalue}}),
+            max: Math.round({{$maxpricevalue}}),
+            values: [ Math.round({{$minpricevalue}}), Math.round({{$maxpricevalue}}) ],
+            slide: function( event, ui ) {
+                $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+            },
+            stop: function( event, ui ) {
+                // $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] ); 
+                let minvalue = ui.values[ 0 ],
+                    maxvalue = ui.values[ 1 ];
+
+                    $.ajax({
+                        
+                        url:"{{route('SearchFlights')}}",
+                        method:"get",
+                        dataType: 'json',
+                        data:{
+                            'price_minvalue':minvalue,
+                            'price_maxvalue':maxvalue,
+                        },
+                        success: (data) =>{
+                            $('#loadoneway').html(data.data);
+                        
+                        },
+                        error: (data) =>{
+
+                        }
+                    });
+
+                console.log(minvalue, maxvalue);
+
+            }
+        });
+        $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) + " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+            
+            
+        /** Price Range Filter **/
+
+    
+
+
+
+
+
+
+        $(document).ready(function() {
+            $('.carousel').slick({
+                slidesToShow: 7,
+                dots: false,
+                centerMode: true,
+            });
+        });
+
+        var elementPosition = $('#footer').offset();
+
+        $(window).scroll(function() {
+            //   console.log(elementPosition.top);
+            //   console.log($(window).scrollTop());
+            if ($(window).scrollTop() < 200) {
+                $('.pricedetails-btm-full').css('position', 'fixed').css('bottom', '0').css('right', '0').css(
+                    'width', '70%');
+            } else {
+                $('.pricedetails-btm').css('position', 'static').css('width', '100%');
+            }
+        });
+    </script>
+
+    {{-- <script src="{{ asset('mobiscroll/js/mobiscroll.jquery.min.js') }}"></script> --}}
+    
+
+
+    <script>
+        var start_date = null,
+            end_date = null;
+        var timestamp_start_date = null,
+            timestamp_end_date = null;
+        var $input_start_date = null,
+            $input_end_date = null;
+
+
+
+        function getDateClass(date, start, end) {
+            if (end != null && start != null) {
+                if (date > start && date < end)
+                    return [true, "sejour", "Séjour"];
+            }
+
+            if (date == start)
+                return [true, "start", "Début de votre séjour"];
+            if (date == end)
+                return [true, "end", "Fin de votre séjour"];
+
+            return false;
+        }
+
+        function datepicker_draw_nb_nights() {
+            var $datepicker = jQuery("#ui-datepicker-div");
+            setTimeout(function() {
+                if (start_date != null && end_date != null) {
+                    var $qty_days_stay = jQuery("<div />", {
+                        class: "ui-datepicker-stay-duration"
+                    });
+                    var qty_nights_stay = get_days_difference(timestamp_start_date, timestamp_end_date);
+                    $qty_days_stay.text(qty_nights_stay + " nights stay");
+                    $qty_days_stay.appendTo($datepicker);
+                }
+            });
+        }
+
+        var fromDate = $('#flightBookingDepart').val();
+        var returnDate = $('#flightBookingReturn').val();
+
+
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+
+
+        var todayDate = (day < 10 ? '0' : '') + day + '-' +
+            (month < 10 ? '0' : '') + month + '-' + d.getFullYear();
+
+
+        var maxDate = '31-03-' + parseInt(d.getFullYear() + 1);
+
+
+
+        var options_start_date = {
+            dateFormat: "dd-mm-yy",
+            showAnim: false,
+            constrainInput: true,
+            numberOfMonths: 1,
+            showOtherMonths: true,
+            minDate: todayDate,
+            maxDate: maxDate,
+            beforeShow: function(input, datepicker) {
+
+                datepicker_draw_nb_nights();
+            },
+            beforeShowDay: function(date) {
+
+                // 0: published
+                // 1: class
+                // 2: tooltip
+                var timestamp_date = date.getTime();
+                var result = getDateClass(timestamp_date, timestamp_start_date, timestamp_end_date);
+                if (result != false)
+                    return result;
+
+                return [true, "", ""];
+                // return [ true, "chocolate", "Chocolate! " ];
+            },
+            onSelect: function(date_string, datepicker) {
+                // this => input
+                if ($('#trip_type').val() != 'oneway') {
+                    start_date = $input_start_date.datepicker("getDate", 'minDate');
+                    timestamp_start_date = start_date.getTime();
+                }
+
+            },
+            onClose: function() {
+                if (end_date != null) {
+                    if (timestamp_start_date > timestamp_end_date || end_date == null) {
+                        $input_end_date.datepicker("setDate", null);
+                        end_date = null;
+                        timestamp_end_date = null;
+                        $input_end_date.datepicker("show");
+                        return;
+                    }
+                }
+                if (start_date != null && end_date == null)
+                    $input_end_date.datepicker("show");
+            }
+        };
+
+        var options_end_date = {
+            dateFormat: "dd-mm-yy",
+            showAnim: false,
+            constrainInput: true,
+            numberOfMonths: 1,
+            showOtherMonths: true,
+            minDate: todayDate,
+            maxDate: maxDate,
+            beforeShow: function(input, datepicker) {
+                datepicker_draw_nb_nights();
+            },
+            beforeShowDay: function(date) {
+                var timestamp_date = date.getTime();
+                var result = getDateClass(timestamp_date, timestamp_start_date, timestamp_end_date);
+                if (result != false)
+                    return result;
+
+                return [true, "", "Chocolate !"];
+            },
+            onSelect: function(date_string, datepicker) {
+                // this => input
+                end_date = $input_end_date.datepicker("getDate", 'minDate');
+                timestamp_end_date = end_date.getTime();
+            },
+            onClose: function() {
+                if (end_date == null)
+                    return;
+
+                if (timestamp_end_date < timestamp_start_date || start_date == null) {
+                    $input_start_date.datepicker("setDate", null);
+                    start_date = null;
+                    timestamp_start_date = null;
+                    $input_start_date.datepicker("show");
+                }
+            }
+        };
+
+        $input_start_date = jQuery("#flightBookingDepart");
+        $input_end_date = jQuery("#flightBookingReturn");
+        // alert(fromDate)
+
+        $input_start_date.datepicker(options_start_date);
+        $input_start_date.datepicker('setDate', fromDate);
+        $input_end_date.datepicker(options_end_date);
+        $input_end_date.datepicker('setDate', returnDate);
+
+        function get_days_difference(start_date, end_date) {
+            return Math.floor(end_date - start_date) / (1000 * 60 * 60 * 24);
+        }
+    </script>
+
+    <script>
+        $('#fromPlace').select2({
+            placeholder: 'Select from',
+        });
+        $('#toPlace').select2({
+            placeholder: 'Select to'
+        });
+
+
+
+        $('.from-to-inner').click(function() {
+            var fromPlace = $('#fromPlace').val();
+            var toPlace = $('#toPlace').val();
+
+            $('#fromPlace').val(toPlace);
+            $('#toPlace').val(fromPlace);
+            $('#toPlace').trigger('change');
+            $('#fromPlace').trigger('change');
+            // console.log($('#fromPlace :selected').text());
+        });
+        
+
+
+
+
+        $('#fromPlace, #toPlace').on('change', function() {
+            var fromPlace = $('#fromPlace').val();
+            var toPlace = $('#toPlace').val();
+            if (fromPlace == toPlace) {
+                $('#sameFromTo').show();
+                $('#searchFlightsButton').hide();
+
+            } else {
+                $('#sameFromTo').hide();
+                $('#searchFlightsButton').show();
+            }
+
+        });
+        // $( document ).ready( getFareRules );
+
+        function getFareRules(airportId) {
+            var flight_count = $('.airportApiId1').attr('data-flight_count');
+            // for (i = 1; i <= flight_count; i++) {
+
+            // var airportApiId = $('.airportApiId' + i).attr('data-airportId');
+            var airportApiId = airportId;
+            // alert(airportApiId);
+
+            var totalPriceList = $('#totalPriceList' + airportApiId).val();
+
+            // alert(totalPriceList);
+
+            for (j = 1; j <= totalPriceList; j++) {
+                var uniqueTripPriceId = $('#uniqueTripPriceId' + airportApiId + j).val();
+                // console.log(uniqueTripPriceId);
+                var cancellationId = 'cancellation' + airportApiId + j;
+                var dateChangeId = 'dateChangeText' + airportApiId + j;
+                var seatChargeId = 'seatChargeId' + airportApiId + j;
+
+
+
+                getFarePrices(uniqueTripPriceId, cancellationId, dateChangeId, seatChargeId);
+
+            }
+
+            // }
+
+            function getFarePrices(uniqueTripPriceId, cancellationId, dateChangeId, seatChargeId) {
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                });
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('getFarePrices') }}',
+                    data: {
+                        'uniqueTripPriceId': uniqueTripPriceId
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.status.success == true && data.status.httpStatus == '200') {
+
+                            $.each(data.fareRule, function(k) {
+                                // console.log(data.fareRule[k].fr.CANCELLATION.DEFAULT.policyInfo);
+
+                                if ((data.fareRule[k].fr).hasOwnProperty('CANCELLATION')) {
+                                    if ((data.fareRule[k].fr.CANCELLATION.hasOwnProperty('DEFAULT'))) {
+                                        let cancellationText = data.fareRule[k].fr.CANCELLATION.DEFAULT
+                                            .policyInfo;
+                                        let myArray = cancellationText.replace(/__nls__/g, "<br>");
+                                        $('#' + cancellationId).html(myArray);
+                                    } else {
+                                        let cancellationText = data.fareRule[k].fr.CANCELLATION
+                                            .BEFORE_DEPARTURE
+                                            .policyInfo;
+                                        let myArray = cancellationText.replace(/__nls__/g, "<br>");
+                                        $('#' + cancellationId).html(myArray);
+                                    }
+                                }
+
+                                if ((data.fareRule[k].fr).hasOwnProperty('DATECHANGE')) {
+                                    if ((data.fareRule[k].fr.DATECHANGE.hasOwnProperty('DEFAULT'))) {
+                                        let dateChangeText = data.fareRule[k].fr.DATECHANGE.DEFAULT
+                                            .policyInfo;
+                                        let dateDisplay = dateChangeText.replace(/__nls__/g, "<br>");
+                                        $('#' + dateChangeId).html(dateDisplay);
+
+                                    } else {
+                                        let dateChangeText = data.fareRule[k].fr.DATECHANGE
+                                            .BEFORE_DEPARTURE
+                                            .policyInfo;
+                                        let dateDisplay = dateChangeText.replace(/__nls__/g, "<br>");
+                                        $('#' + dateChangeId).html(dateDisplay);
+                                    }
+
+                                }
+
+                                if ((data.fareRule[k].fr).hasOwnProperty('SEAT_CHARGEABLE')) {
+                                    let seatCharge = data.fareRule[k].fr.SEAT_CHARGEABLE.DEFAULT
+                                        .policyInfo;
+                                    $('#' + seatChargeId).html(seatCharge);
+                                }
+
+
+                            });
+                        }
+
+
+
+                    }
+                })
+            }
+
+        }
+
+        function getDownFareRules(airportId) {
+            var flight_count = $('.airportApiId1').attr('data-flight_count');
+            // for (i = 1; i <= flight_count; i++) {
+
+            // var airportApiId = $('.airportApiId' + i).attr('data-airportId');
+            var airportApiId = airportId;
+            // alert(airportApiId);
+
+            var totalPriceList = $('#totalPriceList' + airportApiId).val();
+
+            // alert(totalPriceList);
+
+            for (j = 1; j <= totalPriceList; j++) {
+                var uniqueTripPriceId = $('#uniqueTripPriceId' + airportApiId + j).val();
+                // console.log(uniqueTripPriceId);
+                var cancellationId = 'cancellationRe' + airportApiId + j;
+                var dateChangeId = 'dateChangeTextRe' + airportApiId + j;
+                var seatChargeId = 'seatChargeId' + airportApiId + j;
+
+
+                // alert(uniqueTripPriceId)
+                getFarePrices(uniqueTripPriceId, cancellationId, dateChangeId, seatChargeId);
+
+            }
+
+            // }
+
+            function getFarePrices(uniqueTripPriceId, cancellationId, dateChangeId, seatChargeId) {
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                });
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('getFarePrices') }}',
+                    data: {
+                        'uniqueTripPriceId': uniqueTripPriceId
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.status.success == true && data.status.httpStatus == '200') {
+
+                            $.each(data.fareRule, function(k) {
+                                // console.log(data.fareRule[k].fr.CANCELLATION.DEFAULT.policyInfo);
+
+                                if ((data.fareRule[k].fr).hasOwnProperty('CANCELLATION')) {
+                                    if ((data.fareRule[k].fr.CANCELLATION.hasOwnProperty('DEFAULT'))) {
+                                        let cancellationText = data.fareRule[k].fr.CANCELLATION.DEFAULT
+                                            .policyInfo;
+                                        let myArray = cancellationText.replace(/__nls__/g, "<br>");
+                                        $('#' + cancellationId).html(myArray);
+                                        $('.' + cancellationId).html(myArray);
+                                    } else {
+                                        let cancellationText = data.fareRule[k].fr.CANCELLATION
+                                            .BEFORE_DEPARTURE
+                                            .policyInfo;
+                                        let myArray = cancellationText.replace(/__nls__/g, "<br>");
+                                        $('#' + cancellationId).html(myArray);
+                                        $('.' + cancellationId).html(myArray);
+                                    }
+                                }
+
+                                if ((data.fareRule[k].fr).hasOwnProperty('DATECHANGE')) {
+                                    if ((data.fareRule[k].fr.DATECHANGE.hasOwnProperty('DEFAULT'))) {
+                                        let dateChangeText = data.fareRule[k].fr.DATECHANGE.DEFAULT
+                                            .policyInfo;
+                                        let dateDisplay = dateChangeText.replace(/__nls__/g, "<br>");
+                                        $('#' + dateChangeId).html(dateDisplay);
+                                        $('.' + dateChangeId).html(dateDisplay);
+
+                                    } else {
+                                        let dateChangeText = data.fareRule[k].fr.DATECHANGE
+                                            .BEFORE_DEPARTURE
+                                            .policyInfo;
+                                        let dateDisplay = dateChangeText.replace(/__nls__/g, "<br>");
+                                        $('#' + dateChangeId).html(dateDisplay);
+                                        $('.' + dateChangeId).html(dateDisplay);
+                                    }
+
+                                }
+
+                                if ((data.fareRule[k].fr).hasOwnProperty('SEAT_CHARGEABLE')) {
+                                    let seatCharge = data.fareRule[k].fr.SEAT_CHARGEABLE.DEFAULT
+                                        .policyInfo;
+                                    $('#' + seatChargeId).html(seatCharge);
+                                     $('.' + seatChargeId).html(seatCharge);
+                                }
+
+
+                            });
+                        }
+
+
+
+                    }
+                })
+            }
+
+        }
+        
+        function viewPriceBook(id){
+                // alert('asd'+id);
+                $("#loader_div").show();
+                $('.showFare').hide();
+                $('.showFare' + id).show();
+                setTimeout(function() {
+                    $("#loader_div").hide();
+                }, 1000);
+            }
+
+        $(document).ready(function() {
+            $('.oneWayFromTo').click(function() {
+                // alert($(this).val());
+                $("#loader_div").show();
+                setTimeout(function() {
+                    $("#loader_div").hide();
+                }, 5000);
+
+            });
+
+
+            // var radio_on_checked = $("input[name='roundFromTo']").val();
+            // if(radio_on_checked == 'on'){
+            //     alert(radio_on_checked);
+            // }
+
+            $('.roundFromTo').click(function() {
+                // alert($(this).val());
+                $("#loader_div").show();
+
+                //onward
+                var f_on_name = $(this).data('f_on_name');
+                var f_on_code = $(this).data('f_on_code');
+                var f_on_depat_time = $(this).data('f_on_depat_time');
+                var f_on_arival_time = $(this).data('f_on_arival_time');
+                var f_on_price = $(this).data('f_on_price');
+                var f_on_logo = $(this).data('f_on_logo');
+                var onward_price = $(this).data('onward_price');
+                var flight_up_id = $(this).data('flight_up_id');
+
+                $('#ontripPrice').val(onward_price);
+                $('#upFarePrice').val(flight_up_id);
+
+                var ontripPrice = $('#ontripPrice').val();
+                var retripPrice = $('#retripPrice').val();
+
+                var upFarePrice = $('#upFarePrice').val();
+                var downFarePrice = $('#downFarePrice').val();
+                // alert(parseInt(retripPrice)+'='+parseInt(ontripPrice));
+
+                $('#f_on_name').html('Departure ・' + f_on_name);
+                $('#f_on_a_d_time').html(f_on_depat_time + ' → ' + f_on_arival_time);
+                $('#f_on_price').html(f_on_price);
+                $('#f_on_logo').attr('src', f_on_logo);
+                $('#ViewPrice').attr('data-bs-target', '#ViewPrice' + flight_up_id);
+                $('#ViewPrice').attr('data-return_id',  downFarePrice);
+                $('#ViewPrice').attr('onclick', 'getFareRules(' + flight_up_id + '); getDownFareRules(' +
+                    downFarePrice + ');  viewPriceBook('+downFarePrice+')');
+
+                $('#total_fare').html(Math.round(retripPrice) + Math.round(ontripPrice))
+
+                setTimeout(function() {
+                    $("#loader_div").hide();
+                }, 1000);
+
+            })
+
+            // $('#ViewPrice').click(function() {
+            //     $('.showFare').hide();
+            //     var id = $(this).data('return_id');
+            //     //   alert('asd');
+            //     $('.showFare' + id).show();
+            // })
+
+
+            $('.roundToFrom').click(function() {
+                // alert($(this).val());
+                $("#loader_div").show();
+
+                //return
+                var f_re_code = $(this).data('f_re_code');
+                var f_re_name = $(this).data('f_re_name');
+                var f_re_depat_time = $(this).data('f_re_depat_time');
+                var f_re_arival_time = $(this).data('f_re_arival_time');
+                var f_re_price = $(this).data('f_re_price');
+                var f_re_logo = $(this).data('f_re_logo');
+                var flight_down_id = $(this).data('flight_down_id');
+
+                var return_price = $(this).data('return_price');
+
+                $('#retripPrice').val(return_price);
+                $('#downFarePrice').val(flight_down_id);
+
+                var retripPrice = $('#retripPrice').val();
+                var ontripPrice = $('#ontripPrice').val();
+
+                var upFarePrice = $('#upFarePrice').val();
+                var downFarePrice = $('#downFarePrice').val();
+
+                $('#total_fare').html(Math.round(retripPrice) + Math.round(ontripPrice))
+
+                $('#f_re_name').html('Return ・' + f_re_name);
+                $('#f_re_a_d_time').html(f_re_depat_time + ' → ' + f_re_arival_time);
+                $('#f_re_price').html(f_re_price);
+                $('#f_re_logo').attr('src', f_re_logo);
+                $('.showFare').hide();
+                $('.showFare' + flight_down_id).show();
+                $('#ViewPrice').attr('data-return_id',  downFarePrice);
+
+                $('#ViewPrice').attr('onclick', 'getFareRules(' + upFarePrice + '); getDownFareRules(' +
+                    flight_down_id + '); viewPriceBook('+downFarePrice+')');
+
+
+                setTimeout(function() {
+                    $("#loader_div").hide();
+                }, 1000);
+
+            })
+        })
+
+
+        //   alert($('#trip_type').val() );
+        if ($('#trip_type').val() == 'oneway') {
+            $('#flightBookingReturn').val('');
+            $('#flightBookingReturn').prop('disabled', true);
+        } else {
+            $('#flightBookingReturn').prop('disabled', false);
+
+        }
+
+        $('#trip_type').on('change', function() {
+            if ($('#trip_type').val() == 'oneway') {
+                $('#flightBookingReturn').val('');
+                $('#flightBookingReturn').prop('disabled', true);
+            } else {
+                $('#flightBookingReturn').prop('disabled', false);
+            }
+        })
+
+        $("input[name='pKey']").click(function() {
+            var onPrice = $("input[name='pKey']:checked").attr('data-onPrice');
+            var downPrice = $("input[name='rKey']:checked").attr('data-downPrice');
+
+            $('#priceOnUp').html((parseFloat(onPrice) + parseFloat(downPrice)));
+            $('.priceOnUp').html((parseFloat(onPrice) + parseFloat(downPrice)));
+
+            var pKey = $("input[name='pKey']:checked").val();
+            var rKey = $("input[name='rKey']:checked").val();
+
+
+        })
+
+        $("input[name='rKey']").click(function() {
+            var onPrice = $("input[name='pKey']:checked").attr('data-onPrice');
+            var downPrice = $("input[name='rKey']:checked").attr('data-downPrice');
+            $('#priceOnUp').html((parseFloat(onPrice) + parseFloat(downPrice)));
+            $('.priceOnUp').html((parseFloat(onPrice) + parseFloat(downPrice)));
+
+            var pKey = $("input[name='pKey']:checked").val();
+            var rKey = $("input[name='rKey']:checked").val();
+
+        });
+
+
+        $(".viewPriceForm").submit(function() {
+            var pKey = $("input[name='pKey']:checked").val();
+            var rKey = $("input[name='rKey']:checked").val();
+            window.location.replace("{{ route('reviewDetails') }}?pKey0="+pKey+"&pKey1="+rKey+"");
+            return false;
+        })
+    </script>
+{{-- //mrunal --}}
+<script>
+$('.multitrip').click(function(){
+   var i;
+   var intRegex = /^\d+$/;
+var floatRegex = /^((\d+(\.\d *)?)|((\d*\.)?\d+))$/;
+         var total = [];
+   for(i = 0; i < 5; i++)
+   {
+      if(intRegex.test($("#tripPrice"+i).val()) || floatRegex.test($("#tripPrice"+i).val()))
+      {
+         total[i] = (total[i] || 0) + parseInt($("#tripPrice"+i).val());
+         sumArray(total);
+      }
+   }
+
+});
+
+$('.multitrip').click(function(){
+   var i;
+   var intRegex = /^\d+$/;
+var floatRegex = /^((\d+(\.\d *)?)|((\d*\.)?\d+))$/;
+         var total = [];
+   for(i = 0; i < 5; i++)
+   {
+      if(intRegex.test($("#tripPrice"+i).val()) || floatRegex.test($("#tripPrice"+i).val()))
+      {
+         total[i] = (total[i] || 0) + parseInt($("#tripPrice"+i).val());
+         sumArray(total);
+      }
+   }
+
+});
+
+function bookNow(si_id, trip_key, priceId)
+   {
+           var f_on_price = $("#BookNowRadio"+si_id).data('f_on_price');
+           var f_on_logo = $("#BookNowRadio"+si_id).data('f_on_logo');
+           var onward_price = $("#BookNowRadio"+si_id).data('onward_price');
+           var f_si_id = $("#BookNowRadio"+si_id).data('f_si_id');
+           var f_arr_code = $("#BookNowRadio"+si_id).data('f_arr_code');
+           var f_dep_code = $("#BookNowRadio"+si_id).data('f_dep_code');
+            var key = $("#Key").val();
+            var flightCode = $("#flightCode"+si_id).val();
+            var count = $(".pricedetails-btm-full").length;
+            var book_now = $("#BookNowRadio").val();
+            var checked_value = $('input[name=book_now]:checked').val();
+            var unchecked_value = $('input[name=book_now]:unchecked').val();
+            var trip_count = $("#TripKey").val();
+
+      var html = `
+      <div class="col-md-2 " id="newrowBook${count}">
+                     <ul class="m-0 p-0">
+                        <li class="d-flex align-items-center">
+                           <span><img src="assets/img/AirlinesLogo/${flightCode}.png" width="40px"></span>
+                           <span>
+                                 <p style="white-space: nowrap" id="trip${si_id}"></p>
+                           </span>
+                        </li>
+                        <input type="hidden" class="trip-price" id="tripPrice${trip_key}">
+                        <input type="hidden" class="price-id" id="priceId${trip_key}" value="${priceId}">
+                        <li style="list-style: none"><p class="price-round${si_id}"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i> .Rs. </p></li>
+                     </ul>
+                  </div> `;
+         $("#BookNow"+trip_key).html(html);
+   }
+
+   function sumArray(array){
+  let sum = 0
+  for (let i = 0; i <
+  array.length; i += 1) {
+  sum += array[i]
+  }
+  $(".total-price").html("₹"+sum);
+}
+
+function submitDomesticMulticity()
+{
+  // var priceIds = [];
+   var priceIds = "";
+   for(i = 0; i < 5; i++)
+   {
+      if($("#priceId"+i).val())
+      {
+        //var priceId+i = $("#priceId"+i).val();
+        // priceIds[i] = $("#priceId"+i).val();
+         priceIds = priceIds+'&pKey'+i+'='+$("#priceId"+i).val();
+         console.log(priceIds);
+        // alert(priceIds);
+         window.location.replace("{{ route('reviewDetails') }}?"+priceIds);
+      }
+   }
+            return false;
+
+}
+
+$('.multitrip').click(function() {
+           var f_on_name = $(this).data('f_on_name');
+           var f_on_code = $(this).data('f_on_code');
+           var f_on_depat_time = $(this).data('f_on_depat_time');
+           var f_on_arival_time = $(this).data('f_on_arival_time');
+           var f_on_price = $(this).data('f_on_price');
+           var f_on_logo = $(this).data('f_on_logo');
+           var onward_price = $(this).data('onward_price');
+           var f_si_id = $(this).data('f_si_id');
+           var f_arr_code = $(this).data('f_arr_code');
+           var f_dep_code = $(this).data('f_dep_code');
+           var f_logo = $(this).data('f_logo');
+           var f_trip_id = $(this).data('f_trip_id');
+   $(".price-round"+f_si_id).text("₹"+onward_price);
+   $("#tripPrice"+f_trip_id).val(onward_price);
+   $("#trip"+f_si_id).text(f_arr_code+" - "+f_dep_code);
+   $("#TripHidden"+f_si_id).val(f_arr_code+" - "+f_dep_code);
+   $("#flightLogo"+f_si_id).val(f_logo);
+   });
+
+   window.onload = function() {
+    var trip_type = $("#trip_type").val();
+   if(trip_type == 'multi')
+       {
+        //  $("#ShowOnewayRound").hide();
+        //  $("#ShowMultipleCity").show();
+       }else{
+        //  $("#ShowOnewayRound").show();
+        //  $("#ShowMultipleCity").hide();
+       }
+   }
+
+   $("#TripType").change(function(){
+      var trip_type = $("#TripType").val();
+         if(trip_type == 'multi')
+         {
+            // $("#ShowMultipleCity").show();
+            // $("#ShowOnewayRound").hide();
+         }else{
+            // $("#ShowMultipleCity").hide();
+            // $("#ShowOnewayRound").show();
+         }
+   });
+
+   $("#trip_type").change(function(){
+       var trip_type = $("#trip_type").val();
+       if ($('#trip_type').val() == 'oneway') {
+           $('#flightBookingReturn').val('');
+           $('#flightBookingReturn').prop('disabled', true);
+       } else {
+           $('#flightBookingReturn').prop('disabled', false);
+       }
+       if(trip_type == 'multi')
+       {
+        //   $("#ShowMultipleCity").show();
+        //   $("#ShowOnewayRound").hide();
+      }else{
+        //   $("#ShowMultipleCity").hide();
+        //   $("#ShowOnewayRound").show();
+       }
+   });
+
+
+
+   function clone_div() {
+      var count1 = $('.newrow').length;
+      var count = count1 + 1;
+
+      var html =`<div class="row align-items-center newrow" id="newrow${count}">
+      <div class="col-md-2 " style="">
+               <div class="airport-name-inner ">
+                  <small class="inner-smaltext">Trip ${count}</small>
+               </div>
+            </div>
+                  <div class="col-md-2 " style="position: relative;">
+                        <small>From</small>
+                        <div class="airport-name ">
+                            <select class="form-select" onchange="validateLocation(${count})" name="fromPlace[]${count}" id="FromPlace${count}">
+                            <option value="">Select From</option>
+                                    @foreach (DB::table('airport_details')->get() as $airport)
+                                        <option value="{{ $airport->code }}"
+                                        >{{ $airport->name . ', ' .$airport->city.', '. $airport->country }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <small>To</small>
+                        <div class="airport-name">
+                            <select class="form-control" onchange="setFromPlace(${count})" name="toPlace[]${count}" id="ToPlace${count}">
+                            <option value="">Select To</option>
+                                    @foreach (DB::table('airport_details')->get() as $airport)
+                                        <option value="{{ $airport->code }}">{{ $airport->name . ', ' .$airport->city.', '. $airport->country }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                                <small>Departure</small>
+                                <div class="airport-name">
+                                    <input type="text" name="flightBookingDepart[]${count}" class="flightBookingDepart" placeholder="Start date"
+                                    autocomplete="off" id="flightBookingDepart${count}"  />
+                                </div>
+                                <span id="error_date${count}" style="color:red"></span>
+                    </div>
+
+
+                    <div class="col-md-2 ">
+                        <button id="addCity${count}" onclick="clone_div()" type="button" class="btn btn-sm btn-primary">+ Add Another City</button>
+                    </div>
+                    <div class="col-md-2 ">
+                        <button id="removeCity${count}" type="button" class="plus-bg bg-danger" onclick="remove(${count})">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+
+                    </div>
+                </div>
+                 </br> <span id="error_same${count}" style="color:red"></span>`;
+
+
+                $('#multiCityDiv').append(html);
+
+                $('#addCity1').hide();
+
+
+                if(count >= 5){
+                    $('#addCity5').hide();
+                    $('#addCity'+(parseInt(count)-1)).hide();
+                    $('#removeCity'+(parseInt(count)-1)).hide();
+                }else{
+
+                    $('#addCity'+(parseInt(count)-1)).hide();
+                    $('#removeCity'+(parseInt(count)-1)).hide();
+                }
+
+
+                $('#FromPlace'+count).select2({
+                    placeholder: 'Select from',
+                });
+                var prev_count = parseInt(count) - 1 ;
+                var prev_to_place = $("#ToPlace"+prev_count).val();
+                $("#FromPlace"+count).select2();
+                $("#FromPlace"+count).val(prev_to_place).trigger("change");
+                $('#ToPlace'+count).select2({
+                        placeholder: 'Select to'
+                });
+
+
+        }
+        function remove(id) {
+            var count = $('.newrow').length;
+            // alert(count)
+            // alert(id+'kkk')
+            $('#newrow' + id).remove();
+
+            if(count <= 5){
+                // alert('addCity'+(parseInt(id)-1));
+                $('#addCity'+(parseInt(id)-1)).show();
+                $('#removeCity'+(parseInt(id)-1)).show();
+            }
+
+            if(count == 3)
+   {
+    $('#addCity1').show();
+   }
+        }
+
+         $(document).on('focus','.flightBookingDepart',function(){
+        $(this).datepicker(options_start_date);
+    });
+
+    $(document).on('select2:open', () => {
+   document.querySelector('.select2-search__field').focus();
+   });
+
+   $('#FromPlace1').select2({
+    placeholder: 'Select from',
+   });
+
+
+   $('#ToPlace1').select2({
+        placeholder: 'Select to',
+   });
+
+   $('#FromPlace2').select2({
+    placeholder: 'Select from',
+   });
+
+   $('#ToPlace2').select2({
+        placeholder: 'Select to'
+   });
+
+
+   function validateLocation(id)
+   {
+    var to_place = $("#ToPlace"+id).val();
+    var from_place = $("#FromPlace"+id).val();
+    if(to_place != '' || from_place != '')
+    {
+        if(to_place == from_place)
+        {
+            //$("#error_same"+id).text('From-Place and To-Place can not be same...!');
+            $("#Submit").hide();
+        }else{
+            $("#error_same"+id).text('');
+            $("#Submit").show();
+        }
+    }
+   }
+
+   function setFromPlace(id)
+   {
+    var nxt_id = parseInt(id) + 1;
+    var to_place = $("#ToPlace"+id).val();
+    var from_place = $("#FromPlace"+id).val();
+    if(to_place == from_place)
+    {
+        $("#error_same"+id).text('From-Place and To-Place can not be same...!');
+        $("#searchFlightsButton").prop('disabled', true);
+    }else{
+        $("#error_same"+id).text('');
+        $("#searchFlightsButton").prop('disabled', false);
+        $("#Submit").show();
+        $("#FromPlace"+nxt_id).val(to_place);
+        $("#FromPlace"+nxt_id).select2();
+        $("#FromPlace"+nxt_id).val(to_place).trigger("change");
+    }
+   }
+
+   $('form[name="SearchFlightForm"]').submit(function(e){
+   var count1 = $('.newrow').length;
+   var arr=[];
+   for(var i=1; i<=count1; i++)
+   {
+    arr.push(i);
+   }
+   $.each(arr, function(key, value){
+        var fplace = $("#FromPlace"+value).val();
+        var tplace = $("#ToPlace"+value).val();
+        var date = $("#flightBookingDepart"+value).val();
+        var prev_date = $("#flightBookingDepart"+parseInt(value - 1)).val();
+        var nxt_date = $("#flightBookingDepart"+parseInt(value + 1)).val();
+        var temp = '';
+        var trip_type = $("#TripType").val();
+       if(value <= count1)
+       {
+         if(date == '')
+            {
+                 $("#error_date"+value).text('This field can not be empty...!');
+                // $("#searchFlightsButton").prop('disabled', true);
+                 e.preventDefault();
+            }else if(date > nxt_date)
+                {
+                    $.each(arr, function(key1, value1){
+                    $("#flightBookingDepart"+value1).val('');
+                    });
+
+                    //$("#searchFlightsButton").prop('disabled', true);
+                    $("#error_date"+value).text('Please enter correct date...!');
+                    e.preventDefault();
+                }
+                else if(trip_type == 'multi')
+                {
+                     if(fplace == '')
+                     {
+                        $("#error_same"+value).text('This field can not be empty...!');
+                        e.preventDefault();
+                        return false;
+                     }else if(tplace == '')
+                     {
+                        $("#error_same"+value).text('This field can not be empty...!');
+                        e.preventDefault();
+                        return false;
+                     }
+                     else{
+
+                        $("#error_date"+value).text('');
+                        $("#error_same"+value).text('');
+                        $("#error_date"+value).text('');
+                        return true;
+                     }
+                }
+
+            else{
+
+                $("#error_date"+value).text('');
+                $("#error_same"+value).text('');
+                $("#error_date"+value).text('');
+                return true;
+            }
+       }
+
+   });
+   });
+   
+  
+   function filterfunction(){
+       var check = $('input[name="stops"]:checked').val();
+       if(check != ''){
+           $("#for_filter tr").each(function(index) {
+            if (index !== 0) {
+                $row = $(this);
+                var td_text = $row.find('td:eq(2) small').text()
+                console.log(td_text.trim());
+                if(td_text.trim() == check){
+                 $row.show();
+                }else{
+                 $row.hide();
+                }
+                }
+            });
+       }
+   }
+   
+   
+   
+ 
+
+
+    </script>
+    <script type="text/javascript">
+
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+
+       
+
+    </script>
+
+
+
+@endsection
+
+@section('modals')
+
+    @include('site.modals.passengerlist')
+    
+@endsection
