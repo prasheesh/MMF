@@ -1,64 +1,58 @@
          //choose no of passenger adult
         $('body').on('click', '#passengerCount li', function () {
-            
+
             $("#passengerCount li").removeClass('active');
          $(this).addClass('active');
         });
 
 
         /***
-         * Number Of child 
+         * Number Of child
          */
 
         $('body').on('click', '.passengerCountchild li', function(){
-           
+
             $(".passengerCountchild li").removeClass('active');
             $(this).addClass('active');
         });
 
         /***
-         * Number Of Infant  
+         * Number Of Infant
          */
 
-        
-        
+
         $('body').on('click', '.passengerCountinfant li', function(){
             $(".passengerCountinfant li").removeClass('active');
             $(this).addClass('active');
             const adultsvalues =  $("#passengerCount .active").data('val'),
                 infantsvalues =  $(".passengerCountinfant .active").data('val');
-            
+
                 if(adultsvalues >= infantsvalues){
                     $('.remove').empty();
                     $('#saveTravelDetail').prop('disabled', false);
                 }else{
                     $('.remove').empty();
                     $('#saveTravelDetail').prop('disabled', true);
-                    $('.errorinfant').append(`<span class='input-error remove' style='color:red;'>It's not must be a greather than adult values</span>`);
+                    $('.errorinfant').append(`<span class='input-error remove' style='color:red;'>Number of infants cannot be more than adults</span>`);
                 }
-           
-            
+
+
         });
 
         /***
          * Choose travel type
          */
         $('body').on('click', '#chooseTravel li', function () {
-            
+
             $("#chooseTravel li").removeClass('active');
             $(this).addClass('active');
         });
-
-       
 
 
         /**
          * Modal Popup Save Changes and store to session storage
          */
         $('body').on('click', '#saveTravelDetail', function () {
-
-           
-            
 
             sessionStorage.clear();
 
@@ -106,27 +100,17 @@
 
             /*** End Number of Infant ***/
 
-
-      
             $("input[name='travelClass']").val(travelClassVal);
             $("input[name='adultval']").val(adultsVal);
-            
+
             $("input[name='childval']").val(childVal);
             $("input[name='infantval']").val(infantVal);
 
-            
-            
+            travelName = travelvaluess(travelClassVal);
 
-            travelName = travelvaluess(travelClassVal)
-            
-
-            
-            
-           
             /*****
              * Counting the all Passenger & Travel class for view display
              *****/
-            
 
             const allpassenger = adultsVal + childVal + infantVal;
 
@@ -150,8 +134,7 @@
         });
 
         /**
-         * End Modal Popup Save Changes and store to session storage
-         */
+         * End Modal Popup Save Changes and store to session storage         */
 
 
         /**
@@ -164,7 +147,7 @@
             infantvalue = sessionStorage.getItem('infantVal');
 
 
-            
+
 
             if(adultvalue == null && childvalue == null && infantvalue == null && travelvalues == null){
                 const adultvalue = 1,
@@ -185,8 +168,6 @@
                  * End Set Input Value in Front End
                  */
 
-
-
                 allpassengercount = parseInt(adultvalue) + parseInt(childvalue) + parseInt(infantvalue);
             }else{
                 allpassengercount = parseInt(adultvalue) + parseInt(childvalue) + parseInt(infantvalue);
@@ -206,21 +187,13 @@
                  */
             }
 
-            
-
-           
-            
-
-
-
-
             if(allpassengercount > 1)
             {
                 $('#travelInfo').replaceWith('<div class="airport-name" id="travelInfo"><p><b>' +
                 allpassengercount + ' Travellers </b></p><p>' + travelName + '</p></div>');
                 $('#travelInfo').replaceWith('<div class="airport-name travelInfo" id="travelInfo"><p><b>' +
                 allpassengercount + ' Travellers </b></p><p>' + travelName + '</p></div>');
-                
+
             }else{
                 $('#travelInfo').replaceWith('<div class="airport-name" id="travelInfo"><p><b>' +
                 allpassengercount + ' Traveller </b></p><p>' + travelName + '</p></div>');
@@ -236,12 +209,12 @@
          * When click on travel data get current values
          */
         $('body').on('click', '.travellerData', function() {
-            
+
             const adultsId = sessionStorage.getItem('adultsId'),
                 childsId = sessionStorage.getItem('childId')
                 infantsId = sessionStorage.getItem('infantId')
                 travelId = sessionStorage.getItem('travelId');
-               
+
             if(adultsId === null && travelId === null && childsId === null && infantsId === null){
                 return;
 
@@ -267,9 +240,9 @@
 
 
         /**
-         * 
-         * @param {*} travelvalue 
-         * 
+         *
+         * @param {*} travelvalue
+         *
          * Travel Name get
          */
           function travelvaluess(travelvalue){
@@ -283,13 +256,5 @@
             } else if (travelvalue == 'FIRST') {
                 var travelName = "First Class";
             }
-
             return travelName;
         }
-
-       
-
-       
-
-    
-        

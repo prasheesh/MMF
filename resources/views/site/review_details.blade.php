@@ -121,7 +121,6 @@
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div>
 
-
                                         <?php $hours = 0; $minutes = 0; $total_time =0; $j=0;
                                         foreach ($tripInfos->sI as $k => $flightDetails) {
                                             //echo "<pre>"; print_r(count($result_array->tripInfos)); exit();
@@ -245,19 +244,65 @@
 
                             <div class="clearfix mb-3"></div>
                             <?php
-                            //echo "<pre>"; print_r($tripInfos->totalPriceList);
+                            /* adults base fare */
                                 if(isset($tripInfos->totalPriceList[0]->fd->ADULT->fC->BF)){
-                                    $bf =  $tripInfos->totalPriceList[0]->fd->ADULT->fC->BF;
+                                    $adult_bf =  $tripInfos->totalPriceList[0]->fd->ADULT->fC->BF;
                                 }else{
-                                    $bf = 0;
+                                    $adult_bf = 0;
                                 }
+
+                                /* children base fare */
+                                if(isset($tripInfos->totalPriceList[0]->fd->CHILD->fC->BF)){
+                                    $child_bf =  $tripInfos->totalPriceList[0]->fd->CHILD->fC->BF;
+                                }else{
+                                    $child_bf = 0;
+                                }
+
+                                /* infants base fare*/
+                                if(isset($tripInfos->totalPriceList[0]->fd->INFANT->fC->BF)){
+                                    $infant_bf =  $tripInfos->totalPriceList[0]->fd->INFANT->fC->BF;
+                                }else{
+                                    $infant_bf = 0;
+                                }
+
+
                                 $adults = $result_array->searchQuery->paxInfo->ADULT; ////get total adult list
-                                $basefare = $basefare +  $bf;  ///getting base fare for total trips
-                                $adult_base_fair = $basefare * $adults;   ///calculating base fare for total adults
-                                $Taxes_trip = $Taxes_trip + $tripInfos->totalPriceList[0]->fd->ADULT->fC->TAF;  //getting taxes for total trips
-                                $Taxes = $Taxes_trip * $adults;   ///calculating taxes for total adults
+                                $childs = $result_array->searchQuery->paxInfo->CHILD; //get total childs
+                                $infants = $result_array->searchQuery->paxInfo->INFANT; //get total infants
+
+                                $is_domestic = $result_array->searchQuery->isDomestic; //domestic or international
+
+                                $ttl_adlut_bf = $adults*$adult_bf;
+                                $ttl_child_bf = $childs*$child_bf;
+                                $ttl_infant_bf = $infants*$infant_bf;
+
+                                if($childs){
+                                    $child_tax = $tripInfos->totalPriceList[0]->fd->CHILD->fC->TAF;
+                                }else{
+                                    $child_tax = 0;
+                                }
+
+                                if($infants){
+                                    $infant_tax= $tripInfos->totalPriceList[0]->fd->INFANT->fC->TAF;
+                                }else{
+                                    $infant_tax = 0;
+                                }
+
+
+                                $basefare = $ttl_adlut_bf+$ttl_child_bf+$ttl_infant_bf;  //getting base fare for total trips
+                                $Taxes_trip = $result_array->totalPriceInfo->totalFareDetail->fC->TAF; //getting taxes for total trips
+
+                                $Taxes = $Taxes_trip ;   ///calculating taxes for total adults
                                 $bookingId = $result_array->bookingId; ///booking send to form to store in session
-                                $TotalAmount = $adult_base_fair + $Taxes;   ///calculating total amount with base fare and taxes
+                                $TotalAmount = $result_array->totalPriceInfo->totalFareDetail->fC->TF;   ///calculating total amount with base fare and taxes
+
+                                // total taxes break up
+
+                                $OT = $result_array->totalPriceInfo->totalFareDetail->afC->TAF->OT;
+                                $MF = $result_array->totalPriceInfo->totalFareDetail->afC->TAF->MF;
+                                $MFT = $result_array->totalPriceInfo->totalFareDetail->afC->TAF->MFT;
+                                $AGST = $result_array->totalPriceInfo->totalFareDetail->afC->TAF->AGST;
+                                $YQ = $result_array->totalPriceInfo->totalFareDetail->afC->TAF->YQ;
 
                             ?>
 
@@ -648,14 +693,13 @@
                                 <div class="col-md-8 ps-0">
                                     <h5><b>Enter Traveller Details</b></h5>
                                     <p> Book faster and Easy</p>
+                                    <h6>ADULT (12 yrs+)</h6>
                                 </div>
                                 <div class=" col-md-3 text-end">
                                     <button class="btn btn-blue-continue" onclick="clone_div()">Add New Adult</button>
                                 </div>
                             </div>
                             <form name="passenger_details" method="POST" action="" id="passenger_details">
-
-
                                 <div class="row first-inputname ">
                                     <p id="overflow" style="color: red"></p>
                                     <div class="col-md-4">
@@ -683,6 +727,8 @@
                                         </div>
                                     </div>
 
+                                    @if(!$is_domestic)
+
                                     <div class="col-md-4 ">
                                         <div class="form-group mb-3">
                                             <input type="text" minlength="8" maxlength="14" name="passport_no[]" class="form-control allow-alpa-numeric"
@@ -700,10 +746,7 @@
                                                     </option>
                                                 @endforeach
                                             </select>
-                                            {{-- <select name="" class="form-select " placeholder="Passport Issuing Country"
-                                            required="">
-                                              <option value=""> Passport Issuing Country</option>
-                                           </select> --}}
+
                                         </div>
                                     </div>
 
@@ -713,42 +756,184 @@
                                                 placeholder="Passport Expiry Date" required="true">
                                         </div>
                                     </div>
-
-
-                                    {{-- <div class="col-md-2  ">
-              <div class="form-check" role="group" aria-label="Basic outlined example">
-                <input class="form-check-input " type="radio" id="Gender"  name="gender[0]"  value="Male" required="true">Male
-              </div>
-              <div class="form-check" role="group" aria-label="Basic outlined example">
-
-                <input class="form-check-input " type="radio" id="Gender"  name="gender[0]"  value="Female" required="true">Female
-              </div>
-            </div> --}}
-                                </div>
+                                    @endif
+                                  </div>
                                 <div id="app_div"></div>
-                                {{-- </form> --}}
+
+@if($childs)
+                                <div class="row align-items-center cancel-ticket">
+                                    <div class="col-md-1">
+                                        {{-- <img src="assets/img/enter-travellar-img.png" class="img-fluid"> --}}
+                                    </div>
+                                    <div class="col-md-8 ps-0">
+                                        <h6>CHILD (2-12 Yrs)</h6>
+                                    </div>
+                                    <div class=" col-md-3 text-end">
+                                        <button class="btn btn-blue-continue" onclick="clone_child_div()">Add New Child</button>
+                                    </div>
+                                </div>
+                                <div class="row first-inputname ">
+                                    <p id="overflowchild" style="color: red"></p>
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <select name="gender[]" class="form-select" placeholder="Gender"
+                                                required="true">
+                                                <option value=""> Gender</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <input type="text" name="firstname[]" class="form-control allowtext"
+                                                placeholder="First and middle name" required="true">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <input type="text" name="lastname[]" class="form-control allowtext"
+                                                placeholder="Last name" required="true">
+                                        </div>
+                                    </div>
+
+                                    @if(!$is_domestic)
+
+                                    <div class="col-md-4 ">
+                                        <div class="form-group mb-3">
+                                            <input type="text" minlength="8" maxlength="14" name="passport_no[]" class="form-control allow-alpa-numeric"
+                                                placeholder="Passport No" required="true">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4 ">
+                                        <div class="form-group mb-3">
+                                            <select name="passport_country_code[]" class="form-control" placeholder="Passport Issuing Country"
+                                                required="true">
+                                                <option value="">Select Passport Issuing Country</option>
+                                                @foreach ($countries as $country)
+                                                    <option value="{{ $country->iso }}">{{ $country->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <input id="datePicker" type="text" name="passport_expiry_date[]" class="form-control date-picker-hide"
+                                                placeholder="Passport Expiry Date" required="true">
+                                        </div>
+                                    </div>
+                                    @endif
+                                  </div>
+                                  <div id="app_child_div"></div>
+                                  @endif
+
+                                  @if($infants)
+                                <div class="row align-items-center cancel-ticket">
+                                    <div class="col-md-1">
+                                        {{-- <img src="assets/img/enter-travellar-img.png" class="img-fluid"> --}}
+                                    </div>
+                                    <div class="col-md-8 ps-0">
+                                        <h6>Infant (15 days - 2 Yrs)</h6>
+                                    </div>
+                                    <div class=" col-md-3 text-end">
+                                        <button class="btn btn-blue-continue" onclick="clone_infants_div()">Add New Infants</button>
+                                    </div>
+                                </div>
+                                <div class="row first-inputname ">
+                                    <p id="overflowinfant" style="color: red"></p>
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <select name="gender[]" class="form-select" placeholder="Gender"
+                                                required="true">
+                                                <option value=""> Gender</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <input type="text" name="firstname[]" class="form-control allowtext"
+                                                placeholder="First and middle name" required="true">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <input type="text" name="lastname[]" class="form-control allowtext"
+                                                placeholder="Last name" required="true">
+                                        </div>
+                                    </div>
+
+                                    @if(!$is_domestic)
+
+                                    <div class="col-md-4 ">
+                                        <div class="form-group mb-3">
+                                            <input type="text" minlength="8" maxlength="14" name="passport_no[]" class="form-control allow-alpa-numeric"
+                                                placeholder="Passport No" required="true">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4 ">
+                                        <div class="form-group mb-3">
+                                            <select name="passport_country_code[]" class="form-control" placeholder="Passport Issuing Country"
+                                                required="true">
+                                                <option value="">Select Passport Issuing Country</option>
+                                                @foreach ($countries as $country)
+                                                    <option value="{{ $country->iso }}">{{ $country->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <input id="datePicker" type="text" name="passport_expiry_date[]" class="form-control date-picker-hide"
+                                                placeholder="Passport Expiry Date" required="true">
+                                        </div>
+                                    </div>
+                                    @endif
+                                  </div>
+                                  <div id="app_infant_div"></div>
+                                  @endif
+
+
+
                                 <div class="row first-inputname ">
                                     <label>Booking Details will be sent to</label>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            {{-- <input type="text" name="country_code" class="form-control" placeholder="Country Code" id="country_code"> --}}
                                             <select id="country_code" name="country_code" class="form-control" placeholder="Gender"
                                                 required="true">
                                                 <option value="">Select country</option>
                                                 @foreach ($countries as $country)
-                                                    <option value="{{ $country->phonecode }}">{{ $country->name }}
-                                                    </option>
+                                                <option value="{{ $country->phonecode }}" @if( $country->phonecode == '91') selected @endif>{{ $country->name }}
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-2">
                                         <div class="form-group">
-                                            <input type="text" name="mobile_number" class="form-control allownumber"
-                                                placeholder="Mobile Number" required="true" id="mobile" minlength="10" maxlength="10">
+                                            <input type="text" class="form-control allownumber" id="isocode" disabled>
                                         </div>
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <input type="text" name="mobile_number" class="form-control allownumber"
+                                                placeholder="Mobile Number" required="true" id="mobile">
+                                                <span id="check_valid_mobile" style="color: red"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <input type="email" name="email" class="form-control"
                                                 placeholder="Email ID" required="true" id="email_id">
@@ -805,51 +990,205 @@
                     <div class="card">
                         <div class=" card-body card-shadow">
                             <h5><b>Fare Summary</b></h5>
-
+                        <!--- Base Fare only -->
                             <div class="accordion" id="myAccordion">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingOne">
                                         <button type="button" class="accordion-button collapsed"
                                             data-bs-toggle="collapse" data-bs-target="#collapseOne">
-                                            <span class="ms-2">Base Fare </span> <span class="ms-auto"> <i
+
+                                            <table width="100%">
+                                                <tr>
+                                                    <td width="">
+                                                        <span class="ps-1">Base Fare</span>
+                                                    </td>
+                                                    <td width="60%">
+                                                        <span class="d-flex justify-content-end icon_style">
+                                                            <i class="fa-solid fa-indian-rupee-sign"></i>
+                                                            {{ number_format($basefare, 2) }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            {{-- <span class="ms-2">Base Fare </span> <span class="ms-auto"> <i
                                                     class="fa-solid fa-indian-rupee-sign"></i>
-                                                {{ number_format($adult_base_fair, 2) }}</span>
+                                                {{ number_format($basefare, 2) }}</span> --}}
                                         </button>
                                     </h2>
                                     <div id="collapseOne" class="accordion-collapse collapse"
                                         data-bs-parent="#myAccordion">
-                                        <small class="ms-3">
-                                            <span>Adult(s) ({{ $adults }} X ₹
-                                                {{ number_format($basefare, 2) }})</span>
-                                            <span class="float-end"> <i class="fa-solid fa-indian-rupee-sign"></i>
-                                                {{ number_format($adult_base_fair, 2) }}</span>
-                                        </small>
+
+                                        <table>
+                                            <!--- Adult Calculation table row -->
+                                            <tr>
+                                                <td>
+                                                    <span class="">
+                                                        Adult(s) <br><small style="font-size: 12px;">({{ $adults }} X ₹ {{ number_format($adult_bf, 2) }})</small>
+                                                    </span>
+                                                </td>
+                                                <td>:</td>
+                                                <td width="45%">
+                                                    <span class="icon_style justify-content-end">
+                                                        <i class="fa-solid fa-indian-rupee-sign"></i>
+                                                        {{ number_format($adults*$adult_bf, 2) }}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <!--- End Adult Calculation table row -->
+
+                                            @if($childs > 0)
+                                                <!-- Child Calculation table row -->
+                                                <tr>
+                                                    <td>
+                                                        <span class="">
+                                                            Child(s) <br><small style="font-size: 12px;">({{ $childs }} X ₹ {{ number_format($child_bf, 2) }})</small>
+                                                        </span>
+                                                    </td>
+                                                    <td>:</td>
+                                                    <td width="45%">
+                                                        <span class="icon_style justify-content-end">
+                                                            <i class="fa-solid fa-indian-rupee-sign"></i>
+                                                            {{ number_format($childs * $child_bf, 2) }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <!-- End Child Calculation table row -->
+                                            @endif
+                                            @if($infants > 0)
+                                                <!-- Infants Calculation table row -->
+                                                <tr>
+                                                    <td>
+                                                        <span class="">
+                                                            Infant(s) <br><small style="font-size: 12px;">({{ $infants }} X ₹ {{ number_format($infant_bf, 2) }})</small>
+                                                        </span>
+                                                    </td>
+                                                    <td>:</td>
+                                                    <td width="45%">
+                                                        <span class="icon_style justify-content-end">
+                                                            <i class="fa-solid fa-indian-rupee-sign"></i>
+                                                            {{ number_format($infants * $infant_bf, 2) }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <!-- End Infants Calculation table row -->
+                                            @endif
+
+                                        </table>
                                     </div>
                                 </div>
                             </div>
+                            <!--- End Base Fare only -->
 
-
+                             <!--- Taxes and Fees --->
                             <div class="accordion mt-2" id="myAccordion">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingOne">
                                         <button type="button" class="accordion-button collapsed"
                                             data-bs-toggle="collapse" data-bs-target="#collapseOne2">
-                                            <span class="ms-2">Fee & Surcharges </span> <span class="ms-auto"> <i
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <span class="ps-1">Fee & Surcharges</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="d-flex icon_style">
+                                                            <i class="fa-solid fa-indian-rupee-sign"></i>
+                                                            {{ number_format($Taxes, 2) }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+
+                                            {{-- <span class="ms-2">Fee & Surcharges </span> <span class="ms-auto"> <i
                                                     class="fa-solid fa-indian-rupee-sign"></i>
-                                                {{ number_format($Taxes, 2) }}</span>
+                                                {{ number_format($Taxes, 2) }}</span> --}}
                                         </button>
                                     </h2>
                                     <div id="collapseOne2" class="accordion-collapse collapse"
+                                        data-bs-parent="#myAccordion">
+                                        <table>
+                                            <tr>
+                                                <td><span>Other Charges </span> </td>
+                                                <td> : </td>
+                                                <td>
+                                                    <span class="d-flex icon_style">
+
+                                                        <i class="fa-solid fa-indian-rupee-sign"></i> {{ $OT }}
+
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td> <span>Management Fee </span> </td>
+                                                <td> : </td>
+                                                <td>
+                                                    <span class="d-flex icon_style">
+
+                                                        <i class="fa-solid fa-indian-rupee-sign"></i> {{ $MF }}
+
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td> <span>Management Fee Tax</span> </td>
+                                                <td> : </td>
+                                                <td>
+                                                    <span class="d-flex icon_style">
+
+                                                        <i class="fa-solid fa-indian-rupee-sign"></i> {{ $MFT }}
+
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td> <span>Airline GST</span> </td>
+                                                <td> : </td>
+                                                <td>
+                                                    <span class="d-flex icon_style">
+
+                                                        <i class="fa-solid fa-indian-rupee-sign"></i> {{ $AGST }}
+
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td> <span>Fuel Surcharge</span> </td>
+                                                <td> : </td>
+                                                <td>
+                                                    <span class="d-flex icon_style">
+
+                                                        <i class="fa-solid fa-indian-rupee-sign"></i> {{ $YQ }}
+
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            {{-- <tr>
+                                                <td> <span>Carrier Misc Fee</span> </td>
+                                                <td> : </td>
+                                                <td>
+                                                    <span class="d-flex icon_style">
+
+                                                        <i class="fa-solid fa-indian-rupee-sign"></i> {{ $YR }}
+
+                                                    </span>
+                                                </td>
+                                            </tr> --}}
+                                        </table>
+
+                                    </div>
+
+                                    {{-- <div id="collapseOne2" class="accordion-collapse collapse"
                                         data-bs-parent="#myAccordion">
                                         <small class="ms-3">
                                             <span>Total fee & surcharges: </span>
                                             <span class="float-end"> <i class="fa-solid fa-indian-rupee-sign"></i>
                                                 {{ number_format($Taxes, 2) }}</span>
                                         </small>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
-
+                            <!--- End Taxes and Fees --->
                             <div class="accordion mt-2 othercharges" id="myAccordion">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingOne">
@@ -898,19 +1237,53 @@
             </div>
         </div>
     </section>
-    
+
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
-    
+
 
     <script>
         $(document).ready(function() {
-            
+
+            let country_code = $('#country_code').val();
+            let isocode = $('#isocode').val(country_code);
+            /** On Key Up check the validation **/
+            $('body').on('keyup', '#mobile', function(){
+                let countrys_code = $('#country_code').val();
+
+                if(countrys_code == 91)
+                {
+                    var patt_m= /^[6789]\d{9}$/;
+                    if(!patt_m.test($('#mobile').val()))
+                    {
+                        ($('#mobile')).css({"background-color": "pink"});
+                        $('#check_valid_mobile').html('Please enter Valid mobile number')
+
+                    }
+                    else
+                    {
+                        //err_msg_mobile="";
+                        ($('#mobile')).css({"background-color": "white"});
+                        $('#check_valid_mobile').html('')
+                    }
+                }
+
+            });
+            /** End On Key Up check the validation **/
+
+            /** Country change get value **/
+            $('#country_code').on('change', function(e){
+                let countryvalue = e.target.value;
+                $('#isocode').val(countryvalue)
+
+            })
+            /** Country change get value **/
+
             var d = new Date();
 
-            var todayDate = new Date(d.setMonth(d.getMonth() + 6));  
-            $('#datePicker').datepicker({dateFormat: "dd-mm-yy", minDate:todayDate});    
-            
+            var todayDate = new Date(d.setMonth(d.getMonth() + 6));
+            $('#datePicker').datepicker({dateFormat: "dd-mm-yy", minDate:todayDate});
+
             $(".othercharges").hide();
 
             $(".amtClk").click(function() {
@@ -953,17 +1326,15 @@
 
         //////////////add new passenger cloning/////////
         function clone_div() {
-            //alert("hi");
             var adults = '<?php echo $adults; ?>';
-            /// alert(adults);
+            var is_domestic = '<?php echo $is_domestic; ?>';
             var count = $('.newrow').length;
-
             var count_new = count + 1;
             if (adults > count_new) {
 
                 var html = `
                          <div class="row first-inputname newrow" id="newrow${count_new}">
-                         
+
                         <div class="col-md-4">
                             <div class="form-group mb-3">
                             <select name="gender[]" class="form-select" placeholder="Gender" required="true">
@@ -983,6 +1354,7 @@
                               <input type="text" name="lastname[]" class="form-control allowtext" placeholder="Last name" required="true">
                             </div>
                           </div>
+                          @if(!$is_domestic)
                           <div class="col-md-4 ">
                                         <div class="form-group mb-3">
                                             <input type="text" minlength="8" maxlength="14" name="passport_no[]" class="form-control allow-alpa-numeric"
@@ -1011,7 +1383,7 @@
                                         </div>
                                     </div>
 
-
+@endif
 
                           <div class="col-md-2 text-end ">
                             <div class="btn-group btn-grp" role="group" aria-label="Basic outlined example">
@@ -1040,16 +1412,198 @@
         }
 
 
+        /* add new children cloning */
+        function clone_child_div() {
+            var childs = '<?php echo $childs; ?>';
+            var is_domestic = '<?php echo $is_domestic; ?>';
+            var count = $('.newrowchild').length;
+            var count_new = count + 1;
+            if (childs > count_new) {
+
+                var html = `
+                         <div class="row first-inputname newrowchild" id="newrowchild${count_new}">
+
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                            <select name="gender[]" class="form-select" placeholder="Gender" required="true">
+                              <option value=""> Gender</option>
+                              <option value="Male">Male</option>
+                              <option value="Female">Female</option>
+                            </select>
+                            </div>
+                          </div>
+                            <div class="col-md-4">
+                              <div class="form-group mb-3">
+                                <input type="text" name="firstname[]" class="form-control allowtext" placeholder="First and middle name" required="true">
+                              </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group mb-3">
+                              <input type="text" name="lastname[]" class="form-control allowtext" placeholder="Last name" required="true">
+                            </div>
+                          </div>
+                          @if(!$is_domestic)
+                          <div class="col-md-4 ">
+                                        <div class="form-group mb-3">
+                                            <input type="text" minlength="8" maxlength="14" name="passport_no[]" class="form-control allow-alpa-numeric"
+                                                placeholder="Passport No" required="true">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4 ">
+                                        <div class="form-group mb-3">
+                                            <select name="passport_country_code[]" class="form-control" placeholder="Passport Issuing Country"
+                                                required="true">
+                                                <option value="">Select Passport Issuing Country</option>
+                                                @foreach ($countries as $country)
+                                                    <option value="{{ $country->iso }}">{{ $country->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <input type="text" name="passport_expiry_date[]" class="form-control date-picker-hide"
+                                                placeholder="Passport Expiry Date" required="true">
+                                        </div>
+                                    </div>
+
+@endif
+
+                          <div class="col-md-2 text-end ">
+                            <div class="btn-group btn-grp" role="group" aria-label="Basic outlined example">
+                                <button type="button" class="plus-bg bg-danger" onclick="remove_child(${count_new})">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                              </div>
+                          </div>
+                          </div>
+                          <div id="app_child_div"></div>
+                        `;
+                $('#app_child_div').append(html);
+            } else {
+                $('#overflowchild').html("You have already selected " + childs + " CHILD. Remove before adding a new one.");
+                //$('#overflow').show();
+            }
+
+
+        }
+
+        function remove_child(id) {
+            $('#newrowchild' + id).remove();
+            $('#overflowchild').html('');
+            // $('#overflow').hide();
+
+        }
+
+        /* add new children cloning */
+        function clone_infants_div() {
+            var infants = '<?php echo $infants; ?>';
+            var is_domestic = '<?php echo $is_domestic; ?>';
+            var count = $('.newrowinfant').length;
+            var count_new = count + 1;
+            if (infants > count_new) {
+
+                var html = `
+                         <div class="row first-inputname newrowinfant" id="newrowinfant${count_new}">
+
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                            <select name="gender[]" class="form-select" placeholder="Gender" required="true">
+                              <option value=""> Gender</option>
+                              <option value="Male">Male</option>
+                              <option value="Female">Female</option>
+                            </select>
+                            </div>
+                          </div>
+                            <div class="col-md-4">
+                              <div class="form-group mb-3">
+                                <input type="text" name="firstname[]" class="form-control allowtext" placeholder="First and middle name" required="true">
+                              </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group mb-3">
+                              <input type="text" name="lastname[]" class="form-control allowtext" placeholder="Last name" required="true">
+                            </div>
+                          </div>
+                          @if(!$is_domestic)
+                          <div class="col-md-4 ">
+                                        <div class="form-group mb-3">
+                                            <input type="text" minlength="8" maxlength="14" name="passport_no[]" class="form-control allow-alpa-numeric"
+                                                placeholder="Passport No" required="true">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4 ">
+                                        <div class="form-group mb-3">
+                                            <select name="passport_country_code[]" class="form-control" placeholder="Passport Issuing Country"
+                                                required="true">
+                                                <option value="">Select Passport Issuing Country</option>
+                                                @foreach ($countries as $country)
+                                                    <option value="{{ $country->iso }}">{{ $country->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <input type="text" name="passport_expiry_date[]" class="form-control date-picker-hide"
+                                                placeholder="Passport Expiry Date" required="true">
+                                        </div>
+                                    </div>
+
+@endif
+
+                          <div class="col-md-2 text-end ">
+                            <div class="btn-group btn-grp" role="group" aria-label="Basic outlined example">
+                                <button type="button" class="plus-bg bg-danger" onclick="remove_infant(${count_new})">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                              </div>
+                          </div>
+                          </div>
+                          <div id="app_infant_div"></div>
+                        `;
+                $('#app_infant_div').append(html);
+            } else {
+                $('#overflowinfant').html("You have already selected " + infants + " INFANT. Remove before adding a new one.");
+                //$('#overflow').show();
+            }
+
+
+        }
+
+        function remove_infant(id) {
+            $('#newrowinfant' + id).remove();
+            $('#overflowinfant').html('');
+            // $('#overflow').hide();
+
+        }
 
         var values = {};
 
         $(function() {
             $("#submit").click(function() {
-
                 var adult_count = '<?php echo $adults; ?>';
+                var child_count = '<?php echo $childs; ?>';
+                var infant_count = '<?php echo $infants; ?>';
 
                 var clone_count = $('.newrow').length;
                 var total_rows = clone_count + 1;
+
+                var clone_count_child = $('.newrowchild').length;
+                var total_child_rows = clone_count_child + 1;
+
+                var clone_count_infant = $('.newrowinfant').length;
+                var total_infant_rows = clone_count_infant + 1;
+
+
                 var proceed = true;
                 $("#passenger_details input,select[required=true]").each(function() {
                     $(this).parent().after("");
@@ -1069,7 +1623,7 @@
                 });
 
 
-                if (adult_count == total_rows) { //////////////checking
+                if (adult_count == total_rows && child_count == total_child_rows && infant_count == total_infant_rows ) { //////////////checking
                     if (proceed) {
                         //$('.passengerreview').modal('show');
                         $('.passengerreview').hide();
@@ -1109,6 +1663,42 @@
                                 </tr>
                               </table>
                             </div>
+                            @if($childs)
+                            <div class="p-3 passengerreview">
+                              <table class="table table-bordered ">
+                                <tr>
+                                  <td>First & Middle Name</td>
+                                  <td>${first_name[i]}</td>
+                                </tr>
+                                <tr>
+                                  <td>Last Name</td>
+                                  <td>${last_name[i]}</td>
+                                </tr>
+                                  <tr>
+                                  <td>Gender</td>
+                                  <td>${gender[i]}</td>
+                                </tr>
+                              </table>
+                            </div>
+                            @endif
+                            @if($infants)
+                            <div class="p-3 passengerreview">
+                              <table class="table table-bordered ">
+                                <tr>
+                                  <td>First & Middle Name</td>
+                                  <td>${first_name[i]}</td>
+                                </tr>
+                                <tr>
+                                  <td>Last Name</td>
+                                  <td>${last_name[i]}</td>
+                                </tr>
+                                  <tr>
+                                  <td>Gender</td>
+                                  <td>${gender[i]}</td>
+                                </tr>
+                              </table>
+                            </div>
+                            @endif
                             <div id="passenger_div"></div>
                               `;
                             $('#passenger_div').append(html);

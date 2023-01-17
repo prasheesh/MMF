@@ -7,7 +7,7 @@ use UserHelper;
 
 class Helpers {
 
-    public static function airplanes($tripType,$flightBookingDepart,$travelClass,$adultval,$fromPlace,$toPlace,$flightBookingReturn)
+    public static function airplanes($tripType,$flightBookingDepart,$travelClass,$adultval,$fromPlace,$toPlace,$flightBookingReturn,$childsvalue=0,$infantvalue=0)
     {
         if($tripType == 'oneway'){
 
@@ -15,10 +15,10 @@ class Helpers {
 
             $req['searchQuery']['cabinClass'] = $travelClass;
             $req['searchQuery']['paxInfo']['ADULT']=$adultval;
-            $req['searchQuery']['paxInfo']['CHILD']= 0 ;
-            $req['searchQuery']['paxInfo']['INFANT']= 0 ;
+            $req['searchQuery']['paxInfo']['CHILD']= $childsvalue ;
+            $req['searchQuery']['paxInfo']['INFANT']= $infantvalue ;
             $req['searchQuery']['routeInfos'] = array();
-    
+
             $airport['fromCityOrAirport']['code']= $fromPlace;
             $airport['toCityOrAirport']['code']= $toPlace;
             $airport['travelDate']= $travelDate;
@@ -36,8 +36,8 @@ class Helpers {
 
             $req['searchQuery']['cabinClass'] = $travelClass;
             $req['searchQuery']['paxInfo']['ADULT']=$adultval;
-            $req['searchQuery']['paxInfo']['CHILD']= 0 ;
-            $req['searchQuery']['paxInfo']['INFANT']= 0 ;
+            $req['searchQuery']['paxInfo']['CHILD']= $childsvalue ;
+            $req['searchQuery']['paxInfo']['INFANT']= $infantvalue ;
             $req['searchQuery']['routeInfos'] = array();
             $airport['fromCityOrAirport']['code']= $fromPlace;
             $airport['toCityOrAirport']['code']= $toPlace;
@@ -49,16 +49,16 @@ class Helpers {
             array_push($req['searchQuery']['routeInfos'],$airportto);
             $req['searchQuery']['searchModifiers']['isDirectFlight']='true';
             $req['searchQuery']['searchModifiers']['isConnectingFlight']='true';
-    
+
               $data =   json_encode($req);
-    
-    
+
+
           }else if($tripType == 'multi'){
-    
+
               $req['searchQuery']['cabinClass'] = $travelClass;
               $req['searchQuery']['paxInfo']['ADULT']=$adultval;
-              $req['searchQuery']['paxInfo']['CHILD']= 0 ;
-              $req['searchQuery']['paxInfo']['INFANT']= 0 ;
+              $req['searchQuery']['paxInfo']['CHILD']= $childsvalue ;
+              $req['searchQuery']['paxInfo']['INFANT']= $infantvalue ;
               $req['searchQuery']['routeInfos'] = array();
               for($i=0;$i<count($fromPlace);$i++){
                   $travelDate = date('Y-m-d', strtotime($flightBookingDepart[$i]));
@@ -69,11 +69,11 @@ class Helpers {
               }
               $req['searchQuery']['searchModifiers']['isDirectFlight']='true';
               $req['searchQuery']['searchModifiers']['isConnectingFlight']='true';
-    
-    
+
+
               $data = json_encode($req);
-    
-         
+
+
         }
 
 
@@ -81,14 +81,14 @@ class Helpers {
         $url = "https://apitest.tripjack.com/fms/v1/air-search-all";
 
         $result = UserHelper::curlresult($data, $url);
-     
+
 
         $results =  json_decode($result);
 
         return $results;
     }
-    
-    
+
+
     public static function curlresult($data, $urls)
     {
         $method = "POST";
@@ -119,9 +119,7 @@ class Helpers {
             die("Connection Failure");
         }
         curl_close($curl);
-
         return $result;
     }
-    
-}
 
+}

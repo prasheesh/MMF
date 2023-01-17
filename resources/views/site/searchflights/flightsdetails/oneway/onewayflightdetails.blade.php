@@ -16,7 +16,7 @@
                 <?php
                 $sno = 1;
                 $flight_count = count($result_array->searchResult->tripInfos->ONWARD);
-                
+
                 ?>
                 @foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $value)
                     <?php $count = count($value->sI); ?>
@@ -29,7 +29,7 @@
                                         <?php
                                         $flight_code = $value->sI[0]->fD->aI->code;
                                         $flight_logo = 'assets/img/AirlinesLogo/' . $flight_code . '.png';
-                                        
+
                                         ?>
                                         <img src="{{ $flight_logo }}">
                                     </div>
@@ -106,7 +106,7 @@
                             <div>
                                 <p class=" flight-brand"><i class="fa-solid fa-indian-rupee-sign"></i>
 
-                                    @php 
+                                    @php
                                     $minfarevalue = [];
                                     foreach($value->totalPriceList as $minvalue)
                                     {
@@ -117,15 +117,14 @@
                                     $getminafareval = min($minfarevalue);
 
                                     @endphp
-                                    
+
                                     {{ number_format($getminafareval, 0) }}
                                 </p>
                                 <p class="flight-brand oneWayFromTo"><a href="#" data-bs-toggle="modal"
                                         id="" class="airportApiId{{ $sno++ }}"
                                         data-bs-target="#book-table{{ $value->sI[0]->id }}"
                                         data-airportId={{ $value->sI[0]->id }} data-flight_count={{ $flight_count }}
-                                        onclick="getFareRules({{ $value->sI[0]->id }})">View
-                                        & More</a></p>
+                                        onclick="getFareRules({{ $value->sI[0]->id }})">View More Fares</a></p>
                             </div>
                         </td>
                     </tr>

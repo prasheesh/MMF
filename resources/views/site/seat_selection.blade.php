@@ -320,16 +320,16 @@ foreach ($keyIds as $key => $val){
                                @if($result_array->status->success == true && $result_array->status->httpStatus == 200 )
                                @if(isset($review->tripInfos))
                                @if(isset($result_array->tripSeatMap))
-                               
+
                                <?php $flight_array = array(); $segment_array=array(); ?>
                                <?php   $segment_id = 0; ?>
                                @foreach ($review->tripInfos as $k=>$v )
-                               
+
                                     @foreach ($v->sI as $k1=>$v1 )
-                                    
+
                                    <?php
                                    array_push($flight_array,$v1);
-                                   array_push($segment_array,$segment_id); 
+                                   array_push($segment_array,$segment_id);
                                    ?>
 
                                     <!--<h6>{{ $v1->da->city }} - {{ $v1->aa->city }}</h6>-->
@@ -339,7 +339,7 @@ foreach ($keyIds as $key => $val){
                           @endforeach
 @php  $seg_id=0; @endphp
                                @foreach($result_array->tripSeatMap->tripSeat as $key=>$value)
-                               
+
                                @if(isset($value->sData))
                                {{-- {{ print_r($result_array->tripSeatMap->tripSeat) }} --}}
                                             <?php
@@ -527,7 +527,7 @@ foreach ($keyIds as $key => $val){
 
                                            </div>
                                            @endif
-                                          @php $seg_m_id++ ; @endphp 
+                                          @php $seg_m_id++ ; @endphp
                                            @endforeach
                                            @endforeach
 
@@ -542,11 +542,14 @@ foreach ($keyIds as $key => $val){
 
                        </div>
 
-                           <div class="row mt-5">
-                              <div class="col-md-3 ms-auto">
-                                <button class="btn btn-blue-continue" id="confirmBooking"><a> Procced to Pay</a></button>
-                              </div>
-                             </div>
+                       <div class="mt-5 float-end d-flex">
+                        <div class="">
+                          <button class="btn btn-blue-continue confirmBooking"><a> Skip & Procced</a></button>
+                        </div>
+                        <div class="ms-1">
+                          <button class="btn btn-blue-continue confirmBooking" ><a> Procced to Pay</a></button>
+                        </div>
+                       </div>
                             </div>
                      </div>
                    </div>
@@ -893,8 +896,8 @@ foreach ($keyIds as $key => $val){
             }
 
             $(document).ready(function(){
-                $("#confirmBooking").click(function(){
-
+                $(".confirmBooking").click(function(){
+alert('ddd');
                     var no_of_passenger = parseInt($('#no_of_passenger').val());
                     // var seat_selected = $(".seat-selected");
                     // var meal_selected = $('.meal-selected');
@@ -923,7 +926,7 @@ foreach ($keyIds as $key => $val){
                         'dataType' :'json',
                         'data': {'seats':seats,'meals':meals,'bookingId':bookingId,'ttl_price':ttl_price,'_token':_token},
                         success: function (data){
-                            // console.log(data);
+                            console.log(data);
                             // if(data.status)
                             alert('booking confirmed');
                         }

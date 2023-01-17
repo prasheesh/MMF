@@ -8,14 +8,11 @@ error_reporting(0);
 class ReviewBookingController extends Controller
 {
     public function __construct(Request $request){
-        $this->api_key = '111930dc08a9e7-b74f-4138-9a6b-97f25dc3a982';
+        // $this->api_key = '111930dc08a9e7-b74f-4138-9a6b-97f25dc3a982';
       }
 
     public function passengerDetails(Request $request)
     {
-// dd($request->all());
-// $priceIds = explode('&',$request->priceIds);
-// dd($priceIds);
        $first_name = $request->first_name;
        $last_name = $request->last_name;
        $gender = $request->gender;
@@ -49,10 +46,6 @@ class ReviewBookingController extends Controller
     {
 
         $countries =   Country::all();
-       // dd($request->all());
-
-        // $priceId = $request->pKey;
-        // $priceIdreturn = $request->rKey;
 
        $priceId_data = "";
        foreach($request->all() as $k => $priceId){
@@ -78,7 +71,7 @@ class ReviewBookingController extends Controller
         //OPtions:
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'apikey:'.$this->api_key,
+            'apikey:'.apikey(),
             'Content-Type:application/json',
         ));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -118,7 +111,7 @@ class ReviewBookingController extends Controller
         //OPtions:
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'apikey:'.$this->api_key,
+            'apikey:'.apikey(),
             'Content-Type:application/json',
         ));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -133,12 +126,9 @@ class ReviewBookingController extends Controller
 
         $fair_rules[] =  json_decode($result);
         }
-        // echo"<pre>";
-        // print_r($fair_rules); exit();
         ///////////getting fair rules end///////////
 
-        // echo "<pre>";
-        // print_r($result_array->errors[0]); exit();
+
         if ($result_array->status->httpStatus == 200) {
             // return $result_array;
             return view('site/review_details',compact('result_array','fair_rules','countries'));
@@ -150,6 +140,6 @@ class ReviewBookingController extends Controller
             $result_array = $result_array;
             return view('site/review_details',compact('result_array','errors'));
         }
-       // return view('site/review_details',compact('result_array','fair_rules'));
+
     }
 }

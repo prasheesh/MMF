@@ -19,22 +19,23 @@ class SearchFlightsController extends Controller
     public function filterfilghts(Request $request)
     {
 
-        if (Session::has('deptminvalue') && Session::has('deptmaxvalue') && Session::has('deptarriv')) 
-        {   
+        // dd($request->all());
+        if (Session::has('deptminvalue') && Session::has('deptmaxvalue') && Session::has('deptarriv'))
+        {
                 Session::forget('deptminvalue');
                 Session::forget('deptmaxvalue');
                 Session::forget('deptarriv');
         }
-        
+
         $tripType = $request->tripType;
         $flightBookingDepart = $request->flightBookingDepart;
-        $travelClass = $request->travelClass;        
+        $travelClass = $request->travelClass;
         $adultval = $request->adultval;
         $fromPlace = $request->fromPlace;
         $toPlace = $request->toPlace;
         $flightBookingReturn = $request->flightBookingReturn ? $request->flightBookingReturn : null;
-        $childsvalue = $request->childval;
-        $infantvalue = $request->infantval;
+        $childsvalue = $request->childval ? $request->childval:0;
+        $infantvalue = $request->infantval ? $request->infantval:0;
 
         Session::put('tripType', $tripType);
         Session::put('flightBookingDepart', $flightBookingDepart);
@@ -48,13 +49,12 @@ class SearchFlightsController extends Controller
 
         $result_arrays = UserHelper::airplanes($tripType,$flightBookingDepart,$travelClass,$adultval,$fromPlace,$toPlace,$flightBookingReturn,$childsvalue,$infantvalue);
         
-        
         Session::put('results', $result_arrays);
 
-        
+
 
         return redirect()->route('SearchFlights');
-        
+
     }
     /**** End Get Filter Flights Lists *****/
 
@@ -65,11 +65,7 @@ class SearchFlightsController extends Controller
     public function SearchFlights(Request $request)
     {
 
-        
-
-        
-
-        $tripType = Session::get('tripType'); 
+        $tripType = Session::get('tripType');
         $flightBookingDepart = Session::get('flightBookingDepart');
         $travelClass = Session::get('travelClass');
         $adultval = Session::get('adultval');
@@ -90,7 +86,7 @@ class SearchFlightsController extends Controller
          */
         if($request->ajax()){
 
-            
+
            Session::put('deptminvalue', $request->deptminvalue);
            Session::put('deptmaxvalue', $request->deptmaxvalue);
            Session::put('deptarriv', $request->deptarriv);
@@ -98,7 +94,7 @@ class SearchFlightsController extends Controller
            {
             Session::put('noofstops', $request->valuestopclick);
            }
-            
+
            if($request->airlinesclickstopsclickvalue)
            {
             Session::put('airlinesclickstopsclickvalue', $request->airlinesclickstopsclickvalue);
@@ -128,13 +124,13 @@ class SearchFlightsController extends Controller
            {
                 $price_minvalue = Session::get('price_minvalue');
                 $price_maxvalue = Session::get('price_maxvalue');
-                
+
            }
-           
+
             if ($result_array) {
-               
+
                 if ($result_array->status->success == true) {
-                    
+
                     /**
                      * Arrival and Depture timing filter get the flight details
                      */
@@ -165,7 +161,7 @@ class SearchFlightsController extends Controller
                             $result_array = json_decode($depaturejsonencode);
                             $options = view("site.searchflights.flightsdetails.oneway.onewayflightdetails",get_defined_vars())->render();
                             return response()->json(['data' => $options], 200);
-                            
+
                         }
 
 
@@ -184,7 +180,7 @@ class SearchFlightsController extends Controller
                                     array_push($arrivalresult_array,$arrivfilterresult);
                                 }
 
-                                
+
                             }
 
                             $searcharriv['searchResult']['tripInfos']['ONWARD'] = $arrivalresult_array;
@@ -195,10 +191,10 @@ class SearchFlightsController extends Controller
                             $result_array = json_decode($arrivaljsonencode);
                             $options = view("site.searchflights.flightsdetails.oneway.onewayflightdetails",get_defined_vars())->render();
                             return response()->json(['data' => $options], 200);
-                            
+
                         }
                     }
-                    
+
                     /**
                      * Numbers stops filter get the filghts details
                      */
@@ -232,7 +228,7 @@ class SearchFlightsController extends Controller
                     /**
                      * Get The Flights Details accoring through Airlines(Company)
                      */
-                   
+
                     if($request->airlinesclickstopsclickvalue){
                         if(!empty($airlinesdata))
                         {
@@ -264,13 +260,13 @@ class SearchFlightsController extends Controller
 
                         }
                     }
-                    
+
                     /**
                      * Price range Filter get the flights details
                      */
                     if($request->price_minvalue && $request->price_maxvalue)
                     {
-                        
+
                         if(!empty($price_minvalue) && !empty($price_maxvalue))
                         {
                             $pricerangefilter_array = [];
@@ -280,14 +276,14 @@ class SearchFlightsController extends Controller
                                 foreach($pricerange->totalPriceList as $listprices)
                                 {
                                     $pricelistflight = round($listprices->fd->ADULT->fC->TF);
-                                    
+
                                     if($price_minvalue <= $pricelistflight && $price_maxvalue >= $pricelistflight)
                                     {
                                         $pricerangefilter_array[] = $pricerange;
-                                        
+
 
                                     }
-                               
+
                                 }
                             }
 
@@ -301,32 +297,31 @@ class SearchFlightsController extends Controller
 
                             $options = view("site.searchflights.flightsdetails.oneway.onewayflightdetails", get_defined_vars())->render();
                             return response()->json(['data' => $options], 200);
-                            
+
                         }
                     }
-                    
 
-                     
+
+
 
                 }
             }
         }
         /**
-         * End Ajax Request 
-         */
+         * End Ajax Request         */
 
 
-        
+
         if($result_array){
-            if ($result_array->status->success == true) { 
+            if ($result_array->status->success == true) {
 
-               
+
                 if(!empty($result_array->searchResult->tripInfos))
                 {
                     /**
                      * Fliter search with priceranges
                      */
-        
+
                     $stops_filter = [];
                     $ttl_stops_flight_cnt = [];
                     $stops_flight_cnt = [];
@@ -335,11 +330,9 @@ class SearchFlightsController extends Controller
                     $stops_array = [];
 
                     $airlines_details_array = [];
-                    
+
                     foreach($result_array->searchResult->tripInfos->ONWARD as $key=>$stops){
 
-                        
-                        
                         /**
                          * number of stops counts filter
                          */
@@ -349,15 +342,15 @@ class SearchFlightsController extends Controller
 
                             array_push($stops_filter, count($stops->sI)-1);
                             array_push($ttl_stops_flight_cnt, count($stops->sI)-1);
-                            
+
                         }
-        
-        
+
+
                         /**
                          * Pushing the Array Arrival City Name
                          */
                         array_push($stops_flight_cnt, $stops->sI[count($stops->sI)-1]->aa->city);
-        
+
                         /**
                          * Price Ranges
                          */
@@ -374,37 +367,30 @@ class SearchFlightsController extends Controller
                         {
                             array_push($airlines_details_array, $stopin->fD->aI->name);
                         }
-
-                        
-
-                        
-                    
                     }
-
-                    
                     /**
                      * number of stops counts filter variable
                      */
                     $flights_cnt = array_count_values($ttl_stops_flight_cnt);
                     $all_stops =  array_unique($stops_filter);
-                
-                
+
+
                     /**
                      * @var mixed $arrival_cityname
                      * Arrival City Name
                      */
                     $arrival_cityname = array_unique($stops_flight_cnt);
 
-                    
-    
+
+
                     /**
                      * @var mixed $priceRange
-                     * 
+                     *
                      * Get the Price Range
                      */
                     $minpricevalue = min($priceranges);
                     $maxpricevalue = max($priceranges);
-    
+
                     /**
                      * Get Flight names when get filter get data variables
                      */
@@ -413,48 +399,42 @@ class SearchFlightsController extends Controller
                     $airlinesnames_counts = array_count_values($airlines_details_array);
                     $airlinesnames_count = array_values($airlinesnames_counts);
 
-                    
-
-
-
-
-
                     /**
-                     * RETURN Filter Search 
+                     * RETURN Filter Search
                      */
-        
+
                     if(!empty($result_array->searchResult->tripInfos->RETURN)){
                         $cityname = [];
-        
+
                         foreach($result_array->searchResult->tripInfos->RETURN as $key => $arrivalstops)
                         {
                             $cityname[] = $arrivalstops->sI[0]->da->city;
                         }
-        
-                        
-        
+
+
+
                         $unique_cityname = array_unique($cityname);
                     }
-                 
-    
-                
-                 
+
+
+
+
                     /**
-                     * End RETURN Filter Search 
+                     * End RETURN Filter Search
                      */
-        
+
                     /**
                      * End Fliter search with priceranges
                      */
                 }
-                
-                
+
+
                 return view('site.searchflights.index',get_defined_vars());
-               
+
             }
             else {
                 abort(400);
-             
+
             }
         }else{
             abort(400);

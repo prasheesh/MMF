@@ -732,10 +732,9 @@
 						// cache : false,
 						// async : false,
 						success: function (data) {
-
 							// console.log(data);
-							// location.replace("home");
-							window.location = 'https://makemyfly.com/uat/home';
+							location.replace("home");
+							// window.location = 'https://makemyfly.com/uat/home';
 
 						}
 					})
@@ -945,13 +944,12 @@
 
 
 	</script>
-	
+
 	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
 
 	@yield('script-content')
-	
-	
+
 	@yield('modals')
 
 </body>

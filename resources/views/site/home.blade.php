@@ -73,11 +73,11 @@
         .select2  {
             width:100% !important;
         }
-        
+
         .travel-class{
             padding:4px 15px !important;
         }
-        
+
     </style>
 @endsection
 
@@ -200,7 +200,7 @@
 
                                         <input class="form-control date-picker-hide"  type="text" name="flightBookingDepart" id="flightBookingDepart"
                                             placeholder="Start date" autocomplete="off" required />
-                                        
+
                                     </label>
 
                                     {{-- </div> --}}
@@ -214,7 +214,7 @@
                                         <input class="form-control date-picker-hide" type="text" name="flightBookingReturn" id="flightBookingReturn"
                                             placeholder="Return date" autocomplete="off" />
                                             <span id="return_date_error" class="d-none error"  >Please Select Return Date</span>
-                                       
+
                                     </label>
 
                                 </div>
@@ -354,8 +354,8 @@
                         <span id="error_same2" style="color:red"></span>
                     </div>
                     </div>
-                    
-                    
+
+
 
                     <div class="col-md-2 mt-3 ms-auto">
                         <a href="{{ route('search-flights') }}"> <button id="Submit"
@@ -383,7 +383,7 @@
                 <img src="assets/img/covid-precations-offers.png" class="img-fluid">
             </div>
         </div>
-    </div>    
+    </div>
     </section>
 
     </div>
@@ -393,18 +393,18 @@
 @section('script-content')
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
-    
+
     <!-- Passenger List -->
-    <script src="{{asset('public/assets/customjs/passengerlist.js')}}"></script>
+    <script src="{{asset('assets/customjs/passengerlist.js')}}"></script>
     <script>
-  
+
     $(document).ready(function(){
-        //  Return Flights Select dates 
+        //  Return Flights Select dates
         $('#flightBookingReturn').click(function(){
            $("#roundTrip").click();
         });
-        
-        //  On click Loader 
+
+        //  On click Loader
         $("#searchFlightsButton").click(function(e){
             let trip_type = $("#tripType").val();
             if(trip_type == 'round'){
@@ -413,7 +413,7 @@
                     $('#return_date_error').removeClass('d-none');
                     $("#flightBookingReturn").attr('required','true');
                     return false;
-                    
+
                 }else{
                     $("#loader_div").removeClass('d-none');
             $("#loader_div").show();
@@ -422,13 +422,13 @@
                 $("#loader_div").removeClass('d-none');
             $("#loader_div").show();
             }
-            
+
         });
     })
-        
-       
-    
-    
+
+
+
+
         //default from to selection
         $(document).ready(onLoadFromToAirport);
 
@@ -450,7 +450,7 @@
             });
 
 
-            
+
 
             // $('#flightBookingDepart').change(function() {
             //     alert($(this).val());
@@ -533,7 +533,7 @@
                     <div class="col-md-3 ">
                     <small>&nbsp;</small>
                         <button id="addCity${count}" onclick="clone_div()" type="button" class="btn btn-primary mt-1">+ Add Another City</button>
-                    
+
                         <button id="removeCity${count}" type="button" class="btn btn-danger" onclick="remove(${count})">
                                     <i class="fa-solid fa-minus"></i>
                                 </button>
@@ -865,6 +865,6 @@ $('#ToPlace2').select2({
 
 @section('modals')
 
-    @include('site.modals.passengerlist')
-    
+@include('site.modals.passengerlist')
+
 @endsection

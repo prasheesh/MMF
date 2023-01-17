@@ -190,7 +190,7 @@
    padding: 1px 5px;
    font-size: 13px;
    }
-   
+
    .roundtrip-card {
    border: solid 1px #ccc;
    }
@@ -204,15 +204,15 @@
    padding: 5px 20px;
    float: left;
    }
-   
+
    .select2-selection--single{
        background-color:transparent !importnat;
    }
-   
-   
-   
-   
-   
+
+
+
+
+
  .checkbox-alias{
     background-color: transparent;
     display: inline-block;
@@ -236,7 +236,7 @@
 
 .depaturemain{
     position: relative;
-    
+
 }
 
 .anchor{
@@ -1055,8 +1055,8 @@
     <!--    <button type="submit" class="btn btn-search-flights" id="searchFlightsButton">Search-->
     <!--        Flights</button>-->
     <!--</div>-->
-</div> 
-</div> 
+</div>
+</div>
         </form>
     </section>
     {{-- {{ print_r($result_array->searchResult->tripInfos->ONWARD[0]) }} --}}
@@ -1102,7 +1102,7 @@
                                 <h5>Departure From Hyderabad</h5>
 
                                   <div class="row mt-3 invisible-checkboxes">
-                                    
+
                                     <div class="col-md-3 align-items-center main-departure depaturemain"  id="depart1">
                                         <a href="javascript:;" class="anchor depaturemaina" id="anchor1"></a>
                                         <input type="hidden" name="rGroup" value="00:00" />
@@ -1117,7 +1117,7 @@
                                         <input type="hidden" name="rGroup" value="06:01" />
                                         <input type="hidden" name="rGroup" value="12:00" />
                                             <div class="departure-1">
-                                                <img src="{{ 'assets/img/sun.png' }}" class="img-fluid" />                        
+                                                <img src="{{ 'assets/img/sun.png' }}" class="img-fluid" />
                                                 <p>6 AM to 12 PM<br></p>
                                             </div>
                                     </div>
@@ -1127,7 +1127,7 @@
                                         <input type="hidden" name="rGroup" value="17:00" />
                                             <div class="departure-1">
                                                 <img src="{{ 'assets/img/sun.png' }}" class="img-fluid" />
-                                               
+
                                                 <p>12 PM to 5 PM <br> </p>
                                             </div>
                                     </div>
@@ -1141,7 +1141,7 @@
                                             </div>
                                     </div>
                                 </div>
-                         
+
 
 
 
@@ -1162,7 +1162,7 @@
                                         <input type="checkbox" name="rGroup" value="6" id="r6" />
                                         <label class="checkbox-alias" for="r6">
                                             <div class="departure-1">
-                                                <img src="{{ 'assets/img/sun.png' }}" class="img-fluid" />                        
+                                                <img src="{{ 'assets/img/sun.png' }}" class="img-fluid" />
                                                 <p>6 AM to 12 PM<br> 9586</p>
                                             </div>
                                         </label>
@@ -1172,7 +1172,7 @@
                                         <label class="checkbox-alias" for="r7">
                                             <div class="departure-1">
                                                 <img src="{{ 'assets/img/sun.png' }}" class="img-fluid" />
-                                               
+
                                                 <p>12 PM to 5 PM <br> 1158</p>
                                             </div>
                                         </label>
@@ -1182,7 +1182,7 @@
                                         <label class="checkbox-alias" for="r8">
                                             <div class="departure-1">
                                                 <img src="{{ 'assets/img/sun.png' }}" class="img-fluid" />
-                                                
+
                                                 <p>After 5 AM <br> 2569</p>
                                             </div>
                                         </label>
@@ -1560,7 +1560,7 @@
                                                                     onclick="getDownFareRules({{ $value->sI[0]->id }})">View
                                                                     Prices</a></span>
                                                         </div>
-                                                        
+
                                                         <?php
                                                         $depart = array();
                                                         $return = array();
@@ -1738,7 +1738,7 @@
                                     not found
                                 @endif
                             @endif
-                                
+
                                 {{-- domestic round trip search flights --}}
                                 <div class="row mt-2">
 
@@ -2718,14 +2718,14 @@
     <!-- slick js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.min.js"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
-    
+
     <!-- Passenger List -->
     <script src="{{asset('public/assets/customjs/passengerlist.js')}}"></script>
 
     <script type="text/javascript">
-    
+
     $(document).on('click','#one_way_book_now',function(){
-         
+
         // $("#one_way_book_now").click(function(){
             $("#loader_div").removeClass('d-none');
             $("#loader_div").show();
@@ -2739,13 +2739,13 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
         });
-     
+
         maindeparture.forEach(depatureclick => {
-                
+
                 depatureclick.addEventListener('click', function(dept){
                     deptminvalue = dept.target.nextElementSibling.value,
                     deptmaxvalue = dept.target.nextElementSibling.nextElementSibling.value;
-                        
+
                         $.ajax({
                             url:"{{route('SearchFlightss')}}",
                             method:"POST",
@@ -2758,17 +2758,17 @@
                                window.location.reload();
                             },
                             error: () =>{
-    
+
                             }
-    
+
                         });
-                       
-    
-    
-    
-               
+
+
+
+
+
                 });
-                
+
             });
         $(document).ready(function() {
             $('.carousel').slick({
@@ -3187,7 +3187,7 @@
             }
 
         }
-        
+
         function viewPriceBook(id){
                 $("#loader_div").removeClass('d-none');
                 $("#loader_div").show();
@@ -3307,8 +3307,8 @@
 
             })
         });
-        
-        //  Return Flights Select dates 
+
+        //  Return Flights Select dates
         $('#flightBookingReturn').click(function(){
            $("#trip_type").val('round');
         });
@@ -3322,7 +3322,7 @@
                     $('#return_date_error').removeClass('d-none');
                     $("#flightBookingReturn").attr('required','true');
                     return false;
-                    
+
                 }else{
                     $("#loader_div").removeClass('d-none');
                     $("#loader_div").show();
@@ -3331,10 +3331,10 @@
                 $("#loader_div").removeClass('d-none');
                 $("#loader_div").show();
             }
-            
+
         });
-        
-        
+
+
         if ($('#trip_type').val() == 'oneway') {
             $('#flightBookingReturn').val('');
             // $('#flightBookingReturn').prop('disabled', true);
@@ -3776,8 +3776,8 @@ $('.multitrip').click(function() {
 
    });
    });
-   
-  
+
+
    function filterfunction(){
        var check = $('input[name="stops"]:checked').val();
        if(check != ''){
@@ -3795,10 +3795,10 @@ $('.multitrip').click(function() {
             });
        }
    }
-   
-   
-   
- 
+
+
+
+
 
 
     </script>
@@ -3817,5 +3817,5 @@ $('.multitrip').click(function() {
 @section('modals')
 
     @include('site.modals.passengerlist')
-    
+
 @endsection
