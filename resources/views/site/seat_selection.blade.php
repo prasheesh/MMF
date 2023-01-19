@@ -560,27 +560,209 @@ foreach ($keyIds as $key => $val){
                 @if($review->status->success == true && $review->status->httpStatus == 200 )
                     @if(isset($review->tripInfos))
                     @php
-                        $adult = $review->searchQuery->paxInfo->ADULT
+
+                        $adults = $review->searchQuery->paxInfo->ADULT; ////get total adult list
+                        $childs = $review->searchQuery->paxInfo->CHILD; //get total childs
+                        $infants = $review->searchQuery->paxInfo->INFANT; //get total infants
+
+                    foreach($review->tripInfos as $key => $priceList){
+                        foreach($priceList->totalPriceList as $k=>$pList){
+                            /* adults base fare */
+                            // dd($pList);
+                        if(isset($pList->fd->ADULT->fC->BF)){
+                                    $adult_bf =  $pList->fd->ADULT->fC->BF;
+                                    $adult_tax = $adults * $pList->fd->ADULT->fC->TAF;
+                                    // start adult tax
+                                $adult_OT = $adults * $pList->fd->ADULT->afC->TAF->OT;
+                                $adult_MF = $adults * $pList->fd->ADULT->afC->TAF->MF;
+                                $adult_MFT = $adults * $pList->fd->ADULT->afC->TAF->MFT;
+                                $adult_AGST = $adults * $pList->fd->ADULT->afC->TAF->AGST;
+                                $adult_YQ = $adults * $pList->fd->ADULT->afC->TAF->YQ;
+                                //end adult tax
+                                }else{
+                                    $adult_bf = 0;
+                                    $adult_tax=0;
+                                    $adult_OT=0;
+                                    $adult_MFT=0;
+                                    $adult_AGST=0;
+                                    $adult_YQ =0;
+                            }
+
+                             /* childrens base fare */
+                        if(isset($pList->fd->CHILD->fC->BF)){
+                                    $child_bf =  $pList->fd->CHILD->fC->BF;
+                                    $child_tax = $pList->fd->CHILD->fC->TAF;
+                                    // start child tax
+                                $child_OT = $childs * $pList->fd->CHILD->afC->TAF->OT;
+                                $child_MF = $childs * $pList->fd->CHILD->afC->TAF->MF;
+                                $child_MFT = $childs * $pList->fd->CHILD->afC->TAF->MFT;
+                                $child_AGST = $childs * $pList->fd->CHILD->afC->TAF->AGST;
+                                $child_YQ = $childs * $pList->fd->CHILD->afC->TAF->YQ;
+                                }else{
+                                    $child_bf = 0;
+                                    $child_tax = 0;
+                                    $child_OT = 0;
+                                    $child_MF = 0;
+                                    $child_MFT = 0;
+                                    $child_AGST = 0;
+                                    $child_YQ = 0;
+                            }
+                            /* infants base fare */
+                        if(isset($pList->fd->INFANT->fC->BF)){
+                                    $infant_bf =  $pList->fd->INFANT->fC->BF;
+                                    $infant_tax= $infants * $pList->fd->INFANT->fC->TAF;
+                                    //start infant tax
+                                    $infants_OT = $infants * $pList->fd->INFANT->afC->TAF->OT;
+                                $infants_MF = $infants * $pList->fd->INFANT->afC->TAF->MF;
+                                $infants_MFT = $infants * $pList->fd->INFANT->afC->TAF->MFT;
+                                $infants_AGST = $infants * $pList->fd->INFANT->afC->TAF->AGST;
+                                $infants_YQ = $infants * $pList->fd->INFANT->afC->TAF->YQ;
+
+                                    //end infant tax
+                                }else{
+                                    $infant_bf = 0;
+                                    $infant_tax = 0;
+                                    $infants_OT = 0;
+                                    $infants_MF = 0;
+                                    $infants_MFT = 0;
+                                    $infants_AGST = 0;
+                                    $infants_YQ = 0;
+                            }
+
+                        }
+
+                    }
+
+
+
+
+                        $is_domestic = $review->searchQuery->isDomestic;
+
+                        $ttl_adlut_bf = $adults*$adult_bf;
+                        $ttl_child_bf = $childs*$child_bf;
+                        $ttl_infant_bf = $infants*$infant_bf;
+
+                        $basefare = $ttl_adlut_bf+$ttl_child_bf+$ttl_infant_bf;  //getting base fare for total trips
+
+                        $Taxes_trip = $adult_tax + $child_tax + $infant_tax; //getting taxes for total trips
+
+                        $TotalAmount = $basefare + $Taxes_trip;  ///calculating total amount with base fare and taxes
+
+
+                       // total taxes break up
+                                $OT = $adult_OT + $child_OT + $infants_OT;
+                                $MF = $adult_MF + $child_MF + $infants_MF;
+                                $MFT = $adult_MFT + $child_MFT + $infants_MFT;
+                                $AGST = $adult_AGST + $child_AGST + $infants_AGST;
+                                $YQ = $adult_YQ + $child_YQ + $infants_YQ;
                     @endphp
+{{-- alert fare if changed --}}
+@if(isset($review->alerts[0]))
+    <div class="card mb-3">
+        <div class=" card-body card-shadow">
+            <h5><b>Fare Price</b></h5>
+            <div class="row">
+                <div class="col-md-6 fare-P">
+                    <h4><i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                        {{ number_format($review->alerts[0]->newFare, 2) }}</h4>
+                    <small>New price</small>
+                </div>
+                <div class="col-md-6 fare-P">
+                    <h4 class="text-olld"><i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                        {{ number_format($review->alerts[0]->oldFare, 2) }}</h4>
+                    <small>Old price</small>
+                </div>
+            </div>
+        </div>
+    </div>
+   @endif
 
                 <div class="card">
                     <div class=" card-body card-shadow">
                         <h5><b>Fare Summary</b></h5>
-
+<!--- Base Fare only -->
                         <div class="accordion" id="myAccordion">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingOne">
                                     <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne">
-                                        <span class="ms-2">Base Fare </span> <span class="ms-auto"> <i
-                                                class="fa-solid fa-indian-rupee-sign"></i> {{ $review->totalPriceInfo->totalFareDetail->fC->BF }}</span>
+                                        <table width="100%">
+                                            <tr>
+                                                <td width="">
+                                                    <span class="ps-1">Base Fare</span>
+                                                </td>
+                                                <td width="60%">
+                                                    <span class="d-flex justify-content-end icon_style">
+                                                        <i class="fa-solid fa-indian-rupee-sign"></i>
+                                                        {{ number_format($review->totalPriceInfo->totalFareDetail->fC->BF, 2) }}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </button>
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
-                                    <small class="ms-0">
+                                    <table>
+                                        <!--- Adult Calculation table row -->
+                                        <tr>
+                                            <td>
+                                                <span class="">
+                                                    Adult(s) <br><small style="font-size: 12px;">({{ $adults }} X ₹ {{ number_format($adult_bf, 2) }})</small>
+                                                </span>
+                                            </td>
+                                            <td>:</td>
+                                            <td width="45%">
+                                                <span class="icon_style justify-content-end">
+                                                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                                                    {{ number_format($adults*$adult_bf, 2) }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <!--- End Adult Calculation table row -->
+
+                                        @if($childs > 0)
+                                            <!-- Child Calculation table row -->
+                                            <tr>
+                                                <td>
+                                                    <span class="">
+                                                        Child(s) <br><small style="font-size: 12px;">({{ $childs }} X ₹ {{ number_format($child_bf, 2) }})</small>
+                                                    </span>
+                                                </td>
+                                                <td>:</td>
+                                                <td width="45%">
+                                                    <span class="icon_style justify-content-end">
+                                                        <i class="fa-solid fa-indian-rupee-sign"></i>
+                                                        {{ number_format($childs * $child_bf, 2) }}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <!-- End Child Calculation table row -->
+                                        @endif
+                                        @if($infants > 0)
+                                            <!-- Infants Calculation table row -->
+                                            <tr>
+                                                <td>
+                                                    <span class="">
+                                                        Infant(s) <br><small style="font-size: 12px;">({{ $infants }} X ₹ {{ number_format($infant_bf, 2) }})</small>
+                                                    </span>
+                                                </td>
+                                                <td>:</td>
+                                                <td width="45%">
+                                                    <span class="icon_style justify-content-end">
+                                                        <i class="fa-solid fa-indian-rupee-sign"></i>
+                                                        {{ number_format($infants * $infant_bf, 2) }}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <!-- End Infants Calculation table row -->
+                                        @endif
+
+                                    </table>
+
+                                    {{-- <small class="ms-0">
                                         <span>Base Fare </span>
                                         <span class="float-end"> Adult(s) ({{ $adult }} X ₹ {{ $review->totalPriceInfo->totalFareDetail->fC->BF/$adult }})</span>
-                                    </small>
+                                    </small> --}}
                                 </div>
                             </div>
                         </div>
@@ -591,18 +773,106 @@ foreach ($keyIds as $key => $val){
                                 <h2 class="accordion-header" id="headingOne">
                                     <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne2">
-                                        <span class="ms-2">Fee & Surcharges </span> <span class="ms-auto"> <i
-                                                class="fa-solid fa-indian-rupee-sign"></i> {{ $review->totalPriceInfo->totalFareDetail->fC->TAF }}</span>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <span class="ps-1">Fee & Surcharges</span>
+                                                </td>
+                                                <td>
+                                                    <span class="d-flex icon_style">
+                                                        <i class="fa-solid fa-indian-rupee-sign"></i>
+                                                        {{ number_format($Taxes_trip, 2) }}
+                                                    </span>
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                        {{-- <span class="ms-2">Fee & Surcharges </span> <span class="ms-auto"> <i
+                                                class="fa-solid fa-indian-rupee-sign"></i> {{ $review->totalPriceInfo->totalFareDetail->fC->TAF }}</span> --}}
                                     </button>
                                 </h2>
-                                <div id="collapseOne2" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                                {{-- <div id="collapseOne2" class="accordion-collapse collapse" data-bs-parent="#myAccordion"> --}}
                                     {{-- <small class="ms-3">
                                         <span>Other Charges </span>
                                         <span class="float-end"> <i class="fa-solid fa-indian-rupee-sign"></i> 125</span>
                                     </small> --}}
-                                </div>
+                                {{-- </div> --}}
+
+                                <div id="collapseOne2" class="accordion-collapse collapse"
+                                        data-bs-parent="#myAccordion">
+                                        <table>
+                                            <tr>
+                                                <td><span>Other Charges </span> </td>
+                                                <td> : </td>
+                                                <td>
+                                                    <span class="d-flex icon_style">
+
+                                                        <i class="fa-solid fa-indian-rupee-sign"></i> {{ $OT }}
+
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td> <span>Management Fee </span> </td>
+                                                <td> : </td>
+                                                <td>
+                                                    <span class="d-flex icon_style">
+
+                                                        <i class="fa-solid fa-indian-rupee-sign"></i> {{ $MF }}
+
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td> <span>Management Fee Tax</span> </td>
+                                                <td> : </td>
+                                                <td>
+                                                    <span class="d-flex icon_style">
+
+                                                        <i class="fa-solid fa-indian-rupee-sign"></i> {{ $MFT }}
+
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td> <span>Airline GST</span> </td>
+                                                <td> : </td>
+                                                <td>
+                                                    <span class="d-flex icon_style">
+
+                                                        <i class="fa-solid fa-indian-rupee-sign"></i> {{ $AGST }}
+
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td> <span>Fuel Surcharge</span> </td>
+                                                <td> : </td>
+                                                <td>
+                                                    <span class="d-flex icon_style">
+
+                                                        <i class="fa-solid fa-indian-rupee-sign"></i> {{ $YQ }}
+
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            {{-- <tr>
+                                                <td> <span>Carrier Misc Fee</span> </td>
+                                                <td> : </td>
+                                                <td>
+                                                    <span class="d-flex icon_style">
+
+                                                        <i class="fa-solid fa-indian-rupee-sign"></i> {{ $YR }}
+
+                                                    </span>
+                                                </td>
+                                            </tr> --}}
+                                        </table>
+
+                                    </div>
                             </div>
                         </div>
+                        <!--- End Taxes and Fees --->
 
                         <div class="accordion mt-2 d-none othercharges" id="myAccordion"  >
                             <div class="accordion-item">
@@ -633,7 +903,7 @@ foreach ($keyIds as $key => $val){
                             <div class="col-md-7">
                                 <b>Total Amount</b>
                             </div>
-                            <?php $ttl_price =  ($review->totalPriceInfo->totalFareDetail->fC->BF+$review->totalPriceInfo->totalFareDetail->fC->TAF) ?>
+                            @php $ttl_price = $TotalAmount @endphp
                             <div class="col-md-5  text-end">
                                 <i class="fa-solid fa-indian-rupee-sign"></i> <span data-ttl_price="{{ $ttl_price }}" id="ttl_price">{{ $ttl_price }}</span>
                                 <input type="hidden" name="other_charges" id="other_charges" value=0>
@@ -897,7 +1167,7 @@ foreach ($keyIds as $key => $val){
 
             $(document).ready(function(){
                 $(".confirmBooking").click(function(){
-alert('ddd');
+
                     var no_of_passenger = parseInt($('#no_of_passenger').val());
                     // var seat_selected = $(".seat-selected");
                     // var meal_selected = $('.meal-selected');
@@ -917,9 +1187,9 @@ alert('ddd');
                     var bookingId = $('#bookingId').val();
                     var ttl_price = $('#ttl_price').data('ttl_price');
                     var _token = '<?php echo csrf_token(); ?>';
-
+console.log(ttl_price);
     // if(pasreInt(meals.length) == no_of_passenger || pasreInt(seats.length) == no_of_passenger ){
-
+        // alert('ddd=');
                     $.ajax({
                         'type' : 'post',
                         'url' : '{{ route('proceed-to-pay') }}',
@@ -927,8 +1197,16 @@ alert('ddd');
                         'data': {'seats':seats,'meals':meals,'bookingId':bookingId,'ttl_price':ttl_price,'_token':_token},
                         success: function (data){
                             console.log(data);
-                            // if(data.status)
-                            alert('booking confirmed');
+                            if(data.status.httpStatus == 200){
+                                alert('booking confirmed');
+                            }else{
+                                alert(data.errors[0].message);
+                            }
+
+                        },
+                        error:function(data){
+                            console.log(data)
+                            alert('booking not completed');
                         }
                     })
 

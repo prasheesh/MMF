@@ -9,23 +9,76 @@ use App\Models\PnrDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-error_reporting(0);
+error_reporting(1);
 class ConfirmBookingController extends Controller
 {
     public function __construct(Request $request)
     {
-         $this->api_key = '111930dc08a9e7-b74f-4138-9a6b-97f25dc3a982';
+        //  $this->api_key = '111930dc08a9e7-b74f-4138-9a6b-97f25dc3a982';
     }
 
     public function proceedToPay(Request $request){
         $traveller_details = $request->session()->all();
-        
+
+        $adult_count = $request->session()->get('adult_count');
+        $child_count = $request->session()->get('child_count');
+        $infant_count = $request->session()->get('infant_count');
+        $is_domestic = $request->session()->get('is_domestic');
+
         $first_name = $request->session()->get('first_name');
         $last_name = $request->session()->get('last_name');
         $genders = $request->session()->get('gender');
-        $passport_no = $request->session()->get('passport_no');
-        $passport_country_code = $request->session()->get('passport_country_code');
-        $passport_expiry_date = $request->session()->get('passport_expiry_date');
+
+        if($is_domestic != true){
+            $passport_no = $request->session()->get('passport_no');
+            $passport_country_code = $request->session()->get('passport_country_code');
+            $passport_expiry_date = $request->session()->get('passport_expiry_date');
+
+        }else{
+            $passport_no = '';
+            $passport_country_code = '';
+            $passport_expiry_date = '';
+        }
+
+        // children details
+        if($child_count >0){
+            $first_name_child = $request->session()->get('first_name_child');
+        $last_name_child = $request->session()->get('last_name_child');
+        $genders_child = $request->session()->get('gender_child');
+        if($is_domestic != true){
+            $passport_no_child = $request->session()->get('passport_no_child');
+            $passport_country_code_child = $request->session()->get('passport_country_code_child');
+            $passport_expiry_date_child = $request->session()->get('passport_expiry_date_child');
+
+        }else{
+            $passport_no_child = '';
+            $passport_country_code_child = '';
+            $passport_expiry_date_child = '';
+        }
+        }
+
+
+        // infants details
+        if($infant_count > 0 ){
+            $first_name_infant = $request->session()->get('first_name_infant');
+            $last_name_infant = $request->session()->get('last_name_infant');
+            $genders_infant = $request->session()->get('gender_infant');
+            $dob_infant = $request->session()->get('dob_infant');
+            if($is_domestic != true){
+                $passport_no_infant = $request->session()->get('passport_no_infant');
+                $passport_country_code_infant = $request->session()->get('passport_country_code_infant');
+                $passport_expiry_date_infant = $request->session()->get('passport_expiry_date_infant');
+
+            }else{
+                $passport_no_infant = '';
+                $passport_country_code_infant = '';
+                $passport_expiry_date_infant = '';
+            }
+        }
+
+
+
+
         $email = $request->session()->get('email');
         $mobile = $request->session()->get('mobile');
         $phone_country_code = $request->session()->get('country_code');
@@ -46,7 +99,6 @@ class ConfirmBookingController extends Controller
             }
         }
 
-
         $meals = $request->meals;
         if(is_array($meals)){
         foreach($meals as $k=>$v){
@@ -56,25 +108,26 @@ class ConfirmBookingController extends Controller
     }
         // dd($ssrMeal);
 
-
         $req =array();
         $req['bookingId']= $request->bookingId;
-        $req['paymentInfos'] =array();
+        $req['paymentInfos'] = array();
         $row['amount'] = $request->ttl_price;
         array_push($req['paymentInfos'],$row);
         $req['travellerInfo']=array();
+
         for($i=0;$i<count($first_name);$i++){
             if($genders[$i] == 'female'){
                 $gender = 'Mrs';
             }else{
                 $gender = 'Mr';
             }
-            $expiry_date = date('Y-m-d',strtotime($passport_expiry_date[$i]));
+            // $expiry_date = date('Y-m-d',strtotime($passport_expiry_date[$i]));
             $adults['ti']=$gender;
             $adults['fN']=$first_name[$i];
             $adults['lN']=$last_name[$i];
             $adults['pt']='ADULT';
-            $adults['dob']='1996-08-09';
+            // $adults['dob']='1996-08-09';
+
             // $adults['pNat']=$passport_country_code[$i];
             // $adults['pNum']=$passport_no[$i];
             // $adults['eD']=$expiry_date;
@@ -111,6 +164,45 @@ class ConfirmBookingController extends Controller
 
             array_push($req['travellerInfo'],$adults);
         }
+
+        // children details
+        if($child_count >0){
+        for($i=0;$i<count($first_name_child);$i++){
+            if($genders_child[$i] == 'female'){
+                $gender_child = 'Ms';
+            }else{
+                $gender_child = 'Master';
+            }
+            // $expiry_date = date('Y-m-d',strtotime($passport_expiry_date[$i]));
+            $childs['ti']=$gender_child;
+            $childs['fN']=$first_name_child[$i];
+            $childs['lN']=$last_name_child[$i];
+            $childs['pt']='CHILD';
+            // $adults['dob']='1996-08-09';
+
+            array_push($req['travellerInfo'],$childs);
+        }
+    }
+
+        // infants details
+        if($infant_count >0){
+        for($i=0;$i<count($first_name_infant);$i++){
+            if($genders_infant[$i] == 'female'){
+                $gender_infant = 'Ms';
+            }else{
+                $gender_infant = 'Master';
+            }
+            // $expiry_date = date('Y-m-d',strtotime($passport_expiry_date[$i]));
+            $infants['ti']=$gender_infant;
+            $infants['fN']=$first_name_infant[$i];
+            $infants['lN']=$last_name_infant[$i];
+            $infants['pt']='INFANT';
+            $infants['dob']=date('Y-m-d',strtotime($dob_infant[$i]));
+
+            array_push($req['travellerInfo'],$infants);
+        }
+    }
+
         $req['deliveryInfo']['emails'] = array();
         array_push($req['deliveryInfo']['emails'],$email);
 
@@ -120,9 +212,10 @@ class ConfirmBookingController extends Controller
         // dd(($req));
 
         $data = json_encode($req);
+        // print_r($data); exit;
 // dd($data);
         $method = "POST";
-        $url = "https://apitest.tripjack.com/oms/v1/air/book";
+        $url = env('API_URL')."/oms/v1/air/book";
         $curl = curl_init();
         switch ($method) {
             case "POST":
@@ -137,7 +230,7 @@ class ConfirmBookingController extends Controller
         //OPtions:
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'apikey:' . $this->api_key,
+            'apikey:' . apikey(),
             'Content-Type:application/json',
         ));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -153,17 +246,15 @@ class ConfirmBookingController extends Controller
        $res =  json_decode($result);
         // print_r($res->status->success);exit;
 
-
+        // print_r($res); exit;
         //booking details
-    if(isset($res->status->success)){
-
+    if(isset($res->status->success) && $res->status->httpStatus == 200 ){
             $req_data =array();
             $req_data['bookingId']= $request->bookingId;
-
             $param_data = json_encode($req_data);
 
         $method = "POST";
-        $url = "https://apitest.tripjack.com/oms/v1/booking-details";
+        $url = env('API_URL')."/oms/v1/booking-details";
         $curl = curl_init();
         switch ($method) {
             case "POST":
@@ -178,7 +269,7 @@ class ConfirmBookingController extends Controller
         //OPtions:
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'apikey:' . $this->api_key,
+            'apikey:' . apikey(),
             'Content-Type:application/json',
         ));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -198,28 +289,51 @@ class ConfirmBookingController extends Controller
         $travellers_cnt =  count($booking_details->itemInfos->AIR->travellerInfos);
         $amount = $booking_details->order->amount;
         $aborted_status = $booking_details->order->status;
-        
-            
-            
-            
+
+        $base_fare = $booking_details->itemInfos->AIR->totalPriceInfo->totalFareDetail->fC->BF; //Base Fare
+        $NF = $booking_details->itemInfos->AIR->totalPriceInfo->totalFareDetail->fC->NF; //Net Fare
+        $TF = $booking_details->itemInfos->AIR->totalPriceInfo->totalFareDetail->fC->TF; //Total Fare
+        $IGST = $booking_details->itemInfos->AIR->totalPriceInfo->totalFareDetail->fC->IGST; //IGST
+        $TAF = $booking_details->itemInfos->AIR->totalPriceInfo->totalFareDetail->fC->TAF; //Taxes and Fees
+
+        //Break Up of Taxes and Fees from fC
+        $AGST = $booking_details->itemInfos->AIR->totalPriceInfo->totalFareDetail->afC->TAF->AGST; //Airline GST Component
+        $MFT = $booking_details->itemInfos->AIR->totalPriceInfo->totalFareDetail->afC->TAF->MFT; //Management Fee Tax ( It’s nothing but GST of Management Fee)
+        $YQ = $booking_details->itemInfos->AIR->totalPriceInfo->totalFareDetail->afC->TAF->YQ; //Fuel Surcharge
+        $OT = $booking_details->itemInfos->AIR->totalPriceInfo->totalFareDetail->afC->TAF->OT; // Other Charges
+        $MF = $booking_details->itemInfos->AIR->totalPriceInfo->totalFareDetail->afC->TAF->MF; // Management Fee
+
             //  new booking();
             $booking = Booking::create([
                     'booking_id'=>$request->bookingId,
-                    
                     'users_id'=>Auth::id(),
                     'noofpassenger'=>$travellers_cnt,
+                    'adults'=>$adult_count,
+                    'childrens'=>$child_count,
+                    'infants'=>$infant_count,
+                    'is_domestic'=>$is_domestic,
                     'phone_country_code'=>$phone_country_code,
                     'phone_number'=>$mobile,
                     'email_id'=>$email,
                     'whatsup_status'=>$whatsup_status,
                     'amount'=>$amount,
+                    'base_fare' => $base_fare,
+                    'net_fare' => $NF,
+                    'total_fare' => $TF,
+                    'igst' => $IGST,
+                    'tax_fee' => $TAF,
+                    'agst' => $AGST,
+                    'm_fee_tax' => $MFT,
+                    'fuel_charge' => $YQ,
+                    'other_charge' => $OT,
+                    'management_fee' => $MF,
                     'aborted_status'=>$aborted_status,
             ]);
-            
-             $index = $booking->id;
+
+            $index = $booking->id;
             $year = Carbon::now()->format('Y');
             $nextyear = Carbon::now()->addYear(1)->format('y');
-            
+
             $prefix = 'FL/'.$year.'/';
             $bookingfind = Booking::find($booking->id);
             $bookingfind->reference_id = sprintf("%s%06s", $prefix, $index);
@@ -234,12 +348,13 @@ class ConfirmBookingController extends Controller
             $fN = $v->fN;
             $lN = $v->lN;
             $gender_name = $v->ti;
+            $category  = $v->pt;
              $passenger_details =       passengerDetail::create([
                         'booking_id'=>$booking->id,
-
                         'first_name'=>$fN,
                         'last_name'=>$lN,
                         'gender_name'=>$gender_name,
+                        'category'=>$category,
                         'passport_no'=>$passport_no[$k],
                         'passport_expiry_date'=>$passport_expiry_date[$k],
                         'passport_country_code'=>$passport_country_code[$k],
@@ -297,14 +412,11 @@ class ConfirmBookingController extends Controller
             ]);
             }
 
-
-}
-
+    }
+            $result_array =  json_decode($result);
+        }else{
+            $result_array =  json_decode($result);
         }
-
-
-
-        $result_array =  json_decode($result);
 
         return $result_array;
 

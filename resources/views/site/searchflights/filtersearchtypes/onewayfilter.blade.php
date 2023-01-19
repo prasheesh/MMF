@@ -25,24 +25,25 @@
                     <span class=" right-range" id="max_price"><i class="fa-solid fa-indian-rupee-sign"></i> {{number_format($maxpricevalue, 0)}}</span> --}}
                     {{-- <input type="text" id="example" name="example_name" value="" /> --}}
                 </div>
-                   
+
 
                 <!-- Number Of Stops --->
                 <div class="mt-4">
+
                     <h5>Stops From {{$result_array->searchResult->tripInfos->ONWARD[0]->sI[0]->da->city}}</h5>
 
-                    @php $i=0 @endphp
+                    {{-- @php $i=0 @endphp --}}
 
                     @foreach($all_stops as $key=>$stop)
 
                         <div class="d-flex justify-content-between mt-3">
-                            <div> 
-                                <input type="radio" class="stopsclick" name="stops" value="{{$stop+1}}"> 
+                            <div>
+                                <input type="radio" class="stopsclick" name="stops" value="{{$stop+1}}">
                                 <span>
                                     @if ($stop == '0')
-                                        NON-STOP <small>({{ $flights_cnt[$i++]}})</small>
+                                        NON-STOP <small>({{ $flights_cnt[$stop]}})</small>
                                     @else
-                                        {{ $stop }} Stop <small>({{ $flights_cnt[$i++]}})</small>
+                                        {{ $stop }} Stop <small>({{ $flights_cnt[$stop]}})</small>
 
                                     @endif
                                 </span>
@@ -61,7 +62,7 @@
                     <h5>Departure From {{$result_array->searchResult->tripInfos->ONWARD[0]->sI[0]->da->city}}</h5>
 
                     <div class="row mt-3 invisible-checkboxes">
-                        
+
                         <div class="col-md-3 align-items-center main-departure depaturemain"  id="depart1">
                             <a href="javascript:;" class="anchor depaturemaina " id="anchor1"></a>
                             <input type="hidden" name="rGroup" value="00:00" />
@@ -80,7 +81,7 @@
                             <input type="hidden" name="rGroup" value="dept" />
                             <input type="hidden" name="rGroup" value="btw612" />
                                 <div class="departure-1">
-                                    <img src="{{ 'assets/img/sun.png' }}" class="img-fluid" />                        
+                                    <img src="{{ 'assets/img/sun.png' }}" class="img-fluid" />
                                     <p>6 AM to 12 PM</p>
                                 </div>
                         </div>
@@ -108,14 +109,14 @@
                         </div>
                     </div>
                 </div>
-              
+
                 <!-- End Deptaure flights -->
 
-                    
+
 
                 <!-- Arrival flights -->
                 <div class="mt-4">
-                    
+
                     <h5>Arrival at {{$arrival_cityname[0]}}</h5>
 
                     <div class="row mt-3 invisible-checkboxes">
@@ -135,7 +136,7 @@
                             <input type="hidden" name="rGroup" value="12:00" />
                             <input type="hidden" name="rGroup" value="arriv" />
                                 <div class="departure-1">
-                                    <img src="{{ 'assets/img/sun.png' }}" class="img-fluid" />                        
+                                    <img src="{{ 'assets/img/sun.png' }}" class="img-fluid" />
                                     <p>6 AM to 12 PM </p>
                                 </div>
                         </div>
@@ -146,7 +147,7 @@
                             <input type="hidden" name="rGroup" value="arriv" />
                             <div class="departure-1">
                                 <img src="{{ 'assets/img/sun.png' }}" class="img-fluid" />
-                            
+
                                 <p>12 PM to 5 PM </p>
                             </div>
                         </div>
@@ -157,7 +158,7 @@
                             <input type="hidden" name="rGroup" value="arriv" />
                                 <div class="departure-1">
                                     <img src="{{ 'assets/img/sun.png' }}" class="img-fluid" />
-                                    
+
                                     <p>After 5 AM </p>
                                 </div>
                         </div>
@@ -173,44 +174,27 @@
                         @php $a = 0 @endphp
                         @foreach ($airlinesnames as $key => $airlinesname)
                         <div class="d-flex justify-content-between mt-3">
-                            <div> 
-                                    
-                                <input type="radio" name="airlines" class="airlinesclickstops" value="{{$airlinesname}}"> 
+                            <div>
+
+                                <input type="radio" name="airlines" class="airlinesclickstops" value="{{$airlinesname}}">
                                 {{$airlinesname}} ({{$airlinesnames_count[$a]}})
 
                             </div>
                         </div>
                         @php $a++ @endphp
                         @endforeach
-                        
-                        
+
+
                         {{-- <div class="text-end mt-2"><a href="#">View more</a></div> --}}
                     </div>
                 <!-- End Airlines Details -->
 
-                
+
 
             </div>
         </div>
 
     </div>
-    
-        
-    @endif
-   
 
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+
+    @endif

@@ -226,6 +226,8 @@
                         <div class="col-md-2 travellerData" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <small>Travelers & Class</small>
                             <input type="hidden" value="1" id="adultval" name="adultval" class="">
+                            <input type="hidden" value="0" id="childval" name="childval" class="">
+                            <input type="hidden" value="0" id="infantval" name="infantval" class="">
                             <input type="hidden" value="ECONOMY" name="travelClass" id="travelClass" class=""
                                 autocomplete="off">
                             <div class="airport-name travel-class" id="travelInfo">

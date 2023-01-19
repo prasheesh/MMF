@@ -4,22 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
-use Session;
+// use Session;
 use Carbon\Carbon;
 use UserHelper;
 use DB;
+use Illuminate\Support\Facades\Session ;
+
 class SearchFlightsController extends Controller
 {
     public function __construct(Request $request){
 
     }
 
-
     /**** Get Filter Flights Lists *****/
     public function filterfilghts(Request $request)
     {
 
-        // dd($request->all());
         if (Session::has('deptminvalue') && Session::has('deptmaxvalue') && Session::has('deptarriv'))
         {
                 Session::forget('deptminvalue');
@@ -48,17 +48,13 @@ class SearchFlightsController extends Controller
         Session::put('infantvalue', $infantvalue);
 
         $result_arrays = UserHelper::airplanes($tripType,$flightBookingDepart,$travelClass,$adultval,$fromPlace,$toPlace,$flightBookingReturn,$childsvalue,$infantvalue);
-        
+
         Session::put('results', $result_arrays);
-
-
 
         return redirect()->route('SearchFlights');
 
     }
     /**** End Get Filter Flights Lists *****/
-
-
 
 
     /**** Get All Flights Lists *****/
@@ -74,7 +70,7 @@ class SearchFlightsController extends Controller
         $flightBookingReturn = Session::get('flightBookingReturn');
         $childsvalue = Session::get('childsvalue');
         $infantvalue = Session::get('infantvalue');
-        // dd($result_array, $tripType);
+        // dd( $tripType);
 
         $city_name_from = DB::table('airport_details')->where('code', $fromPlace)->first('city');
         $city_name_to = DB::table('airport_details')->where('code', $toPlace)->first('city');
@@ -454,7 +450,7 @@ class SearchFlightsController extends Controller
 
 
         $method = "POST";
-        $url = "https://apitest.tripjack.com/fms/v1/farerule";
+        $url = env('API_URL')."/fms/v1/farerule";
         $curl = curl_init();
         switch ($method) {
             case "POST":

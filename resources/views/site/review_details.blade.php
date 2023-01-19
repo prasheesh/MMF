@@ -65,24 +65,7 @@
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"><i class="fa fa-times"></i></button>
 
-                    {{-- <div class="p-3 passengerreview">
-             <table class="table table-bordered ">
-               <tr>
-                 <td>First & Middle Name</td>
-                 <td>Raju</td>
-               </tr>
-               <tr>
-                 <td>Last Name</td>
-                 <td>Krishna</td>
-               </tr>
-                <tr>
-                 <td>Gender</td>
-                 <td>Male</td>
-               </tr>
-             </table>
-           </div> --}}
                     <div id="passenger_div"></div>
-
 
                     <div class="modal-footer text-end">
                         <button class="btn btn-edit" onclick="edit_field()">Edit</button>
@@ -185,22 +168,6 @@
                                 $minutes = floor(($total_time / 60) % 60);
                                 $seconds = $total_time % 60;
 
-                                // $date = date('N', strtotime($flightDetails->dt));
-                                // if ($date == 1) {
-                                //     $day = 'Monday';
-                                // } elseif ($date == 2) {
-                                //     $day = 'Tuesday';
-                                // } elseif ($date == 3) {
-                                //     $day = 'Wednessday';
-                                // } elseif ($date == 4) {
-                                //     $day = 'Thursday';
-                                // } elseif ($date == 5) {
-                                //     $day = 'Friday';
-                                // } elseif ($date == 6) {
-                                //     $day = 'Saturday';
-                                // } elseif ($date == 7) {
-                                //     $day = 'Sunday';
-                                // }
 
                                 ?>
                                 <div class="d-flex align-items-center justify-content-between">
@@ -243,7 +210,7 @@
                             </div>
 
                             <div class="clearfix mb-3"></div>
-                            <?php
+                            @php
                             /* adults base fare */
                                 if(isset($tripInfos->totalPriceList[0]->fd->ADULT->fC->BF)){
                                     $adult_bf =  $tripInfos->totalPriceList[0]->fd->ADULT->fC->BF;
@@ -267,8 +234,19 @@
 
 
                                 $adults = $result_array->searchQuery->paxInfo->ADULT; ////get total adult list
-                                $childs = $result_array->searchQuery->paxInfo->CHILD; //get total childs
-                                $infants = $result_array->searchQuery->paxInfo->INFANT; //get total infants
+
+                                if(isset($result_array->searchQuery->paxInfo->CHILD)){
+                                    $childs = $result_array->searchQuery->paxInfo->CHILD; //get total childs
+                                }else{
+                                    $childs = 0;
+                                }
+
+                                if(isset($result_array->searchQuery->paxInfo->INFANT)){
+                                    $infants = $result_array->searchQuery->paxInfo->INFANT; //get total infants
+                                }else{
+                                    $infants = 0;
+                                }
+
 
                                 $is_domestic = $result_array->searchQuery->isDomestic; //domestic or international
 
@@ -276,35 +254,71 @@
                                 $ttl_child_bf = $childs*$child_bf;
                                 $ttl_infant_bf = $infants*$infant_bf;
 
+                                //total taxes break up
+                                $adult_tax = $adults * $tripInfos->totalPriceList[0]->fd->ADULT->fC->TAF;
+                                // start adult tax
+                                $adult_OT = $adults * $tripInfos->totalPriceList[0]->fd->ADULT->afC->TAF->OT;
+                                $adult_MF = $adults * $tripInfos->totalPriceList[0]->fd->ADULT->afC->TAF->MF;
+                                $adult_MFT = $adults * $tripInfos->totalPriceList[0]->fd->ADULT->afC->TAF->MFT;
+                                $adult_AGST = $adults * $tripInfos->totalPriceList[0]->fd->ADULT->afC->TAF->AGST;
+                                $adult_YQ = $adults * $tripInfos->totalPriceList[0]->fd->ADULT->afC->TAF->YQ;
+                                //end adult tax
+
+
                                 if($childs){
-                                    $child_tax = $tripInfos->totalPriceList[0]->fd->CHILD->fC->TAF;
+                                    $child_tax = $childs * $tripInfos->totalPriceList[0]->fd->CHILD->fC->TAF;
+                                     // start child tax
+                                $child_OT = $childs * $tripInfos->totalPriceList[0]->fd->CHILD->afC->TAF->OT;
+                                $child_MF = $childs * $tripInfos->totalPriceList[0]->fd->CHILD->afC->TAF->MF;
+                                $child_MFT = $childs * $tripInfos->totalPriceList[0]->fd->CHILD->afC->TAF->MFT;
+                                $child_AGST = $childs * $tripInfos->totalPriceList[0]->fd->CHILD->afC->TAF->AGST;
+                                $child_YQ = $childs * $tripInfos->totalPriceList[0]->fd->CHILD->afC->TAF->YQ;
+                                //end child tax
                                 }else{
                                     $child_tax = 0;
+                                    $child_OT = 0;
+                                    $child_MF = 0;
+                                    $child_MFT = 0;
+                                    $child_AGST = 0;
+                                    $child_YQ = 0;
                                 }
 
                                 if($infants){
-                                    $infant_tax= $tripInfos->totalPriceList[0]->fd->INFANT->fC->TAF;
+                                    $infant_tax= $infants * $tripInfos->totalPriceList[0]->fd->INFANT->fC->TAF;
+
+                                    //start infant tax
+                                    $infants_OT = $infants * $tripInfos->totalPriceList[0]->fd->INFANT->afC->TAF->OT;
+                                $infants_MF = $infants * $tripInfos->totalPriceList[0]->fd->INFANT->afC->TAF->MF;
+                                $infants_MFT = $infants * $tripInfos->totalPriceList[0]->fd->INFANT->afC->TAF->MFT;
+                                $infants_AGST = $infants * $tripInfos->totalPriceList[0]->fd->INFANT->afC->TAF->AGST;
+                                $infants_YQ = $infants * $tripInfos->totalPriceList[0]->fd->INFANT->afC->TAF->YQ;
+
+                                    //end infant tax
                                 }else{
                                     $infant_tax = 0;
+                                    $infants_OT = 0;
+                                    $infants_MF = 0;
+                                    $infants_MFT = 0;
+                                    $infants_AGST = 0;
+                                    $infants_YQ = 0;
                                 }
 
 
                                 $basefare = $ttl_adlut_bf+$ttl_child_bf+$ttl_infant_bf;  //getting base fare for total trips
-                                $Taxes_trip = $result_array->totalPriceInfo->totalFareDetail->fC->TAF; //getting taxes for total trips
+                                $Taxes_trip = $adult_tax + $child_tax + $infant_tax; //getting taxes for total trips
 
-                                $Taxes = $Taxes_trip ;   ///calculating taxes for total adults
+                                $Taxes = $Taxes_trip ;   ///calculating taxes for
                                 $bookingId = $result_array->bookingId; ///booking send to form to store in session
-                                $TotalAmount = $result_array->totalPriceInfo->totalFareDetail->fC->TF;   ///calculating total amount with base fare and taxes
+                                $TotalAmount = $basefare + $Taxes;  ///calculating total amount with base fare and taxes
 
                                 // total taxes break up
+                                $OT = $adult_OT + $child_OT + $infants_OT;
+                                $MF = $adult_MF + $child_MF + $infants_MF;
+                                $MFT = $adult_MFT + $child_MFT + $infants_MFT;
+                                $AGST = $adult_AGST + $child_AGST + $infants_AGST;
+                                $YQ = $adult_YQ + $child_YQ + $infants_YQ;
 
-                                $OT = $result_array->totalPriceInfo->totalFareDetail->afC->TAF->OT;
-                                $MF = $result_array->totalPriceInfo->totalFareDetail->afC->TAF->MF;
-                                $MFT = $result_array->totalPriceInfo->totalFareDetail->afC->TAF->MFT;
-                                $AGST = $result_array->totalPriceInfo->totalFareDetail->afC->TAF->AGST;
-                                $YQ = $result_array->totalPriceInfo->totalFareDetail->afC->TAF->YQ;
-
-                            ?>
+                            @endphp
 
                             <!-- card details one end -->
                             <?php $i++; } ?>
@@ -320,13 +334,17 @@
                                         </div>
                                         <div class="col-md-11 ps-0">
                                             <h5><b>Cancellation Refund Policy</b></h5>
-                                            <p><?php if (isset($fair_rules->fr->NO_SHOW)) {
+                                            <p>
+                                                @php
+                                                 if (isset($fair_rules->fr->NO_SHOW)) {
                                                 if (isset($fair_rules->fr->NO_SHOW->DEFAULT)) {
                                                 echo $fair_rules->fr->NO_SHOW->DEFAULT->policyInfo;
                                                 }else{
                                                 echo $fair_rules->fr->NO_SHOW->BEFORE_DEPARTURE->policyInfo;
                                                 }
-                                            } ?></p>
+                                            }
+                                               @endphp
+                                            </p>
                                         </div>
                                     </div>
 
@@ -383,13 +401,15 @@
                                                                         echo 0;
                                                                     } ?></p>
                                                             </td>
-                                                            <td>MakeMyFly Cancellation Fee<p><i
+                                                            {{-- MakeMyFly --}}
+                                                            <td> Cancellation Fee<p><i
                                                                         class="fa-solid fa-indian-rupee-sign"></i>
                                                                     <?php if (isset($fair_rules->fr->CANCELLATION)) {
                                                                         echo $fair_rules->fr->CANCELLATION->DEFAULT->fcs->CCF;
                                                                     } ?></p>
                                                             </td>
-                                                            <td> MakeMyFly Cancellation Fee Tax <p><i
+                                                            {{-- MakeMyFly --}}
+                                                            <td>  Cancellation Fee Tax <p><i
                                                                         class="fa-solid fa-indian-rupee-sign"></i>
                                                                     <?php if (isset($fair_rules->fr->CANCELLATION)) {
                                                                         echo $fair_rules->fr->CANCELLATION->DEFAULT->fcs->CCFT;
@@ -444,13 +464,15 @@
                                                                             echo 0;
                                                                         } ?></p>
                                                                 </td>
-                                                                <td>MakeMyFly Cancellation Fee<p><i
+                                                                {{-- MakeMyFly --}}
+                                                                <td> Cancellation Fee<p><i
                                                                             class="fa-solid fa-indian-rupee-sign"></i>
                                                                         <?php if (isset($fair_rules->fr->CANCELLATION)) {
                                                                             echo $fair_rules->fr->CANCELLATION->AFTER_DEPARTURE->fcs->CCF;
                                                                         } ?></p>
                                                                 </td>
-                                                                <td> MakeMyFly Cancellation Fee Tax <p><i
+                                                                {{-- MakeMyFly --}}
+                                                                <td>  Cancellation Fee Tax <p><i
                                                                             class="fa-solid fa-indian-rupee-sign"></i>
                                                                         <?php if (isset($fair_rules->fr->CANCELLATION)) {
                                                                             echo $fair_rules->fr->CANCELLATION->AFTER_DEPARTURE->fcs->CCFT;
@@ -493,13 +515,15 @@
                                                                         echo 0;
                                                                     } ?></p>
                                                             </td>
-                                                            <td> MakeMyFly Reschedule Fee
+                                                            {{-- MakeMyFly --}}
+                                                            <td>  Reschedule Fee
                                                                 <p><i class="fa-solid fa-indian-rupee-sign"></i>
                                                                     <?php if (isset($fair_rules->fr->DATECHANGE)) {
                                                                         echo $fair_rules->fr->DATECHANGE->DEFAULT->fcs->CRF;
                                                                     } ?></p>
                                                             </td>
-                                                            <td> MakeMyFly Reschedule Fee Tax <p><i
+                                                            {{-- MakeMyFly --}}
+                                                            <td>  Reschedule Fee Tax <p><i
                                                                         class="fa-solid fa-indian-rupee-sign"></i>
                                                                     <?php if (isset($fair_rules->fr->DATECHANGE)) {
                                                                         echo $fair_rules->fr->DATECHANGE->DEFAULT->fcs->CRFT;
@@ -524,13 +548,15 @@
                                                                             echo 0;
                                                                         } ?></p>
                                                                 </td>
-                                                                <td> MakeMyFly Reschedule Fee
+                                                                {{-- MakeMyFly --}}
+                                                                <td>  Reschedule Fee
                                                                     <p><i class="fa-solid fa-indian-rupee-sign"></i>
                                                                         <?php if (isset($fair_rules->fr->DATECHANGE->BEFORE_DEPARTURE)) {
                                                                             echo $fair_rules->fr->DATECHANGE->BEFORE_DEPARTURE->fcs->CRF;
                                                                         } ?></p>
                                                                 </td>
-                                                                <td> MakeMyFly Reschedule Fee Tax <p><i
+                                                                {{-- MakeMyFly --}}
+                                                                <td>  Reschedule Fee Tax <p><i
                                                                             class="fa-solid fa-indian-rupee-sign"></i>
                                                                         <?php if (isset($fair_rules->fr->DATECHANGE->BEFORE_DEPARTURE)) {
                                                                             echo $fair_rules->fr->DATECHANGE->BEFORE_DEPARTURE->fcs->CRFT;
@@ -554,13 +580,15 @@
                                                                             echo 0;
                                                                         } ?></p>
                                                                 </td>
-                                                                <td> MakeMyFly Reschedule Fee
+                                                                {{-- MakeMyFly --}}
+                                                                <td>  Reschedule Fee
                                                                     <p><i class="fa-solid fa-indian-rupee-sign"></i>
                                                                         <?php if (isset($fair_rules->fr->DATECHANGE)) {
                                                                             echo $fair_rules->fr->DATECHANGE->AFTER_DEPARTURE->fcs->CRF;
                                                                         } ?></p>
                                                                 </td>
-                                                                <td> MakeMyFly Reschedule Fee Tax <p><i
+                                                                {{-- MakeMyFly --}}
+                                                                <td>  Reschedule Fee Tax <p><i
                                                                             class="fa-solid fa-indian-rupee-sign"></i>
                                                                         <?php if (isset($fair_rules->fr->DATECHANGE)) {
                                                                             echo $fair_rules->fr->DATECHANGE->AFTER_DEPARTURE->fcs->CRFT;
@@ -715,6 +743,7 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
+                                            <input type="hidden" name="adult" value="1"/>
                                             <input type="text" name="firstname[]" class="form-control allowtext"
                                                 placeholder="First and middle name" required="true">
                                         </div>
@@ -776,7 +805,7 @@
                                     <p id="overflowchild" style="color: red"></p>
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
-                                            <select name="gender[]" class="form-select" placeholder="Gender"
+                                            <select name="gender_child[]" class="form-select" placeholder="Gender"
                                                 required="true">
                                                 <option value=""> Gender</option>
                                                 <option value="Male">Male</option>
@@ -787,14 +816,15 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
-                                            <input type="text" name="firstname[]" class="form-control allowtext"
+                                            <input type="hidden" name="children" value="2"/>
+                                            <input type="text" name="firstname_child[]" class="form-control allowtext"
                                                 placeholder="First and middle name" required="true">
                                         </div>
 
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
-                                            <input type="text" name="lastname[]" class="form-control allowtext"
+                                            <input type="text" name="lastname_child[]" class="form-control allowtext"
                                                 placeholder="Last name" required="true">
                                         </div>
                                     </div>
@@ -803,14 +833,14 @@
 
                                     <div class="col-md-4 ">
                                         <div class="form-group mb-3">
-                                            <input type="text" minlength="8" maxlength="14" name="passport_no[]" class="form-control allow-alpa-numeric"
+                                            <input type="text" minlength="8" maxlength="14" name="passport_no_child[]" class="form-control allow-alpa-numeric"
                                                 placeholder="Passport No" required="true">
                                         </div>
 
                                     </div>
                                     <div class="col-md-4 ">
                                         <div class="form-group mb-3">
-                                            <select name="passport_country_code[]" class="form-control" placeholder="Passport Issuing Country"
+                                            <select name="passport_country_code_child[]" class="form-control" placeholder="Passport Issuing Country"
                                                 required="true">
                                                 <option value="">Select Passport Issuing Country</option>
                                                 @foreach ($countries as $country)
@@ -824,7 +854,7 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
-                                            <input id="datePicker" type="text" name="passport_expiry_date[]" class="form-control date-picker-hide"
+                                            <input id="datePicker" type="text" name="passport_expiry_date_child[]" class="form-control date-picker-hide"
                                                 placeholder="Passport Expiry Date" required="true">
                                         </div>
                                     </div>
@@ -849,7 +879,7 @@
                                     <p id="overflowinfant" style="color: red"></p>
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
-                                            <select name="gender[]" class="form-select" placeholder="Gender"
+                                            <select name="gender_infant[]" class="form-select" placeholder="Gender"
                                                 required="true">
                                                 <option value=""> Gender</option>
                                                 <option value="Male">Male</option>
@@ -860,15 +890,22 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
-                                            <input type="text" name="firstname[]" class="form-control allowtext"
+                                            <input type="hidden" name="infant" value="3"/>
+                                            <input type="text" name="firstname_infant[]" class="form-control allowtext"
                                                 placeholder="First and middle name" required="true">
                                         </div>
 
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
-                                            <input type="text" name="lastname[]" class="form-control allowtext"
+                                            <input type="text" name="lastname_infant[]" class="form-control allowtext"
                                                 placeholder="Last name" required="true">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <input id="datePicker_infant" type="text" name="dob_infant[]" class="form-control date-picker-hide"
+                                                placeholder="DOB" required="true">
                                         </div>
                                     </div>
 
@@ -876,14 +913,14 @@
 
                                     <div class="col-md-4 ">
                                         <div class="form-group mb-3">
-                                            <input type="text" minlength="8" maxlength="14" name="passport_no[]" class="form-control allow-alpa-numeric"
+                                            <input type="text" minlength="8" maxlength="14" name="passport_no_infant[]" class="form-control allow-alpa-numeric"
                                                 placeholder="Passport No" required="true">
                                         </div>
 
                                     </div>
                                     <div class="col-md-4 ">
                                         <div class="form-group mb-3">
-                                            <select name="passport_country_code[]" class="form-control" placeholder="Passport Issuing Country"
+                                            <select name="passport_country_code_infant[]" class="form-control" placeholder="Passport Issuing Country"
                                                 required="true">
                                                 <option value="">Select Passport Issuing Country</option>
                                                 @foreach ($countries as $country)
@@ -897,7 +934,7 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
-                                            <input id="datePicker" type="text" name="passport_expiry_date[]" class="form-control date-picker-hide"
+                                            <input id="datePicker" type="text" name="passport_expiry_date_infant[]" class="form-control date-picker-hide"
                                                 placeholder="Passport Expiry Date" required="true">
                                         </div>
                                     </div>
@@ -967,8 +1004,8 @@
                 </div>
 
                 <div class="col-md-3 p-3 mt30 ">
-
-                    <?php if(isset($result_array->alerts[0])){  ?>
+{{-- alert fare if changed --}}
+                    @if(isset($result_array->alerts[0]))
                     <div class="card mb-3">
                         <div class=" card-body card-shadow">
                             <h5><b>Fare Price</b></h5>
@@ -986,7 +1023,7 @@
                             </div>
                         </div>
                     </div>
-                    <?php } ?>
+                  @endif
                     <div class="card">
                         <div class=" card-body card-shadow">
                             <h5><b>Fare Summary</b></h5>
@@ -1010,9 +1047,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                            {{-- <span class="ms-2">Base Fare </span> <span class="ms-auto"> <i
-                                                    class="fa-solid fa-indian-rupee-sign"></i>
-                                                {{ number_format($basefare, 2) }}</span> --}}
+
                                         </button>
                                     </h2>
                                     <div id="collapseOne" class="accordion-collapse collapse"
@@ -1100,9 +1135,7 @@
 
                                             </table>
 
-                                            {{-- <span class="ms-2">Fee & Surcharges </span> <span class="ms-auto"> <i
-                                                    class="fa-solid fa-indian-rupee-sign"></i>
-                                                {{ number_format($Taxes, 2) }}</span> --}}
+
                                         </button>
                                     </h2>
                                     <div id="collapseOne2" class="accordion-collapse collapse"
@@ -1177,15 +1210,6 @@
                                         </table>
 
                                     </div>
-
-                                    {{-- <div id="collapseOne2" class="accordion-collapse collapse"
-                                        data-bs-parent="#myAccordion">
-                                        <small class="ms-3">
-                                            <span>Total fee & surcharges: </span>
-                                            <span class="float-end"> <i class="fa-solid fa-indian-rupee-sign"></i>
-                                                {{ number_format($Taxes, 2) }}</span>
-                                        </small>
-                                    </div> --}}
                                 </div>
                             </div>
                             <!--- End Taxes and Fees --->
@@ -1284,6 +1308,10 @@
             var todayDate = new Date(d.setMonth(d.getMonth() + 6));
             $('#datePicker').datepicker({dateFormat: "dd-mm-yy", minDate:todayDate});
 
+            var minDate = new Date(d.setMonth(d.getMonth() - 29));
+            var maxDate = new Date();
+            $('#datePicker_infant').datepicker({dateFormat: "dd-mm-yy", minDate:minDate, maxDate:maxDate});
+
             $(".othercharges").hide();
 
             $(".amtClk").click(function() {
@@ -1314,8 +1342,6 @@
                 } else {
                     $(".othercharges").hide();
                     $('.Total_Amount').html(Total_Amount);
-
-
                 }
                 //$('.Total_Amount').html(Total_Amount);
                 $('.Total_Amount').html(Number(Total_Amount).toLocaleString());
@@ -1425,7 +1451,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group mb-3">
-                            <select name="gender[]" class="form-select" placeholder="Gender" required="true">
+                            <select name="gender_child[]" class="form-select" placeholder="Gender" required="true">
                               <option value=""> Gender</option>
                               <option value="Male">Male</option>
                               <option value="Female">Female</option>
@@ -1434,25 +1460,25 @@
                           </div>
                             <div class="col-md-4">
                               <div class="form-group mb-3">
-                                <input type="text" name="firstname[]" class="form-control allowtext" placeholder="First and middle name" required="true">
+                                <input type="text" name="firstname_child[]" class="form-control allowtext" placeholder="First and middle name" required="true">
                               </div>
                           </div>
                           <div class="col-md-4">
                             <div class="form-group mb-3">
-                              <input type="text" name="lastname[]" class="form-control allowtext" placeholder="Last name" required="true">
+                              <input type="text" name="lastname_child[]" class="form-control allowtext" placeholder="Last name" required="true">
                             </div>
                           </div>
                           @if(!$is_domestic)
                           <div class="col-md-4 ">
                                         <div class="form-group mb-3">
-                                            <input type="text" minlength="8" maxlength="14" name="passport_no[]" class="form-control allow-alpa-numeric"
+                                            <input type="text" minlength="8" maxlength="14" name="passport_no_child[]" class="form-control allow-alpa-numeric"
                                                 placeholder="Passport No" required="true">
                                         </div>
 
                                     </div>
                                     <div class="col-md-4 ">
                                         <div class="form-group mb-3">
-                                            <select name="passport_country_code[]" class="form-control" placeholder="Passport Issuing Country"
+                                            <select name="passport_country_code_child[]" class="form-control" placeholder="Passport Issuing Country"
                                                 required="true">
                                                 <option value="">Select Passport Issuing Country</option>
                                                 @foreach ($countries as $country)
@@ -1466,7 +1492,7 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
-                                            <input type="text" name="passport_expiry_date[]" class="form-control date-picker-hide"
+                                            <input type="text" name="passport_expiry_date_child[]" class="form-control date-picker-hide"
                                                 placeholder="Passport Expiry Date" required="true">
                                         </div>
                                     </div>
@@ -1512,7 +1538,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group mb-3">
-                            <select name="gender[]" class="form-select" placeholder="Gender" required="true">
+                            <select name="gender_infant[]" class="form-select" placeholder="Gender" required="true">
                               <option value=""> Gender</option>
                               <option value="Male">Male</option>
                               <option value="Female">Female</option>
@@ -1521,25 +1547,31 @@
                           </div>
                             <div class="col-md-4">
                               <div class="form-group mb-3">
-                                <input type="text" name="firstname[]" class="form-control allowtext" placeholder="First and middle name" required="true">
+                                <input type="text" name="firstname_infant[]" class="form-control allowtext" placeholder="First and middle name" required="true">
                               </div>
                           </div>
                           <div class="col-md-4">
                             <div class="form-group mb-3">
-                              <input type="text" name="lastname[]" class="form-control allowtext" placeholder="Last name" required="true">
+                              <input type="text" name="lastname_infant[]" class="form-control allowtext" placeholder="Last name" required="true">
                             </div>
                           </div>
+                          <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <input id="datePicker_infant" type="text" name="dob_infant[]" class="form-control date-picker-hide"
+                                                placeholder="DOB" required="true">
+                                        </div>
+                                    </div>
                           @if(!$is_domestic)
                           <div class="col-md-4 ">
                                         <div class="form-group mb-3">
-                                            <input type="text" minlength="8" maxlength="14" name="passport_no[]" class="form-control allow-alpa-numeric"
+                                            <input type="text" minlength="8" maxlength="14" name="passport_no_infant[]" class="form-control allow-alpa-numeric"
                                                 placeholder="Passport No" required="true">
                                         </div>
 
                                     </div>
                                     <div class="col-md-4 ">
                                         <div class="form-group mb-3">
-                                            <select name="passport_country_code[]" class="form-control" placeholder="Passport Issuing Country"
+                                            <select name="passport_country_code_infant[]" class="form-control" placeholder="Passport Issuing Country"
                                                 required="true">
                                                 <option value="">Select Passport Issuing Country</option>
                                                 @foreach ($countries as $country)
@@ -1553,7 +1585,7 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
-                                            <input type="text" name="passport_expiry_date[]" class="form-control date-picker-hide"
+                                            <input type="text" name="passport_expiry_date_infant[]" class="form-control date-picker-hide"
                                                 placeholder="Passport Expiry Date" required="true">
                                         </div>
                                     </div>
@@ -1593,15 +1625,23 @@
                 var adult_count = '<?php echo $adults; ?>';
                 var child_count = '<?php echo $childs; ?>';
                 var infant_count = '<?php echo $infants; ?>';
-
+                var is_domestic = '<?php echo $is_domestic; ?>';
                 var clone_count = $('.newrow').length;
                 var total_rows = clone_count + 1;
 
-                var clone_count_child = $('.newrowchild').length;
-                var total_child_rows = clone_count_child + 1;
+                if(child_count > 0 ){
+                    var clone_count_child = $('.newrowchild').length;
+                    var total_child_rows = clone_count_child + 1;
+                }else{
+                    var total_child_rows = 0;
+                }
 
-                var clone_count_infant = $('.newrowinfant').length;
-                var total_infant_rows = clone_count_infant + 1;
+                if(infant_count > 0){
+                    var clone_count_infant = $('.newrowinfant').length;
+                    var total_infant_rows = clone_count_infant + 1;
+                }else{
+                    var total_infant_rows = 0;
+                }
 
 
                 var proceed = true;
@@ -1623,88 +1663,135 @@
                 });
 
 
-                if (adult_count == total_rows && child_count == total_child_rows && infant_count == total_infant_rows ) { //////////////checking
-                    if (proceed) {
-                        //$('.passengerreview').modal('show');
-                        $('.passengerreview').hide();
-                        $('#overflow').html("");
-                        var first_name = $("input[name='firstname[]']").map(function() {
-                            return $(this).val();
-                        }).get();
-                        var last_name = $("input[name='lastname[]']").map(function() {
-                            return $(this).val();
-                        }).get();
-                        var gender = $("select[name='gender[]']").map(function() {
-                            return $(this).val();
-                        }).get();
-                        var _token = '<?php echo csrf_token(); ?>';
+                if (adult_count == total_rows ) { //////////////checking
+                    if(child_count == total_child_rows){
+                        if(infant_count == total_infant_rows){
+                            if (proceed) {
+                            //$('.passengerreview').modal('show');
+                            $('.passengerreview').hide();
+                            $('#overflow').html("");
+                            var first_name = $("input[name='firstname[]']").map(function() {
+                                return $(this).val();
+                            }).get();
+                            var last_name = $("input[name='lastname[]']").map(function() {
+                                return $(this).val();
+                            }).get();
+                            var gender = $("select[name='gender[]']").map(function() {
+                                return $(this).val();
+                            }).get();
 
-                        var mobile = $('#mobile').val();
-                        var email = $('#email_id').val();
-                        var country_code = $('#country_code').val();
+                            /*child details*/
+                            if(child_count > 0){
+                                var first_name_child = $("input[name='firstname_child[]']").map(function() {
+                                return $(this).val();
+                            }).get();
+                                var last_name_child = $("input[name='lastname_child[]']").map(function() {
+                                    return $(this).val();
+                                }).get();
+                                var gender_child = $("select[name='gender_child[]']").map(function() {
+                                    return $(this).val();
+                                }).get();
+                            }
+
+                            /*Infant details*/
+                            if(infant_count > 0){
+                                var first_name_infant = $("input[name='firstname_infant[]']").map(function() {
+                                return $(this).val();
+                            }).get();
+                                var last_name_infant = $("input[name='lastname_infant[]']").map(function() {
+                                    return $(this).val();
+                                }).get();
+                                var gender_infant = $("select[name='gender_infant[]']").map(function() {
+                                    return $(this).val();
+                                }).get();
+                            }
+
+                            var _token = '<?php echo csrf_token(); ?>';
+                            var mobile = $('#mobile').val();
+                            var email = $('#email_id').val();
+                            var country_code = $('#country_code').val();
+
+                            for (i = 0; i < adult_count; i++) {
+                                var html = `
+                                <div class="p-3 passengerreview">
+                                <table class="table table-bordered ">
+                                    <tr>
+                                    <td>First & Middle Name</td>
+                                    <td>${first_name[i]}</td>
+                                    </tr>
+                                    <tr>
+                                    <td>Last Name</td>
+                                    <td>${last_name[i]}</td>
+                                    </tr>
+                                    <tr>
+                                    <td>Gender</td>
+                                    <td>${gender[i]}</td>
+                                    </tr>
+                                </table>
+                                </div>
+                                `;
+                                $('#passenger_div').append(html);
+                            }
+                                if(child_count>0){
+                                    for (i = 0; i < child_count; i++) {
+                                        html += ` @if($childs)
+                                <div class="p-3 passengerreview">
+                                <table class="table table-bordered ">
+                                    <tr>
+                                    <td>First & Middle Name</td>
+                                    <td>${first_name_child[i]}</td>
+                                    </tr>
+                                    <tr>
+                                    <td>Last Name</td>
+                                    <td>${last_name_child[i]}</td>
+                                    </tr>
+                                    <tr>
+                                    <td>Gender</td>
+                                    <td>${gender_child[i]}</td>
+                                    </tr>
+                                </table>
+                                </div>
+                                @endif`;
+                                $('#passenger_div').append(html);
+                                    }
+
+                                }
+
+                                if(infant_count > 0){
+                                    for (i = 0; i < infant_count; i++) {
+                                        html += `@if($infants)
+                                        <div class="p-3 passengerreview">
+                                        <table class="table table-bordered ">
+                                            <tr>
+                                            <td>First & Middle Name</td>
+                                            <td>${first_name_infant[i]}</td>
+                                            </tr>
+                                            <tr>
+                                            <td>Last Name</td>
+                                            <td>${last_name_infant[i]}</td>
+                                            </tr>
+                                            <tr>
+                                            <td>Gender</td>
+                                            <td>${gender_infant[i]}</td>
+                                            </tr>
+                                        </table>
+                                        </div>
+                                        @endif`;
+                                    $('#passenger_div').append(html);
+                                    }
+                                }
+
+                                // html += `<div id="passenger_div"></div>`;
+                                // $('#passenger_div').append(html);
 
 
-
-                        for (i = 0; i < adult_count; i++) {
-                            var html = `
-                            <div class="p-3 passengerreview">
-                              <table class="table table-bordered ">
-                                <tr>
-                                  <td>First & Middle Name</td>
-                                  <td>${first_name[i]}</td>
-                                </tr>
-                                <tr>
-                                  <td>Last Name</td>
-                                  <td>${last_name[i]}</td>
-                                </tr>
-                                  <tr>
-                                  <td>Gender</td>
-                                  <td>${gender[i]}</td>
-                                </tr>
-                              </table>
-                            </div>
-                            @if($childs)
-                            <div class="p-3 passengerreview">
-                              <table class="table table-bordered ">
-                                <tr>
-                                  <td>First & Middle Name</td>
-                                  <td>${first_name[i]}</td>
-                                </tr>
-                                <tr>
-                                  <td>Last Name</td>
-                                  <td>${last_name[i]}</td>
-                                </tr>
-                                  <tr>
-                                  <td>Gender</td>
-                                  <td>${gender[i]}</td>
-                                </tr>
-                              </table>
-                            </div>
-                            @endif
-                            @if($infants)
-                            <div class="p-3 passengerreview">
-                              <table class="table table-bordered ">
-                                <tr>
-                                  <td>First & Middle Name</td>
-                                  <td>${first_name[i]}</td>
-                                </tr>
-                                <tr>
-                                  <td>Last Name</td>
-                                  <td>${last_name[i]}</td>
-                                </tr>
-                                  <tr>
-                                  <td>Gender</td>
-                                  <td>${gender[i]}</td>
-                                </tr>
-                              </table>
-                            </div>
-                            @endif
-                            <div id="passenger_div"></div>
-                              `;
-                            $('#passenger_div').append(html);
+                            $('#review-details').modal('show');
                         }
-
-                        $('#review-details').modal('show');
+                        }else{
+                            $('#overflowinfant').html("Kindly add all travellers before proceeding");
+                        }
+                    }else{
+                        $('#overflowchild').html("Kindly add all travellers before proceeding");
                     }
                 } else {
                     $('#overflow').html("Kindly add all travellers before proceeding");
@@ -1725,11 +1812,16 @@
                 $("#loader_div").removeClass('d-none');
                 $("#loader_div").show();
                 var adult_count = '<?php echo $adults; ?>';
+                var child_count = '<?php echo $childs; ?>';
+                var infant_count = '<?php echo $infants; ?>';
+                var is_domestic = '<?php echo $is_domestic; ?>';
+
                 var priceIds = '<?php  print_r($priceIds); ?>';
 
                 var clone_count = $('.newrow').length;
                 var total_rows = clone_count + 1;
 
+                /*Adult details*/
                 var first_name = $("input[name='firstname[]']").map(function() {
                     return $(this).val();
                 }).get();
@@ -1739,15 +1831,88 @@
                 var gender = $("select[name='gender[]']").map(function() {
                     return $(this).val();
                 }).get();
-                var passport_no = $("input[name='passport_no[]']").map(function() {
+
+                if(is_domestic == 'true'){
+                    var passport_no = $("input[name='passport_no[]']").map(function() {
+                        return $(this).val();
+                    }).get();
+                    var passport_country_code = $("select[name='passport_country_code[]']").map(function() {
+                        return $(this).val();
+                    }).get();
+                    var passport_expiry_date = $("input[name='passport_expiry_date[]']").map(function() {
+                        return $(this).val();
+                    }).get();
+                }else{
+                    passport_no='';
+                    passport_country_code='';
+                    passport_expiry_date='';
+                }
+
+
+                 /*child details*/
+                 if(child_count > 0){
+                    var first_name_child = $("input[name='firstname_child[]']").map(function() {
                     return $(this).val();
                 }).get();
-                var passport_country_code = $("select[name='passport_country_code[]']").map(function() {
+                    var last_name_child = $("input[name='lastname_child[]']").map(function() {
+                        return $(this).val();
+                    }).get();
+                    var gender_child = $("select[name='gender_child[]']").map(function() {
+                        return $(this).val();
+                    }).get();
+
+                if(is_domestic == 'true'){
+                    var passport_no_child = $("input[name='passport_no_child[]']").map(function() {
+                        return $(this).val();
+                    }).get();
+                    var passport_country_code_child = $("select[name='passport_country_code_child[]']").map(function() {
+                        return $(this).val();
+                    }).get();
+                    var passport_expiry_date_child = $("input[name='passport_expiry_date_child[]']").map(function() {
+                        return $(this).val();
+                    }).get();
+                }else{
+                    passport_no_child='';
+                    passport_country_code_child='';
+                    passport_expiry_date_child='';
+                }
+
+                }
+
+                    /*Infant details*/
+                if(infant_count > 0){
+                    var first_name_infant = $("input[name='firstname_infant[]']").map(function() {
                     return $(this).val();
                 }).get();
-                var passport_expiry_date = $("input[name='passport_expiry_date[]']").map(function() {
-                    return $(this).val();
-                }).get();
+                    var last_name_infant = $("input[name='lastname_infant[]']").map(function() {
+                        return $(this).val();
+                    }).get();
+                    var gender_infant = $("select[name='gender_infant[]']").map(function() {
+                        return $(this).val();
+                    }).get();
+
+                    var dob_infant = $("input[name='dob_infant[]']").map(function() {
+                        return $(this).val();
+                    }).get();
+
+                    if(is_domestic == 'true'){
+                    var passport_no_infant = $("input[name='passport_no_infant[]']").map(function() {
+                        return $(this).val();
+                    }).get();
+                    var passport_country_code_infant = $("select[name='passport_country_code_infant[]']").map(function() {
+                        return $(this).val();
+                    }).get();
+                    var passport_expiry_date_infant = $("input[name='passport_expiry_date_infant[]']").map(function() {
+                        return $(this).val();
+                    }).get();
+                }else{
+                    passport_no_infant ='';
+                    passport_country_code_infant ='';
+                    passport_expiry_date_infant='';
+                }
+
+                }
+
                 var _token = '<?php echo csrf_token(); ?>';
 
                 var mobile = $('#mobile').val();
@@ -1761,12 +1926,32 @@
                     url: "{{ route('passengerDetails') }}",
                     type: "POST",
                     data: {
+                        adult_count:adult_count,
+                        child_count:child_count,
+                        infant_count:infant_count,
                         first_name: first_name,
                         last_name: last_name,
                         gender: gender,
                         passport_no:passport_no,
                         passport_country_code:passport_country_code,
                         passport_expiry_date:passport_expiry_date,
+
+                        first_name_child: first_name_child,
+                        last_name_child: last_name_child,
+                        gender_child: gender_child,
+                        passport_no_child:passport_no_child,
+                        passport_country_code_child :passport_country_code_child,
+                        passport_expiry_date_child :passport_expiry_date_child,
+
+                        first_name_infant : first_name_infant,
+                        last_name_infant : last_name_infant,
+                        gender_infant: gender_infant,
+                        dob_infant: dob_infant,
+                        passport_no_infant:passport_no_infant,
+                        passport_country_code_infant : passport_country_code_infant,
+                        passport_expiry_date_infant :passport_expiry_date_infant,
+
+                        is_domestic:is_domestic,
                         email: email,
                         mobile: mobile,
                         country_code: country_code,

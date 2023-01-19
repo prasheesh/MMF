@@ -73,12 +73,11 @@ class Helpers {
 
               $data = json_encode($req);
 
-
         }
 
 
 
-        $url = "https://apitest.tripjack.com/fms/v1/air-search-all";
+        $url = env('API_URL')."/fms/v1/air-search-all";
 
         $result = UserHelper::curlresult($data, $url);
 

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Country;
 use Illuminate\Http\Request;
-use Session;
+use Illuminate\Support\Facades\Session ;
+// use Session;
 error_reporting(0);
 class ReviewBookingController extends Controller
 {
@@ -13,12 +14,36 @@ class ReviewBookingController extends Controller
 
     public function passengerDetails(Request $request)
     {
+        // adult
        $first_name = $request->first_name;
        $last_name = $request->last_name;
        $gender = $request->gender;
        $passport_no = $request->passport_no;
        $passport_country_code = $request->passport_country_code;
        $passport_expiry_date = $request->passport_expiry_date;
+
+    //    children
+        $first_name_child = $request->first_name_child;
+       $last_name_child = $request->last_name_child;
+       $gender_child = $request->gender_child;
+       $passport_no_child = $request->passport_no_child;
+       $passport_country_code_child = $request->passport_country_code_child;
+       $passport_expiry_date_child = $request->passport_expiry_date_child;
+
+    //    infants
+        $first_name_infant = $request->first_name_infant;
+       $last_name_infant = $request->last_name_infant;
+       $gender_infant = $request->gender_infant;
+       $dob_infant = $request->dob_infant;
+       $passport_no_infant = $request->passport_no_infant;
+       $passport_country_code_infant = $request->passport_country_code_infant;
+       $passport_expiry_date_infant = $request->passport_expiry_date_infant;
+
+
+       $adult_count = $request->adult_count;
+       $child_count = $request->child_count;
+       $infant_count = $request->infant_count;
+       $is_domestic = $request->is_domestic;
        $email = $request->email;
        $mobile = $request->mobile;
        $country_code = $request->country_code;
@@ -26,13 +51,51 @@ class ReviewBookingController extends Controller
        $whatsapp = $request->whatsapp;
 
 
-       /////////sessions////////
+       ////////sessions////////
+    //    adults details
        Session::put('first_name', $first_name);
        Session::put('last_name', $last_name);
        Session::put('gender', $gender);
-       Session::put('passport_no', $passport_no);
+       if($is_domestic != true){
+        Session::put('passport_no', $passport_no);
        Session::put('passport_country_code', $passport_country_code);
        Session::put('passport_expiry_date', $passport_expiry_date);
+       }
+
+
+    // children details
+    if($child_count>0){
+        Session::put('first_name_child', $first_name_child);
+       Session::put('last_name_child', $last_name_child);
+       Session::put('gender_child', $gender_child);
+       if($is_domestic != true){
+        Session::put('passport_no_child', $passport_no_child);
+        Session::put('passport_country_code_child', $passport_country_code_child);
+        Session::put('passport_expiry_date_child', $passport_expiry_date_child);
+       }
+
+    }
+
+
+       //infant details
+       if($infant_count > 0){
+        Session::put('first_name_infant', $first_name_infant);
+        Session::put('last_name_infant', $last_name_infant);
+        Session::put('gender_infant', $gender_infant);
+        Session::put('dob_infant', $dob_infant);
+        if($is_domestic != true){
+            Session::put('passport_no_infant', $passport_no_infant);
+        Session::put('passport_country_code_infant', $passport_country_code_infant);
+        Session::put('passport_expiry_date_infant', $passport_expiry_date_infant);
+        }
+
+       }
+
+
+       Session::put('adult_count', $adult_count);
+       Session::put('child_count', $child_count);
+       Session::put('infant_count', $infant_count);
+       Session::put('is_domestic', $is_domestic);
        Session::put('email', $email);
        Session::put('mobile', $mobile);
        Session::put('country_code', $country_code);
@@ -56,7 +119,7 @@ class ReviewBookingController extends Controller
 
         // dd($data);
         $method = "POST";
-        $url = "https://apitest.tripjack.com/fms/v1/review";
+        $url = env('API_URL')."/fms/v1/review";
         $curl = curl_init();
         switch ($method) {
             case "POST":
@@ -96,7 +159,7 @@ class ReviewBookingController extends Controller
             }';
 
         $method = "POST";
-        $url = "https://apitest.tripjack.com/fms/v1/farerule";
+        $url = env('API_URL')."/fms/v1/farerule";
         $curl = curl_init();
         switch ($method) {
             case "POST":

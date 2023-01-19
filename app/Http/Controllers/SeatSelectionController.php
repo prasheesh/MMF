@@ -9,12 +9,11 @@ class SeatSelectionController extends Controller
 {
     public function __construct(Request $request)
     {
-        $this->api_key = '111930dc08a9e7-b74f-4138-9a6b-97f25dc3a982';
+        // $this->api_key = '111930dc08a9e7-b74f-4138-9a6b-97f25dc3a982';
     }
 
     public function seatSelection(Request $request)
     {
-
         // dd($request->all());
         $uniqueTripPriceId = $request->bookingId;
 
@@ -22,7 +21,7 @@ class SeatSelectionController extends Controller
 
 // dd($data);
         $method = "POST";
-        $url = "https://apitest.tripjack.com/fms/v1/seat";
+        $url = env('API_URL')."/fms/v1/seat";
         $curl = curl_init();
         switch ($method) {
             case "POST":
@@ -37,7 +36,7 @@ class SeatSelectionController extends Controller
         //OPtions:
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'apikey:' . $this->api_key,
+            'apikey:' . apikey(),
             'Content-Type:application/json',
         ));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -56,10 +55,6 @@ class SeatSelectionController extends Controller
 
 
         $priceId = $request->pKey;
-// dd($priceId);
-        // $data_review = '{
-        //     "priceIds" : ["'.$priceId.'"]
-        //   }';
         $priceId_data = "";
         $array_all = $request->all();
         // dd($array_all);
@@ -73,7 +68,7 @@ class SeatSelectionController extends Controller
        $data_review = '{"priceIds" : ["'.$priceId_data.'"]}';
 
         $method = "POST";
-        $url = "https://apitest.tripjack.com//fms/v1/review";
+        $url = env('API_URL')."/fms/v1/review";
         $curl = curl_init();
         switch ($method) {
             case "POST":
@@ -88,7 +83,7 @@ class SeatSelectionController extends Controller
         //OPtions:
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'apikey:'.$this->api_key,
+            'apikey:'.apikey(),
             'Content-Type:application/json',
         ));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
