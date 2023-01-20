@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Dashboard\BalanceController;
+use App\Models\dashboard\Balance;
 use App\Models\Dashboard\Booking;
 use App\Models\Dashboard\BookingDetails;
 use App\Models\passengerDetail;
@@ -18,7 +20,14 @@ class ConfirmBookingController extends Controller
     }
 
     public function proceedToPay(Request $request){
-        $traveller_details = $request->session()->all();
+
+        // print_r($request->ttl_price); exit();
+
+        $user_id = Auth::id();
+        $user_balance = Balance::find($user_id);
+        $available_balance = $user_balance->allotted_balance - $user_balance->used_balance;
+    if($available_balance >= $request->ttl_price){
+            $traveller_details = $request->session()->all();
 
         $adult_count = $request->session()->get('adult_count');
         $child_count = $request->session()->get('child_count');
@@ -57,7 +66,6 @@ class ConfirmBookingController extends Controller
         }
         }
 
-
         // infants details
         if($infant_count > 0 ){
             $first_name_infant = $request->session()->get('first_name_infant');
@@ -75,8 +83,6 @@ class ConfirmBookingController extends Controller
                 $passport_expiry_date_infant = '';
             }
         }
-
-
 
 
         $email = $request->session()->get('email');
@@ -121,17 +127,19 @@ class ConfirmBookingController extends Controller
             }else{
                 $gender = 'Mr';
             }
-            // $expiry_date = date('Y-m-d',strtotime($passport_expiry_date[$i]));
+
             $adults['ti']=$gender;
             $adults['fN']=$first_name[$i];
             $adults['lN']=$last_name[$i];
             $adults['pt']='ADULT';
             // $adults['dob']='1996-08-09';
-
-            // $adults['pNat']=$passport_country_code[$i];
-            // $adults['pNum']=$passport_no[$i];
-            // $adults['eD']=$expiry_date;
-            // $adults['pid']='2022-01-05';
+            if($is_domestic != true){
+                $expiry_date = date('Y-m-d',strtotime($passport_expiry_date[$i]));
+                $adults['pNat']=$passport_country_code[$i];
+                $adults['pNum']=$passport_no[$i];
+                $adults['eD']=$expiry_date;
+                // $adults['pid']='2022-01-05';
+            }
 
             // $adults['ssrBaggageInfos'] = array();
             // foreach($priceIds as $v){
@@ -173,12 +181,18 @@ class ConfirmBookingController extends Controller
             }else{
                 $gender_child = 'Master';
             }
-            // $expiry_date = date('Y-m-d',strtotime($passport_expiry_date[$i]));
+
             $childs['ti']=$gender_child;
             $childs['fN']=$first_name_child[$i];
             $childs['lN']=$last_name_child[$i];
             $childs['pt']='CHILD';
-            // $adults['dob']='1996-08-09';
+            if($is_domestic != true){
+                $expiry_date_child = date('Y-m-d',strtotime($passport_expiry_date_child[$i]));
+                $childs['pNat']=$passport_country_code_child[$i];
+                $childs['pNum']=$passport_no_child[$i];
+                $childs['eD']=$expiry_date_child;
+                // $childs['pid']='2022-01-05';
+            }
 
             array_push($req['travellerInfo'],$childs);
         }
@@ -192,12 +206,19 @@ class ConfirmBookingController extends Controller
             }else{
                 $gender_infant = 'Master';
             }
-            // $expiry_date = date('Y-m-d',strtotime($passport_expiry_date[$i]));
+
             $infants['ti']=$gender_infant;
             $infants['fN']=$first_name_infant[$i];
             $infants['lN']=$last_name_infant[$i];
             $infants['pt']='INFANT';
             $infants['dob']=date('Y-m-d',strtotime($dob_infant[$i]));
+            if($is_domestic != true){
+                $expiry_date_infant = date('Y-m-d',strtotime($passport_expiry_date_infant[$i]));
+                $infants['pNat']=$passport_country_code_infant[$i];
+                $infants['pNum']=$passport_no_infant[$i];
+                $infants['eD']=$expiry_date_infant;
+                // $infants['pid']='2022-01-05';
+            }
 
             array_push($req['travellerInfo'],$infants);
         }
@@ -339,6 +360,10 @@ class ConfirmBookingController extends Controller
             $bookingfind->reference_id = sprintf("%s%06s", $prefix, $index);
             $bookingfind->update();
 
+            //update used balance if confirmed ticket
+            $user_balance->used_balance = $user_balance->used_balance+$amount;
+            $user_balance->update();
+
 // dd(count($booking_details->itemInfos->AIR->tripInfos));
 // dd($booking_details->itemInfos->AIR->travellerInfos);
 
@@ -349,17 +374,17 @@ class ConfirmBookingController extends Controller
             $lN = $v->lN;
             $gender_name = $v->ti;
             $category  = $v->pt;
-             $passenger_details =       passengerDetail::create([
-                        'booking_id'=>$booking->id,
-                        'first_name'=>$fN,
-                        'last_name'=>$lN,
-                        'gender_name'=>$gender_name,
-                        'category'=>$category,
-                        'passport_no'=>$passport_no[$k],
-                        'passport_expiry_date'=>$passport_expiry_date[$k],
-                        'passport_country_code'=>$passport_country_code[$k],
+            $passenger_details =  passengerDetail::create([
+                'booking_id'=>$booking->id,
+                'first_name'=>$fN,
+                'last_name'=>$lN,
+                'gender_name'=>$gender_name,
+                'category'=>$category,
+                'passport_no'=>$passport_no[$k],
+                'passport_expiry_date'=>$passport_expiry_date[$k],
+                'passport_country_code'=>$passport_country_code[$k],
 
-                    ]);
+            ]);
 
             $pnr_details = $v;
             // dd($pnr_details->pnrDetails);
@@ -378,8 +403,7 @@ class ConfirmBookingController extends Controller
             }
         }
          }
- // dd($pnr_details_val);
-// exit;
+
         foreach($booking_details->itemInfos->AIR->tripInfos as $key => $si){
 
             foreach($si->sI as $k => $v){
@@ -413,13 +437,21 @@ class ConfirmBookingController extends Controller
             }
 
     }
-            $result_array =  json_decode($result);
+                $result_array =  json_decode($result);
+            }else{
+                $result_array =  json_decode($result);
+            }
+            return $result_array;
+
         }else{
-            $result_array =  json_decode($result);
+            $result = array();
+            $result['status']['httpStatus'] ='400';
+            $result['status']['success'] ='false';
+            $result['errors']= array();
+            $errors['message'] ='User Does not have sufficient balance to book';
+            array_push($result['errors'],$errors);
+            return response()->json($result, 200);
         }
-
-        return $result_array;
-
 
     }
 

@@ -543,16 +543,17 @@ foreach ($keyIds as $key => $val){
                        </div>
 
                        <div class="mt-5 float-end d-flex">
-                        <div class="">
-                          <button class="btn btn-blue-continue confirmBooking"><a> Skip & Procced</a></button>
-                        </div>
-                        <div class="ms-1">
-                          <button class="btn btn-blue-continue confirmBooking" ><a> Procced to Pay</a></button>
+                        {{-- <div class="" data-bs-toggle="modal" data-bs-target="#confirmBookingModal">
+                          <button class="btn btn-blue-continue confirmBooking1"><a> Skip & Procced</a></button>
+                        </div> --}}
+                        <div class="ms-1" data-bs-toggle="modal" data-bs-target="#confirmBookingModal">
+                          <button class="btn btn-blue-continue confirmBooking1" ><a> Procced to Pay</a></button>
                         </div>
                        </div>
                             </div>
                      </div>
                    </div>
+
 
 
 
@@ -923,6 +924,12 @@ foreach ($keyIds as $key => $val){
         </div>
         </div>
     </section>
+@endsection
+
+@section('modals')
+
+@include('site.modals.confirm_booking_pop_up')
+
 @endsection
 
 @section('script-content')

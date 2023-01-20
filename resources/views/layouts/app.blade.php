@@ -382,8 +382,6 @@
 	</div>
 
 
-
-
 	<!-- ======= Header ======= -->
 	<header id="header" class="fixed-top ">
 		<div class="container container-make   d-flex align-items-center">
@@ -391,19 +389,34 @@
 			<h1 class="logo me-auto"><a href="{{ route('home') }}"><img src="assets/img/MMF.png"></a></h1>
 
 			@if(Auth::check())
+			{{-- {{ dd(Auth::user()) }} --}}
+@php
+	if(Auth::user()->user_balance_allocated != null){
+
+                            $user_leftbalances = Auth::user()->user_balance_allocated->allotted_balance;
+                            if($user_leftbalances != null){
+
+                                $user_leftbalance = $user_leftbalances;
+                            }else{
+                                $user_leftbalance = 0;
+                            }
+                        }else{
+                            $user_leftbalance = 0;
+                        }
+@endphp
 			<div class="col-md-6
 			 float-end">
 				<div class="row">
 					<div class="col-md-2 top-details">
 						<a href="{{ route('dashboard.index') }}">
 							<p class="Hi-user">Hi {{ Str::ucfirst(Auth::user()->name) }} </p>
-							<p>12345</p>
+							{{-- <p>12345</p> --}}
 						</a>
 
 					</div>
 					<div class="col-md-4 text-end  top-details">
 						<p class="Hi-user">Credit Balance </p>
-						<p>50,0000</p>
+						<p>{{ $user_leftbalance }}</p>
 					</div>
 					<div class="col-md-4 text-end  top-details">
 						<p class="Hi-user">Due Balance</p>

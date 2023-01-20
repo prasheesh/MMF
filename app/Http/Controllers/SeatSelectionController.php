@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\dashboard\Balance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+
 error_reporting(0);
 class SeatSelectionController extends Controller
 {
@@ -15,6 +18,10 @@ class SeatSelectionController extends Controller
     public function seatSelection(Request $request)
     {
         // dd($request->all());
+        $user_balance = Balance::find(Auth::id());
+        $available_balance = $user_balance->allotted_balance - $user_balance->used_balance;
+
+
         $uniqueTripPriceId = $request->bookingId;
 
         $data = '{"bookingId":"' . $uniqueTripPriceId . '"}';
@@ -51,8 +58,6 @@ class SeatSelectionController extends Controller
 
         // dd(json_decode($result));
         $result_array =  json_decode($result);
-
-
 
         $priceId = $request->pKey;
         $priceId_data = "";
@@ -126,12 +131,11 @@ class SeatSelectionController extends Controller
             // dd($isLegroom);
         }
 
-              return view('site/seat_selection',get_defined_vars()); //compact('result_array','isBookedtrue','isBookedfalse','isLegroom','review')
-              // return $result_array;
+              return view('site/seat_selection',get_defined_vars());
           } else {
             $errors = $result_array->errors;
             $result_array = $result_array;
-            return view('site/seat_selection',get_defined_vars()); //compact('result_array','errors','review')
+            return view('site/seat_selection',get_defined_vars());
           }
     }
 
