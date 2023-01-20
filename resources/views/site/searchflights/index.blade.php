@@ -820,9 +820,9 @@
 
                                     <select class="form-control bg-none" name="fromPlace" id="fromPlace">
                                         {{-- <option value="">Select From</option> --}}
-                                        @foreach (DB::table('airport_details')->get() as $airport)
+                                        @foreach ($airports as $airport)
                                             <option <?php echo $fromPlace == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
-                                                {{ $airport->name . ', ' . $airport->city . ', ' . $airport->country }}
+                                                {{ $airport->code.' - '.$airport->name . ', ' . $airport->city . ', ' . $airport->country }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -836,9 +836,9 @@
                                     <small class="inner-smaltext">To</small>
                                     <select class="form-control" name="toPlace" id="toPlace">
                                         {{-- <option value="">Select To</option> --}}
-                                        @foreach (DB::table('airport_details')->get() as $airport)
+                                        @foreach ($airports as $airport)
                                             <option <?php echo $toPlace == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
-                                                {{ $airport->name . ', ' . $airport->city . ', ' . $airport->country }}
+                                                {{ $airport->code.' - '.$airport->name . ', ' . $airport->city . ', ' . $airport->country }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -957,9 +957,9 @@
                        <small class="inner-smaltext">From</small>
                        <select class="form-control" onchange="validateLocation(1)" name="fromPlace[]" id="FromPlace1">
                           <option value="">Select From</option>
-                          @foreach (DB::table('airport_details')->get() as $airport)
+                          @foreach ($airports as $airport)
                           <option <?php echo $fromPlace == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
-                             {{ $airport->name . ', '.$airport->city.', ' . $airport->country }}
+                             {{ $airport->code.' - '.$airport->name . ', '.$airport->city.', ' . $airport->country }}
                           </option>
                           @endforeach
                        </select>
@@ -970,9 +970,9 @@
                        <small class="inner-smaltext">To</small>
                        <select class="form-control" onchange="setFromPlace(1)" name="toPlace[]" id="ToPlace1">
                           <option value="">Select To </option>
-                          @foreach (DB::table('airport_details')->get() as $airport)
+                          @foreach ($airports as $airport)
                           <option <?php echo $toPlace == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
-                             {{ $airport->name . ', ' .$airport->city.', '. $airport->country }}
+                             {{ $airport->code.' - '.$airport->name . ', ' .$airport->city.', '. $airport->country }}
                           </option>
                           @endforeach
                        </select>
@@ -1011,9 +1011,9 @@
                        <small class="inner-smaltext">From</small>
                        <select class="form-control" onchange="validateLocation(2)" name="fromPlace[]" id="FromPlace2">
                           <option value="">Select From</option>
-                          @foreach (DB::table('airport_details')->get() as $airport)
+                          @foreach ($airports as $airport)
                           <option <?php echo $fromPlace == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
-                             {{ $airport->name . ', '.$airport->city.', ' . $airport->country }}
+                             {{ $airport->code.' - '.$airport->name . ', '.$airport->city.', ' . $airport->country }}
                           </option>
                           @endforeach
                        </select>
@@ -1024,9 +1024,9 @@
                        <small class="inner-smaltext">To</small>
                        <select class="form-control" onchange="setFromPlace(2)" name="toPlace[]" id="ToPlace2">
                           <option value="">Select To </option>
-                          @foreach (DB::table('airport_details')->get() as $airport)
+                          @foreach ($airports as $airport)
                           <option <?php echo $toPlace == $airport->code ? 'selected' : ''; ?> value="{{ $airport->code }}">
-                             {{ $airport->name . ', ' .$airport->city.', '. $airport->country }}
+                             {{ $airport->code.' - '.$airport->name . ', ' .$airport->city.', '. $airport->country }}
                           </option>
                           @endforeach
                        </select>
@@ -3382,9 +3382,9 @@ $('.multitrip').click(function() {
                         <div class="airport-name ">
                             <select class="form-select" onchange="validateLocation(${count})" name="fromPlace[]${count}" id="FromPlace${count}">
                             <option value="">Select From</option>
-                                    @foreach (DB::table('airport_details')->get() as $airport)
+                                    @foreach ($airports as $airport)
                                         <option value="{{ $airport->code }}"
-                                        >{{ $airport->name . ', ' .$airport->city.', '. $airport->country }}
+                                        >{{ $airport->code.' - '.$airport->name . ', ' .$airport->city.', '. $airport->country }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -3395,8 +3395,8 @@ $('.multitrip').click(function() {
                         <div class="airport-name">
                             <select class="form-control" onchange="setFromPlace(${count})" name="toPlace[]${count}" id="ToPlace${count}">
                             <option value="">Select To</option>
-                                    @foreach (DB::table('airport_details')->get() as $airport)
-                                        <option value="{{ $airport->code }}">{{ $airport->name . ', ' .$airport->city.', '. $airport->country }}
+                                    @foreach ($airports as $airport)
+                                        <option value="{{ $airport->code }}">{{ $airport->code.' - '.$airport->name . ', ' .$airport->city.', '. $airport->country }}
                                         </option>
                                     @endforeach
                                 </select>

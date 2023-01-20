@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AirportDetail;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 // use Session;
@@ -60,6 +61,8 @@ class SearchFlightsController extends Controller
     /**** Get All Flights Lists *****/
     public function SearchFlights(Request $request)
     {
+        //all airports
+        $airports = AirportDetail::orderBy('order_by')->get();
 
         $tripType = Session::get('tripType');
         $flightBookingDepart = Session::get('flightBookingDepart');

@@ -777,7 +777,7 @@
                     <div class="col-md-2 " style="">
 
                         <div class="airport-name-inner ">
-                            <small class="inner-smaltext">Trip Type</small>
+                            <small class="inner-smaltext">Trip Typesss</small>
                             <select name="tripType" id="trip_type" class="form-control bg-none p-0" style="line-height:28px;">
                                 <option <?php if ($_GET['tripType'] == 'oneway') {
                                     echo 'selected';
