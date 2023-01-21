@@ -13,14 +13,62 @@
     <tbody class="bg-tbody">
         @if ($result_array->status->success == true && $result_array->status->httpStatus == 200)
             @if (isset($result_array->searchResult->tripInfos))
-                <?php
-                $sno = 1;
-                $flight_count = count($result_array->searchResult->tripInfos->ONWARD);
-
-                ?>
-                @foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $value)
-                    <?php $count = count($value->sI); ?>
-
+                @php
+                    $sno = 1;
+                    $flight_count = count($result_array->searchResult->tripInfos->ONWARD);
+                    echo $flight_count;
+                @endphp
+                {{-- show fares low to high  --}}
+                @php
+                    $farevalues = [];
+                    
+                    $getminafareval = [];
+                    // dd($result_array->searchResult->tripInfos->ONWARD);
+                    foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $all_flights) {
+                        $farevalues = [];
+                        foreach ($all_flights->totalPriceList as $fares) {
+                            $farevalues[] = $fares->fd->ADULT->fC->TF;
+                            // $getminafareval = min($farevalues);
+                        }
+                        // sort($getminafareval);
+                        $getminafareval[] = min($farevalues);
+                        // dd($farevalues);
+                    }
+                    
+                    // sort($farevalues);
+                    // dd($getminafareval, $farevalues);
+                    $arrlength = count($getminafareval);
+                    $fare_list = [];
+                    for ($x = 0; $x < $arrlength; $x++) {
+                        foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $all_flights) {
+                            foreach ($all_flights->totalPriceList as $fares) {
+                                if (!empty($fare_list)) {
+                                    foreach ($fare_list as $key => $value) {
+                                        if ($value->sI[0]->id == $all_flights->sI[0]->id) {
+                                            continue;
+                                        }
+                                    }
+                                } else {
+                                    if ($getminafareval[$x] == $fares->fd->ADULT->fC->TF) {
+                                        array_push($fare_list, $all_flights);
+                                        // break;
+                                        // dd($fare_list);
+                                        // exit();
+                                    }
+                                }
+                    
+                                // break;
+                            }
+                            // continue;
+                        }
+                    }
+                    // $fare_list = $fare_list->unique($fare_list[0]->sI[0]->id);
+                    // array_splice($fare_list, $flight_count);
+                    dd($farevalues, $getminafareval, $fare_list);
+                @endphp
+                @foreach ($fare_list as $key => $value)
+                    {{-- @foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $value) --}}
+                    @php $count = count($value->sI); @endphp
                     <tr>
                         <td style="width:25%">
                             <div>
@@ -29,7 +77,7 @@
                                         <?php
                                         $flight_code = $value->sI[0]->fD->aI->code;
                                         $flight_logo = 'assets/img/AirlinesLogo/' . $flight_code . '.png';
-
+                                        
                                         ?>
                                         <img src="{{ $flight_logo }}">
                                     </div>
@@ -107,15 +155,24 @@
                                 <p class=" flight-brand"><i class="fa-solid fa-indian-rupee-sign"></i>
 
                                     @php
-                                    $minfarevalue = [];
-                                    foreach($value->totalPriceList as $minvalue)
-                                    {
-                                        $minfarevalue[] = $minvalue->fd->ADULT->fC->TF;
-                                    }
-
-
-                                    $getminafareval = min($minfarevalue);
-
+                                        $minfarevalue = [];
+                                        foreach ($value->totalPriceList as $minvalue) {
+                                            if (isset($minvalue->fd->CHILD->fC->TF)) {
+                                                $child_amt = $minvalue->fd->CHILD->fC->TF;
+                                            } else {
+                                                $child_amt = 0;
+                                            }
+                                            if (isset($minvalue->fd->INFANT->fC->TF)) {
+                                                $infant_amt = $minvalue->fd->INFANT->fC->TF;
+                                            } else {
+                                                $infant_amt = 0;
+                                            }
+                                        
+                                            $minfarevalue[] = $minvalue->fd->ADULT->fC->TF + $child_amt + $infant_amt;
+                                        }
+                                        
+                                        $getminafareval = min($minfarevalue);
+                                        
                                     @endphp
 
                                     {{ number_format($getminafareval, 0) }}
@@ -130,7 +187,6 @@
                     </tr>
                 @endforeach
             @else
-
                 <tr>
                     <td colspan="5" align="center">
                         <div>{{ 'No Flights Found' }}</div>
@@ -139,7 +195,6 @@
 
             @endif
         @else
-
             <tr>
                 <td colspan="5" align="center">
                     <div>{{ $errors[0]->message }}</div>

@@ -221,11 +221,7 @@
    .select2-selection--single{
        background-color:transparent !importnat;
    }
-   
-   
-   
-   
-   
+
  .checkbox-alias{
     background-color: transparent;
     display: inline-block;
@@ -270,119 +266,9 @@
     <div id="loader_div" class="loader_div"></div>
 
 
-    <!-- book modal one -->
-    
-    @if ($tripType == 'oneway')
-
-        @if ($result_array->status->success == true && $result_array->status->httpStatus == 200)
-            @if (isset($result_array->searchResult->tripInfos))
-                @foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $value)
-
-                    <div class="modal" id="book-table{{ $value->sI[0]->id }}">
-                        <div class="modal-dialog modal-xl">
-                            <div class="modal-content">
-                                <div class="modal-body p-0">
-
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"><i
-                                            class="fa fa-times"></i></button>
-
-                                    <table class="table table-booking" style="">
-                                        <thead class="bg-grey" style="border-bottom: 2px solid #fff;">
-                                            <tr>
-                                                <th class="">FARES </th>
-                                                <th>CABIN BAG</th>
-                                                <th>CHECK-IN</th>
-                                                <th>CANCELLATION</th>
-                                                <th>DATE CHANGE</th>
-                                                <th>SEAT</th>
-                                                <th>MEAL</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            <?php
-                                            $i = 1;
-                                            $id = 1;
-                                            $c = 1;
-                                            $d = 1;
-                                            $s = 1;
-                                            $totalPriceList = count($value->totalPriceList);
-
-                                            ?>
-                                            <input type="hidden" name="totalPriceList{{ $value->sI[0]->id }}"
-                                                id="totalPriceList{{ $value->sI[0]->id }}" value="{{ $totalPriceList }}">
-                                            @foreach ($value->totalPriceList as $key => $values)
-                                                <tr>
-                                                    <td class=""><b>{{ $values->fareIdentifier }}</b>
-                                                        <input type="hidden"
-                                                            name="uniqueTripPriceId{{ $value->sI[0]->id }}{{ $i++ }}"
-                                                            id="uniqueTripPriceId{{ $value->sI[0]->id }}{{ $id++ }}"
-                                                            value="{{ $values->id }}">
-
-                                                        <p>
-                                                            Fare offered by airline.
-                                                        </p>
-                                                    </td>
-                                                    <td>
-                                                         @if(isset($values->fd->ADULT->bI->cB))
-                                                    {{ $values->fd->ADULT->bI->cB }}
-                                                    @else
-                                                    --
-                                                    @endif
-                                                    </td>
-                                                    <td><?php if (isset($values->fd->ADULT->bI->iB)) {
-                                                        echo $values->fd->ADULT->bI->iB;
-                                                    } else {
-                                                        echo '--';
-                                                    } ?></td>
-                                                    <td id="cancellation{{ $value->sI[0]->id }}{{ $c++ }}">--
-                                                        {{-- cancellation <br> fee starting <i class="fa-solid fa-indian-rupee-sign"></i> 3,500 --}}
-                                                    </td>
-                                                    <td id="dateChangeText{{ $value->sI[0]->id }}{{ $d++ }}">--
-                                                        {{-- Date change <br> fee starting <i class="fa-solid fa-indian-rupee-sign"></i> 3250 --}}
-                                                    </td>
-                                                    <td id="seatChargeId{{ $value->sI[0]->id }}{{ $s++ }}">--
-                                                        {{-- Middle Seat Free, <br> Window/Asile Chargeable --}}
-                                                    </td>
-                                                    <td>
-                                                        @if (isset($values->fd->ADULT->mI))
-                                                            @if ($values->fd->ADULT->mI == true)
-                                                                Free Meal
-                                                            @else
-                                                                Paid Meal
-                                                            @endif
-                                                        @else
-                                                            --
-                                                        @endif
-
-
-                                                    </td>
-                                                    <td align="right">
-                                                        <p class="final-price"><b><i
-                                                                    class="fa-solid fa-indian-rupee-sign"></i>{{ number_format($values->fd->ADULT->fC->NF) }}</b>
-                                                        </p>
-                                                        <a href="{{ route('reviewDetails') }}?pKey0={{ $values->id }}">
-                                                            <button class="btn btn-book-now">Book Now</button> </a>
-                                                    </td>
-
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- book modal end -->
-                @endforeach
-            @endif
-        @endif
-    @endif
-
+    <!-- start one way trip modal  -->
+    @include('site.searchflights.searchflightmodals.one_way_trip_fares')
+    <!-- end one way trip modal  -->
 
     <!-- View Price -->
     @if ($tripType == 'round')
@@ -1129,7 +1015,7 @@
 
 
                             @if ($tripType == 'oneway')
-                            <div class="wrapper">
+                            {{-- <div class="wrapper">
                                 <div class="carousel">
                                     <div class="date-active">
                                         <p class="date-inner ">Mon, Jul 04</p>
@@ -1213,10 +1099,8 @@
                                     </div>
                     
                                 </div>
-                            </div>
+                            </div> --}}
                             <div id="loadoneway">
-
-
                                 @include('site.searchflights.flightsdetails.oneway.onewayflightdetails')
                             </div>
                                 
@@ -2479,6 +2363,9 @@
         maindeparture.forEach(depatureclick => {
             
             depatureclick.addEventListener('click', function(dept){
+                $("#loader_div").removeClass('d-none');
+                $("#loader_div").show();
+                
                 let deptminvalue = dept.target.nextElementSibling.value,
                 deptmaxvalue = dept.target.nextElementSibling.nextElementSibling.value;
                 deptarriv = dept.target.nextElementSibling.nextElementSibling.nextElementSibling.value;
@@ -2496,6 +2383,7 @@
                         $('#loadoneway').html(data.data);
                         
                         console.log(`{{Session::get('deptarriv')}}`);
+                        $("#loader_div").hide();
                         
                     //    window.location.replace(`{{route("SearchFlights")}}`);
                     },
@@ -2833,13 +2721,13 @@
             }
 
         });
-        // $( document ).ready( getFareRules );
-
+        
+//view  more fares 
         function getFareRules(airportId) {
-            var flight_count = $('.airportApiId1').attr('data-flight_count');
-            // for (i = 1; i <= flight_count; i++) {
+            $("#loader_div").removeClass('d-none');
+            $("#loader_div").show();
 
-            // var airportApiId = $('.airportApiId' + i).attr('data-airportId');
+            var flight_count = $('.airportApiId1').attr('data-flight_count');
             var airportApiId = airportId;
             // alert(airportApiId);
 
@@ -2853,8 +2741,6 @@
                 var cancellationId = 'cancellation' + airportApiId + j;
                 var dateChangeId = 'dateChangeText' + airportApiId + j;
                 var seatChargeId = 'seatChargeId' + airportApiId + j;
-
-
 
                 getFarePrices(uniqueTripPriceId, cancellationId, dateChangeId, seatChargeId);
 
@@ -2924,9 +2810,6 @@
 
                             });
                         }
-
-
-
                     }
                 })
             }
@@ -3617,13 +3500,8 @@ $('.multitrip').click(function() {
                 }
             });
        }
-   }
+   } 
    
-   
-   
- 
-
-
     </script>
     <script type="text/javascript">
 
