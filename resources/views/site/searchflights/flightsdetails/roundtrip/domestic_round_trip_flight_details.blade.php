@@ -5,8 +5,6 @@
             <div class="card-body round-trip1">
                 @if ($result_array->status->success == true && $result_array->status->httpStatus == 200)
                     @if (isset($result_array->searchResult->tripInfos->ONWARD))
-
-
                         <p>{{ $city_name_from->city }}
                             →
                             {{ $city_name_to->city }}
@@ -50,12 +48,39 @@
     @if ($result_array->status->success == true && $result_array->status->httpStatus == 200)
         @if (isset($result_array->searchResult->tripInfos->ONWARD))
             <div class="col-md-6">
-                <?php $radio_on_cnt = 1; ?>
-                @foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $value)
-                    <?php
-                    // print_r($value->totalPriceList[0]->id);
-                    ?>
-                    <?php $cnt_up = count($value->sI); ?>
+                @php $radio_on_cnt = 1; @endphp
+
+                {{-- show flights low to high  onwards --}}
+                @php
+                    $getminafareval = [];
+                    foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $all_flights) {
+                        $farevalues = [];
+                        foreach ($all_flights->totalPriceList as $fare_price) {
+                            $farevalues[$fare_price->id] = $fare_price->fd->ADULT->fC->TF;
+                            $all_fare_values[$fare_price->id] = $fare_price->fd->ADULT->fC->TF;
+                        }
+                        $getminafareval[] = array_keys($farevalues, min($farevalues));
+                    }
+                    $merge_min_fare_val_array = call_user_func_array('array_merge', $getminafareval);
+                    
+                    $min_fares_array = array_intersect_key($all_fare_values, array_flip($merge_min_fare_val_array));
+                    
+                    asort($min_fares_array);
+                    $flight_list_by_price = [];
+                    foreach ($min_fares_array as $min_key => $min_val) {
+                        foreach ($result_array->searchResult->tripInfos->ONWARD as $k => $sI) {
+                            foreach ($sI->totalPriceList as $fares) {
+                                if ($min_key == $fares->id) {
+                                    array_push($flight_list_by_price, $sI);
+                                }
+                            }
+                        }
+                    }
+                @endphp
+                {{-- end flights low to high onwards --}}
+
+                @foreach ($flight_list_by_price as $key => $value)
+                    @php $cnt_up = count($value->sI); @endphp
                     <div class="row mt-2">
                         <div class="col-md-12">
                             <div class="card">
@@ -117,6 +142,26 @@
                                             <span>{{ date('H:m', strtotime($value->sI[$cnt_up - 1]->at)) }}</span>
                                             <span>{{ $value->sI[$cnt_up - 1]->aa->city }}</span>
                                         </div>
+                                        @php
+                                            $minfarevalue = [];
+                                            foreach ($value->totalPriceList as $minvalue) {
+                                                if (isset($minvalue->fd->CHILD->fC->TF)) {
+                                                    $child_amt = $minvalue->fd->CHILD->fC->TF;
+                                                } else {
+                                                    $child_amt = 0;
+                                                }
+                                                if (isset($minvalue->fd->INFANT->fC->TF)) {
+                                                    $infant_amt = $minvalue->fd->INFANT->fC->TF;
+                                                } else {
+                                                    $infant_amt = 0;
+                                                }
+                                            
+                                                $minfarevalue[] = $minvalue->fd->ADULT->fC->TF + $child_amt + $infant_amt;
+                                            }
+                                            
+                                            $getminafareval = min($minfarevalue);
+                                            
+                                        @endphp
                                         <div class="col-md-3 departture text-center">
                                             <input <?php echo $radio_on_cnt == 1 ? 'Checked' : ''; ?> type="radio" name="roundFromTo"
                                                 class="form-check-input roundFromTo"
@@ -126,11 +171,11 @@
                                                 data-f_on_name="{{ $value->sI[0]->fD->aI->name }}"
                                                 data-f_on_depat_time="{{ date('H:m', strtotime($value->sI[0]->dt)) }}"
                                                 data-f_on_arival_time="{{ date('H:m', strtotime($value->sI[$cnt_up - 1]->at)) }}"
-                                                data-f_on_price="{{ number_format($value->totalPriceList[0]->fd->ADULT->fC->TF, 0) }}"
+                                                data-f_on_price="{{ number_format($getminafareval, 0) }}"
                                                 data-f_on_logo="{{ $flight_logo }}"
-                                                data-onward_price="{{ $value->totalPriceList[0]->fd->ADULT->fC->TF }}">
+                                                data-onward_price="{{ $getminafareval }}">
                                             <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
-                                                {{ number_format($value->totalPriceList[0]->fd->ADULT->fC->TF, 0) }}
+                                                {{ number_format($getminafareval, 0) }}
                                             </p>
                                         </div>
                                     </div>
@@ -143,14 +188,42 @@
             </div>
 
             <div class="col-md-6">
-                <?php
-                $radio_re_cnt = 1;
-                ?>
-                @foreach ($result_array->searchResult->tripInfos->RETURN as $key => $value)
-                    <?php
-                    // print_r($value->totalPriceList[0]->id);
-                    ?>
-                    <?php $cnt_dwn = count($value->sI); ?>
+                @php
+                    $radio_re_cnt = 1;
+                @endphp
+
+                {{-- show flights low to high return --}}
+                @php
+                    $getminafareval_return = [];
+                    foreach ($result_array->searchResult->tripInfos->RETURN as $key => $all_flights_return) {
+                        $farevalues_return = [];
+                        foreach ($all_flights_return->totalPriceList as $fare_price_return) {
+                            $farevalues_return[$fare_price_return->id] = $fare_price_return->fd->ADULT->fC->TF;
+                            $all_fare_values_return[$fare_price_return->id] = $fare_price_return->fd->ADULT->fC->TF;
+                        }
+                        $getminafareval_return[] = array_keys($farevalues_return, min($farevalues_return));
+                    }
+                    $merge_min_fare_val_array_return = call_user_func_array('array_merge', $getminafareval_return);
+                    
+                    $min_fares_array_return = array_intersect_key($all_fare_values_return, array_flip($merge_min_fare_val_array_return));
+                    
+                    asort($min_fares_array_return);
+                    $flight_list_by_price_return = [];
+                    foreach ($min_fares_array_return as $min_key_return => $min_val) {
+                        foreach ($result_array->searchResult->tripInfos->RETURN as $k => $sI_return) {
+                            foreach ($sI_return->totalPriceList as $fares_return) {
+                                if ($min_key_return == $fares_return->id) {
+                                    array_push($flight_list_by_price_return, $sI_return);
+                                }
+                            }
+                        }
+                    }
+                @endphp
+                {{-- end flights low to high  return --}}
+
+                @foreach ($flight_list_by_price_return as $key => $value)
+                    {{-- @foreach ($result_array->searchResult->tripInfos->RETURN as $key => $value) --}}
+                    @php $cnt_dwn = count($value->sI); @endphp
                     <div class="row mt-2">
                         <div class="col-md-12">
                             <div class="card">

@@ -94,7 +94,27 @@
                                                     <input type="hidden" name="totalPriceList{{ $value->sI[0]->id }}"
                                                         id="totalPriceList{{ $value->sI[0]->id }}"
                                                         value="{{ $totalPriceList }}">
-                                                    @foreach ($value->totalPriceList as $key => $values)
+
+                                                    {{-- show price low to high one way --}}
+                                                    @php
+                                                        $farevalues = [];
+                                                        foreach ($value->totalPriceList as $fares_p) {
+                                                            $farevalues[$fares_p->id] = $fares_p->fd->ADULT->fC->TF;
+                                                        }
+                                                        asort($farevalues);
+                                                        $fare_list = [];
+                                                        foreach ($farevalues as $k => $v) {
+                                                            foreach ($value->totalPriceList as $fares) {
+                                                                if ($k == $fares->id) {
+                                                                    array_push($fare_list, $fares);
+                                                                }
+                                                            }
+                                                        }
+                                                    @endphp
+                                                    {{-- end price low to high one way --}}
+
+
+                                                    @foreach ($fare_list as $key => $values)
                                                         <input type="hidden"
                                                             name="uniqueTripPriceId{{ $value->sI[0]->id }}{{ $i++ }}"
                                                             id="uniqueTripPriceId{{ $value->sI[0]->id }}{{ $id++ }}"

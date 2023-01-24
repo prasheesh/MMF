@@ -192,7 +192,8 @@
                                     </div>
                                     <div class="col-md-10">
                                         <p><b>{{ $flightDetails->da->city }}.</b>
-                                            {{ $flightDetails->da->name }} </p>
+                                            {{ $flightDetails->da->name }} , {{ $flightDetails->da->terminal}}
+                                        </p>
                                         <p> {{ $hours }}h {{ $minutes }}m</p>
                                     </div>
                                     <div class="col-md-2">
@@ -202,7 +203,7 @@
                                     <div class="col-md-10">
                                         <p style="margin-bottom: 0px;">
                                             <b>{{ $flightDetails->aa->city }}.</b>
-                                            {{ $flightDetails->aa->name }}
+                                            {{ $flightDetails->aa->name }} , {{ $flightDetails->aa->terminal}}
                                         </p>
                                     </div>
                                 </div>

@@ -1,5 +1,33 @@
-@foreach ($result_array->searchResult->tripInfos->COMBO as $key => $value)
-    {{-- {{ print_r($value->sI) }} --}}
+{{-- show flights low to high  combo --}}
+@php
+    $getminafareval = [];
+    foreach ($result_array->searchResult->tripInfos->COMBO as $key => $all_flights) {
+        $farevalues = [];
+        foreach ($all_flights->totalPriceList as $fare_price) {
+            $farevalues[$fare_price->id] = $fare_price->fd->ADULT->fC->TF;
+            $all_fare_values[$fare_price->id] = $fare_price->fd->ADULT->fC->TF;
+        }
+        $getminafareval[] = array_keys($farevalues, min($farevalues));
+    }
+    $merge_min_fare_val_array = call_user_func_array('array_merge', $getminafareval);
+    
+    $min_fares_array = array_intersect_key($all_fare_values, array_flip($merge_min_fare_val_array));
+    
+    asort($min_fares_array);
+    $flight_list_by_price = [];
+    foreach ($min_fares_array as $min_key => $min_val) {
+        foreach ($result_array->searchResult->tripInfos->COMBO as $k => $sI) {
+            foreach ($sI->totalPriceList as $fares) {
+                if ($min_key == $fares->id) {
+                    array_push($flight_list_by_price, $sI);
+                }
+            }
+        }
+    }
+@endphp
+{{-- end flights low to high combo --}}
+@foreach ($flight_list_by_price as $key => $value)
+    {{-- @foreach ($result_array->searchResult->tripInfos->COMBO as $key => $value) --}}
     <div class="card mt-3 mb-3">
         <div class="card-body">
             <div class="row">
@@ -13,7 +41,27 @@
                 </div>
                 <div class="col-md-6 mb-3 text-end">
                     <span><i class="fas fa-indian-rupee-sign"></i>
-                        <b>{{ number_format($value->totalPriceList[0]->fd->ADULT->fC->TF) }}</b></span>&nbsp;&nbsp;
+                        @php
+                            $minfarevalue = [];
+                            foreach ($value->totalPriceList as $minvalue) {
+                                if (isset($minvalue->fd->CHILD->fC->TF)) {
+                                    $child_amt = $minvalue->fd->CHILD->fC->TF;
+                                } else {
+                                    $child_amt = 0;
+                                }
+                                if (isset($minvalue->fd->INFANT->fC->TF)) {
+                                    $infant_amt = $minvalue->fd->INFANT->fC->TF;
+                                } else {
+                                    $infant_amt = 0;
+                                }
+                            
+                                $minfarevalue[] = $minvalue->fd->ADULT->fC->TF + $child_amt + $infant_amt;
+                            }
+                            
+                            $getminafareval = min($minfarevalue);
+                            
+                        @endphp
+                        <b>{{ number_format($getminafareval) }}</b></span>&nbsp;&nbsp;
                     <span><a href="" data-bs-toggle="modal"
                             data-bs-target="#ViewPriceInternational{{ $value->sI[0]->id }}"
                             class="btn btn-outline-primary btn-sm"

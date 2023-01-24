@@ -37,24 +37,24 @@
                                         ?>
                                         <input type="hidden" name="totalPriceList{{ $value->sI[0]->id }}"
                                             id="totalPriceList{{ $value->sI[0]->id }}" value="{{ $totalPriceList }}">
-                                        {{-- show fares low to high --}}
+
+                                        {{-- show price low to high one way --}}
                                         @php
                                             $farevalues = [];
-                                            $fare_list = [];
-                                            foreach ($value->totalPriceList as $fares) {
-                                                $farevalues[] = $fares->fd->ADULT->fC->TF;
+                                            foreach ($value->totalPriceList as $fares_p) {
+                                                $farevalues[$fares_p->id] = $fares_p->fd->ADULT->fC->TF;
                                             }
-                                            sort($farevalues);
-                                            $arrlength = count($farevalues);
-                                            for ($x = 0; $x < $arrlength; $x++) {
+                                            asort($farevalues);
+                                            $fare_list = [];
+                                            foreach ($farevalues as $k => $v) {
                                                 foreach ($value->totalPriceList as $fares) {
-                                                    if ($farevalues[$x] == $fares->fd->ADULT->fC->TF) {
+                                                    if ($k == $fares->id) {
                                                         array_push($fare_list, $fares);
                                                     }
                                                 }
                                             }
-                                            array_splice($fare_list, $totalPriceList);
                                         @endphp
+                                        {{-- end price low to high one way --}}
 
                                         @foreach ($fare_list as $key => $values)
                                             <tr>

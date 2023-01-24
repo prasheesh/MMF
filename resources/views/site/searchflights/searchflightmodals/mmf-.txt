@@ -1,0 +1,2191 @@
+<div class="container container-make">
+            <div class="row">
+
+                
+
+                
+                <!-- One Way Filter Search --->
+
+                    <div class="col-md-3 p-3">
+        <div class="card">
+            <div class=" card-body card-shadow">
+                <h5>One Way Trip</h5>
+
+                <div class="mt-4">
+                    <div id="slider-range" class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"><div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;"></div><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 100%;"></span></div>
+
+                    <p>
+                        
+                        <input type="text" id="amount" readonly="" style="border:0; color:#f6931f; font-weight:bold;">
+                    </p>
+
+                    
+                    
+                    
+                    
+                </div>
+                   
+
+                <!-- Number Of Stops --->
+                <div class="mt-4">
+                    <h5>Stops From Hyderabad</h5>
+
+                    
+                    
+                        <div class="d-flex justify-content-between mt-3">
+                            <div> 
+                                <input type="radio" class="stopsclick" name="stops" value="1"> 
+                                <span>
+                                                                            NON-STOP <small>(5)</small>
+                                                                    </span>
+                            </div>
+                        </div>
+
+                    
+                        <div class="d-flex justify-content-between mt-3">
+                            <div> 
+                                <input type="radio" class="stopsclick" name="stops" value="2"> 
+                                <span>
+                                                                            1 Stop <small>(2)</small>
+
+                                                                    </span>
+                            </div>
+                        </div>
+
+                    
+                        <div class="d-flex justify-content-between mt-3">
+                            <div> 
+                                <input type="radio" class="stopsclick" name="stops" value="3"> 
+                                <span>
+                                                                            2 Stop <small>(10)</small>
+
+                                                                    </span>
+                            </div>
+                        </div>
+
+                    
+                </div>
+
+                <!-- End Number Of Stops --->
+
+
+                <!-- Deptaure flights -->
+                <div class="mt-4">
+                    <h5>Departure From Hyderabad</h5>
+
+                    <div class="row mt-3 invisible-checkboxes">
+                        
+                        <div class="col-md-3 align-items-center main-departure depaturemain" id="depart1">
+                            <a href="javascript:;" class="anchor depaturemaina " id="anchor1"></a>
+                            <input type="hidden" name="rGroup" value="00:00">
+                            <input type="hidden" name="rGroup" value="06:00">
+                            <input type="hidden" name="rGroup" value="dept">
+                            <input type="hidden" name="rGroup" value="before6">
+                            <div class="departure-1">
+                                <img src="assets/img/sun.png" class="img-fluid">
+                                <p>Before 6 AM </p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 main-departure depaturemain" id="depart2">
+                            <a href="javascript:;" class="anchor depaturemaina " id="anchor2"></a>
+                            <input type="hidden" name="rGroup" value="06:01">
+                            <input type="hidden" name="rGroup" value="12:00">
+                            <input type="hidden" name="rGroup" value="dept">
+                            <input type="hidden" name="rGroup" value="btw612">
+                                <div class="departure-1">
+                                    <img src="assets/img/sun.png" class="img-fluid">                        
+                                    <p>6 AM to 12 PM</p>
+                                </div>
+                        </div>
+                        <div class="col-md-3 main-departure depaturemain" id="depart3">
+                            <a href="javascript:;" class="anchor depaturemaina" id="anchor3"></a>
+                            <input type="hidden" name="rGroup" value="12:01">
+                            <input type="hidden" name="rGroup" value="17:00">
+                            <input type="hidden" name="rGroup" value="dept">
+                            <input type="hidden" name="rGroup" value="btw1217">
+                                <div class="departure-1">
+                                    <img src="assets/img/sun.png" class="img-fluid">
+                                    <p>12 PM to 5 PM</p>
+                                </div>
+                        </div>
+                        <div class="col-md-3 main-departure depaturemain" id="depart4">
+                            <a href="javascript:;" class="anchor depaturemaina" id="anchor4"></a>
+                            <input type="hidden" name="rGroup" value="17:01">
+                            <input type="hidden" name="rGroup" value="23:59">
+                            <input type="hidden" name="rGroup" value="dept">
+                            <input type="hidden" name="rGroup" value="btw1723">
+                                <div class="departure-1">
+                                    <img src="assets/img/sun.png" class="img-fluid">
+                                    <p>After 5 AM</p>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+              
+                <!-- End Deptaure flights -->
+
+                    
+
+                <!-- Arrival flights -->
+                <div class="mt-4">
+                    
+                    <h5>Arrival at Vijayawada</h5>
+
+                    <div class="row mt-3 invisible-checkboxes">
+                        <div class="col-md-3 align-items-center main-departure depaturemain">
+                            <a href="javascript:;" class="anchor depaturemaina"></a>
+                            <input type="hidden" name="rGroup" value="00:00">
+                            <input type="hidden" name="rGroup" value="06:00">
+                            <input type="hidden" name="rGroup" value="arriv">
+                                <div class="departure-1">
+                                    <img src="assets/img/sun.png" class="img-fluid">
+                                    <p>Before 6 AM </p>
+                                </div>
+                        </div>
+                        <div class="col-md-3 main-departure depaturemain">
+                            <a href="javascript:;" class="anchor depaturemaina"></a>
+                            <input type="hidden" name="rGroup" value="06:01">
+                            <input type="hidden" name="rGroup" value="12:00">
+                            <input type="hidden" name="rGroup" value="arriv">
+                                <div class="departure-1">
+                                    <img src="assets/img/sun.png" class="img-fluid">                        
+                                    <p>6 AM to 12 PM </p>
+                                </div>
+                        </div>
+                        <div class="col-md-3 main-departure depaturemain">
+                            <a href="javascript:;" class="anchor depaturemaina"></a>
+                            <input type="hidden" name="rGroup" value="12:01">
+                            <input type="hidden" name="rGroup" value="17:00">
+                            <input type="hidden" name="rGroup" value="arriv">
+                            <div class="departure-1">
+                                <img src="assets/img/sun.png" class="img-fluid">
+                            
+                                <p>12 PM to 5 PM </p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 main-departure depaturemain">
+                            <a href="javascript:;" class="anchor depaturemaina" id="anchor2"></a>
+                            <input type="hidden" name="rGroup" value="17:01">
+                            <input type="hidden" name="rGroup" value="23:59">
+                            <input type="hidden" name="rGroup" value="arriv">
+                                <div class="departure-1">
+                                    <img src="assets/img/sun.png" class="img-fluid">
+                                    
+                                    <p>After 5 AM </p>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Arrival flights -->
+
+
+
+                <!-- Airlines Details -->
+                    <div class="mt-4">
+                        <h5>Airlines</h5>
+                                                                        <div class="d-flex justify-content-between mt-3">
+                            <div> 
+                                    
+                                <input type="radio" name="airlines" class="airlinesclickstops" value="IndiGo"> 
+                                IndiGo (5)
+
+                            </div>
+                        </div>
+                                                                        <div class="d-flex justify-content-between mt-3">
+                            <div> 
+                                    
+                                <input type="radio" name="airlines" class="airlinesclickstops" value="Air India"> 
+                                Air India (34)
+
+                            </div>
+                        </div>
+                                                                        
+                        
+                        
+                    </div>
+                <!-- End Airlines Details -->
+
+                
+
+            </div>
+        </div>
+
+    </div>
+    
+        
+       
+
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                                <!-- End One Way Filter Search --->
+
+                                
+
+
+                <div class="col-md-9 p-3 bbook-price-details">
+                    <div class="card">
+                        <div class="card-body card-shadow">
+                           
+                                                                                                <h5>Flights from
+                                        Hyderabad to
+                                        Vijayawada
+                                                                                    , and back
+                                        
+                                    </h5>
+                                                            
+
+                                                                                            
+                                       
+                                                                     
+                                        <div class="row mt-2">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body round-trip1">
+                                    
+
+                        <p>Hyderabad
+                            →
+                            Vijayawada
+                            <span>Thu, 26 Jan</span>
+                        </p>
+                                                    <div class="bg-tablle">
+                    <p>Departure</p>
+                    <p>Duration</p>
+                    <p>Arrival</p>
+                    <p>Price</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body round-trip1">
+                                                            <p>Vijayawada
+                            →
+                            Hyderabad
+                            <span>Tue, 31 Jan</span>
+                        </p>
+                                                    <div class="bg-tablle">
+                    <p>Departure</p>
+                    <p>Duration</p>
+                    <p>Arrival</p>
+                    <p>Price</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-2">
+                        <div class="col-md-6">
+                                                                                            <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                    
+                                    <img src="assets/img/AirlinesLogo/6E.png">
+                                    <span>FI.No.6E
+                                        7213,
+                                        <b>IndiGo</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>18:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">0 h 55 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    NON-STOP
+                                                                                            </span><br>
+                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>19:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input checked="" type="radio" name="roundFromTo" class="form-check-input roundFromTo" data-flight_up_id="593" data-fare_on_id="5-9437706153_0HYDVGA6E7213_89007730388161" data-f_on_code="7213" data-f_on_name="IndiGo" data-f_on_depat_time="18:01" data-f_on_arival_time="19:01" data-f_on_price="7,029" data-f_on_logo="assets/img/AirlinesLogo/6E.png" data-onward_price="7028.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                7,029
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                    
+                                    <img src="assets/img/AirlinesLogo/6E.png">
+                                    <span>FI.No.6E
+                                        7283,
+                                        <b>IndiGo</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>20:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">0 h 55 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    NON-STOP
+                                                                                            </span><br>
+                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>20:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundFromTo" class="form-check-input roundFromTo" data-flight_up_id="218" data-fare_on_id="5-9437706153_1HYDVGA6E7283_89007730390171" data-f_on_code="7283" data-f_on_name="IndiGo" data-f_on_depat_time="20:01" data-f_on_arival_time="20:01" data-f_on_price="7,349" data-f_on_logo="assets/img/AirlinesLogo/6E.png" data-onward_price="7348.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                7,349
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                    
+                                    <img src="assets/img/AirlinesLogo/6E.png">
+                                    <span>FI.No.6E
+                                        7211,
+                                        <b>IndiGo</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>10:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">1 h 0 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    NON-STOP
+                                                                                            </span><br>
+                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>11:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundFromTo" class="form-check-input roundFromTo" data-flight_up_id="581" data-fare_on_id="5-9437706153_2HYDVGA6E7211_89007730391164" data-f_on_code="7211" data-f_on_name="IndiGo" data-f_on_depat_time="10:01" data-f_on_arival_time="11:01" data-f_on_price="7,689" data-f_on_logo="assets/img/AirlinesLogo/6E.png" data-onward_price="7688.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                7,689
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                    
+                                    <img src="assets/img/AirlinesLogo/6E.png">
+                                    <span>FI.No.6E
+                                        7143,
+                                        <b>IndiGo</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>14:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">1 h 10 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    NON-STOP
+                                                                                            </span><br>
+                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>15:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundFromTo" class="form-check-input roundFromTo" data-flight_up_id="383" data-fare_on_id="5-9437706153_3HYDVGA6E7143_89007730392050" data-f_on_code="7143" data-f_on_name="IndiGo" data-f_on_depat_time="14:01" data-f_on_arival_time="15:01" data-f_on_price="7,689" data-f_on_logo="assets/img/AirlinesLogo/6E.png" data-onward_price="7688.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                7,689
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                    
+                                    <img src="assets/img/AirlinesLogo/6E.png">
+                                    <span>FI.No.6E
+                                        7201,
+                                        <b>IndiGo</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>06:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">1 h 20 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    NON-STOP
+                                                                                            </span><br>
+                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>07:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundFromTo" class="form-check-input roundFromTo" data-flight_up_id="677" data-fare_on_id="5-9437706153_4HYDVGA6E7201_89007730392740" data-f_on_code="7201" data-f_on_name="IndiGo" data-f_on_depat_time="06:01" data-f_on_arival_time="07:01" data-f_on_price="10,682" data-f_on_logo="assets/img/AirlinesLogo/6E.png" data-onward_price="10681.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                10,682
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                    
+                                    <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        840,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>20:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">12 h 0 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    1 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 7 h 0 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>08:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundFromTo" class="form-check-input roundFromTo" data-flight_up_id="441" data-fare_on_id="15-2-10-9437706153_0HYDDELAI840DELVGAAI459_88994579321606" data-f_on_code="840" data-f_on_name="Air India" data-f_on_depat_time="20:01" data-f_on_arival_time="08:01" data-f_on_price="13,624" data-f_on_logo="assets/img/AirlinesLogo/AI.png" data-onward_price="13623.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                13,624
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                    
+                                    <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        840,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>20:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">23 h 50 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    1 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 18 h 45 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>20:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundFromTo" class="form-check-input roundFromTo" data-flight_up_id="342" data-fare_on_id="15-2-10-9437706153_1HYDDELAI840DELVGAAI467_88994579329713" data-f_on_code="840" data-f_on_name="Air India" data-f_on_depat_time="20:01" data-f_on_arival_time="20:01" data-f_on_price="16,280" data-f_on_logo="assets/img/AirlinesLogo/AI.png" data-onward_price="16279.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                16,280
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                    
+                                    <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        616,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>08:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">21 h 55 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 8 h 5 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 9 h 40 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>08:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundFromTo" class="form-check-input roundFromTo" data-flight_up_id="805" data-fare_on_id="15-2-10-9437706153_2HYDBOMAI616BOMDELAI660DELVGAAI459_88994579333233" data-f_on_code="616" data-f_on_name="Air India" data-f_on_depat_time="08:01" data-f_on_arival_time="08:01" data-f_on_price="20,621" data-f_on_logo="assets/img/AirlinesLogo/AI.png" data-onward_price="20620.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                20,621
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                    
+                                    <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        616,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>08:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">22 h 10 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 6 h 40 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 11 h 20 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>08:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundFromTo" class="form-check-input roundFromTo" data-flight_up_id="457" data-fare_on_id="15-2-10-9437706153_3HYDBOMAI616BOMDELAI687DELVGAAI459_88994579346837" data-f_on_code="616" data-f_on_name="Air India" data-f_on_depat_time="08:01" data-f_on_arival_time="08:01" data-f_on_price="20,621" data-f_on_logo="assets/img/AirlinesLogo/AI.png" data-onward_price="20620.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                20,621
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                    
+                                    <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        616,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>08:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">22 h 25 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 11 h 10 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 7 h 5 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>08:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundFromTo" class="form-check-input roundFromTo" data-flight_up_id="572" data-fare_on_id="15-2-10-9437706153_4HYDBOMAI616BOMDELAI816DELVGAAI459_88994579356445" data-f_on_code="616" data-f_on_name="Air India" data-f_on_depat_time="08:01" data-f_on_arival_time="08:01" data-f_on_price="20,621" data-f_on_logo="assets/img/AirlinesLogo/AI.png" data-onward_price="20620.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                20,621
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                    
+                                    <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        616,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>08:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">21 h 55 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 9 h 5 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 8 h 40 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>08:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundFromTo" class="form-check-input roundFromTo" data-flight_up_id="592" data-fare_on_id="15-2-10-9437706153_5HYDBOMAI616BOMDELAI888DELVGAAI459_88994579365701" data-f_on_code="616" data-f_on_name="Air India" data-f_on_depat_time="08:01" data-f_on_arival_time="08:01" data-f_on_price="20,621" data-f_on_logo="assets/img/AirlinesLogo/AI.png" data-onward_price="20620.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                20,621
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                    
+                                    <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        616,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>08:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">21 h 50 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 5 h 35 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 12 h 5 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>08:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundFromTo" class="form-check-input roundFromTo" data-flight_up_id="681" data-fare_on_id="15-2-10-9437706153_6HYDBOMAI616BOMDELAI442DELVGAAI459_88994579376220" data-f_on_code="616" data-f_on_name="Air India" data-f_on_depat_time="08:01" data-f_on_arival_time="08:01" data-f_on_price="21,256" data-f_on_logo="assets/img/AirlinesLogo/AI.png" data-onward_price="21255.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                21,256
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                    
+                                    <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        616,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>08:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">33 h 50 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 22 h 5 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 7 h 30 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>20:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundFromTo" class="form-check-input roundFromTo" data-flight_up_id="756" data-fare_on_id="15-2-10-9437706153_7HYDBOMAI616BOMDELAI806DELVGAAI467_88994579379707" data-f_on_code="616" data-f_on_name="Air India" data-f_on_depat_time="08:01" data-f_on_arival_time="20:01" data-f_on_price="22,018" data-f_on_logo="assets/img/AirlinesLogo/AI.png" data-onward_price="22017.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                22,018
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                    
+                                    <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        616,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>08:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">33 h 50 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 21 h 5 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 8 h 30 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>20:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundFromTo" class="form-check-input roundFromTo" data-flight_up_id="488" data-fare_on_id="15-2-10-9437706153_8HYDBOMAI616BOMDELAI864DELVGAAI467_88994579390070" data-f_on_code="616" data-f_on_name="Air India" data-f_on_depat_time="08:01" data-f_on_arival_time="20:01" data-f_on_price="22,018" data-f_on_logo="assets/img/AirlinesLogo/AI.png" data-onward_price="22017.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                22,018
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                    
+                                    <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        616,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>08:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">33 h 45 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 23 h 5 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 6 h 25 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>20:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundFromTo" class="form-check-input roundFromTo" data-flight_up_id="839" data-fare_on_id="15-2-10-9437706153_9HYDBOMAI616BOMDELAI866DELVGAAI467_88994579399539" data-f_on_code="616" data-f_on_name="Air India" data-f_on_depat_time="08:01" data-f_on_arival_time="20:01" data-f_on_price="22,018" data-f_on_logo="assets/img/AirlinesLogo/AI.png" data-onward_price="22017.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                22,018
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                    
+                                    <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        616,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>08:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">9 h 50 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 3 h 5 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 2 h 30 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>20:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundFromTo" class="form-check-input roundFromTo" data-flight_up_id="473" data-fare_on_id="15-2-10-9437706153_10HYDBOMAI616BOMDELAI677DELVGAAI467_88994579409098" data-f_on_code="616" data-f_on_name="Air India" data-f_on_depat_time="08:01" data-f_on_arival_time="20:01" data-f_on_price="40,388" data-f_on_logo="assets/img/AirlinesLogo/AI.png" data-onward_price="40387.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                40,388
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                    
+                                    <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        515,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>10:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">7 h 25 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Bengaluru | 1 h 40 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Bengaluru
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 1 h 50 m Layover" data-bs-original-title="" title="">
+
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>20:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundFromTo" class="form-check-input roundFromTo" data-flight_up_id="153" data-fare_on_id="15-2-10-9437706153_11HYDBLRAI515BLRDELAI501DELVGAAI467_88994579419527" data-f_on_code="515" data-f_on_name="Air India" data-f_on_depat_time="10:01" data-f_on_arival_time="20:01" data-f_on_price="45,922" data-f_on_logo="assets/img/AirlinesLogo/AI.png" data-onward_price="45921.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                45,922
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                </div>
+
+            <div class="col-md-6">
+                                                                                            <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/6E.png">
+                                    <span>FI.No.6E
+                                        7284,
+                                        <b>IndiGo</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>21:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">1 h 25 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    NON-STOP
+                                                                                            </span><br>
+                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>22:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input checked="" type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="501" data-fare_re_id="5-9437706153_0VGAHYD6E7284_89007730143596" data-f_re_code="7284" data-f_re_name="IndiGo" data-f_re_depat_time="21:01" data-f_re_arival_time="22:01" data-f_re_price="4,736" data-f_re_logo="assets/img/AirlinesLogo/6E.png" data-return_price="4735.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                4,736
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/6E.png">
+                                    <span>FI.No.6E
+                                        7209,
+                                        <b>IndiGo</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>07:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">1 h 10 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    NON-STOP
+                                                                                            </span><br>
+                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>09:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="975" data-fare_re_id="5-9437706153_1VGAHYD6E7209_89007730146599" data-f_re_code="7209" data-f_re_name="IndiGo" data-f_re_depat_time="07:01" data-f_re_arival_time="09:01" data-f_re_price="6,243" data-f_re_logo="assets/img/AirlinesLogo/6E.png" data-return_price="6242.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                6,243
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/6E.png">
+                                    <span>FI.No.6E
+                                        7214,
+                                        <b>IndiGo</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>19:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">1 h 15 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    NON-STOP
+                                                                                            </span><br>
+                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>21:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="785" data-fare_re_id="5-9437706153_2VGAHYD6E7214_89007730148396" data-f_re_code="7214" data-f_re_name="IndiGo" data-f_re_depat_time="19:01" data-f_re_arival_time="21:01" data-f_re_price="6,547" data-f_re_logo="assets/img/AirlinesLogo/6E.png" data-return_price="6546.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                6,547
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/6E.png">
+                                    <span>FI.No.6E
+                                        7297,
+                                        <b>IndiGo</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>18:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">1 h 10 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    NON-STOP
+                                                                                            </span><br>
+                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>19:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="916" data-fare_re_id="5-9437706153_3VGAHYD6E7297_89007730149701" data-f_re_code="7297" data-f_re_name="IndiGo" data-f_re_depat_time="18:01" data-f_re_arival_time="19:01" data-f_re_price="7,953" data-f_re_logo="assets/img/AirlinesLogo/6E.png" data-return_price="7952.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                7,953
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/6E.png">
+                                    <span>FI.No.6E
+                                        7206,
+                                        <b>IndiGo</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>12:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">1 h 10 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    NON-STOP
+                                                                                            </span><br>
+                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>13:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="183" data-fare_re_id="5-9437706153_4VGAHYD6E7206_89007730150866" data-f_re_code="7206" data-f_re_name="IndiGo" data-f_re_depat_time="12:01" data-f_re_arival_time="13:01" data-f_re_price="8,786" data-f_re_logo="assets/img/AirlinesLogo/6E.png" data-return_price="8785.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                8,786
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        460,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>09:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">24 h 5 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    1 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 19 h 35 m Layover" data-bs-original-title="" title="">
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>09:02</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="426" data-fare_re_id="15-2-10-9437706153_0VGADELAI460DELHYDAI560_88994578987505" data-f_re_code="460" data-f_re_name="Air India" data-f_re_depat_time="09:01" data-f_re_arival_time="09:02" data-f_re_price="10,334" data-f_re_logo="assets/img/AirlinesLogo/AI.png" data-return_price="10333.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                10,334
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        460,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>09:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">9 h 45 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    1 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 5 h 15 m Layover" data-bs-original-title="" title="">
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>19:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="817" data-fare_re_id="15-2-10-9437706153_1VGADELAI460DELHYDAI544_88994578994931" data-f_re_code="460" data-f_re_name="Air India" data-f_re_depat_time="09:01" data-f_re_arival_time="19:01" data-f_re_price="11,098" data-f_re_logo="assets/img/AirlinesLogo/AI.png" data-return_price="11097.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                11,098
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        460,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>09:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">8 h 40 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 2 h 25 m Layover" data-bs-original-title="" title="">
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 3 h 50 m Layover" data-bs-original-title="" title="">
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>21:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="795" data-fare_re_id="15-2-10-9437706153_2VGADELAI460DELBOMAI863BOMHYDAI619_88994579003760" data-f_re_code="460" data-f_re_name="Air India" data-f_re_depat_time="09:01" data-f_re_arival_time="21:01" data-f_re_price="12,041" data-f_re_logo="assets/img/AirlinesLogo/AI.png" data-return_price="12040.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                12,041
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        460,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>09:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">16 h 15 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 6 h 15 m Layover" data-bs-original-title="" title="">
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 9 h 45 m Layover" data-bs-original-title="" title="">
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>07:02</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="944" data-fare_re_id="15-2-10-9437706153_3VGADELAI460DELBOMAI441BOMHYDAI615_88994579013040" data-f_re_code="460" data-f_re_name="Air India" data-f_re_depat_time="09:01" data-f_re_arival_time="07:02" data-f_re_price="12,041" data-f_re_logo="assets/img/AirlinesLogo/AI.png" data-return_price="12040.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                12,041
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        460,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>09:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">23 h 15 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 9 h 45 m Layover" data-bs-original-title="" title="">
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 6 h 25 m Layover" data-bs-original-title="" title="">
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>07:02</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="39" data-fare_re_id="15-2-10-9437706153_4VGADELAI460DELBOMAI605BOMHYDAI615_88994579016486" data-f_re_code="460" data-f_re_name="Air India" data-f_re_depat_time="09:01" data-f_re_arival_time="07:02" data-f_re_price="12,041" data-f_re_logo="assets/img/AirlinesLogo/AI.png" data-return_price="12040.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                12,041
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        460,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>09:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">18 h 35 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 7 h 25 m Layover" data-bs-original-title="" title="">
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 8 h 35 m Layover" data-bs-original-title="" title="">
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>07:02</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="520" data-fare_re_id="15-2-10-9437706153_5VGADELAI460DELBOMAI624BOMHYDAI615_88994579022213" data-f_re_code="460" data-f_re_name="Air India" data-f_re_depat_time="09:01" data-f_re_arival_time="07:02" data-f_re_price="12,041" data-f_re_logo="assets/img/AirlinesLogo/AI.png" data-return_price="12040.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                12,041
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        460,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>09:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">20 h 35 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 8 h 25 m Layover" data-bs-original-title="" title="">
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 7 h 50 m Layover" data-bs-original-title="" title="">
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>07:02</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="754" data-fare_re_id="15-2-10-9437706153_6VGADELAI460DELBOMAI805BOMHYDAI615_88994579025791" data-f_re_code="460" data-f_re_name="Air India" data-f_re_depat_time="09:01" data-f_re_arival_time="07:02" data-f_re_price="12,041" data-f_re_logo="assets/img/AirlinesLogo/AI.png" data-return_price="12040.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                12,041
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        460,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>09:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">8 h 35 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 2 h 25 m Layover" data-bs-original-title="" title="">
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 13 h 40 m Layover" data-bs-original-title="" title="">
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>07:02</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="234" data-fare_re_id="15-2-10-9437706153_7VGADELAI460DELBOMAI863BOMHYDAI615_88994579028983" data-f_re_code="460" data-f_re_name="Air India" data-f_re_depat_time="09:01" data-f_re_arival_time="07:02" data-f_re_price="12,041" data-f_re_logo="assets/img/AirlinesLogo/AI.png" data-return_price="12040.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                12,041
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        460,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>09:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">25 h 35 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 10 h 55 m Layover" data-bs-original-title="" title="">
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 5 h 15 m Layover" data-bs-original-title="" title="">
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>07:02</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="536" data-fare_re_id="15-2-10-9437706153_8VGADELAI460DELBOMAI814BOMHYDAI615_88994579032437" data-f_re_code="460" data-f_re_name="Air India" data-f_re_depat_time="09:01" data-f_re_arival_time="07:02" data-f_re_price="12,041" data-f_re_logo="assets/img/AirlinesLogo/AI.png" data-return_price="12040.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                12,041
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        460,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>09:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">12 h 35 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    3 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 2 h 55 m Layover" data-bs-original-title="" title="">
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Indore | 0 h 30 m Layover" data-bs-original-title="" title="">
+
+                                                    via Indore
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 1 h 55 m Layover" data-bs-original-title="" title="">
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>21:01</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="191" data-fare_re_id="15-2-10-9437706153_9VGADELAI460DELIDRAI636IDRBOMAI636BOMHYDAI619_88994579036080" data-f_re_code="460" data-f_re_name="Air India" data-f_re_depat_time="09:01" data-f_re_arival_time="21:01" data-f_re_price="12,676" data-f_re_logo="assets/img/AirlinesLogo/AI.png" data-return_price="12675.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                12,676
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        460,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>09:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">12 h 30 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    3 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 2 h 55 m Layover" data-bs-original-title="" title="">
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Indore | 0 h 30 m Layover" data-bs-original-title="" title="">
+
+                                                    via Indore
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 11 h 45 m Layover" data-bs-original-title="" title="">
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>07:02</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="608" data-fare_re_id="15-2-10-9437706153_10VGADELAI460DELIDRAI636IDRBOMAI636BOMHYDAI615_88994579047510" data-f_re_code="460" data-f_re_name="Air India" data-f_re_depat_time="09:01" data-f_re_arival_time="07:02" data-f_re_price="12,676" data-f_re_logo="assets/img/AirlinesLogo/AI.png" data-return_price="12675.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                12,676
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        468,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>21:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">18 h 55 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 7 h 30 m Layover" data-bs-original-title="" title="">
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 1 h 45 m Layover" data-bs-original-title="" title="">
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>12:02</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="56" data-fare_re_id="15-2-10-9437706153_11VGADELAI468DELBOMAI887BOMHYDAI617_88994579053024" data-f_re_code="468" data-f_re_name="Air India" data-f_re_depat_time="21:01" data-f_re_arival_time="12:02" data-f_re_price="14,698" data-f_re_logo="assets/img/AirlinesLogo/AI.png" data-return_price="14697.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                14,698
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        468,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>21:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">33 h 0 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 14 h 30 m Layover" data-bs-original-title="" title="">
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 3 h 50 m Layover" data-bs-original-title="" title="">
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>21:02</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="989" data-fare_re_id="15-2-10-9437706153_12VGADELAI468DELBOMAI863BOMHYDAI619_88994579061738" data-f_re_code="468" data-f_re_name="Air India" data-f_re_depat_time="21:01" data-f_re_arival_time="21:02" data-f_re_price="14,698" data-f_re_logo="assets/img/AirlinesLogo/AI.png" data-return_price="14697.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                14,698
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        468,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>21:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">21 h 0 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 8 h 30 m Layover" data-bs-original-title="" title="">
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 9 h 50 m Layover" data-bs-original-title="" title="">
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>21:02</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="674" data-fare_re_id="15-2-10-9437706153_13VGADELAI468DELBOMAI665BOMHYDAI619_88994579069344" data-f_re_code="468" data-f_re_name="Air India" data-f_re_depat_time="21:01" data-f_re_arival_time="21:02" data-f_re_price="14,698" data-f_re_logo="assets/img/AirlinesLogo/AI.png" data-return_price="14697.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                14,698
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        468,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>21:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">23 h 0 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 9 h 30 m Layover" data-bs-original-title="" title="">
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 8 h 50 m Layover" data-bs-original-title="" title="">
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>21:02</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="859" data-fare_re_id="15-2-10-9437706153_14VGADELAI468DELBOMAI678BOMHYDAI619_88994579072561" data-f_re_code="468" data-f_re_name="Air India" data-f_re_depat_time="21:01" data-f_re_arival_time="21:02" data-f_re_price="14,698" data-f_re_logo="assets/img/AirlinesLogo/AI.png" data-return_price="14697.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                14,698
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        468,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>21:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">25 h 0 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 10 h 30 m Layover" data-bs-original-title="" title="">
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 7 h 45 m Layover" data-bs-original-title="" title="">
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>21:02</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="650" data-fare_re_id="15-2-10-9437706153_15VGADELAI468DELBOMAI865BOMHYDAI619_88994579075326" data-f_re_code="468" data-f_re_name="Air India" data-f_re_depat_time="21:01" data-f_re_arival_time="21:02" data-f_re_price="14,698" data-f_re_logo="assets/img/AirlinesLogo/AI.png" data-return_price="14697.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                14,698
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        468,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>21:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">19 h 0 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 7 h 30 m Layover" data-bs-original-title="" title="">
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 10 h 55 m Layover" data-bs-original-title="" title="">
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>21:02</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="926" data-fare_re_id="15-2-10-9437706153_16VGADELAI468DELBOMAI887BOMHYDAI619_88994579078805" data-f_re_code="468" data-f_re_name="Air India" data-f_re_depat_time="21:01" data-f_re_arival_time="21:02" data-f_re_price="14,698" data-f_re_logo="assets/img/AirlinesLogo/AI.png" data-return_price="14697.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                14,698
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        468,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>21:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">49 h 0 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    3 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 15 h 0 m Layover" data-bs-original-title="" title="">
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Indore | 0 h 30 m Layover" data-bs-original-title="" title="">
+
+                                                    via Indore
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Mumbai | 1 h 55 m Layover" data-bs-original-title="" title="">
+
+                                                    via Mumbai
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>21:02</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="745" data-fare_re_id="15-2-10-9437706153_17VGADELAI468DELIDRAI636IDRBOMAI636BOMHYDAI619_88994579082596" data-f_re_code="468" data-f_re_name="Air India" data-f_re_depat_time="21:01" data-f_re_arival_time="21:02" data-f_re_price="14,698" data-f_re_logo="assets/img/AirlinesLogo/AI.png" data-return_price="14697.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                14,698
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                                                                <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body round-trip1 shadow">
+                                                                        <img src="assets/img/AirlinesLogo/AI.png">
+                                    <span>FI.No.AI
+                                        468,
+                                        <b>Air India</b></span>
+                                    <div class="row pt-3">
+                                        <div class="col-md-3 departture">
+                                            <span>21:01</span>
+                                            <span>Vijayawada</span>
+                                        </div>
+                                        <div class="col-md-3 departture time-gap">
+                                            
+                                            <span class="">19 h 25 m
+                                            </span><br>
+                                            <div class="clearfix"> </div>
+                                            <span>
+                                                                                                    2 Stop
+                                                                                            </span><br>
+                                                                                                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Delhi | 7 h 20 m Layover" data-bs-original-title="" title="">
+
+                                                    via Delhi
+                                                </span><br>
+                                                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  Kolkata | 9 h 55 m Layover" data-bs-original-title="" title="">
+
+                                                    via Kolkata
+                                                </span><br>
+                                                                                                                                    </div>
+                                        <div class="col-md-3 departture">
+                                            <span>21:02</span>
+                                            <span>Hyderabad</span>
+                                        </div>
+                                        <div class="col-md-3 departture text-center">
+                                            <input type="radio" name="roundToFrom" class="form-check-input roundToFrom" value="" data-flight_down_id="986" data-fare_re_id="15-2-10-9437706153_18VGADELAI468DELCCUAI401CCUHYDAI526_88994579086140" data-f_re_code="468" data-f_re_name="Air India" data-f_re_depat_time="21:01" data-f_re_arival_time="21:02" data-f_re_price="27,511" data-f_re_logo="assets/img/AirlinesLogo/AI.png" data-return_price="27510.7">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                27,511
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                </div>
+            </div>
+                                    
+                                    
+                                                                                               
+                                
+                                
+                            
+
+
+                </div>
+            </div>
+
+
+
+            <!-- pricedetails -->
+                                                
+
+                    <div class="row pricedetails-btm pricedetails-btm-full" style="position: static; bottom: 0px; right: 0px; width: 100%;">
+                        <div class="col-md-8">
+                            <div class="row">
+
+
+                                
+                                <div class="col-md-6 btm-price">
+                                    <p id="f_on_name">Departure ・ IndiGo</p>
+                                    <div class="row align-items-center">
+                                        <div class="col-md-2 p-0">
+                                                                                        <img id="f_on_logo" src="assets/img/AirlinesLogo/6E.png" class="img-fluid">
+                                        </div>
+                                        <div class="col-md-5 btm-flights-price">
+                                            <p id="f_on_a_d_time">18:01 →
+                                                19:01</p>
+                                            
+                                        </div>
+                                        <div class="col-md-5 p-0">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                <span id="f_on_price">7,029</span>
+
+                                                <input type="hidden" name="ontripPrice" id="ontripPrice" value="7028.7">
+
+                                                <input type="hidden" name="upFarePrice" id="upFarePrice" value="593">
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+
+                                
+                                <div class="col-md-6 btm-price">
+                                    <p id="f_re_name">Return ・ IndiGo</p>
+                                    <div class="row align-items-center">
+                                        <div class="col-md-2 p-0">
+                                                                                        <img id="f_re_logo" src="assets/img/AirlinesLogo/6E.png" class="img-fluid">
+                                        </div>
+                                        <div class="col-md-5 btm-flights-price">
+                                            <p id="f_re_a_d_time">21:01
+                                                → 22:01</p>
+                                            
+                                        </div>
+                                        <div class="col-md-5 p-0">
+                                            <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                                <span id="f_re_price">4,736</span>
+                                            </p>
+
+
+                                            <input type="hidden" name="retripPrice" id="retripPrice" value="4735.7">
+
+                                            <input type="hidden" name="downFarePrice" id="downFarePrice" value="501">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4 btm-fligh-price">
+                            <div class="row justify-content-between align-items-center">
+                                <div class="col-md-8">
+                                    <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
+                                        <span id="total_fare">11,765</span>
+                                    </p>
+                                    
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="#" id="ViewPrice" onclick="getFareRules(593); getDownFareRules(501); viewPriceBook(501)" data-return_id="501" data-bs-toggle="modal" data-bs-target="#ViewPrice593"><button class="btn btn-primary">Book</button></a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                            
+
+        </div>
+        </div>
+        </div>

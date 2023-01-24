@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>:: MakeMyFly - Admin Dashboard ::</title>
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="../assets/img/favicon.png" rel="icon">
+    <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="../assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/vendor/css/all.min.css">
+
+
+    <!-- Template Main CSS File -->
+    <!--  <link href="../assets/css/style.css" rel="stylesheet">-->
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
+    <link href="../dashboard/css/dashboard.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+
+    <nav class="navbar fixed-top navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html"><img src="../assets/img/MMF.png"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <!--
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#"><small>Hi User</small><br><b>MMF00123</b></a>
+                    </li>
+-->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><small>Left Balance</small><br><b>5,00,000</b></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><small>Due Balance</small><br><b>2,00,000</b></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div><small>Hi User</small><br><b>MMF00123</b></div>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="leftpart">
+        <ul class="main-menu">
+            <li><a href=""><i class="fas fa-search"></i> Search for Flight</a></li>
+            <li><a href="bookings.html" class="active"><i class="fas fa-calendar"></i> Bookings</a></li>
+            <li><a href="finance.html"><i class="fas fa-money-bill"></i> Finance</a></li>
+            <li><a href="reports.html"><i class="fas fa-chart-pie"></i> Reports</a></li>
+            <li><a href="number-of-users.html"><i class="fas fa-users"></i> Number of Users</a></li>
+            <li><a href="credit-limit.html"><i class="fas fa-credit-card"></i> Credit Limit</a></li>
+            <li><a href="balance-with-users.html"><i class="fas fa-user-check"></i> Balance with Users</a></li>
+            <li><a href="create-users.html"><i class="fas fa-user-plus"></i> Create Users</a></li>
+            <li><a href="manage-users.html"><i class="fas fa-user-cog"></i> Manage Users</a></li>
+            <li><a href="payment-summery.html"><i class="fas fa-wallet"></i> Payment Summery</a></li>
+        </ul>
+    </div>
+    <div class="rightpart">
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <h4 style="font-weight: 700">Bookings History</h4>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="bg-warning d-flex justify-content-between align-items-center p-4 radius-3">
+                    <div class="text-white">
+                        <p class="mb-2">Daily</p>
+                        <h2><b>02</b></h2>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-calendar-alt text-warning"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="bg-danger d-flex justify-content-between align-items-center p-4 radius-3">
+                    <div class="text-white">
+                        <p class="mb-2">Weekly</p>
+                        <h2><b>15</b></h2>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-calendar-alt text-danger"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="bg-info d-flex justify-content-between align-items-center p-4 radius-3">
+                    <div class="text-white">
+                        <p class="mb-2">Monthly</p>
+                        <h2><b>50</b></h2>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-calendar-alt text-info"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="bg-success d-flex justify-content-between align-items-center p-4 radius-3">
+                    <div class="text-white">
+                        <p class="mb-2">All</p>
+                        <h2><b>1000</b></h2>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-calendar-alt text-success"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix mb-3"></div>
+
+            <div class="col-md-12">
+                <table class="table table-bordered table-striped bg-white">
+                    <thead>
+                        <tr>
+                            <th>S. No.</th>
+                            <th>Booking ID</th>
+                            <th>Sector</th>
+                            <th>No. Of Passengers</th>
+                            <th>Airlines</th>
+                            <th>Amount</th>
+                            <th>Aborted</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>MMF000001</td>
+                            <td>Hyderabad to Mumbai</td>
+                            <td>02</td>
+                            <td>Air India</td>
+                            <td>25,000</td>
+                            <td><small class="bg-success text-white plr-2 radius-3">Success</small></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>MMF000002</td>
+                            <td>Hyderabad to Banglore</td>
+                            <td>03</td>
+                            <td>Fly Dubai</td>
+                            <td>18,000</td>
+                            <td><small class="bg-warning text-white plr-2 radius-3">Cancel</small></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>MMF000003</td>
+                            <td>Hyderabad to Vishakapatnam</td>
+                            <td>01</td>
+                            <td>Indigo</td>
+                            <td>35,000</td>
+                            <td><small class="bg-danger text-white plr-2 radius-3">Terminated</small></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <footer>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <small>© 2022 All Rights Reserved by Makemyfly.com</small>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+
+
+    <!-- Vendor JS Files -->
+    <script src="../assets/vendor/purecounter/purecounter.js"></script>
+    <script src="../assets/vendor/aos/aos.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="../assets/vendor/php-email-form/validate.js"></script>
+
+
+    <script src="../assets/js/main.js"></script>
+
+
+
+    <!--  report bar data files  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.7.1/nv.d3.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.3.13/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.7.1/nv.d3.js"></script>
+
+    <script>
+        // Age Discrete Bar Chart
+        nv.addGraph(function() {
+            var chart = nv.models.discreteBarChart()
+                .x(function(d) {
+                    return d.label
+                }) //Specify the data accessors.
+                .y(function(d) {
+                    return d.value
+                })
+                .staggerLabels(false) // This automatically
+                .tooltips(true) //Don't show tooltips
+                .showValues(false) //...instead, show the bar value right on top of each bar.
+                .color(['#193c67', '#1ba1dc', '#b74424', '#fc6a22', '#81ae7e', '#ec413e', '#f39388', '#736964', '#951c58', '#0e6bb3', '#fc6a22', '#221f57', '#a49d9b', '#f8dc46', '#337355', '#d01925', '#fecb88']);
+
+            d3.select('#ageChart svg')
+                .datum(ageData())
+                .call(chart);
+
+            nv.utils.windowResize(chart.update);
+
+            return chart;
+        });
+
+        // Income Discrete Bar Chart
+        nv.addGraph(function() {
+            var chart = nv.models.discreteBarChart()
+                .x(function(d) {
+                    return d.label
+                }) //Specify the data accessors.
+                .y(function(d) {
+                    return d.value
+                })
+                .staggerLabels(false) // This automatically
+                .tooltips(true) //Don't show tooltips
+                .showValues(false) //...instead, show the bar value right on top of each bar.
+                .color(['#193c67', '#1ba1dc', '#b74424', '#fc6a22', '#81ae7e', '#ec413e', '#f39388', '#736964', '#951c58', '#0e6bb3', '#fc6a22', '#221f57', '#a49d9b', '#f8dc46', '#337355', '#d01925', '#fecb88']);
+
+            d3.select('#incomeChart svg')
+                .datum(incomeData())
+                .call(chart);
+
+            nv.utils.windowResize(chart.update);
+
+            return chart;
+        });
+
+        // Education Discrete Bar Chart
+        nv.addGraph(function() {
+            var chart = nv.models.discreteBarChart()
+                .x(function(d) {
+                    return d.label
+                }) //Specify the data accessors.
+                .y(function(d) {
+                    return d.value
+                })
+                .staggerLabels(false) // This automatically
+                .tooltips(true) //Don't show tooltips
+                .showValues(false) //...instead, show the bar value right on top of each bar.
+                .color(['#193c67', '#1ba1dc', '#b74424', '#fc6a22', '#81ae7e', '#ec413e', '#f39388', '#736964', '#951c58', '#0e6bb3', '#fc6a22', '#221f57', '#a49d9b', '#f8dc46', '#337355', '#d01925', '#fecb88']);
+
+            d3.select('#educationChart svg')
+                .datum(educationData())
+                .call(chart);
+
+            nv.utils.windowResize(chart.update);
+
+            return chart;
+        });
+
+
+        //Each bar represents a single discrete quantity.
+        function ageData() {
+            return [{
+                key: "Age",
+                values: [{
+                        "label": "0-5",
+                        "value": 10
+                    },
+                    {
+                        "label": "5-10",
+                        "value": 5
+                    },
+                    {
+                        "label": "10-15",
+                        "value": 3
+                    },
+                    {
+                        "label": "15-20",
+                        "value": 4
+                    },
+                    {
+                        "label": "20-25",
+                        "value": 6
+                    },
+                    {
+                        "label": "25-30",
+                        "value": 8
+                    },
+                    {
+                        "label": "30-35",
+                        "value": 4
+                    },
+                    {
+                        "label": "35-40",
+                        "value": 9
+                    },
+                    {
+                        "label": "40-45",
+                        "value": 5
+                    },
+                    {
+                        "label": "45-50",
+                        "value": 3
+                    },
+                    {
+                        "label": "50-55",
+                        "value": 4
+                    },
+                    {
+                        "label": "55-60",
+                        "value": 7
+                    },
+                    {
+                        "label": "60-65",
+                        "value": 9
+                    },
+                    {
+                        "label": "65-70",
+                        "value": 5
+                    },
+                    {
+                        "label": "70-75",
+                        "value": 7
+                    },
+                    {
+                        "label": "75-80",
+                        "value": 9
+                    },
+                    {
+                        "label": "80+",
+                        "value": 5
+                    }
+                ]
+            }]
+        }
+
+        function incomeData() {
+            return [{
+                key: "Income",
+                values: [{
+                        "label": "0-10",
+                        "value": 10
+                    },
+                    {
+                        "label": "10-15",
+                        "value": 5
+                    },
+                    {
+                        "label": "15-20",
+                        "value": 3
+                    },
+                    {
+                        "label": "20-25",
+                        "value": 4
+                    },
+                    {
+                        "label": "25-30",
+                        "value": 6
+                    },
+                    {
+                        "label": "30-35",
+                        "value": 8
+                    },
+                    {
+                        "label": "35-40",
+                        "value": 4
+                    },
+                    {
+                        "label": "40-45",
+                        "value": 9
+                    },
+                    {
+                        "label": "45-50",
+                        "value": 5
+                    },
+                    {
+                        "label": "50-60",
+                        "value": 3
+                    },
+                    {
+                        "label": "60-75",
+                        "value": 4
+                    },
+                    {
+                        "label": "75-100",
+                        "value": 7
+                    },
+                    {
+                        "label": "100-125",
+                        "value": 9
+                    },
+                    {
+                        "label": "125-150",
+                        "value": 5
+                    },
+                    {
+                        "label": "150-200",
+                        "value": 7
+                    },
+                    {
+                        "label": "200+",
+                        "value": 9
+                    }
+                ]
+            }]
+        }
+
+        function educationData() {
+            return [{
+                key: "Education",
+                values: [{
+                        "label": "None",
+                        "value": 10
+                    },
+                    {
+                        "label": "No High School",
+                        "value": 5
+                    },
+                    {
+                        "label": "Some High School",
+                        "value": 3
+                    },
+                    {
+                        "label": "High School",
+                        "value": 4
+                    },
+                    {
+                        "label": "Some College",
+                        "value": 6
+                    },
+                    {
+                        "label": "Associate",
+                        "value": 8
+                    },
+                    {
+                        "label": "Bachelor",
+                        "value": 4
+                    },
+                    {
+                        "label": "Master",
+                        "value": 9
+                    },
+                    {
+                        "label": "PHD",
+                        "value": 5
+                    }
+                ]
+            }]
+        }
+
+    </script>
+
+    <!--  report bar data files  end -->
+
+</body>
+
+</html>

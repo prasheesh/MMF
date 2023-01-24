@@ -655,129 +655,11 @@
                                 <div class="tab-content" id="nav-tabContent">
                                     @if ($result_array->status->success == true && $result_array->status->httpStatus == 200)
                                         @if (isset($result_array->searchResult->tripInfos))
-                                            @foreach ($result_array->searchResult->tripInfos as $key => $tis)
-                                                <div class="tab-pane fade show <?php echo $key==0?'active':''; ?>" id="ShowFlightDetails{{ $key }}"
-                                                    role="tabpanel" aria-labelledby="nav-home-tab{{ $key }}">
-                                                    <div class="card mt-3 mb-3">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <table class="table mt-3 mb-3">
-                                                                    <thead class="bg-thead">
-                                                                        <tr>
-                                                                            <th>Sorted By: </th>
-                                                                            <th>Departure</th>
-                                                                            <th>Duration</th>
-                                                                            <th>Arrival</th>
-                                                                            <th>Price</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    @foreach ($tis as $tisKey => $tisI)
-                                                                    <?php $cnt_stops = count($tisI->sI); ?>
-                                                                        @foreach ($tisI->sI as $k => $v)
-                                                                            <tbody class="bg-tbody">
-                                                                                <tr>
-                                                                                    <td style="width:25%">
-                                                                                        <div>
-                                                                                            <div class="row">
-                                                                                                @php
-                                                                                                    $flight_code = $v->fD->aI->code;
-                                                                                                    $flight_logo = 'assets/img/AirlinesLogo/' . $flight_code . '.png';
-                                                                                                @endphp
-                                                                                                <div class="col-md-4">
-                                                                                                    <img src="{{ $flight_logo }}">
-                                                                                                </div>
-                                                                                                <div class="col-md-8">
-                                                                                                    <p class="flight-number">
-                                                                                                        FI.No.{{ $v->fD->fN }}</p>
-                                                                                                    <p class="flight-brand">
-                                                                                                        {{ $v->fD->aI->name }}</p>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </td>
-                                                                                    <td style="width:15%">
-                                                                                        <div>
-                                                                                            <p class="flight-number">
-                                                                                                {{ $v->da->city }}</p>
-                                                                                            <p class="flight-brand">
-                                                                                                {{ date('H:i', strtotime($v->dt)) }}
-                                                                                            </p>
-                                                                                        </div>
-                                                                                    </td>
-                                                                                    <td style="width:25%">
-                                                                                        <div>
-                                                                                            <?php
-                                                                                            if($cnt_stops !=1){
-                                                                                            $connect_time = 0;
-                                                                            for($i=0;$i<$cnt_stops-1;$i++){
-                                                                                $connect_time += $tisI->sI[$i]->cT;
-                                                                            }
-                                                                            $minutes = $tisI->sI[0]->duration+$tisI->sI[$cnt_stops -1]->duration+$connect_time;
-                                                                                        }else{
-                                                                                            $minutes = $v->duration;
-                                                                                        }
-                                                                                            $hours = intdiv($minutes, 60) . ' h ' . $minutes % 60 . ' m';
-                                                                                            ?>
-                                                                                            @if ($cnt_stops == '1')
-                                                                                            <p class="flight-number"><span
-                                                                                                    class="brdr-btm-time">NON-STOP</span>
-                                                                                            </p>
-                                                                                        @else
-                                                                                            <p class="flight-number"><span
-                                                                                                    class="brdr-btm-time">
-                                                                                                    {{ $cnt_stops-1 }}
-                                                                                                    Stop</span></p>
-                                                                                        @endif
-                                                                                            <span>
-                                                                                                <p class="flight-brand">
-                                                                                                    {{ $hours }} </p>
-                                                                                            </span>
-                                                                                            @if ($cnt_stops != '1')
-                                                                        <?php
-                                                                        for($i=0;$i<$cnt_stops-1;$i++){
-                                                                                $connecting_time = $tisI->sI[$i]->cT;
-                                                                                $connect_hours = intdiv($connecting_time, 60) . ' h ' . $connecting_time % 60 . ' m';
-                                                                        ?>
-                                                                        <small data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Plane change  {{ $tisI->sI[$i]->aa->city }} | {{ $connect_hours }} Layover">
-
-
-                                                                            via {{ $tisI->sI[$i]->aa->city }}
-                                                                        </small><br>
-                                                                        <?php } ?>
-                                                                        @endif
-                                                                                        </div>
-                                                                                    </td>
-                                                                                    <td style="width:15%">
-                                                                                        <div>
-                                                                                            <p class="flight-number">
-                                                                                                {{ $tisI->sI[$cnt_stops-1]->aa->city }}</p>
-                                                                                            <p class="flight-brand">
-                                                                                                {{ date('H:i', strtotime($tisI->sI[$cnt_stops-1]->at)) }}
-                                                                                            </p>
-                                                                                        </div>
-                                                                                    </td>
-                                                                                    <td style="width:20%">
-                                                                                        <div>
-                                                                                            <p class=" flight-brand"><i
-                                                                                                    class="fa-solid fa-indian-rupee-sign"></i>
-                                                                                                {{ number_format($tisI->totalPriceList[0]->fd->ADULT->fC->TF, 0) }}
-                                                                                            </p>
-                                                                                            <p class="flight-brand"><a href="#"
-                                                                                                    data-bs-toggle="modal"
-                                                                                                    data-bs-target="#book-table{{ $v->id }}"
-                                                                                                    onclick="getFareRules({{ $v->id }})">View More Fares</a></p>
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        @endforeach
-                                                                    @endforeach
-                                                                </table>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
+                                        
+                                            {{-- start domestic multi city flights --}}
+                                            @include('site.searchflights.flightsdetails.multitrip.multicity_domestic_flights')
+                                            {{-- end domestic multi city flights --}}
+                                               
                                         {{-- @endif --}}
                                     {{-- @endif --}}
                                         </div>
@@ -785,15 +667,14 @@
                                 {{-- modal --}}
                         <div>
                     
-                            {{--start multi trip modal --}}
-                            @include('site.searchflights.searchflightmodals.multi_trip_fares')
-                            {{--end  multi trip modal --}}
+                            {{--start domestic multi trip modal --}}
+                            @include('site.searchflights.searchflightmodals.domestic_multi_trip_fares')
+                            {{--end domestic multi trip modal --}}
 
                             <!-- pricedetails along with times-->
                             @if(empty($result_array->searchResult->tripInfos->COMBO))
                             <div class="row pricedetails-btm pricedetails-btm-full newrowBook">
                                 <div class="row">
-                                {{-- <div id="BookNow"></div> --}}
                                     @for($i=0; $i<5; $i++)
                                         <div class="booknowTrips" id="BookNow{{$i}}">
                                         </div>
@@ -815,7 +696,6 @@
                     @endif
                     </div>
                 @else
-                    {{-- {{ print_r($errors) }} --}}
 
                     <tr>
                         <td colspan="5" align="center">
@@ -825,7 +705,6 @@
 
                     @endif
                 @else
-                    {{-- {{ print_r($errors) }} --}}
 
                     <tr>
                         <td colspan="5" align="center">
@@ -837,8 +716,6 @@
                     </tbody>
                     </table>
                 @else
-                    {{-- {{ print_r($errors) }} --}}
-
                     <div>
                         <div>{{ $errors[0]->message }}</div>
                     </div>
@@ -861,9 +738,26 @@
                     <div class="row pricedetails-btm pricedetails-btm-full">
                         <div class="col-md-8">
                             <div class="row">
-
-
-                                {{-- @foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $value) --}}
+                                @php
+                                            $minfarevalue = [];
+                                            foreach ($key->totalPriceList as $minvalue) {
+                                                if (isset($minvalue->fd->CHILD->fC->TF)) {
+                                                    $child_amt = $minvalue->fd->CHILD->fC->TF;
+                                                } else {
+                                                    $child_amt = 0;
+                                                }
+                                                if (isset($minvalue->fd->INFANT->fC->TF)) {
+                                                    $infant_amt = $minvalue->fd->INFANT->fC->TF;
+                                                } else {
+                                                    $infant_amt = 0;
+                                                }
+                                            
+                                                $minfarevalue[] = $minvalue->fd->ADULT->fC->TF + $child_amt + $infant_amt;
+                                            }
+                                            
+                                            $getminafareval = min($minfarevalue);
+                                            
+                                        @endphp
                                 <div class="col-md-6 btm-price">
                                     <p id="f_on_name">Departure ・ {{ $key->sI[0]->fD->aI->name }}</p>
                                     <div class="row align-items-center">
@@ -882,10 +776,10 @@
                                         <div class="col-md-5 p-0">
                                             <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
                                                 <span
-                                                    id="f_on_price">{{ number_format($key->totalPriceList[0]->fd->ADULT->fC->TF, 0) }}</span>
+                                                    id="f_on_price">{{ number_format($getminafareval, 0) }}</span>
 
                                                 <input type="hidden" name="ontripPrice" id="ontripPrice"
-                                                    value="{{ $key->totalPriceList[0]->fd->ADULT->fC->TF }}">
+                                                    value="{{ $getminafareval }}">
 
                                                 <input type="hidden" name="upFarePrice" id="upFarePrice"
                                                     value="{{ $key->sI[0]->id }}">
@@ -896,7 +790,28 @@
                                 {{-- @endforeach --}}
 
 
-                                <?php $return = $result_array->searchResult->tripInfos->RETURN[0]; ?>
+                               @php $return = $result_array->searchResult->tripInfos->RETURN[0]; @endphp
+
+                                @php
+                                            $minfarevalue = [];
+                                            foreach ($return->totalPriceList as $minvalue) {
+                                                if (isset($minvalue->fd->CHILD->fC->TF)) {
+                                                    $child_amt = $minvalue->fd->CHILD->fC->TF;
+                                                } else {
+                                                    $child_amt = 0;
+                                                }
+                                                if (isset($minvalue->fd->INFANT->fC->TF)) {
+                                                    $infant_amt = $minvalue->fd->INFANT->fC->TF;
+                                                } else {
+                                                    $infant_amt = 0;
+                                                }
+                                            
+                                                $minfarevalue[] = $minvalue->fd->ADULT->fC->TF + $child_amt + $infant_amt;
+                                            }
+                                            
+                                            $getminafareval = min($minfarevalue);
+                                            
+                                        @endphp
 
                                 <div class="col-md-6 btm-price">
                                     <p id="f_re_name">Return ・ {{ $return->sI[0]->fD->aI->name }}</p>
@@ -916,12 +831,12 @@
                                         <div class="col-md-5 p-0">
                                             <p class="price-round"> <i class="fa-solid fa-indian-rupee-sign mr-2"></i>
                                                 <span
-                                                    id="f_re_price">{{ number_format($return->totalPriceList[0]->fd->ADULT->fC->TF, 0) }}</span>
+                                                    id="f_re_price">{{ number_format($getminafareval, 0) }}</span>
                                             </p>
 
 
                                             <input type="hidden" name="retripPrice" id="retripPrice"
-                                                value="{{ $return->totalPriceList[0]->fd->ADULT->fC->TF }}">
+                                                value="{{ $getminafareval }}">
 
                                             <input type="hidden" name="downFarePrice" id="downFarePrice"
                                                 value="{{ $return->sI[0]->id }}">
@@ -1432,6 +1347,9 @@
 
 
                             });
+                            setTimeout(function() {
+                    $("#loader_div").hide();
+                }, 3000);
                         }
                     }
                 })
@@ -1440,6 +1358,8 @@
         }
 
         function getDownFareRules(airportId) {
+            $("#loader_div").removeClass('d-none');
+            $("#loader_div").show();
             var flight_count = $('.airportApiId1').attr('data-flight_count');
             // for (i = 1; i <= flight_count; i++) {
 
@@ -1530,8 +1450,13 @@
                                      $('.' + seatChargeId).html(seatCharge);
                                 }
 
-
+                               
                             });
+
+                            setTimeout(function() {
+                    $("#loader_div").hide();
+                }, 3000);
+                            
                         }
 
 

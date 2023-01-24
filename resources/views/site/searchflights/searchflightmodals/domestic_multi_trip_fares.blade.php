@@ -3,6 +3,10 @@
         @foreach ($value as $ke => $val)
             <?php $count_multi = count($val->sI); ?>
             @foreach ($val->sI as $key1 => $value1)
+                @php
+                    $flight_code = $value1->fD->aI->code;
+                    $flight_logo = 'assets/img/AirlinesLogo/' . $flight_code . '.png';
+                @endphp
                 <div class="modal" id="book-table{{ $value1->id }}">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
@@ -23,15 +27,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php
-                                        $i = 1;
-                                        $id = 1;
-                                        $c = 1;
-                                        $d = 1;
-                                        $s = 1;
-                                        $totalPriceList = count($val->totalPriceList);
-                                        
-                                        ?>
+                                        @php
+                                            $i = 1;
+                                            $id = 1;
+                                            $c = 1;
+                                            $d = 1;
+                                            $s = 1;
+                                            $totalPriceList = count($val->totalPriceList);
+                                            
+                                        @endphp
                                         <input type="hidden" name="totalPriceList{{ $value1->id }}"
                                             id="totalPriceList{{ $value1->id }}" value="{{ $totalPriceList }}">
                                         @foreach ($val->totalPriceList as $key => $values)

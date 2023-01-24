@@ -16,44 +16,38 @@
                 @php
                     $sno = 1;
                     $flight_count = count($result_array->searchResult->tripInfos->ONWARD);
-                    echo $flight_count;
+                    // echo $flight_count;
                 @endphp
                 {{-- show fares low to high  --}}
                 @php
-                    $farevalues = [];
-                    
                     $getminafareval = [];
-                    // dd($result_array->searchResult->tripInfos->ONWARD);
                     foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $all_flights) {
                         $farevalues = [];
-                        foreach ($all_flights->totalPriceList as $fares) {
-                            $farevalues[] = $fares->fd->ADULT->fC->TF;
-                            // $getminafareval = min($farevalues);
+                        foreach ($all_flights->totalPriceList as $fare_price) {
+                            $farevalues[$fare_price->id] = $fare_price->fd->ADULT->fC->TF;
+                            $all_fare_values[$fare_price->id] = $fare_price->fd->ADULT->fC->TF;
                         }
-                        // sort($getminafareval);
-                        $getminafareval[] = min($farevalues);
-                        // dd($farevalues);
+                        $getminafareval[] = array_keys($farevalues, min($farevalues));
                     }
+                    $merge_min_fare_val_array = call_user_func_array('array_merge', $getminafareval);
                     
-                    sort($getminafareval);
-                    // dd($getminafareval, $farevalues);
-                    $arrlength = count($getminafareval);
-                    $fare_list = [];
-                    for ($x = 0; $x < $arrlength; $x++) {
-                        foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $all_flights) {
-                            foreach ($all_flights->totalPriceList as $fares) {
-                                // dd($all_flights->sI[0]->id);
-                                if ($getminafareval[$x] == $fares->fd->ADULT->fC->TF) {
-                                    array_push($fare_list, $all_flights);
+                    $min_fares_array = array_intersect_key($all_fare_values, array_flip($merge_min_fare_val_array));
+                    
+                    asort($min_fares_array);
+                    $flight_list_by_price = [];
+                    foreach ($min_fares_array as $min_key => $min_val) {
+                        foreach ($result_array->searchResult->tripInfos->ONWARD as $k => $sI) {
+                            foreach ($sI->totalPriceList as $fares) {
+                                if ($min_key == $fares->id) {
+                                    array_push($flight_list_by_price, $sI);
                                 }
                             }
                         }
                     }
-                    
-                    // dd($farevalues, $getminafareval, $fare_list);
                 @endphp
-                {{-- @foreach ($fare_list as $key => $value) --}}
-                    @foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $value)
+                {{-- end fares low to high  --}}
+                @foreach ($flight_list_by_price as $key => $value)
+                    {{-- @foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $value) --}}
                     @php $count = count($value->sI); @endphp
                     <tr>
                         <td style="width:25%">
