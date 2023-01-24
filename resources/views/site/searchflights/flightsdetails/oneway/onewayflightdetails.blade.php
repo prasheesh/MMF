@@ -35,39 +35,25 @@
                         // dd($farevalues);
                     }
                     
-                    // sort($farevalues);
+                    sort($getminafareval);
                     // dd($getminafareval, $farevalues);
                     $arrlength = count($getminafareval);
                     $fare_list = [];
                     for ($x = 0; $x < $arrlength; $x++) {
                         foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $all_flights) {
                             foreach ($all_flights->totalPriceList as $fares) {
-                                if (!empty($fare_list)) {
-                                    foreach ($fare_list as $key => $value) {
-                                        if ($value->sI[0]->id == $all_flights->sI[0]->id) {
-                                            continue;
-                                        }
-                                    }
-                                } else {
-                                    if ($getminafareval[$x] == $fares->fd->ADULT->fC->TF) {
-                                        array_push($fare_list, $all_flights);
-                                        // break;
-                                        // dd($fare_list);
-                                        // exit();
-                                    }
+                                // dd($all_flights->sI[0]->id);
+                                if ($getminafareval[$x] == $fares->fd->ADULT->fC->TF) {
+                                    array_push($fare_list, $all_flights);
                                 }
-                    
-                                // break;
                             }
-                            // continue;
                         }
                     }
-                    // $fare_list = $fare_list->unique($fare_list[0]->sI[0]->id);
-                    // array_splice($fare_list, $flight_count);
-                    dd($farevalues, $getminafareval, $fare_list);
+                    
+                    // dd($farevalues, $getminafareval, $fare_list);
                 @endphp
-                @foreach ($fare_list as $key => $value)
-                    {{-- @foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $value) --}}
+                {{-- @foreach ($fare_list as $key => $value) --}}
+                    @foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $value)
                     @php $count = count($value->sI); @endphp
                     <tr>
                         <td style="width:25%">

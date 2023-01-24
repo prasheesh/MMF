@@ -290,44 +290,130 @@ class SearchFlightsController extends Controller
                     $airlines_details_array = [];
                     $price_list = [];
 
-                    foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $stops) {
+                    if (isset($result_array->searchResult->tripInfos->ONWARD)) {
+                        foreach ($result_array->searchResult->tripInfos->ONWARD as $key => $stops) {
 
-                        array_push($price_list, $stops);
+                            array_push($price_list, $stops);
 
 
-                        /**
-                         * number of stops counts filter
-                         */
-                        array_push($stops_array, $stops);
+                            /**
+                             * number of stops counts filter
+                             */
+                            array_push($stops_array, $stops);
 
-                        if (count($stops->sI) >= 1) {
+                            if (count($stops->sI) >= 1) {
 
-                            array_push($stops_filter, count($stops->sI) - 1);
-                            array_push($ttl_stops_flight_cnt, count($stops->sI) - 1);
+                                array_push($stops_filter, count($stops->sI) - 1);
+                                array_push($ttl_stops_flight_cnt, count($stops->sI) - 1);
+                            }
+
+
+                            /**
+                             * Pushing the Array Arrival City Name
+                             */
+                            array_push($stops_flight_cnt, $stops->sI[count($stops->sI) - 1]->aa->city);
+
+                            /**
+                             * Price Ranges
+                             */
+                            foreach ($stops->totalPriceList as $key => $totalPriceList) {
+
+                                array_push($priceranges, $totalPriceList->fd->ADULT->fC->TF);
+                            }
+
+
+                            /**
+                             * Airlines filter get information count
+                             */
+                            foreach ($stops->sI as $stopin) {
+                                array_push($airlines_details_array, $stopin->fD->aI->name);
+                            }
                         }
+                    } elseif (isset($result_array->searchResult->tripInfos->COMBO)) {
+
+                        foreach ($result_array->searchResult->tripInfos->COMBO as $key => $stops) {
+
+                            array_push($price_list, $stops);
 
 
-                        /**
-                         * Pushing the Array Arrival City Name
-                         */
-                        array_push($stops_flight_cnt, $stops->sI[count($stops->sI) - 1]->aa->city);
+                            /**
+                             * number of stops counts filter
+                             */
+                            array_push($stops_array, $stops);
 
-                        /**
-                         * Price Ranges
-                         */
-                        foreach ($stops->totalPriceList as $key => $totalPriceList) {
+                            if (count($stops->sI) >= 1) {
 
-                            array_push($priceranges, $totalPriceList->fd->ADULT->fC->TF);
+                                array_push($stops_filter, count($stops->sI) - 1);
+                                array_push($ttl_stops_flight_cnt, count($stops->sI) - 1);
+                            }
+
+
+                            /**
+                             * Pushing the Array Arrival City Name
+                             */
+                            array_push($stops_flight_cnt, $stops->sI[count($stops->sI) - 1]->aa->city);
+
+                            /**
+                             * Price Ranges
+                             */
+                            foreach ($stops->totalPriceList as $key => $totalPriceList) {
+
+                                array_push($priceranges, $totalPriceList->fd->ADULT->fC->TF);
+                            }
+
+
+                            /**
+                             * Airlines filter get information count
+                             */
+                            foreach ($stops->sI as $stopin) {
+                                array_push($airlines_details_array, $stopin->fD->aI->name);
+                            }
                         }
+                    } else {
+                        // dd($result_array->searchResult->tripInfos);
+                        foreach ($result_array->searchResult->tripInfos as $k => $multi) {
+                            // dd($multi);
+                            foreach ($multi as $key => $stops) {
+
+                                array_push($price_list, $stops);
 
 
-                        /**
-                         * Airlines filter get information count
-                         */
-                        foreach ($stops->sI as $stopin) {
-                            array_push($airlines_details_array, $stopin->fD->aI->name);
+                                /**
+                                 * number of stops counts filter
+                                 */
+                                array_push($stops_array, $stops);
+
+                                if (count($stops->sI) >= 1) {
+
+                                    array_push($stops_filter, count($stops->sI) - 1);
+                                    array_push($ttl_stops_flight_cnt, count($stops->sI) - 1);
+                                }
+
+
+                                /**
+                                 * Pushing the Array Arrival City Name
+                                 */
+                                array_push($stops_flight_cnt, $stops->sI[count($stops->sI) - 1]->aa->city);
+
+                                /**
+                                 * Price Ranges
+                                 */
+                                foreach ($stops->totalPriceList as $key => $totalPriceList) {
+
+                                    array_push($priceranges, $totalPriceList->fd->ADULT->fC->TF);
+                                }
+
+
+                                /**
+                                 * Airlines filter get information count
+                                 */
+                                foreach ($stops->sI as $stopin) {
+                                    array_push($airlines_details_array, $stopin->fD->aI->name);
+                                }
+                            }
                         }
                     }
+
                     /**
                      * number of stops counts filter variable
                      */
