@@ -72,6 +72,7 @@ class StoreUserRequest extends FormRequest
             'status' => 1,
         ];
         $save_user = User::create($data);
+        $save_user->save();
         $save_user->aadharCard()->saveMany($store_aadhar_card);
         $save_user->panCard()->saveMany($store_pan_card);
         $save_user->gstCertificate()->saveMany($store_gst_certificate);
