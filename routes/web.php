@@ -3,6 +3,7 @@
 use App\Http\Controllers\AirportDetailController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\TickerControler;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReviewBookingController;
@@ -66,6 +67,13 @@ Route::prefix('bookings/')->name('bookings.')->controller(BookingController::cla
     Route::get('weekly','weeklybookings')->name('weeklybookings');
     Route::get('monthly','monthlybookings')->name('monthlybookings');
 });
+
+
+Route::prefix('ticket/')->name('tickets.')->controller(TickerControler::class)->group(function(){
+    Route::get('', 'index')->name('index');
+   
+});
+
 
 //Create User B-B
 Route::prefix('create-user/')->name('create.user.')->controller(UserController::class)->group(function(){

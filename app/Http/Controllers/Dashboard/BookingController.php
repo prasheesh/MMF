@@ -29,7 +29,9 @@ class BookingController extends Controller
                 
             }else{
                
-                $data = Booking::get();
+                // $data = Booking::get()->orderBy('DESC');
+
+               $data= Booking::orderBy('id','DESC')->get();
             }
             
             return Datatables::of($data)
