@@ -1,7 +1,7 @@
 <div class="col-md-3 p-3">
     <div class="card">
         <div class=" card-body card-shadow">
-            <h5>One Way Price1</h5>
+            <h5>One Way Price2</h5>
 
             <div class="mt-4">
                 <form>

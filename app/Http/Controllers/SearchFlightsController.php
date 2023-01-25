@@ -21,6 +21,8 @@ class SearchFlightsController extends Controller
     public function filterfilghts(Request $request)
     {
 
+        // dd($request->all());
+
         if (Session::has('deptminvalue') && Session::has('deptmaxvalue') && Session::has('deptarriv')) {
             Session::forget('deptminvalue');
             Session::forget('deptmaxvalue');
@@ -273,6 +275,7 @@ class SearchFlightsController extends Controller
 
 
         if ($result_array) {
+
             if ($result_array->status->success == true) {
 
                 if (!empty($result_array->searchResult->tripInfos)) {
@@ -471,15 +474,17 @@ class SearchFlightsController extends Controller
                     /**
                      * End Fliter search with priceranges
                      */
+                } else {
+                    abort(400,'Flights Not Found for this search');
                 }
 
 
                 return view('site.searchflights.index', get_defined_vars());
             } else {
-                abort(400);
+                abort(404,'No flights Found');
             }
         } else {
-            abort(400);
+            abort(404,'No flights Found');
         }
     }
     /**** End Get All Flights Lists *****/

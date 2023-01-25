@@ -197,12 +197,13 @@ class ReviewBookingController extends Controller
             return view('site/review_details', compact('result_array', 'fair_rules', 'countries'));
             // return $result_array;
         } else {
-            echo "<pre>";
-            print_r($result_array->errors[0]);
-            exit();
-            $errors = $result_array->errors[0];
-            $result_array = $result_array;
-            return view('site/review_details', compact('result_array', 'errors'));
+            abort(400, $result_array->errors[0]->message . ',' . $result_array->errors[0]->details);
+            // echo "<pre>";
+            // print_r($result_array->errors[0]);
+            // exit();
+            // $errors = $result_array->errors[0];
+            // $result_array = $result_array;
+            // return view('site/review_details', compact('result_array', 'errors'));
         }
     }
 }

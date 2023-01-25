@@ -159,7 +159,7 @@
 
                                 </div>
                                 <?php $j=0; foreach($tripInfos->sI as $k => $flightDetails){ ?>
-                                <?php
+                              @php
                                 //echo "<pre>"; print_r(count($result_array->tripInfos)); exit();
                                 $dep_time = strtotime($flightDetails->dt);
                                 $arr_time = strtotime($flightDetails->at);
@@ -169,7 +169,7 @@
                                 $seconds = $total_time % 60;
 
 
-                                ?>
+                               @endphp
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div>
                                         <img src="assets/img/AirlinesLogo/{{ $flightDetails->fD->aI->code }}.png"
@@ -215,9 +215,10 @@
                             /* adults base fare */
                                 if(isset($tripInfos->totalPriceList[0]->fd->ADULT->fC->BF)){
                                     $adult_bf =  $tripInfos->totalPriceList[0]->fd->ADULT->fC->BF;
-                                }else{
-                                    $adult_bf = 0;
                                 }
+                                // else{
+                                //     $adult_bf = 0;
+                                // }
 
                                 /* children base fare */
                                 if(isset($tripInfos->totalPriceList[0]->fd->CHILD->fC->BF)){
@@ -256,7 +257,9 @@
                                 $ttl_infant_bf = $infants*$infant_bf;
 
                                 //total taxes break up
-                                $adult_tax = $adults * $tripInfos->totalPriceList[0]->fd->ADULT->fC->TAF;
+                                // if(isset($tripInfos->totalPriceList[0]->fd->ADULT->fC->TAF)){
+                                if(isset($tripInfos->totalPriceList[0]->fd->ADULT->fC->BF)){
+                                    $adult_tax = $adults * $tripInfos->totalPriceList[0]->fd->ADULT->fC->TAF;
                                 // start adult tax
                                 $adult_OT = $adults * $tripInfos->totalPriceList[0]->fd->ADULT->afC->TAF->OT;
                                 $adult_MF = $adults * $tripInfos->totalPriceList[0]->fd->ADULT->afC->TAF->MF;
@@ -264,6 +267,8 @@
                                 $adult_AGST = $adults * $tripInfos->totalPriceList[0]->fd->ADULT->afC->TAF->AGST;
                                 $adult_YQ = $adults * $tripInfos->totalPriceList[0]->fd->ADULT->afC->TAF->YQ;
                                 //end adult tax
+                                }
+                                
 
 
                                 if($childs){
@@ -324,7 +329,7 @@
                             <!-- card details one end -->
                             <?php $i++; } ?>
                           {{-- //////////////////////////////////// --}}
-
+{{-- {{dd($adult_bf)}} --}}
                             <?php $a=1; foreach($fair_rules as $row){
                                // echo "hi";
                                  foreach($row->fareRule as $key => $fair_rules){ ?>

@@ -4,7 +4,8 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Travellers & Class</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"><i class="fa fa-times"></i></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"><i
+                                    class="fa fa-times"></i></button>
                         </div>
                         <div class="modal-body">
                             <div class="row">
@@ -50,13 +51,15 @@
                                     </ul>
                                 </div>
 
-                                <div class="col-md-5 mb-4">
+                                <div class="col-md-8 mb-4">
                                     <p>CHOOSE TRAVEL CLASS</p>
                                     <ul class="count" id="chooseTravel">
                                         {{-- <li class="active" id="travel1" data-val="PREMIUM_ECONOMY">Premium Economy</li> --}}
                                         <li class="active" id="travel2" data-val="ECONOMY">Economy</li>
-                                        <li id="travel3" data-val="BUSINESS">Business</li>
-                                        <li id="travel4" data-val="FIRST">First Class</li>
+                                        <li id="travel3" data-val="PREMIUM_ECONOMY">Premium/Economy
+                                        </li>
+                                        <li id="travel4" data-val="BUSINESS">Business</li>
+                                        <li id="travel5" data-val="FIRST">First Class</li>
                                     </ul>
                                 </div>
 
@@ -65,7 +68,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-one" data-bs-dismiss="modal">Close</button>
-                            <button id="saveTravelDetail" type="button" class="btn btn-theme" data-bs-dismiss="modal">Save
+                            <button id="saveTravelDetail" type="button" class="btn btn-theme"
+                                data-bs-dismiss="modal">Save
                                 changes</button>
                         </div>
                     </div>

@@ -379,14 +379,12 @@
                                             }
                                             ?>
                                             {{-- @if (!is_array($flightBookingDepart)) --}}
-                                                <input class="form-control bg-none" required autocomplete="off" id="flightBookingReturn" style="padding:4px 0px;"
-                                                    name="flightBookingReturn" placeholder="Please select..."
-                                                    value="{{ $return_date }}" />
-
+                                            <input class="form-control bg-none date-picker-hide"  autocomplete="off" id="flightBookingReturn" style="padding:4px 0px;"
+                                            name="flightBookingReturn" placeholder="Please select..."
+                                            value="{{ $return_date }}" />
                                             {{-- @endif --}}
-
-
                                         </label>
+                                        <span id="return_date_error" class="d-none error"  >Please Select Return Date</span>
                                     </div>
                                 {{-- @endif --}}
                             </div>
@@ -580,18 +578,29 @@
 
         <div class="container container-make">
             <div class="row">
-
-                {{-- One Way Filter Start Here --}}
+{{-- {{dd($result_array->searchResult)}} --}}
+                {{--  Filter Start Here --}}
 
                 @if (!empty($result_array->searchResult->tripInfos->ONWARD))
 
                 <!-- One Way Filter Search --->
-
                     @include('site.searchflights.filtersearchtypes.onewayfilter')
                 <!-- End One Way Filter Search --->
 
+                @elseif(!empty($result_array->searchResult->tripInfos->COMBO))
+                <!-- Round Way Filter Search --->
+                @include('site.searchflights.filtersearchtypes.roundwayfilter')
+                <!-- Round Way Filter Search --->
+
+                @else
+
+                <!-- Round Way Filter Search --->
+                @include('site.searchflights.filtersearchtypes.multiwayfilter')
+                <!-- Round Way Filter Search --->
+
                 @endif
-                {{-- End One Way Filter Start Here --}}
+                
+                {{-- End Filter Start Here --}}
 
 
                 <div class="col-md-9 p-3 bbook-price-details">
@@ -1587,22 +1596,53 @@
             })
         })
 
+         //  Return Flights Select dates
+         $('#flightBookingReturn').click(function(){
+           $("#trip_type").val('round');
+        });
+
+
+        $("#searchFlightsButton").click(function(e){
+            let trip_type = $("#trip_type").val();
+            if(trip_type == 'round'){
+                let flightBookingReturn =  $("#flightBookingReturn").val();
+                if(flightBookingReturn == ''){
+                    $('#return_date_error').removeClass('d-none');
+                    $("#flightBookingReturn").attr('required','true');
+                    return false;
+
+                }else{
+                    $("#loader_div").removeClass('d-none');
+                    $("#loader_div").show();
+                }
+            }else{
+                $("#loader_div").removeClass('d-none');
+                $("#loader_div").show();
+            }
+
+        });
+
+        $('.btn-book-now').click(function(){
+            $("#loader_div").removeClass('d-none');
+                    $("#loader_div").show();
+        });
+
 
         //   alert($('#trip_type').val() );
         if ($('#trip_type').val() == 'oneway') {
             $('#flightBookingReturn').val('');
-            $('#flightBookingReturn').prop('disabled', true);
+            // $('#flightBookingReturn').prop('disabled', true);
         } else {
-            $('#flightBookingReturn').prop('disabled', false);
+            // $('#flightBookingReturn').prop('disabled', false);
 
         }
 
         $('#trip_type').on('change', function() {
             if ($('#trip_type').val() == 'oneway') {
                 $('#flightBookingReturn').val('');
-                $('#flightBookingReturn').prop('disabled', true);
+                // $('#flightBookingReturn').prop('disabled', true);
             } else {
-                $('#flightBookingReturn').prop('disabled', false);
+                // $('#flightBookingReturn').prop('disabled', false);
             }
         })
 
@@ -1782,9 +1822,9 @@ $('.multitrip').click(function() {
        var trip_type = $("#trip_type").val();
        if ($('#trip_type').val() == 'oneway') {
            $('#flightBookingReturn').val('');
-           $('#flightBookingReturn').prop('disabled', true);
+        //    $('#flightBookingReturn').prop('disabled', true);
        } else {
-           $('#flightBookingReturn').prop('disabled', false);
+        //    $('#flightBookingReturn').prop('disabled', false);
        }
        if(trip_type == 'multi')
        {
@@ -2039,7 +2079,7 @@ $('.multitrip').click(function() {
             if (index !== 0) {
                 $row = $(this);
                 var td_text = $row.find('td:eq(2) small').text()
-                console.log(td_text.trim());
+                // console.log(td_text.trim());
                 if(td_text.trim() == check){
                  $row.show();
                 }else{

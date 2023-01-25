@@ -77,6 +77,9 @@
         .travel-class{
             padding:4px 15px !important;
         }
+        .airport-name-search{
+            padding:4px 15px !important;
+        }
 
     </style>
 @endsection
@@ -206,7 +209,7 @@
                             <input type="hidden" value="0" id="infantval" name="infantval" class="">
                             <input type="hidden" value="ECONOMY" name="travelClass" id="travelClass" class=""
                                 autocomplete="off">
-                            <div class="airport-name travel-class" id="travelInfo">
+                            <div class="airport-name airport-name-search travel-class" id="travelInfo">
 
                                 <p><b>1 Traveller </b></p>
                                 <p>Economy</p>
@@ -272,7 +275,7 @@
                             <small>Travellers & Class</small>
                             <input type="hidden" value="1" id="adultval" name="adultval" class="">
                             <input type="hidden" value="ECONOMY" name="travelClass" id="travelClass" class="">
-                            <div class="airport-name travelInfo" id="travelInfo">
+                            <div class="airport-name airport-name-search travelInfo" id="travelInfo">
 
                                 <p><b>1 Traveller </b></p>
                                 <p>Economy</p>
@@ -392,11 +395,11 @@
 
                 }else{
                     $("#loader_div").removeClass('d-none');
-            $("#loader_div").show();
+                    $("#loader_div").show();
                 }
             }else{
                 $("#loader_div").removeClass('d-none');
-            $("#loader_div").show();
+                $("#loader_div").show();
             }
 
         });
@@ -565,15 +568,15 @@
             }
 
         }
-        // $('#flightBookingReturn').prop('disabled', true);
+        $('#flightBookingReturn').prop('disabled', true);
         $('#oneWay').click(function() {
             $('#tripType').val('oneway');
             $('#return_date_error').addClass('d-none');
-            // $('#flightBookingReturn').prop('disabled', true);
+            $('#flightBookingReturn').prop('disabled', true);
         });
         $('#roundTrip').click(function() {
             $('#tripType').val('round');
-            // $('#flightBookingReturn').prop('disabled', false);
+            $('#flightBookingReturn').prop('disabled', false);
         });
     </script>
 

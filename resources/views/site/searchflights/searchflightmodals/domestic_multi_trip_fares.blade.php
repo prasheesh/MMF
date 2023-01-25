@@ -38,7 +38,26 @@
                                         @endphp
                                         <input type="hidden" name="totalPriceList{{ $value1->id }}"
                                             id="totalPriceList{{ $value1->id }}" value="{{ $totalPriceList }}">
-                                        @foreach ($val->totalPriceList as $key => $values)
+
+                                        {{-- show price low to high one way --}}
+                                        @php
+                                            $farevalues = [];
+                                            foreach ($val->totalPriceList as $fares_p) {
+                                                $farevalues[$fares_p->id] = $fares_p->fd->ADULT->fC->TF;
+                                            }
+                                            asort($farevalues);
+                                            $fare_list = [];
+                                            foreach ($farevalues as $k => $v) {
+                                                foreach ($val->totalPriceList as $fares) {
+                                                    if ($k == $fares->id) {
+                                                        array_push($fare_list, $fares);
+                                                    }
+                                                }
+                                            }
+                                        @endphp
+                                        {{-- end price low to high one way --}}
+
+                                        @foreach ($fare_list as $key => $values)
                                             <tr>
                                                 <td class="">
                                                     <b>{{ $values->fareIdentifier }}</b>

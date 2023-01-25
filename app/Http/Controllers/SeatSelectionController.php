@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\dashboard\Balance;
+use App\Models\Dashboard\Balance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;

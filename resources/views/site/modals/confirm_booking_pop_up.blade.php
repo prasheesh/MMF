@@ -20,7 +20,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-one" data-bs-dismiss="modal">Close</button>
-                            <button class="btn btn-blue-continue confirmBooking" ><a> Procced to Pay</a></button>
+                            <button id="proceed_to_pay" class="btn btn-blue-continue confirmBooking" ><a> Procced to Pay</a></button>
                         </div>
                     </div>
                 </div>
