@@ -44,7 +44,8 @@ class StoreUserRequest extends FormRequest
             'aadhar_card' => ['required'],
             'pan_card' => ['required'],
             'gst_certificate' => ['required'],
-            'address' => ['required']
+            'address' => ['required'],
+            'user_type'=>['required'],
         ];
     }
 
@@ -64,7 +65,7 @@ class StoreUserRequest extends FormRequest
             'mobile_number' => $user_data['mobile_number'],
             'company_name' => $user_data['company_name'],
             // 'role' => $user_data['role'],
-            'user_type' => $user_data['userType'],
+            'user_type' => $user_data['user_type'],
             'address' =>$user_data['address'],
             'aadhar_no' =>$user_data['aadhar_no'],
             'pan_no' =>$user_data['pan_no'],

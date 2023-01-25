@@ -67,7 +67,7 @@
                                  <div class="col-md-4 mb-3">
                                     <div class="form-group">
                                        <label>User Type</label>
-                                       <select class="form-select" name="userType">
+                                       <select class="form-select" name="user_type">
                                            <option value="">Select Type</option>
                                            <option value="B2B">B2B</option>
                                            <option value="B2E">B2E</option>
@@ -220,7 +220,7 @@
                                 '<span class="text-danger input-error" role="alert">' + value +
                                 '</span>');
 
-                                $('form[name=CreateUserForm] select[name=' + key + ']').after(
+                                $('form[name=CreateUserForm] Select[name=' + key + ']').after(
                                 '<span class="text-danger input-error" role="alert">' + value +
                                 '</span>');
 
