@@ -35,7 +35,6 @@ class ReportController extends Controller
         $from_date = $request->from_date;
         $to_date = $request->to_date;
         $days_history = $request->days_history;
-        // dd($days_history);
         if ($days_history) {
             if ($days_history == "1") {
                 $days = date(today());
@@ -59,8 +58,6 @@ class ReportController extends Controller
         }
 
         $validate = $request->validate([
-            // 'to_date' => ['required_if:from_date, from_date'],
-            // 'days_history' => ['required_if:from_date, ==, '],
             'from_date' => ['nullable'],
             'to_date' => ['required_with:from_date'],
             'days_history' => ['required_without:from_date']
@@ -70,16 +67,9 @@ class ReportController extends Controller
             ->groupBy(DB::raw("Month(created_at)"))
             ->pluck('count', 'month_name');
 
-        // $booking_history = DB::table('bookings')
-        //     ->whereBetween('created_at', [$from_date, $to_date])
-        //     // ->where('created_at', '>=', $from_date)
-        //     // ->where('created_at', '<=', $to_date)
-        //     ->get();
-
         $booking_history_length = sizeof($booking_history);
         $bookinglabels = $booking_history->keys();
         $bookingdata = $booking_history->values();
-        // return get_defined_vars();
         return view('dashboard.report.reports', get_defined_vars());
     }
 
