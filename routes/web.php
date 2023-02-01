@@ -3,6 +3,7 @@
 use App\Http\Controllers\AirportDetailController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\TickerControler;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReviewBookingController;
@@ -67,11 +68,18 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('monthly', 'monthlybookings')->name('monthlybookings');
     });
 
-    //Create User B-B
-    Route::prefix('create-user/')->name('create.user.')->controller(UserController::class)->group(function () {
-        Route::get('', 'index')->name('index');
-        Route::post('store-user', 'storeUser')->name('store');
-    });
+
+Route::prefix('ticket/')->name('tickets.')->controller(TickerControler::class)->group(function(){
+    Route::get('', 'index')->name('index');
+   
+});
+
+
+//Create User B-B
+Route::prefix('create-user/')->name('create.user.')->controller(UserController::class)->group(function(){
+    Route::get('', 'index')->name('index');
+    Route::post('store-user', 'storeUser')->name('store');
+});
 
     //Manage Users
     Route::prefix('manage-user/')->name('manage.user.')->controller(UserController::class)->group(function () {
@@ -158,3 +166,17 @@ Route::any('/proceed_to_pay', [ConfirmBookingController::class, 'proceedToPay'])
 //     });
     
 // });
+
+
+// // USER DASHBOARD
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'user'])->name('dashboard');
+
+// // ADMIN DASHBOARD
+// Route::get('/admin_dashboard', function () {
+//     return view('admin_dashboard');
+// })->middleware(['auth', 'admin'])->name('admin_dashboard');
+
+
+

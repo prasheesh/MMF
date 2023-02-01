@@ -9,7 +9,10 @@ class BalanceController extends Controller
 {
     public function index()
     {
-        $user_balances = Balance::paginate(10);
+        // $user_balances = Balance::paginate(10);
+
+        $user_balances= Balance::orderBy('id','DESC')->paginate(10);
+
         $data['user_balances'] = $user_balances;
         return view('dashboard.finance.balance_with_users')->with($data);
     }

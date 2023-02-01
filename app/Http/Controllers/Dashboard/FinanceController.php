@@ -60,7 +60,7 @@ class FinanceController extends Controller
                 $data = Booking::where('users_id', Auth::id())->get();
 
             }else{
-                $data = Booking::get();
+                $data= Booking::orderBy('id','DESC')->get();
             }
 
            

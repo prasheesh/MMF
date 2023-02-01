@@ -82,7 +82,7 @@
                         <tr>
                             <th>S. No.</th>
                             <th>User ID</th>
-                            <th>Booking ID</th>
+                            <th >Booking ID</th>
                             <th>Reference ID</th>
                             <th>Sector</th>
                             <th>No. Of Passengers</th>
