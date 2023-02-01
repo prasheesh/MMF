@@ -1,13 +1,4 @@
 <x-dashboard.layout>
-    
-    
-    @section('styles')
-    
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
-    
-    @endsection
-    
     <div class="rightpart">
         <div class="row">
             <div class="col-md-12 mb-3">
@@ -16,7 +7,7 @@
 
 
             <div class="col-md-12">
-                <table class="table table-bordered table-striped bg-white all_datable">
+                <table class="table table-bordered table-striped bg-white">
                     <thead>
                         <tr>
                             <th>S. No.</th>
@@ -61,20 +52,7 @@
             </div>
 
         </div>
-    </div>
-    
-    @section('scripts')
-        
 
-        <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
         
-        <script type="text/javascript">
-        
-         $('.all_datable').DataTable();
-         
-         
-        </script>
-        
-    @endsection
+    </div>
 </x-dashboard.layout>

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    
+
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -34,13 +35,14 @@
     <link rel="stylesheet" href="{{ asset('assets/css/all.min.css') }}">
 
     <!-- slick carousel -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/slickcarousel/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/slickcarousel/slick-theme.css') }}">
 
     <!-- Template Main CSS File -->
     {{-- <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet"> --}}
 
-    <link href="{{ asset('assets/dashboard/css/dashboard.css') }}" rel="stylesheet">  
+    <link href="{{ asset('assets/dashboard/css/dashboard.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.css') }}">
 
     <style>
         .table-booking {
@@ -60,15 +62,18 @@
             font-size: 18px;
             margin-bottom: 0;
         }
+
         .roundtrip-card {
             border: solid 1px #ccc;
         }
+
         .roundtrip-card input[type=radio] {
             border: 0px;
             width: 18px;
             height: 18px;
             margin-top: 10px;
         }
+
         .deapt {
             padding: 5px 20px;
             float: left;
@@ -77,14 +82,15 @@
 
 
 </head>
+
 <body>
 
     <x-dashboard.header />
     <x-dashboard.sidemenu />
 
     <main>
-       
-        {{$slot}}
+
+        {{ $slot }}
 
     </main>
 
@@ -95,8 +101,8 @@
             class="bi bi-arrow-up-short"></i></a>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        
+    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+
     <script src="{{ asset('assets/js/toast.js') }}"></script>
 
     <!-- Vendor JS Files -->
@@ -113,7 +119,7 @@
     <script src="{{ asset('assets/js/sidemenu.js') }}"></script>
     <!--- End SideMenu Js -->
     <!-- slick js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.min.js"></script>
+    <script src="{{ asset('assets/js/slickcarousel/slick.min.js') }}"></script>
 
     <script>
         $.ajaxSetup({
@@ -146,6 +152,7 @@
             }
         });
     </script>
-     @yield('scripts')
+    @yield('scripts')
 </body>
+
 </html>

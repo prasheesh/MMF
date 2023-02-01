@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Requests;
+
 use App\Models\Dashboard\File;
 use App\Models\User;
 
@@ -32,20 +33,20 @@ class StoreUserRequest extends FormRequest
             'company_name' => ['required'],
             'name' => ['required'],
             'mobile_number' => ['required'],
-            'email' => ['required','email', 'unique:users,email'],
+            'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required'],
             'confirm_password' => ['required', 'same:password'],
-            
+
             'aadhar_no' => ['required'],
             'pan_no' => ['required'],
             'gst_no' => ['required'],
-            
+
             // 'role' => ['required'],
             'aadhar_card' => ['required'],
             'pan_card' => ['required'],
             'gst_certificate' => ['required'],
             'address' => ['required'],
-            'user_type'=>['required'],
+            'user_type' => ['required'],
         ];
     }
 
@@ -66,10 +67,10 @@ class StoreUserRequest extends FormRequest
             'company_name' => $user_data['company_name'],
             // 'role' => $user_data['role'],
             'user_type' => $user_data['user_type'],
-            'address' =>$user_data['address'],
-            'aadhar_no' =>$user_data['aadhar_no'],
-            'pan_no' =>$user_data['pan_no'],
-            'gst_no' =>$user_data['gst_no'],
+            'address' => $user_data['address'],
+            'aadhar_no' => $user_data['aadhar_no'],
+            'pan_no' => $user_data['pan_no'],
+            'gst_no' => $user_data['gst_no'],
             'status' => 1,
         ];
         $save_user = User::create($data);
@@ -83,23 +84,23 @@ class StoreUserRequest extends FormRequest
 
     public function storeAadharCard($user_data)
     {
-        if(!empty($user_data['aadhar_card']))
-        {
+        if (!empty($user_data['aadhar_card'])) {
             $avatar_array = [];
-                 $file = $user_data['aadhar_card'];
-                // $file = $aadhar;
-                $originalName = 'files/'.time().$file->getClientOriginalName();
-                $path = 'public/'.$originalName;
-                Storage::disk('local')->put($path, file_get_contents($file->getRealPath()));
-                $avatar = new File([
-                    'url' => $originalName,
-                    'file_name' => $file->getClientOriginalName(),
-                    'source' => 'local',
-                    'fileable_params' => 'aadhar_card',
-                    'description' => '',
-                    'title' => ''
-                ]);
-                array_push($avatar_array, $avatar);
+            $file = $user_data['aadhar_card'];
+            // $file = $aadhar;
+            $originalName = 'files/' . time() . $file->getClientOriginalName();
+            $path = 'public/' . $originalName;
+            Storage::disk('local')->put($path, file_get_contents($file->getRealPath()));
+            $avatar = new File([
+                'url' => $originalName,
+                'file_name' => $file->getClientOriginalName(),
+                'source' => 'local',
+                'fileable_params' => 'aadhar_card',
+                'description' => '',
+                'title' => '',
+                'user_id' => Auth::id()
+            ]);
+            array_push($avatar_array, $avatar);
             return $avatar_array;
         }
     }
@@ -107,42 +108,44 @@ class StoreUserRequest extends FormRequest
     public function storePanCard($user_data)
     {
         $avatar_array = [];
-                //$file = $user_data['aadhar_card'];
-                $file = $user_data['pan_card'];
-                // $file = $aadhar;
-                $originalName = 'files/'.time().$file->getClientOriginalName();
-                $path = 'public/'.$originalName;
-                Storage::disk('local')->put($path, file_get_contents($file->getRealPath()));
-                $avatar = new File([
-                    'url' => $originalName,
-                    'file_name' => $file->getClientOriginalName(),
-                    'source' => 'local',
-                    'fileable_params' => 'pan_card',
-                    'description' => '',
-                    'title' => ''
-                ]);
-                array_push($avatar_array, $avatar);
-            return $avatar_array;
+        //$file = $user_data['aadhar_card'];
+        $file = $user_data['pan_card'];
+        // $file = $aadhar;
+        $originalName = 'files/' . time() . $file->getClientOriginalName();
+        $path = 'public/' . $originalName;
+        Storage::disk('local')->put($path, file_get_contents($file->getRealPath()));
+        $avatar = new File([
+            'url' => $originalName,
+            'file_name' => $file->getClientOriginalName(),
+            'source' => 'local',
+            'fileable_params' => 'pan_card',
+            'description' => '',
+            'title' => '',
+            'user_id' => Auth::id()
+        ]);
+        array_push($avatar_array, $avatar);
+        return $avatar_array;
     }
 
     public function storeGstCertificate($user_data)
     {
         $avatar_array = [];
-                //$file = $user_data['aadhar_card'];
-                $file = $user_data['gst_certificate'];
-                // $file = $aadhar;
-                $originalName = 'files/'.time().$file->getClientOriginalName();
-                $path = 'public/'.$originalName;
-                Storage::disk('local')->put($path, file_get_contents($file->getRealPath()));
-                $avatar = new File([
-                    'url' => $originalName,
-                    'file_name' => $file->getClientOriginalName(),
-                    'source' => 'local',
-                    'fileable_params' => 'gst_certificate',
-                    'description' => '',
-                    'title' => ''
-                ]);
-                array_push($avatar_array, $avatar);
-            return $avatar_array;
+        //$file = $user_data['aadhar_card'];
+        $file = $user_data['gst_certificate'];
+        // $file = $aadhar;
+        $originalName = 'files/' . time() . $file->getClientOriginalName();
+        $path = 'public/' . $originalName;
+        Storage::disk('local')->put($path, file_get_contents($file->getRealPath()));
+        $avatar = new File([
+            'url' => $originalName,
+            'file_name' => $file->getClientOriginalName(),
+            'source' => 'local',
+            'fileable_params' => 'gst_certificate',
+            'description' => '',
+            'title' => '',
+            'user_id' => Auth::id()
+        ]);
+        array_push($avatar_array, $avatar);
+        return $avatar_array;
     }
 }

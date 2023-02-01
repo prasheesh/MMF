@@ -28,14 +28,15 @@
                     <tbody>
                     @foreach($credit_balances as $key=>$credit_balance)
                     @php
-                    $user_used_balance = $credit_balance->users->user_booking_history()->sum('amount');
-                    $user_left_balance = $credit_balance->allotted_balance-$user_used_balance
+                     
+                    
+                    $user_left_balance = $credit_balance->allotted_balance-$credit_balance->used_balance
                     @endphp
                         <tr>
                             <td>{{ $credit_balance->users->name }}</td>
                             <td>{{ $credit_balance->allotted_balance }}</td>
-                            <td>{{ $user_used_balance }}</td>
                             <td>{{ $user_left_balance }}</td>
+                            <td>{{ $credit_balance->used_balance }}</td>
                             <td class="d-flex justify-content-between">
                                 <small class="bg-success text-white plr-2 radius-3"><i class="fa fa-indian-rupee-sign"></i> Add Balance</small>
                                 <small class="bg-warning text-white plr-2 radius-3"><i class="fa fa-indian-rupee-sign"></i> Manage Balance</small>

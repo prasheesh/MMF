@@ -11,7 +11,7 @@
             </div>
 
             <div class="col-md-3 mb-3">
-                <a href="/reports" style="text-decoration: none">
+                <a href="{{ route('bookings.index', 'daily') }}" style="text-decoration: none">
                     <div class="bg-warning d-flex justify-content-between align-items-center p-4 radius-3">
                         <div class="text-white">
                             <p class="mb-2">Daily</p>
@@ -25,7 +25,7 @@
             </div>
 
             <div class="col-md-3 mb-3">
-                <a href="/reports" style="text-decoration: none">
+                <a href="{{ route('bookings.index', 'weekly') }}" style="text-decoration: none">
                     <div class="bg-danger d-flex justify-content-between align-items-center p-4 radius-3">
                         <div class="text-white">
                             <p class="mb-2">Weekly</p>
@@ -38,7 +38,7 @@
                 </a>
             </div>
             <div class="col-md-3 mb-3">
-                <a href="/reports" style="text-decoration: none">
+                <a href="{{ route('bookings.index', 'monthly') }}" style="text-decoration: none">
                     <div class="bg-info d-flex justify-content-between align-items-center p-4 radius-3">
                         <div class="text-white">
                             <p class="mb-2">Monthly</p>
@@ -51,7 +51,7 @@
                     <a>
             </div>
             <div class="col-md-3 mb-3">
-                <a style="text-decoration: none" href="/reports">
+                <a style="text-decoration: none" href="{{ route('bookings.index', 'all') }}">
                     <div class="bg-success d-flex justify-content-between align-items-center p-4 radius-3">
                         <div class="text-white">
                             <p class="mb-2">All</p>
@@ -70,6 +70,7 @@
                 <h4 style="font-weight: 700">Finance History</h4>
             </div>
             <div class="col-md-3 mb-3">
+                
                 <div class="bg-warning-outline d-flex justify-content-between align-items-center p-4 radius-3">
                     <div>
                         <p class="mb-2">Daily</p>

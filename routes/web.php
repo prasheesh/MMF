@@ -13,6 +13,8 @@ use App\Http\Controllers\ConfirmBookingController;
 use App\Http\Controllers\Dashboard\BookingController;
 use App\Http\Controllers\Dashboard\FinanceController;
 use App\Http\Controllers\Dashboard\BalanceController;
+use App\Http\Controllers\Dashboard\ManageTaxController;
+use App\Http\Controllers\Dashboard\CancelFeeController;
 use App\Http\Controllers\Dashboard\ReportController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\UserController;
@@ -62,28 +64,29 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::prefix('bookings/')->name('bookings.')->controller(BookingController::class)->group(function () {
-        Route::get('', 'index')->name('index');
-        Route::get('daily', 'dailybookings')->name('dailybookings');
-        Route::get('weekly', 'weeklybookings')->name('weeklybookings');
-        Route::get('monthly', 'monthlybookings')->name('monthlybookings');
+        Route::any('/{id?}', 'index')->name('index');
+        Route::any('/details/{id}', 'show')->name('details');
+        // Route::get('daily', 'dailybookings')->name('dailybookings');
+        // Route::get('weekly', 'weeklybookings')->name('weeklybookings');
+        // Route::get('monthly', 'monthlybookings')->name('monthlybookings');
     });
 
 
-Route::prefix('ticket/')->name('tickets.')->controller(TickerControler::class)->group(function(){
-    Route::get('', 'index')->name('index');
-   
-});
+    Route::prefix('ticket/')->name('tickets.')->controller(TickerControler::class)->group(function () {
+        Route::get('', 'index')->name('index');
+    });
 
 
-//Create User B-B
-Route::prefix('create-user/')->name('create.user.')->controller(UserController::class)->group(function(){
-    Route::get('', 'index')->name('index');
-    Route::post('store-user', 'storeUser')->name('store');
-});
+    //Create User B-B
+    Route::prefix('create-user/')->name('create.user.')->controller(UserController::class)->group(function () {
+        Route::get('', 'index')->name('index');
+        Route::post('store-user', 'storeUser')->name('store');
+    });
 
     //Manage Users
     Route::prefix('manage-user/')->name('manage.user.')->controller(UserController::class)->group(function () {
-        Route::get('get', 'manage_user')->name('index');
+        Route::any('get', 'manage_user')->name('index');
+        Route::any('details/{id}', 'show')->name('show');
         Route::post('change-visibility-show', 'change_visibility_show')->name('change-visibility-show');
         Route::post('delete-user', 'delete_user')->name('delete-user');
     });
@@ -124,6 +127,23 @@ Route::prefix('create-user/')->name('create.user.')->controller(UserController::
         Route::get('get-user-details/{user_id}', 'getUserDetails')->name('user.details');
     });
     Route::post('reports/filter-reports', [ReportController::class, 'filterReports'])->name('report.filterReports');
+
+
+    // Manage TAx
+    Route::prefix('managetax')->name('managetax.')->controller(ManageTaxController::class)->group(
+        function () {
+
+            Route::get('', 'index')->name('index');
+            Route::post('', 'store')->name('store');
+        }
+    );
+
+    Route::prefix('cancellationfee')->name('cancellationfee.')->controller(CancelFeeController::class)->group(
+        function () {
+            Route::get('', 'index')->name('index');
+            Route::post('', 'store')->name('store');
+        }
+    );
 
 
 
@@ -177,6 +197,3 @@ Route::any('/proceed_to_pay', [ConfirmBookingController::class, 'proceedToPay'])
 // Route::get('/admin_dashboard', function () {
 //     return view('admin_dashboard');
 // })->middleware(['auth', 'admin'])->name('admin_dashboard');
-
-
-

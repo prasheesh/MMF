@@ -1,12 +1,4 @@
 <x-dashboard.layout>
-    
-    @section('styles')
-    
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
-    
-    @endsection
-    
     <div class="rightpart">
         <div class="row">
             <div class="col-md-12 mb-3">
@@ -15,10 +7,10 @@
 
 
             <div class="col-md-12">
-                <table class="table table-bordered table-striped bg-white all_datable">
+                <table class="table table-bordered table-striped bg-white">
                     <thead>
                         <tr>
-                            <th>SI. No.</th>
+                            <th>Si. No.</th>
                             <th>User ID / Name</th>
                             <th>Allotted Balance</th>
                             <th>Used Balance</th>
@@ -26,40 +18,39 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @php $sno =1 @endphp
-                    @foreach($user_balances as $key=>$user_balance)
-                    @php
-                    $user_used_balance = $user_balance->users->user_booking_history()->sum('amount');
-                    $user_left_balance = $user_balance->allotted_balance-$user_used_balance
-                    @endphp
-                    <tr>
-                        <td>{{ $sno++ }}</td>
-                        <td>{{ $user_balance->users->name }}</td>
-                        <td>{{ $user_balance->allotted_balance }}</td>
-                        <td>{{ $user_used_balance }}</td>
-                        <td>{{ $user_left_balance }}</td>
-                    </tr>
-                    @endforeach
-
-
+                        <tr>
+                            <td>1</td>
+                            <td>MMF00015 - Mahesh</td>
+                            <td>500000</td> 
+                            <td>300000</td>                          
+                            <td>200000</td>  
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>MMF00015 - Vamshi</td>
+                            <td>500000</td> 
+                            <td>250000</td>                          
+                            <td>250000</td>  
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>MMF00015 - krishna</td>
+                            <td>500000</td> 
+                            <td>200000</td>                          
+                            <td>300000</td>  
+                        </tr>
                     </tbody>
                 </table>
             </div>
-            {{ $user_balances->links('dashboard.paginator.paginator') }}
 
         </div>
+
+        <footer>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <small>© 2022 All Rights Reserved by Makemyfly.com</small>
+                </div>
+            </div>
+        </footer>
     </div>
-    
-    
-    @section('scripts')
-        
-        <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
-        
-        <script type="text/javascript">
-        
-            $('.all_datable').DataTable();
-         </script>
-         
-    @endsection
 </x-dashboard.layout>
